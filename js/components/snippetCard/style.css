@@ -23,3 +23,30 @@ snippet-card:after {
   width: 85%;
   z-index: -1;
 }
+
+snippet-card h2 {
+  font-size: 3.5vh;
+}
+snippet-card p {
+  font-size: 1.8vh;
+}
+snippet-card .number-lg {
+  font-size: 4vh;
+}
+snippet-card .note {
+  font-size: 1.4vh;
+}
+snippet-card .info_block {
+  margin-top: 2.5vh;
+  margin-bottom: 3vh;
+}
+snippet-card > div > .info_block {
+  padding: 0 3vh;
+}
+snippet-card > div.content > div > .info_block {
+  padding: 0 3vh;
+}
+
+snippet-card efficiency svg {
+  bottom: 3vh;
+}
