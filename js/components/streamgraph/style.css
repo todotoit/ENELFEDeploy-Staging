@@ -1,0 +1,56 @@
+streamgraph {
+  position: relative;
+}
+
+#streamgraph {
+  border-bottom: 1px solid rgba(0,0,0,.3);
+}
+#streamgraph #cursor rect {
+  fill: #fff;
+}
+#streamgraph .axis .domain {
+  fill: none;
+  stroke: none;
+}
+#streamgraph .x.axis{
+  opacity: 0.5;
+  font-size: .6rem;
+}
+#streamgraph .x.axis line {
+  stroke: #fff;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+#streamgraph .x.axis.line line {
+  stroke-dasharray: 1, 5;
+}
+
+streamgraph .tooltip {
+  position: absolute;
+  z-index: 10;
+  width: 19rem;
+  height: 8rem;
+  padding: .8rem;
+  background: #fff;
+  color: #008C5A;
+  font-size: 1.4rem;
+}
+
+streamgraph .tooltip h4 {
+  text-transform: uppercase;
+  font-weight: 500;
+  line-height: 1.8rem;
+  margin: 0;
+}
+streamgraph .tooltip .number-lg {
+  line-height: 1.8rem;
+  margin: 0;
+}
+
+streamgraph .vertical {
+  position: absolute;
+  z-index: 9;
+  height: 98.5%;
+  width: 1px;
+  background: #fff;
+}
