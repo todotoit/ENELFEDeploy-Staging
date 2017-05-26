@@ -26,7 +26,9 @@
       controller: SnippetCardCtrl,
       controllerAs: 'snippetCard',
       bindings: {
-        snip: '<ngModel'
+        snip: '<ngModel',
+        onPrevContent: '&',
+        onLastContent: '&'
       }
     })
 
@@ -46,11 +48,13 @@
     var contentIdx  = 0
     var swipeOffset = 70
     var swipeVel    = .5
+    var prevCallback = null
+    var nextCallback = null
 
     // -------
 
     function prevTab() {
-      if (contentIdx <= 0) return
+      if (contentIdx <= 0) return prevCallback()
       contentIdx--
       $scope.subsnip = content[contentIdx]
       TweenMax.to($content.find('li'), swipeVel, { x: '+='+ swipeOffset +'%', onComplete: function() {
@@ -58,7 +62,7 @@
       } })
     }
     function nextTab() {
-      if (contentIdx >= content.length -1) return
+      if (contentIdx >= content.length -1) return nextCallback()
       contentIdx++
       $scope.subsnip = content[contentIdx]
       TweenMax.to($content.find('li'), swipeVel, { x: '-='+ swipeOffset +'%', onComplete: function() {
@@ -68,6 +72,8 @@
 
     // init after dom loaded
     function init() {
+      prevCallback = ctrl.onPrevContent()
+      nextCallback = ctrl.onLastContent()
       $scope.snip = ctrl.snip
       content = ctrl.snip.subContent || null
       if (!content) return
