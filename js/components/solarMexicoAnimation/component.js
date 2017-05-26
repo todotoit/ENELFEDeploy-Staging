@@ -69,7 +69,7 @@
     $scope.$on('$destroy', function () {
       solarMexicoTimeline.kill()
       solarMexicoTimeline.clear()
-      TweenMax.killAll()
+      // TweenMax.killAll()
     })
   }
 

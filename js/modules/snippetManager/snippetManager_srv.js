@@ -22,11 +22,19 @@
         hotspot: [2, 1, 3],
         tpl: self.path + '/efficiency.html'
       },
-      'mexico': {
-        desc: 'How much energy is there in Mexican skies?',
-        label: 'The power of the sun',
-        stage: 3,
-        tpl: self.path + '/solar25km.html'
+      'batteries': {
+        desc: '',
+        label: '',
+        stage: 1,
+        hotspot: [2, 3, -3],
+        tpl: self.path + '/batteries.html'
+      },
+      'recharge': {
+        desc: 'Innovation is ready to charge! Recharging e-cars is faster than you think.',
+        label: 'Fast recharge',
+        stage: 1,
+        hotspot: [3, 3, 0.8],
+        tpl: self.path + '/fastrecharge.html'
       },
       'panel': {
         desc: 'Can you guess how much solar panels can power?',
@@ -57,19 +65,11 @@
           // }
         ]
       },
-      'efficiency': {
-        desc: '',
-        label: '',
-        stage: 1,
-        hotspot: [2, 3, -3],
-        tpl: self.path + '/efficiency.html'
-      },
-      'recharge': {
-        desc: 'Innovation is ready to charge! Recharging e-cars is faster than you think.',
-        label: 'Fast recharge',
-        stage: 1,
-        hotspot: [3, 3, 0.8],
-        tpl: self.path + '/fastrecharge.html'
+      'mexico': {
+        desc: 'How much energy is there in Mexican skies?',
+        label: 'The power of the sun',
+        stage: 3,
+        tpl: self.path + '/solar25km.html'
       },
       'v2g': {
         desc: 'What if electricity could move around as freely as you do in your car? Soon, it will.',
