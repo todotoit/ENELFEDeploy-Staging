@@ -1,0 +1,25 @@
+snippet-card[size*="full"] {
+  position: absolute;
+  /*left: 50%;
+  top: 50%;*/
+  /*max-height: 80%;
+  max-width: 80%;*/
+  width: 42vh;
+  height: 68vh;
+  opacity: 0;
+}
+snippet-card > div {
+  background: linear-gradient(180deg, #41b9e6, #0555fa);
+}
+snippet-card > div.content {
+  flex: 1.3 0 0% !important;
+  background: linear-gradient(180deg, #3A66E5, #0144CE);
+}
+snippet-card:after {
+  content: "";
+  position: absolute;
+  box-shadow: 0 5px 50px rgba(0, 0, 0, 0.2), 0 10px 35px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  width: 85%;
+  z-index: -1;
+}

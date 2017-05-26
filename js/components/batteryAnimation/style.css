@@ -1,0 +1,41 @@
+#battery_container {
+}
+
+#battery_body_container {
+  position: absolute;
+  top: 1rem;
+  width: 100%;
+}
+#battery_cover svg {
+  position: absolute;
+  top: -1rem;
+}
+#battery_points svg {
+  position: absolute;
+  top: 15.8rem;
+  width: 1rem;
+  height: 1rem;
+  left: 35.5rem;
+}
+
+#battery_power_phone svg {
+  position: absolute;
+  top: 16.2rem;
+  left: -0.6rem;
+}
+
+#battery_brake svg {
+  position: absolute;
+  top: 0.7rem;
+}
+#battery_brake_points svg {
+  position: absolute;
+  top: 16.1rem;
+  width: 5rem;
+  left: 19.7rem;
+}
+
+#battery_boost_simon svg {
+  position: absolute;
+  top: 0.7rem;
+}
