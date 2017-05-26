@@ -1,1 +1,16 @@
-../ENELFEDeploy/package.json
+{
+  "name": "fedeploy",
+  "version": "1.0.113",
+  "main": "index.js",
+  "scripts": {
+    "deploy_common": "git add -A && git commit -m \"deploy\" && npm version patch && git push",
+    "deploy_fillergame": "git pull && node deploy.js fillergame && npm run deploy_common",
+    "deploy_website": "git pull && node deploy.js website && npm run deploy_common",
+    "deploy_tablet": "git pull && node deploy.js tablet && npm run deploy_common",
+    "deploy_podio": "git pull && node deploy.js podio && npm run deploy_common"
+  },
+  "dependencies": {
+    "copy-dir": "^0.3.0",
+    "replace": "^0.3.0"
+  }
+}
