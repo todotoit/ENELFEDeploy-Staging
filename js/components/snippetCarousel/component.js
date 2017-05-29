@@ -69,7 +69,7 @@
     var xSet = 50
     var ySet = 50
     var xOffset = 0
-    var yOffset = 14
+    var yOffset = 15
     var zOffset = 250
     var opacitySet = 1
     var opacityOffset = .15

@@ -9946,6 +9946,9 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         //STAGE 2
         newCameraPos = new THREE.Vector3(156, 320, 521);
         self.stageAnimation.addLabel("StageStart");
+        //1. rotate circuit 360
+        self.stageAnimation.add(TweenLite.to(self.circuitPivot.rotation, 2, {x: 0, y: radians(360), z: 0, delay: 0,  ease: Power4.easeInOut}), "StageStart");
+        //2. zoom out camera
         self.stageAnimation.add(TweenLite.to(self.camera.position, 2, {x: newCameraPos.x, y: newCameraPos.y, z: newCameraPos.z, delay: 0, ease: Power1.easeInOut, onUpdate: function() {
             self.orbit_controls.update()
         }}), "StageStart");

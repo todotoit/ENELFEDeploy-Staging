@@ -191,7 +191,7 @@
     var xSet = 50
     var ySet = 50
     var xOffset = 0
-    var yOffset = 14
+    var yOffset = 15
     var zOffset = 250
     var opacitySet = 1
     var opacityOffset = .15
@@ -2500,27 +2500,27 @@ window.twttr = (function(d, s, id) {
       }
     }
 
-    // $scope.tours = ['tour1','tour2','tour3','tour4','tour5']
-    // var tour = $('#tour-menu')
-    // var hammertour = new Hammer(tour[0], {domEvents: true});
-    // hammertour.on('swipeleft', function(e){
-    //   e.srcEvent.stopPropagation();
-    //   $scope.tours.push($scope.tours[0])
-    //   TweenMax.to(tour.find('li'), .5, {x: '-=100%', onComplete: function() {
-    //     $scope.tours.shift()
-    //     if (!$scope.$$phase) $scope.$digest()
-    //     TweenMax.set(tour.find('li'), {x: '+=100%'})
-    //   }})
-    // });
-    // hammertour.on('swiperight', function(e){
-    //   e.srcEvent.stopPropagation();
-    //   $scope.tours.unshift(_.last($scope.tours))
-    //   TweenMax.set(tour.find('li'), {x: '-=100%'})
-    //   if (!$scope.$$phase) $scope.$digest()
-    //   TweenMax.to(tour.find('li'), .5, {x: '+=100%', onComplete: function() {
-    //     $scope.tours = _.initial($scope.tours)
-    //   }})
-    // });
+    $scope.tours = ['tour1','tour2','tour3','tour4','tour5']
+    var tour = $('#tour-menu')
+    var hammertour = new Hammer(tour[0], {domEvents: true});
+    hammertour.on('swipeleft', function(e){
+      e.srcEvent.stopPropagation();
+      $scope.tours.push($scope.tours[0])
+      TweenMax.to(tour.find('li'), .5, {x: '-=100%', onComplete: function() {
+        $scope.tours.shift()
+        if (!$scope.$$phase) $scope.$digest()
+        TweenMax.set(tour.find('li'), {x: '+=100%'})
+      }})
+    });
+    hammertour.on('swiperight', function(e){
+      e.srcEvent.stopPropagation();
+      $scope.tours.unshift(_.last($scope.tours))
+      TweenMax.set(tour.find('li'), {x: '-=100%'})
+      if (!$scope.$$phase) $scope.$digest()
+      TweenMax.to(tour.find('li'), .5, {x: '+=100%', onComplete: function() {
+        $scope.tours = _.initial($scope.tours)
+      }})
+    });
 
     // event handlers
     $(window).on('resize', FEScene.resize)
