@@ -29,6 +29,7 @@ snippet-card h2 {
 }
 snippet-card p {
   font-size: 1.8vh;
+  line-height: 2.4vh;
 }
 snippet-card .number-lg {
   font-size: 4vh;
@@ -45,6 +46,14 @@ snippet-card > div > .info_block {
 }
 snippet-card > div.content > div > .info_block {
   padding: 0 3vh;
+  position: absolute;
+  z-index: 1;
+}
+snippet-card > div.content .animation {
+  position: relative;
+  width: 70%;
+  right: -12.5vh;
+  bottom: -6vh;
 }
 
 snippet-card efficiency svg {
