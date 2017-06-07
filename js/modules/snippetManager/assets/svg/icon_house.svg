@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 74.67">
+  <title>icon_house</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="bg">
+      <g>
+        <path d="M103,61.49V24h8.45L88.5,1H52.35L27.94,25.41H37.5v41H123v7.24H1V66.43H6v-27a9.07,9.07,0,0,1,9.07-9.07h0a9.07,9.07,0,0,1,9.07,9.07V46" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 2px"/>
+        <circle cx="24.1" cy="49.15" r="3.5" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 2px"/>
+        <line x1="9.63" y1="66.18" x2="33.7" y2="66.18" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 2px"/>
+        <polyline points="53.63 62.59 53.63 41.22 67.62 41.22 67.62 62.21 87.08 62.21 87.08 24.56 69.5 6.65" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 2px"/>
+      </g>
+    </g>
+  </g>
+</svg>

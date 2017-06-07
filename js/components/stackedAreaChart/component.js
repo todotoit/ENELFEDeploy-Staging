@@ -27,7 +27,7 @@
     // -------- SVG ELEMENTS ---------
     var svg, box, w, h, p,                    // svg config
         axY, axX,                             // axis and scales config
-        areas, lns, interpolation = 'linear', // chart paths config
+        areas, lns, interpolation = 'basis', // chart paths config
         delay = 100, duration = 300           // animation config
 
     // -------- SCALES ---------
@@ -179,7 +179,7 @@
          .delay(delay)
          .duration(duration)
          .attr('d', topLine(totData))
-         .style('stroke-width', strokeWidth)
+         //.style('stroke-width', strokeWidth)//removing the stroke
       // update axis data
       axY.transition().delay(delay).call(axisY)
       axX.transition().delay(delay).call(axisX)
