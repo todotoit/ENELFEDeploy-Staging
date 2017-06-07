@@ -1,0 +1,15 @@
+efficiency svg{
+	position: relative;
+	bottom: 2rem;
+  left: 0;
+}
+
+.border_bottom{
+	border-bottom: 1px solid;
+	padding-bottom: 1em;
+}
+
+#landing #snippet-carousel .snip p.note{
+	font-size: 11px;
+	line-height: 1.3em;
+}

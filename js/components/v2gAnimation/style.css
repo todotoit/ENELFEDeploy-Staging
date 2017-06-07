@@ -1,0 +1,32 @@
+#v2g_container{
+	overflow: hidden;
+	height: 190px;
+	margin-bottom: 2rem;
+}
+
+#v2g_container svg{
+	height: 190px;
+}
+
+
+#cable_electricity_in {
+  stroke-dasharray: 2, 12;
+  animation: dash 20s linear infinite;
+}
+
+#cable_electricity_out {
+  stroke-dasharray: 2, 12;
+  animation: dashInverse 20s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+@keyframes dashInverse {
+  to {
+    stroke-dashoffset: 1000;
+  }
+}

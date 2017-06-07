@@ -1,0 +1,19 @@
+#teamAreaChart .axis text{
+  font-family: sans-serif;
+  fill: white;
+  font-size: 7px;
+}
+
+#teamAreaChart .axis path,
+#teamAreaChart .axis line {
+  fill: none;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+#teamAreaChart .area1 {
+  fill: url(#teamAreaChart_bl1);
+}
+#teamAreaChart .area2 {
+  fill: url(#teamAreaChart_bl2);
+}
