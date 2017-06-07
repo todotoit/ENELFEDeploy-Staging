@@ -19,7 +19,7 @@
     })
 
   /* @ngInject */
-  function SnippetCardCtrl($scope, $element, $attrs, TweenMax) {
+  function SnippetCardCtrl($scope, $element, $attrs, TweenMax, $sce) {
     var ctrl = this
     // https://github.com/angular/angular.js/issues/14433
     // for the issue above we decided to use just $onChanges
@@ -28,21 +28,33 @@
 
     $scope.prevTab  = prevTab
     $scope.nextTab  = nextTab
+    $scope.setActive = setActive
+    $scope.navigateTo = navigateTo
     var hammertime  = null
     var content     = null
     var $content    = null
     var contentIdx  = 0
-    var swipeOffset = 70
+    var swipeOffset = 30
     var swipeVel    = .5
     var prevCallback = null
     var nextCallback = null
 
     // -------
 
+    $scope.parseTpl = function(tpl) {
+      return $sce.trustAsHtml(tpl);
+    }
+
+    function setActive(idx) {
+      return idx === contentIdx
+    }
+
     function prevTab() {
       if (contentIdx <= 0) return prevCallback()
       contentIdx--
       $scope.subsnip = content[contentIdx]
+      // $content.find('li').removeClass('active')
+      // $content.find('li').eq(contentIdx).addClass('active')
       TweenMax.to($content.find('li'), swipeVel, { x: '+='+ swipeOffset +'%', onComplete: function() {
         if (!$scope.$$phase) $scope.$digest()
       } })
@@ -77,6 +89,11 @@
       hammertime.on('swipeleft',  nextTab)
       hammertime.on('swiperight', prevTab)
       hammertime.on('hammer.input', function (e) { e.srcEvent.stopPropagation() })
+    }
+
+    function navigateTo(index){
+      if(contentIdx > index) prevTab()
+      else nextTab();
     }
 
     // deregister event handlers

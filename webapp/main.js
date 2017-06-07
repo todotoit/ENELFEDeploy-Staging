@@ -7,6 +7,7 @@
 
   angular
     .module('SnippetCard', [
+      'ngSanitize',
       'MainApp'
     ])
 
@@ -33,7 +34,7 @@
     })
 
   /* @ngInject */
-  function SnippetCardCtrl($scope, $element, $attrs, TweenMax) {
+  function SnippetCardCtrl($scope, $element, $attrs, TweenMax, $sce) {
     var ctrl = this
     // https://github.com/angular/angular.js/issues/14433
     // for the issue above we decided to use just $onChanges
@@ -42,21 +43,33 @@
 
     $scope.prevTab  = prevTab
     $scope.nextTab  = nextTab
+    $scope.setActive = setActive
+    $scope.navigateTo = navigateTo
     var hammertime  = null
     var content     = null
     var $content    = null
     var contentIdx  = 0
-    var swipeOffset = 70
+    var swipeOffset = 30
     var swipeVel    = .5
     var prevCallback = null
     var nextCallback = null
 
     // -------
 
+    $scope.parseTpl = function(tpl) {
+      return $sce.trustAsHtml(tpl);
+    }
+
+    function setActive(idx) {
+      return idx === contentIdx
+    }
+
     function prevTab() {
       if (contentIdx <= 0) return prevCallback()
       contentIdx--
       $scope.subsnip = content[contentIdx]
+      // $content.find('li').removeClass('active')
+      // $content.find('li').eq(contentIdx).addClass('active')
       TweenMax.to($content.find('li'), swipeVel, { x: '+='+ swipeOffset +'%', onComplete: function() {
         if (!$scope.$$phase) $scope.$digest()
       } })
@@ -91,6 +104,11 @@
       hammertime.on('swipeleft',  nextTab)
       hammertime.on('swiperight', prevTab)
       hammertime.on('hammer.input', function (e) { e.srcEvent.stopPropagation() })
+    }
+
+    function navigateTo(index){
+      if(contentIdx > index) prevTab()
+      else nextTab();
     }
 
     // deregister event handlers
@@ -144,8 +162,8 @@
     var ctrl = this
     // https://github.com/angular/angular.js/issues/14433
     // for the issue above we decided to use just $onChanges
-    ctrl.$onInit = init
-    // ctrl.$onChanges = update
+    // ctrl.$onInit = init
+    ctrl.$onChanges = init
     var vel = .45
     var direction = 'right'
     var debounce = {
@@ -179,6 +197,12 @@
       moveCards(direction)
     }
 
+    $scope.exit = function () {
+      _.each($cards, function(s, i) {
+        animateCardOut(s, i, true)
+      })
+    }
+
     $scope.loadCard = function() {
       var el = $element.children('snippet-card')[this.$index]
       setCardPos(el, this.$index)
@@ -188,8 +212,8 @@
     }
 
     var showcaseElements = 3
-    var xSet = 50
-    var ySet = 50
+    var xSet = 0
+    var ySet = 0
     var xOffset = 0
     var yOffset = 15
     var zOffset = 250
@@ -199,22 +223,45 @@
     function setCardPos($el, $i) {
       var base = $scope.snippets.length -1 -$i
       var opacity = opacitySet -(base * opacityOffset)
+      // console.log($i, $scope.snippets.length, showcaseElements)
       if ($i < $scope.snippets.length - showcaseElements) opacity = 0
+      var ypos = -(ySet+(base * yOffset))
       TweenMax.set($el, { x: -(xSet+(base * xOffset)) +'%',
-                          y: -(ySet+(base * yOffset)) +'%',
-                          z: -(base * zOffset),
-                          opacity: opacity,
+                          y: ypos+20 +'%',
+                          // z: -(base * zOffset),
+                          scale: 1 - (base * .2),
+                          opacity: 0,
                           zIndex: -base
                         }, vel/3)
+      TweenMax.to($el, .6, {y: ypos+'%', opacity: opacity, delay: .1 * ($scope.snippets.length - $i), ease: 'easeOut'})
+    }
+
+    function animateCardOut($el, $i, pull) {
+      console.log('out')
+      TweenMax.to($el, .6, {y: '+=20%', opacity: 0, delay: .1 * ($scope.snippets.length - $i), ease: 'easeOut', onComplete: function(){
+        if (pull) {
+          _.pull($cards, $el)
+          $scope.snippets.splice($i, 1)
+          if (!$scope.$$phase) $scope.$digest()
+          if (_.isEmpty($scope.snippets)) $element.fadeOut()
+        }
+      }})
     }
 
     // -------
 
     // init after dom loaded
     function init() {
+      hammertime = null
+      card = null
+      $card = null
+      $cards = []
       $scope.snippets = ctrl.snippets
       callback = ctrl.onCardSelect()
+      if (_.isEmpty($scope.snippets)) return
+      $element.fadeIn()
       if ($scope.snippets.length < showcaseElements) showcaseElements = $scope.snippets.length
+      else showcaseElements = 3
     }
 
     function selectCards() {
@@ -241,23 +288,146 @@
       var xOut = direction === 'right'? '50%' : '-100%'
       tl.to($card, vel, {x: xOut, opacity: 0, zIndex: -5, onComplete: removeLastCard}, 0)
 
-      var x = -50, y = -50, z = 0, opacity = 1, zIndex = 0
+
+      var x = 0, y = 0, z = 0, opacity = 1, zIndex = 0
+      var scale = 1
       for (var i = 1; i < $cards.length; i++) {
         if (i > showcaseElements) opacity = 0
-        TweenMax.to($cards[i], vel, {y: y+'%', z: z, opacity: opacity, zIndex: zIndex}, vel)
+        TweenMax.to($cards[i], vel, {
+          y: y+'%',
+          // z: z,
+          scale: scale,
+          opacity: opacity,
+          zIndex: zIndex}, vel)
         y-=yOffset
         z-=zOffset
         opacity-=opacityOffset
         zIndex--
+        scale-= 0.2
       }
-      tl.set($card, {x: x+'%', y: y-yOffset+'%', z: z-zOffset, opacity: 0}, vel)
-      tl.to($card, vel, {y: y+'%', z: z, opacity: opacity}, vel)
+      tl.set($card, {
+        x: x+'%',
+        y: y-yOffset+'%',
+        // z: z-zOffset,
+        scale: scale-0.2,
+        opacity: 0}, vel)
+      tl.to($card, vel, {
+        y: y+'%',
+        // z: z,
+        scale: scale,
+        opacity: opacity}, vel)
     }
 
 
     // event handlers
     function cardHandler() {
       hammertime = new Hammer($card, {domEvents: true});
+      hammertime.on('swipeleft', function(e){ $scope.prev() });
+      hammertime.on('swiperight', function(e){ $scope.next() });
+    }
+    function cleanHandler() {
+      if (!hammertime) return
+      hammertime.off('swipeleft')
+      hammertime.off('swiperight')
+    }
+
+    // deregister event handlers
+    // $scope.$on events will be automatically deleted on $destroy
+    $scope.$on('$destroy', function() {
+      cleanHandler()
+    })
+  }
+
+}(window.angular, window.angular.element));
+
+(function (angular) {
+  'use strict'
+
+  /**
+    SwipeCarousel
+  **/
+
+  angular
+    .module('SwipeCarousel', [
+      'MainApp'
+    ])
+
+}(window.angular));
+
+(function (angular, jq) {
+  'use strict'
+
+  /**
+  **/
+
+  angular
+    .module('SwipeCarousel')
+    .component('swipeCarousel', {
+      replace: true,
+      transclude: true,
+      templateUrl: '../js/components/swipeCarousel/template.html',
+      controller: SwipeCarouselCtrl,
+      controllerAs: 'swipeCarousel',
+      bindings: {
+        snippets: '<',
+        onElemSelect: '&onSelect'
+      }
+    })
+
+  /* @ngInject */
+  function SwipeCarouselCtrl($scope, $element, $attrs, $timeout, _) {
+    var ctrl = this
+    // https://github.com/angular/angular.js/issues/14433
+    // for the issue above we decided to use just $onChanges
+    ctrl.$onInit = init
+    // ctrl.$onChanges = update
+    var vel = .45
+    var direction = 'right'
+    var debounce = {
+      id: null,
+      time: vel * 1000, // millis to sec
+      start: function() {
+        debounce.id = $timeout(debounce.cancel, debounce.time)
+      },
+      cancel: function() {
+        $timeout.cancel(debounce.id)
+        debounce.id = null
+      }
+    }
+    var hammertime = null
+    var elem = null
+    var $elem = null
+    var callback = null
+
+    $scope.load = function() {
+      console.log(this)
+    }
+
+    $scope.prev = function () {
+      if (debounce.id) return
+      debounce.start()
+      direction = 'left'
+      // moveCards(direction)
+    }
+
+    $scope.next = function () {
+      if (debounce.id) return
+      debounce.start()
+      direction = 'right'
+      // moveCards(direction)
+    }
+
+    // -------
+
+    // init after dom loaded
+    function init() {
+      $scope.snippets = ctrl.snippets
+      callback = ctrl.onElemSelect()
+    }
+
+    // event handlers
+    function cardHandler() {
+      hammertime = new Hammer($elem, {domEvents: true});
       hammertime.on('swipeleft', function(e){ $scope.prev() });
       hammertime.on('swiperight', function(e){ $scope.next() });
     }
@@ -304,7 +474,8 @@
       controllerAs: 'streamgraph',
       bindings: {
         datasource: '<',
-        onSelect: '&'
+        onSelect: '&',
+        touchEnabled: '<?'
       }
     })
 
@@ -334,6 +505,7 @@
 
     // -------- CALLBACK ---------
     var _callback = null
+    var touchEnabled = true
 
     // discarding timezone makes data apper to the relevant hour at every timezone
     // so for example hong kong data are displayed at the proper hours even if
@@ -418,6 +590,7 @@
       var data = ctrl.datasource
       $element.find('svg').empty()
       _callback = ctrl.onSelect()
+      touchEnabled = _.isUndefined(ctrl.touchEnabled)? true : ctrl.touchEnabled
 
       // -------- INITIALIZE CHART ---------
       svg = d3.select($element.find('svg').get(0))
@@ -505,7 +678,7 @@
            .attr('class', function(d,i) { return 'layer layer-'+(i+1) })
            .attr('d', function(d,i) { return area(d.values) })
            .attr('fill', function(d, i) { return Z(i) })
-      _attachToolipEvents()
+      if (touchEnabled) _attachToolipEvents()
 
       // update axis data
       lnX.call(xLine.tickSize(h))
@@ -855,7 +1028,7 @@
     // -------- SVG ELEMENTS ---------
     var svg, box, w, h, p,                    // svg config
         axY, axX,                             // axis and scales config
-        areas, lns, interpolation = 'linear', // chart paths config
+        areas, lns, interpolation = 'basis', // chart paths config
         delay = 100, duration = 300           // animation config
 
     // -------- SCALES ---------
@@ -1007,7 +1180,7 @@
          .delay(delay)
          .duration(duration)
          .attr('d', topLine(totData))
-         .style('stroke-width', strokeWidth)
+         //.style('stroke-width', strokeWidth)//removing the stroke
       // update axis data
       axY.transition().delay(delay).call(axisY)
       axX.transition().delay(delay).call(axisX)
@@ -1538,15 +1711,15 @@
     .component('enelStand', {
       templateUrl: '../js/components/enelstandAnimation/assets/svg/illustration_enel_stand.svg',
       controller: enelStandCtrl,
-      controllerAs: 'enelStand',
+      // controllerAs: 'enelStand',
       bindings: {}
     })
 
   /* @ngInject */
   function enelStandCtrl($scope, $element, $attrs, TweenMax) {
     var ctrl = this
-    ctrl.componentPath = '../js/components/enelstandAnimation'
-    ctrl.svgPath = ctrl.componentPath + '/assets/svg'
+    // ctrl.componentPath = '../js/components/enelstandAnimation'
+    // ctrl.svgPath = ctrl.componentPath + '/assets/svg'
 
     // https://github.com/angular/angular.js/issues/14433
     // for the issue above we decided to use just $onChanges
@@ -1701,110 +1874,276 @@
   function ContructorForSnippetSrv($q, _) {
     var self  = this
     self.path = '../js/modules/snippetManager/templates'
-    var solarSnippetsKeys = ['mexico','panel','more']
-    var ecarSnippetsKeys = ['efficiency','v2g','recharge']
+    // tours
+    var _availableTours = {
+      'solar': [],
+      'ecar': []
+    }
+
+    var _availableHotspots = {
+      'info': {
+        stage: 1,
+        coords: [0.97, 4.74, 6.46],
+        snippets: ['carSpecs']
+      },
+      'tyre': {
+        stage: 1,
+        coords: [5.98, 2.32, 2.59],
+        snippets: ['tyres', 'regenerativeBraking']
+      },
+      'electricity': {
+        stage: 1,
+        coords: [-5.01, 1.12, -4.63],
+        snippets: ['batteryPower', 'fastRecharge', 'fanBoost']
+      },
+      'engine': {
+        stage: 1,
+        coords: [-3.19, 2.20, -5.73],
+        snippets: ['co2', 'efficiency', 'enginePower', 'sound']
+      }
+    }
+
+    // snippets
     var _availableSnippets = {
-      'efficiency': {
+      'carSpecs': {
         desc: '',
         label: '',
-        stage: 1,
-        hotspot: [2, 1, 3],
-        tpl: self.path + '/efficiency.html'
+        tpl: self.path + '/carInfo.html'
       },
-      'batteries': {
-        desc: '',
-        label: '',
-        stage: 1,
-        hotspot: [2, 3, -3],
-        tpl: self.path + '/batteries.html'
-      },
-      'recharge': {
+      'fastRecharge': {
         desc: 'Innovation is ready to charge! Recharging e-cars is faster than you think.',
         label: 'Fast recharge',
-        stage: 1,
-        hotspot: [3, 3, 0.8],
-        tpl: self.path + '/fastrecharge.html'
+        tpl: self.path + '/fastRecharge.html'
       },
-      'panel': {
-        desc: 'Can you guess how much solar panels can power?',
-        label: 'Solar energy for the race',
-        stage: 2,
-        tpl: self.path + '/solarmexico.html'
-      },
-      'testDouble': {
+      'batteryPower': {
         desc: '',
         label: '',
-        stage: 2,
-        tpl: self.path + '/test.html',
+        tpl: self.path + '/batteryPower.html',
         subContent: [
           {
             desc: '',
-            label: 'Could generate',
-            tpl: self.path + '/subcontents/test.html'
+            label: 'Provides energy for',
+            tpl: self.path + '/subcontents/batteryPower-minutes.html'
+          },
+          {
+            desc: '',
+            label: 'Enough to charge',
+            tpl: self.path + '/subcontents/batteryPower-phones.html'
+          }
+        ]
+      },
+      'fanBoost': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/fanBoost.html'
+      },
+      'sound': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/sound.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Today\'s achievement',
+            tpl: self.path + '/subcontents/sound-noise.html'
+          },
+          {
+            desc: '',
+            label: 'Tomorrow\'s cities',
+            tpl: self.path + '/subcontents/sound-future.html'
+          }
+        ]
+      },
+      'efficiency': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/efficiency.html'
+      },
+      'co2': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/zeroco2.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Traditional engines',
+            tpl: self.path + '/subcontents/co2-kg.html'
+          },
+          {
+            desc: '',
+            label: 'Innovative thinking',
+            tpl: self.path + '/subcontents/co2-future.html'
+          }
+        ]
+      },
+      'enginePower': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/enginePower.html'
+      },
+      'tyres': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/tyres.html'
+      },
+      'regenerativeBraking': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/regenerativeBraking.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'During the race',
+            tpl: self.path + '/subcontents/regenerativeBraking-formulaE.html'
+          },
+          {
+            desc: '',
+            label: 'On our streets',
+            tpl: self.path + '/subcontents/regenerativeBraking-eCar.html'
+          }
+        ]
+      },
+      'circuitBerlin2017': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/circuit-berlin-2017.html'
+      },
+      'raceMicrogrid': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/raceMicrogrid.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Small scale',
+            tpl: self.path + '/subcontents/raceMicrogrid-racetrack.html'
+          },
+          {
+            desc: '',
+            label: 'Large scale',
+            tpl: self.path + '/subcontents/raceMicrogrid-city.html'
+          }
+        ]
+      },
+      'smartMetering': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/smartMetering.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Smart kit',
+            tpl: self.path + '/subcontents/smartMetering-kit.html'
+          },
+          {
+            desc: '',
+            label: 'Smart meter',
+            tpl: self.path + '/subcontents/smartMetering-meter.html'
+          }
+        ]
+      },
+      'solarPower': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/solarPower.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Can generate',
+            tpl: self.path + '/subcontents/solarPower-generate.html'
           },
           {
             desc: '',
             label: 'Can meet the needs of',
-            tpl: self.path + '/subcontents/test2.html'
-          },
-          // {
-          //   desc: '',
-          //   label: 'Could generate label3',
-          //   tpl: self.path + '/subcontents/test3.html'
-          // }
+            tpl: self.path + '/subcontents/solarPower-needs.html'
+          }
         ]
       },
-      'mexico': {
-        desc: 'How much energy is there in Mexican skies?',
-        label: 'The power of the sun',
-        stage: 3,
-        tpl: self.path + '/solar25km.html'
+      'storage': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/storage.html'
       },
       'v2g': {
-        desc: 'What if electricity could move around as freely as you do in your car? Soon, it will.',
-        label: 'A battery on wheels',
-        stage: 3,
+        desc: '',
+        label: '',
         tpl: self.path + '/v2g.html'
       },
-      'more': {
-        desc: 'The Enel staff is happy to answer any questions you may have.',
-        label: 'Would you like to find out more about smart energy?',
-        tpl: self.path + '/enelstand.html'
+      'v2gDenmark': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/v2gDenmark.html'
+      },
+      'howMuchSunGlobal': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/howMuchSunGlobal.html'
+      },
+      'howMuchSunMexico': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/howMuchSunMexico.html'
+      },
+      'cleanEnergyGlobal': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/cleanEnergyGlobal.html'
+      },
+      'cleanEnergySpain': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/cleanEnergySpain.html'
+      },
+      'enelWorld': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/enelWorld.html'
+      },
+      'internet': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/internet.html'
+      },
+      'firstSmartCity': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/firstSmartCity.html'
+      },
+      'germany': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/germany.html'
+      },
+      'formulaE': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/formulaE.html'
       }
     }
 
     self.getAvailableSnippets = _getAvailableSnippets
-    self.getSolarSnippets = _getSolarSnippets
-    self.getEcarSnippets = _getECarSnippets
     self.getSnippet = _getSnippet
+    self.getAvailableTours = _getAvailableTours
+    self.getHotspot = _getHotspot
+    self.getTour = _getTour
     return self
 
     // -------
 
-    function _getSolarSnippets() {
+    function _getAvailableTours() {
       return $q(function(resolve, reject) {
-        var snippets = _(_availableSnippets).map(function(value, key) {
-            value.key = key
-            if (_.includes(solarSnippetsKeys, key)) return value
-          }).compact().value()
-        if (!_.isEmpty(snippets)) resolve(snippets)
-        else reject('No snippets!')
-      })
-    }
-    function _getECarSnippets() {
-      return $q(function(resolve, reject) {
-        var snippets = _(_availableSnippets).map(function(value, key) {
-            value.key = key
-            if (_.includes(ecarSnippetsKeys, key)) return value
-          }).compact().value()
-        if (!_.isEmpty(snippets)) resolve(snippets)
-        else reject('No snippets!')
+        var tours = _.map(angular.copy(_availableTours), function(value, key) {
+          value.key = key
+          return value
+        })
+        if (!_.isEmpty(tours)) resolve(tours)
+        else reject('No available tours are defined!')
       })
     }
 
     function _getAvailableSnippets() {
       return $q(function(resolve, reject) {
-        var snippets = _.map(_availableSnippets, function(value, key) {
+        var snippets = _.map(angular.copy(_availableSnippets), function(value, key) {
           value.key = key
           return value
         })
@@ -1813,16 +2152,104 @@
       })
     }
 
-    function _getSnippet(key, appKey) {
+    function _getTour(key) {
       return $q(function(resolve, reject) {
-        var searchKey = key.replace(/ /g, '_')
-        if (appKey === 'solar' && !_.includes(solarSnippetsKeys, key)) return reject('Snippet not found!')
-        if (appKey === 'ecar' && !_.includes(ecarSnippetsKeys, key)) return reject('Snippet not found!')
-        var snippet = _availableSnippets[key]
+        var tour = angular.copy(_availableTours[key])
+        if (!_.isEmpty(tour)) resolve(tour)
+        else reject('Tour not found!')
+      })
+    }
+
+    function _getHotspot(key) {
+      var hotspot = angular.copy(_availableHotspots[key])
+      hotspot.snippets = _.map(hotspot.snippets, function(value) {
+        return angular.copy(_availableSnippets[value])
+      })
+      if (!_.isEmpty(hotspot)) return hotspot
+      else console.error('Hotspot not found')
+    }
+
+    function _getSnippet(key) {
+      return $q(function(resolve, reject) {
+        var snippet = angular.copy(_availableSnippets[key])
         if (!_.isEmpty(snippet)) resolve(snippet)
         else reject('Snippet not found!')
       })
     }
+  }
+
+}(window.angular));
+
+(function (angular) {
+  'use strict'
+
+  /**
+    ComparisonManager
+  **/
+
+  angular
+    .module('ComparisonManager', [
+      'MainApp'
+    ])
+
+}(window.angular));
+
+(function (angular) {
+  'use strict'
+
+  /**
+  **/
+
+  angular
+    .module('ComparisonManager')
+    .service('ComparisonSrv', ContructorForComparisonSrv)
+
+  /* @ngInject */
+  function ContructorForComparisonSrv($q, _) {
+    var self  = this
+    self.path = '../js/modules/comparisonManager/templates'
+    var comparisons = {
+      'households': {
+        label: 'Households for 1 day',
+        param: 1/(4190/365),
+        unit: '',
+        tpl: self.path + '/test.html',
+        svg: 'dash_comparison_house'
+      },
+      'TV': {
+        label: 'Watching TV 24/7',
+        param: 1/0.07/24/30/12,
+        unit: 'years',
+        tpl: self.path + '/test.html',
+        svg: 'dash_comparison_lcd'
+      },
+      'eVehicle': {
+        label: 'E-vehicle autonomy',
+        param: 6.25,
+        unit: 'km',
+        tpl: self.path + '/test.html',
+        svg: 'dash_comparison_car'
+      }
+      
+    }
+
+    self.getComparisons = _getComparisonsForValue
+    return self
+
+    // -------
+
+    function _getComparisonsForValue(val) {
+      return $q(function(resolve, reject) {
+        var snippets = _.map(comparisons, function(obj, key) {
+          obj.key = key
+          obj.value = Math.round(val*obj.param*10)/10
+          return obj
+        })
+        if (!_.isEmpty(snippets)) resolve(snippets)
+        else reject('No available snippets are defined!')
+      })
+    }
+
   }
 
 }(window.angular));
@@ -2378,11 +2805,13 @@ window.twttr = (function(d, s, id) {
       'ui.router',
       'MainApp',
       'SnippetManager',
+      'ComparisonManager',
       'Streamgraph',
       'DonutChart',
       'StackedAreaChart',
       'SnippetCard',
-      'SnippetCarousel'
+      'SnippetCarousel',
+      'SwipeCarousel'
     ])
 
 }(window.angular));
@@ -2465,11 +2894,54 @@ window.twttr = (function(d, s, id) {
         controllerAs: 'landing',
         templateUrl: 'templates/landing.html'
       })
+      .state('dashboard', {
+        url: '/dashboard',
+        resolve: {
+          areaChartData: function(PaddockAreaChart) {
+            return PaddockAreaChart.get()
+          },
+          races: function($http) {
+            return $http.get('../assets/jsonData/races.json')
+                        .then(function(res) {
+                          return res.data.races
+                        }, function(err) {
+                          console.error(err)
+                        })
+          }
+        },
+        controller: 'DashboardCtrl',
+        controllerAs: 'dashboard',
+        templateUrl: 'templates/dashboard.html'
+      })
       .state('3dtest', {
         url: '/3dtest',
         controller: '3dCtrl',
         controllerAs: 'ctrl',
         templateUrl: 'templates/3dtest.html'
+      })
+      .state('snipTest', {
+        url: '/sniptest',
+        resolve: {
+          snippets: function(SnippetSrv) {
+            return SnippetSrv.getAvailableSnippets()
+                             .then(function(res) {
+                                return res
+                             }, function(err) {
+                                console.error(err)
+                             })
+          },
+          singleSnip: function(SnippetSrv) {
+            return SnippetSrv.getSnippet('enginePower')
+                             .then(function(res) {
+                                return res
+                             }, function(err) {
+                                console.error(err)
+                             })
+          }
+        },
+        controller: 'SnipCtrl',
+        controllerAs: 'ctrl',
+        templateUrl: 'templates/sniptest.html'
       })
   }
 }(window.angular));
@@ -2482,52 +2954,127 @@ window.twttr = (function(d, s, id) {
     .controller('LandingCtrl', landingCtrl)
 
   /* @ngInject */
-  function landingCtrl ($scope, snippets, $timeout, _) {
+  function landingCtrl ($scope, $http, $timeout, _, SnippetSrv) {
     var vm = this
-    vm.snippets = _.reverse(angular.copy(_.initial(snippets)))
+    vm.snippets = []
     var $container = $('#3dcontainer')
     var container = $container.get(0)
     var FEScene = new TERMINALIA.FEScene(container, TERMINALIA.CustomShaders)
     FEScene.render()
 
-    $scope.checkHotSpot = function(card) {
-      console.log(card)
-      FEScene.startStageAnimation(card.stage);
-      if (card.hotspot) {
-        $timeout(function() {
-          FEScene.startCameraAnimation(card.hotspot, 5)
-        },5)
-      }
+    // races
+    vm.races = []
+    vm.currentRace = {}
+    vm.streamData = []
+    vm.totalConsumption = {
+      total_energy: 0,
+      zones: []
+    }
+    retrieveRacesFeed()
+    setLogoFill();
+
+    function retrieveRacesFeed() {
+      return $http.get('../assets/jsonData/races.json')
+                  .then(function(res) {
+                    vm.races = res.data.races
+                    var currentRace = _.last(res.data.races)
+                    $scope.selectRace(currentRace.id)
+                  }, function(err) {
+                    console.error(err)
+                  })
+    }
+    $scope.selectRace = function(id) {
+      var currentRace = _.find(vm.races, {id: id})
+      vm.currentRace = angular.copy(currentRace)
+      vm.streamData = angular.copy(currentRace.streamData.zones)
+      vm.totalConsumption = angular.copy(currentRace.totalConsumption)
+      if (!$scope.$$phase) $scope.$digest()
+      console.log(vm.currentRace)
     }
 
-    $scope.tours = ['tour1','tour2','tour3','tour4','tour5']
+    $scope.checkHotSpot = function(card) {
+      // console.log(card)
+      // FEScene.startStageAnimation(card.stage);
+      // if (card.hotspot) {
+      //   $timeout(function() {
+      //     FEScene.startCameraAnimation(card.hotspot, 2)
+      //   },5)
+      // }
+    }
+
+    $scope.tours = ['E-mobility','Smart Energy','Clean Energy','Enel achievements']
     var tour = $('#tour-menu')
-    var hammertour = new Hammer(tour[0], {domEvents: true});
-    hammertour.on('swipeleft', function(e){
-      e.srcEvent.stopPropagation();
-      $scope.tours.push($scope.tours[0])
-      TweenMax.to(tour.find('li'), .5, {x: '-=100%', onComplete: function() {
-        $scope.tours.shift()
-        if (!$scope.$$phase) $scope.$digest()
-        TweenMax.set(tour.find('li'), {x: '+=100%'})
-      }})
-    });
-    hammertour.on('swiperight', function(e){
-      e.srcEvent.stopPropagation();
-      $scope.tours.unshift(_.last($scope.tours))
-      TweenMax.set(tour.find('li'), {x: '-=100%'})
-      if (!$scope.$$phase) $scope.$digest()
-      TweenMax.to(tour.find('li'), .5, {x: '+=100%', onComplete: function() {
-        $scope.tours = _.initial($scope.tours)
-      }})
-    });
+    // var hammertour = new Hammer(tour[0], {domEvents: true});
+    // hammertour.on('swipeleft', function(e){
+    //   e.srcEvent.stopPropagation();
+    //   $scope.tours.push($scope.tours[0])
+    //   TweenMax.to(tour.find('li'), .5, {x: '-=100%', onComplete: function() {
+    //     $scope.tours.shift()
+    //     if (!$scope.$$phase) $scope.$digest()
+    //     TweenMax.set(tour.find('li'), {x: '+=100%'})
+    //   }})
+    // });
+    // hammertour.on('swiperight', function(e){
+    //   e.srcEvent.stopPropagation();
+    //   $scope.tours.unshift(_.last($scope.tours))
+    //   TweenMax.set(tour.find('li'), {x: '-=100%'})
+    //   if (!$scope.$$phase) $scope.$digest()
+    //   TweenMax.to(tour.find('li'), .5, {x: '+=100%', onComplete: function() {
+    //     $scope.tours = _.initial($scope.tours)
+    //   }})
+    // });
 
     // event handlers
     $(window).on('resize', FEScene.resize)
-    $container.on('click', FEScene.findObjectOnClick)
+    $container.on('click', function(e){
+      selectedHotspot(FEScene.findObjectOnClick(e))
+    })
 
+    function selectedHotspot(key) {
+      if (!key) return
+      key = _.last(key.split('_'));
+      var hotspot = SnippetSrv.getHotspot(key);
+      vm.snippets = hotspot.snippets
+      if (!$scope.$$phase) $scope.$digest()
+    }
+    $(window).on('keydown', function(event) {
+      if (event.key === 't') {
+        FEScene.getCameraPosition();
+      }
+
+      if (event.key === 'y') {
+        FEScene.testPanZoomCamera();
+      }
+    });
+
+    function setLogoFill(){
+      TweenMax.set('#SafeZone', {fill: '#fff'});
+      TweenMax.set($('#SVGID_1_').find('stop'), {stopColor: '#fff'});
+      TweenMax.set($('#SVGID_2_').find('stop'), {stopColor: '#fff'});
+      TweenMax.set($('#SVGID_3_').find('stop'), {stopColor: '#fff'});
+      TweenMax.set($('#SVGID_4_').find('stop'), {stopColor: '#fff'});
+    }
+
+    //DISABLE SCROLL
+    var firstMove
+    window.addEventListener('touchstart', function (e) {
+      firstMove = true
+    }, { passive: false })
+
+    window.addEventListener('touchend', function (e) {
+      firstMove = true
+    }, { passive: false })
+
+    window.addEventListener('touchmove', function (e) {
+      if (firstMove) {
+        e.preventDefault()
+        firstMove = false
+      }
+    }, { passive: false })
     // deregister event handlers
-    // $scope.$on('$destroy', function () {})
+    $scope.$on('$destroy', function () {
+      $(window).off()
+    })
   }
 }(window.angular));
 
@@ -2574,6 +3121,7 @@ window.twttr = (function(d, s, id) {
           FEScene.startStageAnimation(3);
         }
 
+		/*
         if (event.key === 'a') {
           FEScene.getCameraPosition();
         }
@@ -2581,19 +3129,284 @@ window.twttr = (function(d, s, id) {
         if (event.key === 'q') {
           FEScene.startCameraAnimation([2, 1, 3], 2);
         }
+		*/
+
+        if (event.key === 'a') {
+          //FEScene.startCameraAnimation([3, 3, 0.8], 2);
+		      FEScene.movePins(-0.01, 0, 0);
+        }
+
+        if (event.key === 'd') {
+          FEScene.movePins(0.01, 0, 0);
+        }
 
         if (event.key === 'w') {
-          FEScene.startCameraAnimation([3, 3, 0.8], 2);
+          FEScene.movePins(0, 0.01, 0);
+        }
+
+        if (event.key === 's') {
+          FEScene.movePins(0, -0.01, 0);
         }
 
         if (event.key === 'e') {
-          FEScene.startCameraAnimation([2, 3, -3], 2)
+          //FEScene.startCameraAnimation([2, 3, -3], 2)
+		      FEScene.movePins(0, 0, 0.01);
         }
+
+        if (event.key === 'q') {
+          FEScene.movePins(0, 0, -0.01);
+        }
+
+        if (event.key === 't') {
+          FEScene.getCameraPosition();
+        }
+
     });
 
+    //DISABLE SCROLL
+    var firstMove
+    window.addEventListener('touchstart', function (e) {
+      firstMove = true
+    }, { passive: false })
+
+    window.addEventListener('touchend', function (e) {
+      firstMove = true
+    }, { passive: false })
+
+    window.addEventListener('touchmove', function (e) {
+      if (firstMove) {
+        e.preventDefault()
+        firstMove = false
+      }
+    }, { passive: false })
+    // deregister event handlers
+    // $scope.$on('$destroy', function () {})
+  }
+}(window.angular));
+
+(function (angular) {
+  'use strict'
+
+  angular
+    .module('WebApp')
+    .controller('SnipCtrl', snipCtrl)
+
+  /* @ngInject */
+  function snipCtrl ($scope, snippets, singleSnip) {
+    var vm = this
+    vm.snippets = snippets
+    $scope.currentSnip = singleSnip
+    console.log($scope.currentSnip)
+
+    //Call by ng-click
 
     // deregister event handlers
     // $scope.$on('$destroy', function () {})
+  }
+}(window.angular));
+
+(function (angular) {
+  'use strict'
+
+  angular
+    .module('WebApp')
+    .controller('DashboardCtrl', dashboardCtrl)
+
+  /* @ngInject */
+  function dashboardCtrl ($scope, $http, $timeout, races, areaChartData, _, ComparisonSrv) {
+    var vm = this
+
+    // races
+    vm.races = []
+    vm.currentRace = {}
+    vm.streamData = []
+    vm.streamPaddock = []
+    vm.totalConsumption = {
+      total_energy: 0,
+      zones: []
+    }
+    vm.mixes = []
+    vm.selectedKey = null
+    $scope.selectAll = selectAll
+    $scope.select = select
+
+    vm.races = races
+    var currentRace = _.last(vm.races)
+
+    // Logo change color animation
+    // Tobe enhance a little bit :P
+    var color1 = '#fff'
+    var color2 = '#000'
+    var t = 1.5
+    setLogoFill();
+
+    var header = $('#dashboard header')
+    $timeout(function(){
+      TweenMax.set(header, {top: - header.height(), opacity: 1})
+    },2000)
+
+    // -------
+
+    $scope.snippets = []
+    $scope.getComparisons = function() {
+      return ComparisonSrv.getComparisons(vm.totalConsumption.total_energy)
+                          .then(function(res) {
+                            $scope.snippets = res
+                            return res
+                          }, function(err) {
+                            console.error(err)
+                          })
+    }
+
+    var currentRaceIdx = null
+    $scope.selectRace = function(id) {
+      if (!_.isEmpty(vm.streamPaddock)) emptyAll()
+      var currentRace = _.find(vm.races, {id: id})
+      vm.currentRace = angular.copy(currentRace)
+      if (_.isEmpty(currentRace) || _.isEmpty(currentRace.streamData)) return
+      vm.streamData = currentRace.streamData? angular.copy(currentRace.streamData.zones) : []
+      vm.streamPaddock = currentRace.streamPaddock? angular.copy(currentRace.streamPaddock.zones) : []
+      vm.totalConsumption = angular.copy(currentRace.totalConsumption)
+      vm.mixes = currentRace.mix? currentRace.mix : []
+      var newRaceIdx = _.indexOf(vm.races, currentRace)
+      var raceList = $('.races-list ul').find('li')
+      var raceListItem = raceList[newRaceIdx]
+      if (raceListItem) TweenMax.to(raceList, .5, {x: '+=' + (currentRaceIdx-newRaceIdx)*100 + '%'})
+      if (!$scope.$$phase) $scope.$digest()
+      currentRaceIdx = newRaceIdx
+      $scope.getComparisons()
+      $timeout(selectAll, 1000)
+    }
+    $scope.selectRace(currentRace.id)
+    raceHandler()
+
+    var hammerRace = null
+    function raceHandler() {
+      if (!bowser.mobile && !bowser.tablet) return
+      hammerRace = new Hammer($('.races-list').get(0), {domEvents: true});
+      hammerRace.on('swipeleft', function(e){ $scope.selectRace('r'+(currentRaceIdx+2)) });
+      hammerRace.on('swiperight', function(e){ $scope.selectRace('r'+(currentRaceIdx)) });
+    }
+    function cleanRaceHandler() {
+      if (!hammerRace) return
+      hammerRace.off('swipeleft')
+      hammerRace.off('swiperight')
+    }
+
+    var currentBalanceIdx = 1
+    $scope.selectBalance = function(id) {
+      if (!bowser.mobile && !bowser.tablet) return
+      var balanceList = $('#balance ul').find('li')
+      if (id >= balanceList.length || id < 0) return
+      TweenMax.to(balanceList, .5, {x: '+=' + (currentBalanceIdx-id)*100 + '%'})
+      if (!$scope.$$phase) $scope.$digest()
+      currentBalanceIdx = id
+    }
+    var hammerBalance = null
+    function balanceHandler() {
+      if (!bowser.mobile && !bowser.tablet) return
+      hammerBalance = new Hammer($('#balance ul').get(0), {domEvents: true});
+      hammerBalance.on('swipeleft', function(e){ $scope.selectBalance(currentBalanceIdx+1) });
+      hammerBalance.on('swiperight', function(e){ $scope.selectBalance(currentBalanceIdx-1) });
+    }
+    function cleanBalanceHandler() {
+      if (!hammerBalance) return
+      hammerBalance.off('swipeleft')
+      hammerBalance.off('swiperight')
+    }
+
+    var currentMixIdx = 1
+    $scope.selectMix = function(id) {
+      if (!bowser.mobile && !bowser.tablet) return
+      var mixList = $('#energy_mix ul').find('li')
+      if (id >= mixList.length || id < 0) return
+      TweenMax.to(mixList, .5, {x: '+=' + (currentMixIdx-id)*100 + '%'})
+      if (!$scope.$$phase) $scope.$digest()
+      currentMixIdx = id
+    }
+    var hammerMix = null
+    function mixHandler() {
+      if (!bowser.mobile && !bowser.tablet) return
+      hammerMix = new Hammer($('#energy_mix ul').get(0), {domEvents: true});
+      hammerMix.on('swipeleft', function(e){ $scope.selectMix(currentMixIdx+1) });
+      hammerMix.on('swiperight', function(e){ $scope.selectMix(currentMixIdx-1) });
+    }
+    function cleanMixHandler() {
+      if (!hammerMix) return
+      hammerMix.off('swipeleft')
+      hammerMix.off('swiperight')
+    }
+    function setLogoFill(){
+      TweenMax.set('#SafeZone', {fill: color1});
+      TweenMax.set($('#SVGID_1_').find('stop'), {stopColor: color1});
+      TweenMax.set($('#SVGID_2_').find('stop'), {stopColor: color1});
+      TweenMax.set($('#SVGID_3_').find('stop'), {stopColor: color1});
+      TweenMax.set($('#SVGID_4_').find('stop'), {stopColor: color1});
+      TweenMax.to('#SafeZone', t, {fill: color2, delay: t});
+      TweenMax.to($('#SVGID_1_').find('stop'), t, {stopColor: color2, delay: t});
+      TweenMax.to($('#SVGID_2_').find('stop'), t, {stopColor: color2, delay: t});
+      TweenMax.to($('#SVGID_3_').find('stop'), t, {stopColor: color2, delay: t});
+      TweenMax.to($('#SVGID_4_').find('stop'), t, {stopColor: color2, delay: t});
+    }
+
+    $scope.loadPercentage = function(zone, label, idx) {
+      var percentage = zone[label]/vm.totalConsumption['total_'+label]*100
+      var percSel = $('#dashboard #balance .zone_balance .percentage-bar').get(idx)
+      TweenMax.to(percSel, .5, {width: percentage+'%'})
+      return percentage
+    }
+
+    balanceHandler()
+    mixHandler()
+
+    function selectAll() {
+      vm.selectedKey = null
+      $scope.alldata = vm.streamPaddock
+    }
+
+    function emptyAll() {
+      var selectedData = []
+      vm.streamPaddock.forEach(function(d){
+        return selectedData.push(__emptyData(d))
+      })
+      $scope.alldata = selectedData
+    }
+
+    function select(key){
+      if (!key || key === vm.selectedKey) return selectAll()
+      vm.selectedKey = key
+      var selectedData = []
+      vm.streamPaddock.forEach(function(d){
+        if (d.key === key) return selectedData.push(d)
+        return selectedData.push(__emptyData(d))
+      })
+      $scope.alldata = selectedData
+    }
+
+    function __emptyData(data) {
+      var values = data.values
+      var emptydata = {
+        key: data.key,
+        values: values.map(function(d){
+          return { h: d.h, v: 0 }
+        })
+      }
+      return emptydata
+    }
+
+    // event handlers
+
+    $(window).on('scroll', function() {
+      TweenMax.to(header, .8, {top: 0})
+    })
+
+    // deregister event handlers
+    $scope.$on('$destroy', function () {
+      $(window).off('scroll')
+      cleanRaceHandler()
+      cleanBalanceHandler()
+      cleanMixHandler()
+    })
   }
 }(window.angular));
 

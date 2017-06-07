@@ -12,7 +12,8 @@
       controllerAs: 'streamgraph',
       bindings: {
         datasource: '<',
-        onSelect: '&'
+        onSelect: '&',
+        touchEnabled: '<?'
       }
     })
 
@@ -42,6 +43,7 @@
 
     // -------- CALLBACK ---------
     var _callback = null
+    var touchEnabled = true
 
     // discarding timezone makes data apper to the relevant hour at every timezone
     // so for example hong kong data are displayed at the proper hours even if
@@ -126,6 +128,7 @@
       var data = ctrl.datasource
       $element.find('svg').empty()
       _callback = ctrl.onSelect()
+      touchEnabled = _.isUndefined(ctrl.touchEnabled)? true : ctrl.touchEnabled
 
       // -------- INITIALIZE CHART ---------
       svg = d3.select($element.find('svg').get(0))
@@ -213,7 +216,7 @@
            .attr('class', function(d,i) { return 'layer layer-'+(i+1) })
            .attr('d', function(d,i) { return area(d.values) })
            .attr('fill', function(d, i) { return Z(i) })
-      _attachToolipEvents()
+      if (touchEnabled) _attachToolipEvents()
 
       // update axis data
       lnX.call(xLine.tickSize(h))

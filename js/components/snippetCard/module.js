@@ -7,6 +7,7 @@
 
   angular
     .module('SnippetCard', [
+      'ngSanitize',
       'MainApp'
     ])
 
