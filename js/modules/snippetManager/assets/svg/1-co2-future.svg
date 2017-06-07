@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 340 200">
+  <defs>
+    <clipPath id="clip-path">
+      <rect x="456" y="-24.95" width="340" height="223.39" style="fill: none"/>
+    </clipPath>
+  </defs>
+  <title>1-co2-future</title>
+  <g id="UI">
+    <g style="clip-path: url(#clip-path)">
+      <path d="M302.94,111.15v-5.59c-9.25,0-27.74-4.84-24.66-6.17,19.2-7.65,48.5-11.52,78.81-13.29h0a40.16,40.16,0,0,0-6.26,50.09H298.1l.12-.68a59.71,59.71,0,0,1,27-40.22" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    </g>
+    <g>
+      <g>
+        <g>
+          <ellipse cx="101.37" cy="84.45" rx="13.93" ry="13.95" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+          <ellipse cx="101.37" cy="59.34" rx="11.14" ry="11.16" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+          <ellipse cx="101.37" cy="117.1" rx="18.69" ry="18.71" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+        </g>
+        <line x1="101.37" y1="135.81" x2="101.37" y2="161.89" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+        <g>
+          <ellipse cx="149.08" cy="84.45" rx="13.93" ry="13.95" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+          <ellipse cx="149.08" cy="117.1" rx="18.69" ry="18.71" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+        </g>
+        <line x1="149.08" y1="135.81" x2="149.08" y2="161.89" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+        <ellipse cx="326.25" cy="117.1" rx="18.69" ry="18.71" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+        <line x1="326.25" y1="135.81" x2="326.25" y2="161.89" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+        <ellipse cx="7.69" cy="131.94" rx="18.69" ry="18.71" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+        <line x1="7.69" y1="150.65" x2="7.69" y2="162.62" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+        <g>
+          <ellipse cx="53.09" cy="84.36" rx="13.93" ry="13.95" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+          <ellipse cx="53.06" cy="116.64" rx="18.69" ry="18.71" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+        </g>
+        <line x1="53.52" y1="136.23" x2="53.52" y2="162.3" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+        <line x1="1" y1="164.46" x2="339.38" y2="164.46" style="fill: none;stroke: #fefefe;stroke-linecap: square;stroke-miterlimit: 10;stroke-width: 3px"/>
+      </g>
+      <path d="M266.42,147.33A8.57,8.57,0,1,0,275,155.9h8v-21a15.39,15.39,0,0,0-15.39-15.39H246.49A13.43,13.43,0,0,0,233.06,133a7.78,7.78,0,0,1-7.78,7.78H224a7.65,7.65,0,0,0-7.65,7.65v8.05h9.28" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M234.25,147.33a8.57,8.57,0,1,0,8.57,8.57H258" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <g>
+        <path d="M264.15,112.79a6.61,6.61,0,0,1-8.77-9.6,6.85,6.85,0,0,1,11.32.4l.15.25a6.14,6.14,0,0,0,8.43,2.09h0Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+        <path d="M251,100.61l3.27-2.18.06-1.43a3.79,3.79,0,1,1,4.8,3.66" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+        <line x1="261.5" y1="114" x2="261.5" y2="119" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      </g>
+    </g>
+  </g>
+</svg>

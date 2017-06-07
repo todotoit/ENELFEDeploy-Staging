@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 200">
+  <title>3-firstSmartCity</title>
+  <g id="bg">
+    <polyline points="345 136.5 319.5 136.5 319.5 199" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <polyline points="296.5 199 296.5 104.5 258.5 104.5 258.5 198" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <polyline points="332.5 137 332.5 85.5 276.5 85.5 276.5 96" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <polyline points="64.5 200 64.5 141.5 22.5 141.5 22.5 191" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <polyline points="35.5 141 35.5 119.5 0 119.5" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <polyline points="314.5 85 322.5 65.5 304.5 65.5 299.49 78.35" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="319.5" y1="96" x2="319.5" y2="100" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="319.5" y1="106" x2="319.5" y2="110" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="319.5" y1="116" x2="319.5" y2="120" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="8.5" y1="143" x2="8.5" y2="147" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="8.5" y1="153" x2="8.5" y2="157" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="283.92" y1="123.76" x2="289.19" y2="118.49" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="296.07" y1="118.9" x2="280.87" y2="134.1" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="296.07" y1="143.64" x2="265.53" y2="174.18" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <g>
+      <path d="M56.14,134.79a6.61,6.61,0,0,0,8.77-9.6,6.85,6.85,0,0,0-11.32.4l-.15.25A6.14,6.14,0,0,1,45,127.93h0Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M69.28,122.61,66,120.43,66,119a3.79,3.79,0,1,0-4.8,3.66" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <line x1="58.5" y1="136" x2="58.5" y2="141" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    </g>
+  </g>
+  <g id="UI">
+    <g>
+      <ellipse cx="87.25" cy="163.33" rx="15.58" ry="15.6" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <line x1="87.25" y1="178.93" x2="87.25" y2="200" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <g>
+        <ellipse cx="125.09" cy="123.67" rx="11.61" ry="11.63" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+        <ellipse cx="125.07" cy="150.58" rx="15.58" ry="15.6" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      </g>
+      <line x1="125.45" y1="166.91" x2="125.45" y2="200" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    </g>
+    <polyline points="248.61 200 248.61 145.59 158 145.59 158 190" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  </g>
+</svg>
