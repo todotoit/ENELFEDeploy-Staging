@@ -103,7 +103,18 @@
       hammertime = new Hammer($content[0], { domEvents: true })
       hammertime.on('swipeleft',  nextTab)
       hammertime.on('swiperight', prevTab)
-      hammertime.on('hammer.input', function (e) { e.srcEvent.stopPropagation() })
+      hammertime.on('hammer.input', function (e) {
+        e.preventDefault()
+        e.srcEvent.stopPropagation()
+      })
+      $element.on('touchmove', function(e) {
+        e.stopPropagation()
+        e.preventDefault()
+      })
+      $element.click(function(e) {
+        e.stopPropagation()
+        e.preventDefault()
+      })
     }
 
     function navigateTo(index){
@@ -336,11 +347,24 @@
       hammertime = new Hammer($card, {domEvents: true});
       hammertime.on('swipeleft', function(e){ $scope.prev() });
       hammertime.on('swiperight', function(e){ $scope.next() });
+      hammertime.on('hammer.input', function (e) {
+        e.preventDefault()
+        e.srcEvent.stopPropagation()
+      })
+      $element.on('touchmove', function(e) {
+        e.stopPropagation()
+        e.preventDefault()
+      })
+      $element.click(function(e) {
+        e.stopPropagation()
+        e.preventDefault()
+      })
     }
     function cleanHandler() {
       if (!hammertime) return
       hammertime.off('swipeleft')
       hammertime.off('swiperight')
+      hammertime.off('hammer.input')
     }
 
     // deregister event handlers
@@ -1902,31 +1926,98 @@
       },
       'enelAchievements': {
         label: 'Enel achievements',
-        snippets: ['howMuchSunMexico', 'cleanEnergySpain', 'firstSmartCity', 'formulaE', 'enelWorld'],
+        snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'formulaE', 'enelWorld'],
       }
     }
 
 
     var _availableHotspots = {
-      'info': {
+      '1_info': {
         stage: 1,
         coords: [0.97, 4.74, 6.46],
         snippets: ['carSpecs']
       },
-      'tyre': {
+      '1_tyre': {
         stage: 1,
         coords: [5.98, 2.32, 2.59],
         snippets: ['tyres', 'regenerativeBraking']
       },
-      'electricity': {
+      '1_electricity': {
         stage: 1,
         coords: [-5.01, 1.12, -4.63],
-        snippets: ['batteryPower', 'fastRecharge', 'fanBoost']
+        snippets: ['fanBoost', 'fastRecharge', 'batteryPower']
       },
-      'engine': {
+      '1_engine': {
         stage: 1,
         coords: [-3.19, 2.20, -5.73],
         snippets: ['co2', 'efficiency', 'enginePower', 'sound']
+      },
+      '2_grid': {
+        stage: 2,
+        coords: [-654, 165, 456],
+        snippets: ['raceMicrogrid']
+      },
+      '2_info': {
+        stage: 2,
+        coords: [730, 213, -139],
+        snippets: ['circuitBerlin2017']
+      },
+      '2_meter': {
+        stage: 2,
+        coords: [12, 361, 684],
+        snippets: ['smartMetering']
+      },
+      '2_solar': {
+        stage: 2,
+        coords: [117, 660, 298],
+        snippets: ['solarPower']
+      },
+      '2_storage': {
+        stage: 2,
+        coords: [-759, 213, 200],
+        snippets: ['storage']
+      },
+      '3_v2g': {
+        stage: 3,
+        // coords: [-0.039, 0.90, 0.61],
+        coords: [55],
+        snippets: ['v2g', 'v2gDenmark']
+      },
+      '3_spain': {
+        stage: 3,
+        // coords: [-1.04, -0.25, 0.17],
+        coords: [129],
+        snippets: ['cleanEnergyGlobal', 'cleanEnergyChile']
+      },
+      '3_rome': {
+        stage: 3,
+        // coords: [0.091, 0.64, 0.86],
+        coords: [60],
+        snippets: ['enelWorld']
+      },
+      '3_milan': {
+        stage: 3,
+        // coords: [-0.049, 0.74, 0.78],
+        coords: [48],
+        snippets: ['firstSmartCity', 'internet']
+      },
+      '3_berlin': {
+        stage: 3,
+        // coords: [0.081, 0.80, 0.72],
+        coords: [43],
+        snippets: ['germany']
+      },
+      '3_fe': {
+        stage: 3,
+        // coords: [0.95, 0.39, -0.33],
+        coords: [-70],
+        snippets: ['formulaE']
+      },
+      '3_solar': {
+        stage: 3,
+        // coords: [-0.91, 0.38, -0.45],
+        coords: [157],
+        snippets: ['howMuchSunGlobal', 'howMuchSunMexico']
       }
     }
 
@@ -2166,7 +2257,16 @@
         var tours = _.map(angular.copy(_availableTours), function(value, key) {
           value.key = key
           value.snippets = _.map(value.snippets, function(value) {
-            return angular.copy(_availableSnippets[value])
+            var snippet = angular.copy(_availableSnippets[value])
+            var hotspot = _.values(_.pickBy(_availableHotspots, function(o) {
+              return _.includes(o.snippets, value)
+            }))[0]
+            if (!hotspot) return snippet
+            snippet.hotspot = {
+              stage: hotspot.stage,
+              coords: hotspot.coords
+            }
+            return snippet
           })
           return value
         })
@@ -3155,6 +3255,7 @@ window.twttr = (function(d, s, id) {
     vm.tours = SnippetSrv.getAvailableTours();
     vm.setCurrentTour = setCurrentTour
     vm.isMobile = bowser.mobile || false;
+    var FEScene = null
 
     // Desktop only init
     if(!vm.isMobile){
@@ -3173,7 +3274,7 @@ window.twttr = (function(d, s, id) {
     function render() {
       var $container = $('#3dcontainer')
       var container = $container.get(0)
-      var FEScene = new TERMINALIA.FEScene(container, TERMINALIA.CustomShaders)
+      FEScene = new TERMINALIA.FEScene(container, TERMINALIA.CustomShaders)
       FEScene.render()
       // Events
       $(window).on('resize', FEScene.resize)
@@ -3214,14 +3315,35 @@ window.twttr = (function(d, s, id) {
       console.log(vm.currentRace)
     }
 
+    $scope.currentStage = 1
     $scope.checkHotSpot = function(card) {
-      // console.log(card)
-      // FEScene.startStageAnimation(card.stage);
-      // if (card.hotspot) {
-      //   $timeout(function() {
-      //     FEScene.startCameraAnimation(card.hotspot, 2)
-      //   },5)
-      // }
+      console.log(card)
+      if (card.hotspot) {
+        var tt = card.hotspot.stage === $scope.currentStage? 0 : 10000
+        $scope.currentStage = card.hotspot.stage
+        FEScene.startStageAnimation(card.hotspot.stage)
+        $timeout(function() {
+          if (card.hotspot.stage !== 3) {
+            FEScene.startCameraAnimation(card.hotspot.coords, 2)
+          } else {
+            FEScene.startWorldAnimation(card.hotspot.coords, 1)
+          }
+        }, tt)
+      }
+    }
+
+    $scope.zoom = function(zoom) {
+      switch(zoom) {
+        case '+':
+          if ($scope.currentStage >= 3) return
+          FEScene.startStageAnimation(++$scope.currentStage)
+        break
+        case '-':
+          if ($scope.currentStage <= 1) return
+          FEScene.startStageAnimation(--$scope.currentStage)
+        break
+        default: return
+      }
     }
 
     $scope.tours = ['E-mobility','Smart Energy','Clean Energy','Enel achievements']
@@ -3247,10 +3369,11 @@ window.twttr = (function(d, s, id) {
     // });
 
     function selectedHotspot(key) {
-      if (!key) return
-      key = _.last(key.split('_'));
+      console.log(key)
+      if (!key || key === 'World') return
+      key = key.split('pin_').pop();
       var hotspot = SnippetSrv.getHotspot(key);
-      vm.snippets = hotspot.snippets
+      vm.snippets = _.reverse(hotspot.snippets)
       var str = vm.snippets[vm.snippets.length-1].tpl
       var re = /([^\/]*)\.html/g
       var frag = re.exec(str)

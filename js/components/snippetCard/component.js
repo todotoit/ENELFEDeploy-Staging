@@ -88,7 +88,18 @@
       hammertime = new Hammer($content[0], { domEvents: true })
       hammertime.on('swipeleft',  nextTab)
       hammertime.on('swiperight', prevTab)
-      hammertime.on('hammer.input', function (e) { e.srcEvent.stopPropagation() })
+      hammertime.on('hammer.input', function (e) {
+        e.preventDefault()
+        e.srcEvent.stopPropagation()
+      })
+      $element.on('touchmove', function(e) {
+        e.stopPropagation()
+        e.preventDefault()
+      })
+      $element.click(function(e) {
+        e.stopPropagation()
+        e.preventDefault()
+      })
     }
 
     function navigateTo(index){

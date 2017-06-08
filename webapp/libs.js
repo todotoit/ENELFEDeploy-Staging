@@ -9946,17 +9946,17 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
             {
                 switch(intersected.name) {
                     //STAGE START
-                    case "pin1_electricity":
+                    case "pin_1_electricity":
                         self.pinsStage1.children[0].material.map = self.pinsStage1.children[0].material.active_map;
                         startCameraAnimation([-5.01, 1.12, -4.63], 2);
                     break;
 
-                    case "pin1_engine":
+                    case "pin_1_engine":
                         self.pinsStage1.children[1].material.map = self.pinsStage1.children[1].material.active_map;
                         startCameraAnimation([-3.19, 2.20, -5.73], 2);
                     break;
 
-                    case "pin1_info":
+                    case "pin_1_info":
                         self.pinsStage1.children[2].material.map = self.pinsStage1.children[2].material.active_map;
                         startCameraAnimation([0.97, 4.74, 6.46], 2);
                     break;
@@ -10231,26 +10231,26 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
     function addPins() {
 
 		//STAGE START
-        var pin1_electricity = self.TerminUtils.createSprite('pin1_electricity', '../libs/terminalia/assets/textures/pins/pin_1-electricity.png');
-        pin1_electricity.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
-        pin1_electricity.position.set(-0.6, 0.9, -0.5);
-        pin1_electricity.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-electricity.png');
-        pin1_electricity.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-electricity_on.png');
-        self.pinsStage1.add(pin1_electricity);
+        var pin_1_electricity = self.TerminUtils.createSprite('pin_1_electricity', '../libs/terminalia/assets/textures/pins/pin_1-electricity.png');
+        pin_1_electricity.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
+        pin_1_electricity.position.set(-0.6, 0.9, -0.5);
+        pin_1_electricity.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-electricity.png');
+        pin_1_electricity.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-electricity_on.png');
+        self.pinsStage1.add(pin_1_electricity);
 
-        var pin1_engine = self.TerminUtils.createSprite('pin1_engine', '../libs/terminalia/assets/textures/pins/pin_1-engine.png');
-        pin1_engine.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
-        pin1_engine.position.set(0.5, 0.9, -1.2);
-        pin1_engine.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-engine.png');
-        pin1_engine.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-engine_on.png');
-        self.pinsStage1.add(pin1_engine);
+        var pin_1_engine = self.TerminUtils.createSprite('pin_1_engine', '../libs/terminalia/assets/textures/pins/pin_1-engine.png');
+        pin_1_engine.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
+        pin_1_engine.position.set(0.5, 0.9, -1.2);
+        pin_1_engine.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-engine.png');
+        pin_1_engine.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-engine_on.png');
+        self.pinsStage1.add(pin_1_engine);
 
-        var pin1_info = self.TerminUtils.createSprite('pin1_info', '../libs/terminalia/assets/textures/pins/pin_1-info.png');
-        pin1_info.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
-        pin1_info.position.set(0, 0.9, 0.9);
-        pin1_info.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-info.png');
-        pin1_info.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-info_on.png');
-        self.pinsStage1.add(pin1_info);
+        var pin_1_info = self.TerminUtils.createSprite('pin_1_info', '../libs/terminalia/assets/textures/pins/pin_1-info.png');
+        pin_1_info.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
+        pin_1_info.position.set(0, 0.9, 0.9);
+        pin_1_info.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-info.png');
+        pin_1_info.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-info_on.png');
+        self.pinsStage1.add(pin_1_info);
 
         var pin_1_tyre = self.TerminUtils.createSprite('pin_1_tyre', '../libs/terminalia/assets/textures/pins/pin_1-tyre.png');
         pin_1_tyre.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);

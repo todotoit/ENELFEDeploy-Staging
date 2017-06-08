@@ -196,11 +196,24 @@
       hammertime = new Hammer($card, {domEvents: true});
       hammertime.on('swipeleft', function(e){ $scope.prev() });
       hammertime.on('swiperight', function(e){ $scope.next() });
+      hammertime.on('hammer.input', function (e) {
+        e.preventDefault()
+        e.srcEvent.stopPropagation()
+      })
+      $element.on('touchmove', function(e) {
+        e.stopPropagation()
+        e.preventDefault()
+      })
+      $element.click(function(e) {
+        e.stopPropagation()
+        e.preventDefault()
+      })
     }
     function cleanHandler() {
       if (!hammertime) return
       hammertime.off('swipeleft')
       hammertime.off('swiperight')
+      hammertime.off('hammer.input')
     }
 
     // deregister event handlers

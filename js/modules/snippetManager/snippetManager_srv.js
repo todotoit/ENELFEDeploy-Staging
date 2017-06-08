@@ -28,31 +28,98 @@
       },
       'enelAchievements': {
         label: 'Enel achievements',
-        snippets: ['howMuchSunMexico', 'cleanEnergySpain', 'firstSmartCity', 'formulaE', 'enelWorld'],
+        snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'formulaE', 'enelWorld'],
       }
     }
 
 
     var _availableHotspots = {
-      'info': {
+      '1_info': {
         stage: 1,
         coords: [0.97, 4.74, 6.46],
         snippets: ['carSpecs']
       },
-      'tyre': {
+      '1_tyre': {
         stage: 1,
         coords: [5.98, 2.32, 2.59],
         snippets: ['tyres', 'regenerativeBraking']
       },
-      'electricity': {
+      '1_electricity': {
         stage: 1,
         coords: [-5.01, 1.12, -4.63],
-        snippets: ['batteryPower', 'fastRecharge', 'fanBoost']
+        snippets: ['fanBoost', 'fastRecharge', 'batteryPower']
       },
-      'engine': {
+      '1_engine': {
         stage: 1,
         coords: [-3.19, 2.20, -5.73],
         snippets: ['co2', 'efficiency', 'enginePower', 'sound']
+      },
+      '2_grid': {
+        stage: 2,
+        coords: [-654, 165, 456],
+        snippets: ['raceMicrogrid']
+      },
+      '2_info': {
+        stage: 2,
+        coords: [730, 213, -139],
+        snippets: ['circuitBerlin2017']
+      },
+      '2_meter': {
+        stage: 2,
+        coords: [12, 361, 684],
+        snippets: ['smartMetering']
+      },
+      '2_solar': {
+        stage: 2,
+        coords: [117, 660, 298],
+        snippets: ['solarPower']
+      },
+      '2_storage': {
+        stage: 2,
+        coords: [-759, 213, 200],
+        snippets: ['storage']
+      },
+      '3_v2g': {
+        stage: 3,
+        // coords: [-0.039, 0.90, 0.61],
+        coords: [55],
+        snippets: ['v2g', 'v2gDenmark']
+      },
+      '3_spain': {
+        stage: 3,
+        // coords: [-1.04, -0.25, 0.17],
+        coords: [129],
+        snippets: ['cleanEnergyGlobal', 'cleanEnergyChile']
+      },
+      '3_rome': {
+        stage: 3,
+        // coords: [0.091, 0.64, 0.86],
+        coords: [60],
+        snippets: ['enelWorld']
+      },
+      '3_milan': {
+        stage: 3,
+        // coords: [-0.049, 0.74, 0.78],
+        coords: [48],
+        snippets: ['firstSmartCity', 'internet']
+      },
+      '3_berlin': {
+        stage: 3,
+        // coords: [0.081, 0.80, 0.72],
+        coords: [43],
+        snippets: ['germany']
+      },
+      '3_fe': {
+        stage: 3,
+        // coords: [0.95, 0.39, -0.33],
+        coords: [-70],
+        snippets: ['formulaE']
+      },
+      '3_solar': {
+        stage: 3,
+        // coords: [-0.91, 0.38, -0.45],
+        coords: [157],
+        snippets: ['howMuchSunGlobal', 'howMuchSunMexico']
       }
     }
 
@@ -292,7 +359,16 @@
         var tours = _.map(angular.copy(_availableTours), function(value, key) {
           value.key = key
           value.snippets = _.map(value.snippets, function(value) {
-            return angular.copy(_availableSnippets[value])
+            var snippet = angular.copy(_availableSnippets[value])
+            var hotspot = _.values(_.pickBy(_availableHotspots, function(o) {
+              return _.includes(o.snippets, value)
+            }))[0]
+            if (!hotspot) return snippet
+            snippet.hotspot = {
+              stage: hotspot.stage,
+              coords: hotspot.coords
+            }
+            return snippet
           })
           return value
         })
