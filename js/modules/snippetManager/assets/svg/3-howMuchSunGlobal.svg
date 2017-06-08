@@ -1,0 +1,48 @@
+<svg id="bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 260">
+  <title>3-howMuchSunGlobal</title>
+  <path d="M340,233.84a410,410,0,0,0-340-.57" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <g>
+    <circle cx="206.96" cy="155.81" r="4.25" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <path d="M203.55,184.71v12.66h6.51V180.88H198.94V170.23a5.82,5.82,0,0,1,5.82-5.82h7.18a7.15,7.15,0,0,0,6.58-4.36l3.17-7.49" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  </g>
+  <g>
+    <circle cx="236.96" cy="159.81" r="4.25" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <path d="M245,184.88V174.23a5.82,5.82,0,0,0-5.82-5.82h-4.4a5.82,5.82,0,0,0-5.82,5.82v10.65h11.12v16.48h-6.51V188.71" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  </g>
+  <g>
+    <circle cx="163.96" cy="153.81" r="4.25" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <path d="M179,175.88l-7-3.54v-4.11a5.82,5.82,0,0,0-5.82-5.82h-4.4a5.82,5.82,0,0,0-5.82,5.82v10.65h11.12v16.48h-6.51V182.71" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  </g>
+  <line x1="197.58" y1="164.16" x2="190.8" y2="153.56" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <polyline points="209.45 180.92 212.95 180.92 212.95 168.42" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <g>
+    <circle cx="106.15" cy="71.93" r="15.21" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="106.15" y1="101.6" x2="106.15" y2="93.25" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="106.15" y1="50.61" x2="106.15" y2="42.26" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="76.48" y1="71.93" x2="84.83" y2="71.93" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="127.46" y1="71.93" x2="135.82" y2="71.93" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="85.17" y1="92.91" x2="91.07" y2="87" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="121.22" y1="56.86" x2="127.13" y2="50.95" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="85.17" y1="50.95" x2="91.07" y2="56.86" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="121.22" y1="87" x2="127.13" y2="92.91" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  </g>
+  <polyline points="345 169.24 319.5 169.24 319.5 225.74" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <polyline points="296.5 216.74 296.5 137.24 258.5 137.24 258.5 198.74" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <polyline points="332.5 169.74 332.5 118.24 276.5 118.24 276.5 128.74" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <polyline points="64.5 210.74 64.5 197.24 22.5 197.24 22.5 224.74" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <polyline points="35.5 196.74 35.5 175.24 0 175.24" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <polyline points="314.5 117.74 322.5 98.24 304.5 98.24 299.49 111.09" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <line x1="319.5" y1="128.74" x2="319.5" y2="132.74" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <line x1="319.5" y1="138.74" x2="319.5" y2="142.74" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <line x1="319.5" y1="148.74" x2="319.5" y2="152.74" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <line x1="8.5" y1="198.74" x2="8.5" y2="202.74" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <line x1="8.5" y1="208.74" x2="8.5" y2="212.74" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <line x1="283.92" y1="156.5" x2="289.19" y2="151.23" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <line x1="296.07" y1="151.65" x2="280.87" y2="166.85" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <line x1="296.07" y1="176.38" x2="265.53" y2="206.93" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <g>
+    <path d="M94.14,195.53a6.61,6.61,0,0,0,8.77-9.6,6.85,6.85,0,0,0-11.32.4l-.15.25A6.14,6.14,0,0,1,83,188.68h0Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <path d="M107.28,183.35,104,181.17l-.06-1.43a3.79,3.79,0,1,0-4.8,3.66" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <line x1="96.5" y1="196.74" x2="96.5" y2="201.74" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  </g>
+</svg>

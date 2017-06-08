@@ -1,0 +1,22 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <title>illustration_battery_points</title>
+  <g>
+    <g>
+      <circle class="cls-1" cx="16.44" cy="9.5" r="2.42"/>
+      <circle class="cls-1" cx="5.88" cy="15.59" r="2.42"/>
+      <circle class="cls-1" cx="5.88" cy="3.4" r="2.42"/>
+    </g>
+    <circle class="cls-2" cx="9.5" cy="9.5" r="9.5"/>
+  </g>
+</svg>

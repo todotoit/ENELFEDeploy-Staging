@@ -1,0 +1,58 @@
+<svg id="bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 200">
+  <title>1-regenerativeBraking-eCar</title>
+  <g>
+    <g>
+      <path d="M122.65,172.91a6.2,6.2,0,0,0,5,2.5h15.61A13.77,13.77,0,0,0,157,161.64v-8.21a14.63,14.63,0,0,1,14.63-14.63h36.64" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <rect x="208.98" y="131.04" width="8.25" height="14.48" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M122,162.86a6.67,6.67,0,1,1-9.44,9.44Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <circle cx="95.56" cy="145.54" r="12.8" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M124.84,136.56a30.62,30.62,0,1,1-21-20.48" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <g>
+        <circle cx="74.43" cy="145.54" r="2.08" style="fill: #fff"/>
+        <circle cx="116.7" cy="145.54" r="2.08" style="fill: #fff"/>
+      </g>
+      <g>
+        <circle cx="80.62" cy="160.49" r="2.08" transform="translate(-89.87 104.01) rotate(-45)" style="fill: #fff"/>
+        <circle cx="110.51" cy="130.6" r="2.08" transform="translate(-59.98 116.39) rotate(-45)" style="fill: #fff"/>
+      </g>
+      <g>
+        <circle cx="95.56" cy="166.68" r="2.08" style="fill: #fff"/>
+        <circle cx="95.56" cy="124.41" r="2.08" style="fill: #fff"/>
+      </g>
+      <g>
+        <circle cx="110.51" cy="160.49" r="2.08" transform="translate(-81.12 125.15) rotate(-45)" style="fill: #fff"/>
+        <circle cx="80.62" cy="130.6" r="2.08" transform="translate(-68.73 95.26) rotate(-45)" style="fill: #fff"/>
+      </g>
+      <path d="M104,111.65l-1.83,6.48a30.18,30.18,0,0,1,20.63,20.15l6.44-2a3.74,3.74,0,0,0,2.37-5A41,41,0,0,0,109,109.17,3.74,3.74,0,0,0,104,111.65Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    </g>
+    <g>
+      <g>
+        <polyline points="295.61 115.71 295.61 163.16 248.31 163.16" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+        <polyline points="248.31 163.16 217.29 163.16 217.29 121.88" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+        <g>
+          <polyline points="299.44 110.69 299.44 106.47 214.14 106.47 214.14 115.71 295.61 115.71 295.61 133.49" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+          <line x1="217.29" y1="122.07" x2="217.29" y2="133.49" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+        </g>
+      </g>
+      <g>
+        <line x1="227.49" y1="133.38" x2="235.23" y2="133.38" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+        <line x1="227.49" y1="148.41" x2="235.23" y2="148.41" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+        <line x1="231.36" y1="129.51" x2="231.36" y2="137.25" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+        <g>
+          <circle cx="283.2" cy="139.29" r="1.36" style="fill: #fff"/>
+          <circle cx="277.26" cy="142.72" r="1.36" style="fill: #fff"/>
+          <circle cx="277.26" cy="135.86" r="1.36" style="fill: #fff"/>
+        </g>
+      </g>
+    </g>
+    <g style="opacity: 0.30000000000000004">
+      <path d="M156,137.39v38.24a4.56,4.56,0,0,0,4.56,4.56h16.17a4.56,4.56,0,0,0,4.56-4.56V162.87" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.41689503192902px"/>
+      <path d="M345.11,68.24A2.21,2.21,0,0,0,347.32,66V57a2.21,2.21,0,0,1,2.84-2.11l15.41,4.63a6.12,6.12,0,0,1,4.36,5.86h0a6.12,6.12,0,0,1-6.12,6.12h-10l-4.14,0-1.92,1.64a4,4,0,0,0-.92,5l6.15,11.27a37.72,37.72,0,0,1,4.61,18.06V140a13.28,13.28,0,0,1-3.89,9.39L344.11,159a13.28,13.28,0,0,1-9.39,3.89H178.86a13.28,13.28,0,0,1-9.39-3.89l-9.55-9.55A13.28,13.28,0,0,1,156,140V107.46a37.72,37.72,0,0,1,4.61-18.06l6.15-11.27a4,4,0,0,0-.92-5l-1.92-1.64-4.14,0h-10a6.12,6.12,0,0,1-6.12-6.12h0A6.12,6.12,0,0,1,148,59.49l15.41-4.63A2.21,2.21,0,0,1,166.26,57V66a2.21,2.21,0,0,0,2.21,2.21" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.41689503192902px"/>
+      <path d="M357.54,137.39v38.24A4.56,4.56,0,0,1,353,180.2H336.81a4.56,4.56,0,0,1-4.56-4.56V162.87" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.41689503192902px"/>
+      <path d="M176.93,90.85l12.65,7.33a24.13,24.13,0,0,0,12.8,3.24L257,103.22l54.57-1.61a24.13,24.13,0,0,0,12.59-4l12.14-8" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.41689503192902px"/>
+      <path d="M307.17,108.44h0a7.11,7.11,0,0,0,7.11,7.11h24.17A11.56,11.56,0,0,0,350,104v-2.66A13.25,13.25,0,0,0,346.13,92l-3.9-3.9-.83-19.83L323.53,37.9a18.19,18.19,0,0,0-15.67-9H205.73a18.19,18.19,0,0,0-15.67,9L172.18,68.24l-.83,19.83-3.9,3.9a13.25,13.25,0,0,0-3.88,9.37V104a11.56,11.56,0,0,0,11.56,11.56H199.3a7.11,7.11,0,0,0,7.11-7.11h0" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.41689503192902px"/>
+      <polyline points="307.17 145.54 256.79 145.54 206.41 145.54" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.41689503192902px"/>
+      <path d="M325.33,56.19,315.2,39.47a8.1,8.1,0,0,0-7-4.08H205.41a8.1,8.1,0,0,0-7,4.08l-11.59,20.3a6.78,6.78,0,0,0,5.52,10.13l56.39,3a151.34,151.34,0,0,0,16.17,0l56.39-3a6.78,6.78,0,0,0,5.52-10.13" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.41689503192902px"/>
+    </g>
+  </g>
+</svg>

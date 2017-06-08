@@ -1,0 +1,180 @@
+snippet-card[size*="full"] {
+  position: absolute;
+  width: 42vh;
+  height: 68vh;
+  opacity: 0;
+  color: #ffffff;
+}
+snippet-card {
+  background: linear-gradient(180deg, #41b9e6, #0555fa);
+}
+snippet-card > div.content {
+  flex: 2 0 0% !important;
+  background: linear-gradient(180deg, #2383e5, #0451ef);
+}
+
+snippet-card > .content-parent[layout*="column"][layout*="stretch-"]{
+  flex: 0 1 auto !important;
+}
+
+snippet-card .content-parent > .info-block {
+  flex: 0 1 auto !important;
+}
+
+
+
+/*snippet-card:after {
+  content: "";
+  position: absolute;
+  box-shadow: 0 5px 50px rgba(0, 0, 0, 0.2), 0 10px 35px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  width: 85%;
+  z-index: -1;
+}*/
+snippet-card {
+  box-shadow: 0 5px 50px rgba(0, 0, 0, 0.2), 0 10px 35px rgba(0, 0, 0, 0.1);
+}
+
+snippet-card h2 {
+  font-size: 3.5vh;
+  line-height: 120%;
+}
+snippet-card p {
+  font-size: 1.8vh;
+  line-height: 2.4vh;
+  margin-bottom: .65em;
+}
+
+snippet-card .label-sm{
+  font-size: 1.75vh;
+}
+
+snippet-card .number-lg {
+  font-size: 4.2vh;
+}
+snippet-card .note {
+  font-size: 1.4vh;
+}
+snippet-card .info_block {
+  margin-top: 2.5vh;
+  margin-bottom: 3vh;
+}
+snippet-card .info_block.half-margin {
+  margin-top: 1.5vh;
+  margin-bottom: 1.5vh;
+}
+snippet-card > div > .info_block {
+  padding: 0 3vh;
+}
+snippet-card > div.content > div > .info_block {
+  padding: 0 3vh;
+  position: absolute;
+  z-index: 1;
+}
+snippet-card > div.content .animation {
+  position: relative;
+  width: 70%;
+  right: -12.5vh;
+  bottom: -6vh;
+}
+snippet-card > div.content.sub-snippet > div:not(.info-block) > svg {
+  position: absolute;
+  width: 100%;
+  right: auto;
+  margin: 0 auto;
+  bottom: 0;
+}
+
+snippet-card > div.content.sub-snippet > div {
+  position: relative;
+}
+
+/* card styles */
+snippet-card > div {
+  padding-bottom: 0;
+}
+
+snippet-card .info_block > div[layout~=row] > .info_block:first-child:not(:only-child) {
+  margin-right: 1vh;
+}
+
+snippet-card .info_block > div[layout~=row] > .info_block:last-child:not(:only-child) {
+  margin-left: 1vh;
+}
+
+snippet-card .info_block > label {
+  border-bottom: .1vh solid #fff;
+  padding-bottom: .5vh;
+  margin-bottom: 1vh;
+  display: block;
+  text-transform: none;
+  font-size: 2vh;
+  line-height: 120%;
+}
+
+snippet-card span.info_note {
+  opacity: .5;
+  font-size: 1.4vh;
+  line-height: 2vh;
+  display: block;
+  width: 80%;
+}
+
+snippet-card label span.info_note {
+  display: inline;
+  font-weight: 500;
+}
+
+snippet-card .info_block span.info_note:first-child {
+  margin-top: 1.5vh;
+  width: 70%;
+}
+
+snippet-card > div.content.sub-snippet > div > .info_block{
+  margin-top: 1vh;
+}
+
+
+snippet-card .sub-snippet > ul .note {
+  font-size: 2vh;
+  list-style: none;
+  position: relative;
+  display: flex;
+  padding-left: 1.5vh;
+  opacity: .5;
+  transition: opacity .5s;
+  cursor: pointer;
+}
+snippet-card .sub-snippet > ul .note.active {
+  opacity: 1;
+}
+
+snippet-card .sub-snippet > ul .note:before,
+snippet-card .sub-snippet > ul .note:after
+{
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  width: 1.2vh;
+  height: 1.2vh;
+  border-bottom: .15vh solid #fff;
+  border-right: .15vh solid #fff;
+  transform: scaleY(.6) translate(-100%, -50%) rotate(45deg);
+  display: block;
+}
+snippet-card .sub-snippet > ul .note:after {
+  top: 45%;
+}
+
+snippet-card .info_comparator {
+  display: flex;
+}
+snippet-card .info_comparator .comparator_icon{
+  width: 2.5vh;
+  margin-right: 1vh;
+}
+snippet-card .info_comparator .comparator_value label{
+  display: block;
+  opacity: .5;
+}

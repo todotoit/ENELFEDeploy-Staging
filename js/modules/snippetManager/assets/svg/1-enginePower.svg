@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 200">
+  <title>1-enginePower</title>
+  <g id="UI">
+    <g>
+      <path d="M234.37,132.78a19.31,19.31,0,0,0,19.31-19.31" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M234.37,94.16a19.31,19.31,0,0,0-19.31,19.31" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <circle cx="234.37" cy="113.47" r="33.47" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M301,116.77H315.4V104.7H294.81V92.38l8.81-14.56V63.29l-13.21-3.08H260.2V80a42.35,42.35,0,0,1,15,44.56l19.63-7.85v-5.77" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M35.73,101.27a4.38,4.38,0,0,0,4.38,4.38c2.42,0,28.35-2,28.35-4.38s-25.93-4.38-28.35-4.38A4.38,4.38,0,0,0,35.73,101.27Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M173.3,92.38C155.73,87.73,112.78,80,99.28,80H67.6c-11.92,0-14.56,7.07-30,7.07H22.21L21.11,87a2.4,2.4,0,0,1-2.25-2.4V77.33h6.35" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M192.09,113.47a42.09,42.09,0,0,0,8.81,25.83l-14,4.75H-37l18.67-6.21s-2.24-9.17-13.37-15.12h0a40.34,40.34,0,0,0,.74-7.69A40,40,0,0,0-44.65,84.81h0c23,.12,43,.94,55,1.56" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M103.24,75.59V66.81l-4-20.26h17.17s15,10.57,27.3,20.26a208.19,208.19,0,0,1,48.33,16.71h12.43a42.25,42.25,0,0,0-10.73,18q-.45,1.54-.79,3.13a139,139,0,0,0-28.8-3.13H97.37a7.48,7.48,0,0,0-7.48,7.48v15.43A7.48,7.48,0,0,0,97.37,132h56.75a115.48,115.48,0,0,0,20.52-1.84l9.2-1.66" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    </g>
+  </g>
+</svg>

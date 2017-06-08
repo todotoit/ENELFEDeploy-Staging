@@ -1,0 +1,43 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 155.67">
+  <title>illustration_enel_stand</title>
+  <g>
+    <path d="M48.69,150.83V26.29A23.79,23.79,0,0,0,24.9,2.5H19.36V97.25H48.13" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <path d="M100.61,109.83l1.47-6.09c.48-1.79,1.61-3.57,3.57-3.57h17.58c2,0,2.9,1.5,3.57,3.57l2.9,10.58H94.93a3.58,3.58,0,0,0-3.57,3.57v10.55A3.58,3.58,0,0,0,94.93,132h3.88a5.35,5.35,0,1,0,10.11,0h11a5.35,5.35,0,1,0,10.11,0h3.78a3.58,3.58,0,0,0,3.57-3.57V117.89a3.58,3.58,0,0,0-3.57-3.57" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    <g>
+      <rect x="75.42" y="29.57" width="206.94" height="110.68" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <line x1="75.2" y1="72.43" x2="282.75" y2="72.43" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <g>
+        <line x1="187.43" y1="73" x2="187.43" y2="140.68" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+        <line x1="171.64" y1="73" x2="171.64" y2="140.68" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      </g>
+      <g>
+        <line x1="282.18" y1="73" x2="282.18" y2="140.68" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+        <line x1="266.39" y1="73" x2="266.39" y2="140.68" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      </g>
+      <line x1="91.55" y1="73" x2="91.55" y2="140.68" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <rect x="67.88" y="140.25" width="222.19" height="11.2" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    </g>
+    <g>
+      <circle cx="243.43" cy="98.12" r="4.31" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M235.3,123.54v-10.8a5.9,5.9,0,0,1,5.9-5.9h4.46a5.9,5.9,0,0,1,5.9,5.9v10.8H240.29v16.71h6.6V127.42" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    </g>
+    <g>
+      <circle cx="196.06" cy="98.12" r="4.31" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M204.19,123.54v-10.8a5.9,5.9,0,0,0-5.9-5.9h-4.46a5.9,5.9,0,0,0-5.9,5.9v10.8H199.2v16.71h-6.6V127.42" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    </g>
+    <g>
+      <circle cx="153.19" cy="98.12" r="4.31" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M161.33,123.54v-10.8a5.9,5.9,0,0,0-5.9-5.9H151a5.9,5.9,0,0,0-5.9,5.9v10.8h11.28v16.71h-6.6V127.42" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+    </g>
+    <path d="M223,116.54h2.13a3.24,3.24,0,0,1,3.24,3.24v20.47a0,0,0,0,1,0,0h-8.61a0,0,0,0,1,0,0V119.78A3.24,3.24,0,0,1,223,116.54Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  </g>
+  <g id="enel_logo">
+    <path d="M248.57,43.77a9.13,9.13,0,0,0,0,18.26h.05a9.11,9.11,0,0,0,7.19-3.57l-2.16-1.66a6.39,6.39,0,0,1-5.08,2.51h0a6.4,6.4,0,1,1,6.23-8h-6.75V54h9.54V51.32A9.15,9.15,0,0,0,248.57,43.77Z" style="fill: #fff"/>
+    <path d="M208.78,43.77a9.13,9.13,0,0,0,0,18.26h.06A9.11,9.11,0,0,0,216,58.45l-2.16-1.66a6.39,6.39,0,0,1-5.08,2.51h0a6.4,6.4,0,1,1,6.23-8h-6.75V54h9.54V51.32A9.15,9.15,0,0,0,208.78,43.77Z" style="fill: #fff"/>
+    <path d="M263,55.84h0V38.15h-2.72V55.84h0v0h0c0,2.86,1.35,4.59,3.66,6.11l1.56-2.23C263.94,58.69,263,57.83,263,55.84Z" style="fill: #fff"/>
+    <path d="M229.44,43.78h-.13a8.6,8.6,0,0,0-6.07,2.49V44.51h-2.72V54h2.72V51.79a6.33,6.33,0,0,1,6.06-5.3h.08a4.81,4.81,0,0,1,4.76,4.82v.9h0v9.54h2.72V51.32A7.53,7.53,0,0,0,229.44,43.78Z" style="fill: #fff"/>
+  </g>
+  <line x1="299.67" y1="151.45" x2="290.07" y2="151.45" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <line x1="67.88" y1="151.45" x2="42.11" y2="151.45" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <line x1="26.54" y1="151.45" x2="0.78" y2="151.45" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+</svg>
