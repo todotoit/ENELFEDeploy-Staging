@@ -6,8 +6,8 @@ TERMINALIA.TerminUtils = function TerminUtils() {
     this.objLoader = new THREE.OBJLoader();
     this.cubeTextureLoader = new THREE.CubeTextureLoader();
     this.textureLoader = new THREE.TextureLoader();
-    this.rayCaster = new THREE.Raycaster();
-    this.rayCaster.ray.direction.set(0, -1, 0);
+    this.raycaster = new THREE.Raycaster();
+    //this.rayCaster.ray.direction.set(0, -1, 0);
 
     function loadObjModel(name, objFile, material) {
         var container = new THREE.Group();
@@ -34,6 +34,37 @@ TERMINALIA.TerminUtils = function TerminUtils() {
                 }
             }
         }
+    }
+
+    //Custom ray picking function that works with scaled objects
+    function rayPickObject(x, y, width, height, camera, objects) {
+        //Convert 2D mouse coords to NDC
+        var vector = new THREE.Vector3( ( x / width ) * 2 - 1, - ( y / height ) * 2 + 1, 0.5 );
+        vector.unproject(camera);
+
+        self.raycaster.ray.set(camera.position, vector.sub(camera.position).normalize());
+        self.raycaster.linePrecision = 0.2;
+
+        //Find distance from camera for every object
+        var intersected = undefined;
+        var intersections = self.raycaster.intersectObjects(objects, true);
+        for (var i=0; i<intersections.length; i++) {
+            var I = intersections[i];
+            I.distance = camera.position.distanceTo(I.point);
+        }
+
+        //Sort objects by their distance from camera
+        intersections.sort(function(a, b) {
+            return a.distance - b.distance;
+        });
+
+        //Return the first object
+        if (intersections.length > 0) {
+            intersected = intersections[0].object;
+            //console.log("Found: ", intersected.name);
+        }
+
+        return intersected;
     }
     
     function createTextureReflectiveMaterial(texture_file, environment_map, reflectivity_amount) {
@@ -112,5 +143,6 @@ TERMINALIA.TerminUtils = function TerminUtils() {
     this.createTexture = createTexture;
     this.degToRad = degToRad;
     this.raycastSprites = raycastSprites;
+    this.rayPickObject = rayPickObject;
 }
 
