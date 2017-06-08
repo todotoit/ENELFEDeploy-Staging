@@ -1,0 +1,21 @@
+#cable_fast{
+  stroke-dasharray: 2, 7;
+  animation: dashfast 15s linear infinite;
+}
+
+#cable_slow{
+  stroke-dasharray: 2, 8;
+  animation: dashslow 90s linear infinite;
+}
+
+@keyframes dashfast {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+@keyframes dashslow {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}

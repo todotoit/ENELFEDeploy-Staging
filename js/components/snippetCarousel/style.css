@@ -1,0 +1,94 @@
+snippet-carousel {
+  position: relative;
+  /* javascript or choose full/half card size */
+  width: 42vh;
+  min-height: 68vh;
+  /*  */
+  perspective: 100rem;
+  perspective-origin: center;
+  display: none;
+}
+
+snippet-carousel > span {
+  z-index: 1;
+  position: absolute;
+  font-size: x-large;
+}
+snippet-carousel .control_arrow, snippet-carousel span#exit {
+  display: inline-block;
+  border-radius: 50%;
+  text-align: center;
+  background: white;
+  fill: blue;
+  width: 3.5vh;
+  height: 3.5vh;
+  left: 50%;
+  bottom: -1.75vh;
+  transform: translate(-50%, -50%);
+}
+snippet-carousel span#prev, snippet-carousel .carousel-controls span#prev {
+  transform: rotate(180deg)
+}
+
+snippet-carousel .control_arrow{
+  background: #FFF url(/assets/svgs/right_arrow_blue.svg) no-repeat center!important;
+  background-size: 15px!important;
+  padding:.7em;
+  bottom: -1.3em!important;
+  text-indent: -843em;
+}
+
+snippet-carousel > span#exit {
+  background: none;
+  top: 1rem;
+  right: -1rem;
+  left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+}
+
+span#exit svg {
+  fill: #0555f9;
+  width: 45%;
+  height: 45%;
+  display: block;
+}
+
+snippet-carousel .carousel_control {
+  cursor: pointer;
+}
+
+snippet-carousel .carousel_controls {
+  height: 10vh;
+  background: #0555f9;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3vh;
+}
+
+snippet-carousel .carousel_controls .control_arrow {
+  transform: none;
+}
+snippet-carousel .carousel_controls .dots_container span {
+  height: 100%;
+}
+snippet-carousel .carousel_controls .dots_container span {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  background: #fff;
+  border-radius: 50%;
+  margin: 0 1vh;
+}
+
+snippet-carousel .carousel_controls .dots_container span.active {
+  transform: scale(2);
+}

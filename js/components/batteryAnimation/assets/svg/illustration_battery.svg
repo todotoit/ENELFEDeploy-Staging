@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 415">
+  <title>illustration_battery</title>
+  <g id="car_front">
+    <g style="opacity: 0.30000001192092896">
+      <path d="M331.39,261.55A41.08,41.08,0,0,0,339.5,237H320.92a6.7,6.7,0,0,1-6.7-6.7h0v-2.12a6.7,6.7,0,0,1,6.7-6.7h36.46a6.7,6.7,0,0,1,6.7,6.7h0v2.12a6.7,6.7,0,0,1-6.7,6.7H344.72" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <path d="M120,261.55A41.08,41.08,0,0,1,111.84,237h18.57a6.7,6.7,0,0,0,6.7-6.7h0v-2.12a6.7,6.7,0,0,0-6.7-6.7H94a6.7,6.7,0,0,0-6.7,6.7h0v2.12A6.7,6.7,0,0,0,94,237h12.66" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <path d="M253.44,168.72c-6.75-13.41-15.41-23.59-27.56-23.83h-.43c-19.8.39-29.31,26.16-37.44,50.3" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <path d="M276.07,227.71c-6.15-11-11.47-33.83-19.74-52.75h84.74v17.67a8.12,8.12,0,0,1-8.12,8.12H272.43" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <path d="M187.74,175H110.26v17.67a8.12,8.12,0,0,0,8.12,8.12h67.11c-3.61,10.87-6.8,20.79-10.26,27" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <path d="M434.61,348.31l-15.13-38.2c-5.6-14.14-25.45-14.56-31.65-.68L369.54,345.2a22.39,22.39,0,0,1-20.47,13.26H102.43A22.39,22.39,0,0,1,82,345.2L63.71,309.43c-6.2-13.88-26-13.46-31.65.68l-15.13,38.2" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <path d="M359.2,347.64v-76A11.64,11.64,0,0,1,370.84,260h58.38a11.64,11.64,0,0,1,11.64,11.64h0v91.93a11.64,11.64,0,0,1-11.64,11.64H22.31a11.64,11.64,0,0,1-11.64-11.64h0V271.68A11.64,11.64,0,0,1,22.27,260H80.69a11.64,11.64,0,0,1,11.64,11.64h0v76" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <path d="M193.74,227.62c0-20.58,29.43-19.09,31.93-18.92,2.5-.16,31.93-1.66,31.93,18.92V251c0,4.16-2.71,7.53-6,7.53H199.79c-3.34,0-6-3.37-6-7.53V236.7a2.52,2.52,0,0,0-2.52-2.52H167.86c-16.34.05-32.67,38.82-68.79,38.82h-7.7" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <path d="M264.6,234.23h18.88c16.33,0,32.67,38.73,68.77,38.73H359l-15.3.24c-78.23,0-62.75,53.19-92.94,53.19h-50.1c-28,0-16.67-45.92-77.68-52.43" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+    </g>
+  </g>
+  <g id="battery_body">
+    <polyline id="battery_body-2" data-name="battery_body" points="294.12 274.52 294.12 358.17 156.03 358.17 156.03 285.38" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+    <line id="minus" x1="174.01" y1="332.17" x2="187.66" y2="332.17" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+    <g id="plus">
+      <line x1="174.01" y1="305.66" x2="187.66" y2="305.66" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <line x1="180.83" y1="298.84" x2="180.83" y2="312.49" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+    </g>
+  </g>
+  <g id="battery_cover">
+    <g>
+      <polyline points="300.86 265.66 300.86 258.23 150.48 258.23 150.48 274.52 294.12 274.52 294.12 305.87" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <line x1="156.03" y1="285.73" x2="156.03" y2="305.86" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+    </g>
+  </g>
+  <g id="rotating_points">
+    <g>
+      <circle cx="268.07" cy="304.92" r="2.42" style="fill: #fff"/>
+      <circle cx="257.51" cy="311.01" r="2.42" style="fill: #fff"/>
+      <circle cx="257.51" cy="298.82" r="2.42" style="fill: #fff"/>
+    </g>
+    <circle cx="261.13" cy="304.92" r="9.5" style="fill: none"/>
+  </g>
+  <g id="phones">
+    <g id="phone_charging">
+      <rect x="205.21" y="287" width="40.52" height="71.12" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <line x1="245.72" y1="343.13" x2="205.21" y2="343.13" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <line x1="222.73" y1="351.02" x2="227.89" y2="351.02" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <line x1="205.21" y1="297.42" x2="245.72" y2="297.42" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+    </g>
+    <g id="phone_charging_battery">
+      <line id="phone_battery_line3" data-name="phone battery line3" x1="218.43" y1="329.04" x2="232.97" y2="329.04" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px;opacity: 0.30000001192092896;isolation: isolate"/>
+      <line id="phone_battery_line2" data-name="phone battery line2" x1="218.43" y1="321.04" x2="232.97" y2="321.04" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-opacity: 0;stroke-width: 4px"/>
+      <line id="phone_battery_line1" data-name="phone battery line1" x1="218.43" y1="313.04" x2="232.97" y2="313.04" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-opacity: 0;stroke-width: 4px"/>
+      <line id="phone_battery_line0" data-name="phone battery line0" x1="223.43" y1="311.3" x2="227.97" y2="311.3" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-opacity: 0;stroke-width: 4px"/>
+    </g>
+    <g id="phone_empty">
+      <rect x="325.21" y="287" width="40.52" height="71.12" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <line x1="365.72" y1="343.13" x2="325.21" y2="343.13" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <line x1="342.73" y1="351.02" x2="347.89" y2="351.02" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <line x1="325.21" y1="297.42" x2="365.72" y2="297.42" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <g style="opacity: 0.30000001192092896">
+        <line x1="338.43" y1="329.04" x2="352.97" y2="329.04" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      </g>
+    </g>
+    <g id="phone_full">
+      <rect x="85.21" y="287" width="40.52" height="71.12" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <line x1="125.72" y1="343.13" x2="85.21" y2="343.13" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <line x1="102.73" y1="351.02" x2="107.89" y2="351.02" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <line x1="85.21" y1="297.42" x2="125.72" y2="297.42" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      <g>
+        <line x1="98.43" y1="329.04" x2="112.97" y2="329.04" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+        <line x1="98.43" y1="321.04" x2="112.97" y2="321.04" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+        <line x1="98.43" y1="313.04" x2="112.97" y2="313.04" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+      </g>
+      <line x1="103.43" y1="311.3" x2="107.97" y2="311.3" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 4px"/>
+    </g>
+  </g>
+</svg>
