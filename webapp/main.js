@@ -153,7 +153,8 @@
       controllerAs: 'snippetCarousel',
       bindings: {
         snippets: '<',
-        onCardSelect: '&'
+        onCardSelect: '&',
+        onExit: '&'
       }
     })
 
@@ -163,7 +164,9 @@
     // https://github.com/angular/angular.js/issues/14433
     // for the issue above we decided to use just $onChanges
     // ctrl.$onInit = init
+    $scope.snipCounter = 0;
     ctrl.$onChanges = init
+    $scope.isMobile = bowser.mobile || false;
     var vel = .45
     var direction = 'right'
     var debounce = {
@@ -182,9 +185,12 @@
     var $card = null
     var $cards = []
     var callback = null
+    var exitCallback = null;
 
     $scope.prev = function () {
       if (debounce.id) return
+      $scope.snipCounter--
+      if($scope.snipCounter < 0) $scope.snipCounter = $scope.snippets.length-1;
       debounce.start()
       direction = 'left'
       moveCards(direction)
@@ -192,6 +198,8 @@
 
     $scope.next = function () {
       if (debounce.id) return
+      $scope.snipCounter++
+      if($scope.snipCounter > $scope.snippets.length-1) $scope.snipCounter = 0;
       debounce.start()
       direction = 'right'
       moveCards(direction)
@@ -201,6 +209,7 @@
       _.each($cards, function(s, i) {
         animateCardOut(s, i, true)
       })
+      if(exitCallback) exitCallback();
     }
 
     $scope.loadCard = function() {
@@ -252,12 +261,15 @@
 
     // init after dom loaded
     function init() {
+      $scope.snipCounter = 0;
       hammertime = null
       card = null
       $card = null
       $cards = []
       $scope.snippets = ctrl.snippets
+      console.log($scope.snippets)
       callback = ctrl.onCardSelect()
+      exitCallback = ctrl.onExit
       if (_.isEmpty($scope.snippets)) return
       $element.fadeIn()
       if ($scope.snippets.length < showcaseElements) showcaseElements = $scope.snippets.length
@@ -270,7 +282,7 @@
       $card = _.first($cards)
       if (callback) callback(card)
       cardHandler()
-      debounce.cancel
+      debounce.cancel()
     }
 
     function removeLastCard() {
@@ -1876,9 +1888,24 @@
     self.path = '../js/modules/snippetManager/templates'
     // tours
     var _availableTours = {
-      'solar': [],
-      'ecar': []
+      'eMobility': {
+        label: 'E-Mobility',
+        snippets: ['fastRecharge', 'efficiency', 'co2', 'regenerativeBraking', 'v2g']
+      },
+      'smartEnergy': {
+        label: 'Smart energy',
+        snippets: ['raceMicrogrid', 'smartMetering', 'storage', 'v2g', 'firstSmartCity'],
+      },
+      'cleanEnergy': {
+        label: 'Clean energy',
+        snippets: ['raceMicrogrid', 'solarPower', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld'],
+      },
+      'enelAchievements': {
+        label: 'Enel achievements',
+        snippets: ['howMuchSunMexico', 'cleanEnergySpain', 'firstSmartCity', 'formulaE', 'enelWorld'],
+      }
     }
+
 
     var _availableHotspots = {
       'info': {
@@ -2094,6 +2121,11 @@
         label: '',
         tpl: self.path + '/cleanEnergySpain.html'
       },
+      'cleanEnergyChile': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/cleanEnergyChile.html'
+      },
       'enelWorld': {
         desc: '',
         label: '',
@@ -2131,14 +2163,15 @@
     // -------
 
     function _getAvailableTours() {
-      return $q(function(resolve, reject) {
         var tours = _.map(angular.copy(_availableTours), function(value, key) {
           value.key = key
+          value.snippets = _.map(value.snippets, function(value) {
+            return angular.copy(_availableSnippets[value])
+          })
           return value
         })
-        if (!_.isEmpty(tours)) resolve(tours)
-        else reject('No available tours are defined!')
-      })
+        if (!_.isEmpty(tours)) return tours
+        else console.error('No available tours are defined!')
     }
 
     function _getAvailableSnippets() {
@@ -2221,7 +2254,7 @@
         param: 1/0.07/24/30/12,
         unit: 'years',
         tpl: self.path + '/test.html',
-        svg: 'dash_comparison_lcd'
+        svg: 'dash_comparison_tv'
       },
       'eVehicle': {
         label: 'E-vehicle autonomy',
@@ -2378,79 +2411,180 @@ window.twttr = (function(d, s, id) {
 (function (angular) {
   'use strict'
 
+  angular
+    .module('MainApp')
+    .service('GA', ContructorForGA)
+
+  /* @ngInject */
+  function ContructorForGA ($rootScope, $interval, $timeout) {
+    console.log('ContructorForGA')
+
+    ga('create', 'UA-7954920-14', 'auto')
+    ga('send', 'pageview')
+
+    var that = this
+    var sessionTime = 1000 * 60 * 1.5
+    var overSessionTime = 1000 * 60 * 5
+    var intrvl
+    var readyToSession = true
+
+    $interval(function(){
+      recordSession()
+    }, overSessionTime)
+
+    /*
+    webapp/landing/car/card_id
+    webapp/landing/racetrack/card_id
+    webapp/landing/world/card_id
+    */
+    that.track = function (v) {
+      console.warn(v)
+      if (window.ga) {
+        ga('set', 'page', v)
+        ga('send', 'pageview', v)
+      }
+    }
+
+
+    function recordSession(){
+      console.log('recordSession')
+      ga('send', 'pageview', {'sessionControl': 'start'})
+      ga('send', 'event', 'webapp', 'sessioncheck');
+    }
+
+    that.startWatcher = function () {
+      intrvl = $timeout(function () {
+        readyToSession = true
+      }, sessionTime)
+    }
+
+    that.resetWatcher = function () {
+      if(readyToSession){
+        recordSession()
+        readyToSession = false
+      }
+      $timeout.cancel(intrvl)
+      that.startWatcher()
+    }
+
+    $('body').on('mousedown touchstart', function(){
+      that.resetWatcher()
+    })
+
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams, options) {
+      var path = location.pathname + toState.name
+      that.track(path)
+    })
+
+    return that
+  }
+}(window.angular));
+
+(function (angular) {
+  'use strict'
+
   /**
   **/
 
   angular
     .module('MainApp')
-    .service('PaddockAreaChart', ContructorForPaddockAreaChart)
+    .service('ModelSrv', ContructorForModelsSrv)
 
   /* @ngInject */
-  function ContructorForPaddockAreaChart($http) {
-    var self  = this
-    var _data = null
-    var _data1 = null
-    var _data2 = null
+  function ContructorForModelsSrv($rootScope, $http, $q) {
+    var self = this
 
-    self.get    = _get
-    self.get1    = _get1
-    self.get2    = _get2
-    self.update = _update
-    self.update1 = _update1
-    self.update2 = _update2
+    var _totalConsumptionData   = null
+    var _timeSeriesData         = {}
+    var _metersData             = {}
+
+    self.getTotal               = _getTotal
+    self.getTimeSeries          = _getTimeSeries
+    self.getMeter               = _getMeter
+    self.updateTotalConsumption = _updateTotal
+    self.updateTimeSeries       = _updateTimeSeries
+    self.updateMeter            = _updateMeter
+
+    self.getAllModels           = _getAll
+    self.updateAllModels        = _updateAll
     return self
 
     // -------
 
     // instance methods
-    function _get() {
-      return _data || _update()
+    function _getTotal() {
+      return _totalConsumptionData || _updateTotal()
     }
-    function _get1() {
-      return _data1 || _update1()
+    function _getTimeSeries(zone_name) {
+      var zone = zone_name || 'circuit'
+      return _timeSeriesData[zone] || _updateTimeSeries(zone_name)
     }
-    function _get2() {
-      return _data2 || _update2()
+    function _getMeter(meter_name) {
+      if (!meter_name) return console.error('Error::Meter name could not be empty')
+      return _metersData[meter_name] || _updateMeter(meter_name)
+    }
+    function _getAll() {
+      return $q.all([_getTotal(), _getTimeSeries(), _getTimeSeries('paddock'), _getMeter('Smart_Kit2_FE_040')])
+               .then(
+                  function(res) {
+                    return {
+                      totalConsumption: _totalConsumptionData,
+                      timeSeries:       _timeSeriesData,
+                      meters:           _metersData
+                    }
+                  }, function(err) {
+                    console.error(err)
+                    return null
+                  })
     }
 
-    function _update() {
-      return $http.get('http://backend.enelformulae.todo.to.it/graphs/areachart/paddock')
+    function _updateTotal() {
+      return $http.get('http://backend.enelformulae.todo.to.it/zoneenergyconsumption')
                   .then(
                     function(res) {
                       console.info(res)
-                      _data = res.data
-                      return _data
-                    },
-                    function(err) {
+                      _totalConsumptionData = res.data
+                      return _totalConsumptionData
+                    }, function(err) {
                       console.error(err)
                       return null
                     })
     }
-    function _update1() {
-      return $http.get('http://192.168.3.10:5001/graphs/stream')
+    function _updateTimeSeries(zone_name) {
+      return $http.get('http://backend.enelformulae.todo.to.it/time_series/' + (zone_name || ''))
                   .then(
                     function(res) {
                       console.info(res)
-                      _data = res.data
-                      return _data
-                    },
-                    function(err) {
+                      zone_name = zone_name || 'circuit'
+                      _timeSeriesData[zone_name] = res.data
+                      return _timeSeriesData[zone_name]
+                    }, function(err) {
                       console.error(err)
                       return null
                     })
     }
-    function _update2() {
-      return $http.get('http://192.168.3.10:5001/zoneenergyconsumption')
+    function _updateMeter(meter_name) {
+      return $http.get('http://backend.enelformulae.todo.to.it/meter/' + (meter_name || ''))
                   .then(
                     function(res) {
                       console.info(res)
-                      _data2 = res.data
-                      return _data2
-                    },
-                    function(err) {
+                      _metersData[meter_name] = res.data
+                      return _metersData[meter_name]
+                    }, function(err) {
                       console.error(err)
                       return null
                     })
+    }
+    function _updateAll() {
+      return $q.all([_updateTotal(), _updateTimeSeries(), _updateTimeSeries('paddock'), _updateMeter('Smart_Kit2_FE_040')])
+               .then(
+                  function(res) {
+                    console.info('All models updated: ', res)
+                    return $rootScope.$broadcast('ModelSrv::ALL-MODELS-UPDATED')
+                  }, function(err) {
+                    console.error(err)
+                    return null
+                  })
     }
   }
 
@@ -2828,15 +2962,19 @@ window.twttr = (function(d, s, id) {
     .run(RunWebApp)
 
   /* @ngInject */
-  function RunWebApp(later) {
+  function RunWebApp(later, ModelSrv) {
 
     // var schedule = later.parse.cron('4,9,14,19,24,29,34,39,44,49,54,59 * * * *')
-    // var schedule = later.parse.text('every '+ 1 +' minutes')
-    // console.info("Setting schedule: ", schedule)
-    // function log() {
-    //   console.log('schedule to update all models every 5 minutes')
-    // }
-    // later.setInterval(log, schedule)
+    // var scheduleTime = 30 +' seconds' // test
+    var scheduleTime = 5 +' minutes'
+    var schedule = later.parse.text('every '+ scheduleTime)
+    console.info("Setting schedule: ", schedule)
+    console.info("Schedule runs every: ", scheduleTime)
+    function modelsUpdate() {
+      console.info('SCHEDULE:::run model update:::')
+      return ModelSrv.updateAllModels()
+    }
+    later.setInterval(modelsUpdate, schedule)
   }
 
 }(window.angular));
@@ -2873,6 +3011,51 @@ window.twttr = (function(d, s, id) {
     $urlRouterProvider.when('/', 'landing')
     $urlRouterProvider.otherwise('landing')
 
+    var liveRace = {
+      "id": "r7",
+      "live": true,
+      "name": "Tempelhof Airport",
+      "location": "Berlin",
+      "country": "German",
+      "date": "10 Jun 2017",
+      "videoId": "",
+      "circuit": {
+        "map": "circuit_berlin",
+        "length": "",
+        "laps": "",
+        "fastestLap": {
+          "race": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          },
+          "outright": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          }
+        }
+      },
+      "meters": 20,
+      "mix": [
+        {
+          "code": "clean",
+          "name": "Clean energy",
+          "value": 30
+        },
+        {
+          "code": "temp",
+          "name": "Temporary solutions",
+          "value": 10
+        },
+        {
+          "code": "grid",
+          "name": "Urban grid",
+          "value": 60
+        }
+      ],
+    }
+
     $stateProvider
       // .state('404', {
       //   url: '/404',
@@ -2881,13 +3064,15 @@ window.twttr = (function(d, s, id) {
       .state('landing', {
         url: '/landing',
         resolve: {
-          snippets: function(SnippetSrv) {
-            return SnippetSrv.getAvailableSnippets()
-                             .then(function(res) {
-                                return res
-                             }, function(err) {
-                                console.error(err)
-                             })
+          races: function($http) {
+            return $http.get('../assets/jsonData/races.json')
+                        .then(function(res) {
+                          var races = res.data.races
+                          races.push(liveRace)
+                          return races
+                        }, function(err) {
+                          console.error(err)
+                        })
           }
         },
         controller: 'LandingCtrl',
@@ -2897,8 +3082,18 @@ window.twttr = (function(d, s, id) {
       .state('dashboard', {
         url: '/dashboard',
         resolve: {
-          areaChartData: function(PaddockAreaChart) {
-            return PaddockAreaChart.get()
+          liveData: function(ModelSrv) {
+            return ModelSrv.getAllModels()
+                           .then(function(res) {
+                              console.info(res)
+                              liveRace.streamData       = res.timeSeries.circuit
+                              liveRace.streamPaddock    = res.timeSeries.paddock
+                              liveRace.totalConsumption = res.totalConsumption
+                              liveRace.metersData       = res.meters
+                              return liveRace
+                           }, function(err) {
+                              console.error(err)
+                           })
           },
           races: function($http) {
             return $http.get('../assets/jsonData/races.json')
@@ -2931,7 +3126,7 @@ window.twttr = (function(d, s, id) {
                              })
           },
           singleSnip: function(SnippetSrv) {
-            return SnippetSrv.getSnippet('enginePower')
+            return SnippetSrv.getSnippet('formulaE')
                              .then(function(res) {
                                 return res
                              }, function(err) {
@@ -2954,35 +3149,62 @@ window.twttr = (function(d, s, id) {
     .controller('LandingCtrl', landingCtrl)
 
   /* @ngInject */
-  function landingCtrl ($scope, $http, $timeout, _, SnippetSrv) {
+  function landingCtrl ($scope, $http, $timeout, _, SnippetSrv, TweenMax, GA, ModelSrv, races) {
     var vm = this
     vm.snippets = []
-    var $container = $('#3dcontainer')
-    var container = $container.get(0)
-    var FEScene = new TERMINALIA.FEScene(container, TERMINALIA.CustomShaders)
-    FEScene.render()
+    vm.tours = SnippetSrv.getAvailableTours();
+    vm.setCurrentTour = setCurrentTour
+    vm.isMobile = bowser.mobile || false;
 
-    // races
-    vm.races = []
-    vm.currentRace = {}
-    vm.streamData = []
-    vm.totalConsumption = {
-      total_energy: 0,
-      zones: []
+    // Desktop only init
+    if(!vm.isMobile){
+      angular.element(document).ready(render)
+
+      // races
+      vm.races = races
+      vm.currentRace = _.last(races)
+      vm.streamData = []
+      vm.totalConsumption = {}
+      getLiveData()
+      $scope.$on('ModelSrv::ALL-MODELS-UPDATED', getLiveData)
     }
-    retrieveRacesFeed()
     setLogoFill();
 
-    function retrieveRacesFeed() {
-      return $http.get('../assets/jsonData/races.json')
-                  .then(function(res) {
-                    vm.races = res.data.races
-                    var currentRace = _.last(res.data.races)
-                    $scope.selectRace(currentRace.id)
-                  }, function(err) {
-                    console.error(err)
-                  })
+    function render() {
+      var $container = $('#3dcontainer')
+      var container = $container.get(0)
+      var FEScene = new TERMINALIA.FEScene(container, TERMINALIA.CustomShaders)
+      FEScene.render()
+      // Events
+      $(window).on('resize', FEScene.resize)
+      $container.on('click', function(e){
+        selectedHotspot(FEScene.findObjectOnClick(e))
+      })
+      $(window).on('keydown', function(event) {
+        if (event.key === 't') {
+          FEScene.getCameraPosition();
+        }
+
+        if (event.key === 'y') {
+          FEScene.testPanZoomCamera();
+        }
+      });
     }
+
+    function getLiveData() {
+      return ModelSrv.getAllModels()
+                     .then(function(res) {
+                        console.info(res)
+                        if (vm.currentRace.live) {
+                          vm.streamData       = res.timeSeries.circuit.zones
+                          vm.totalConsumption = res.totalConsumption
+                        }
+                        return res
+                     }, function(err) {
+                        console.error(err)
+                     })
+    }
+
     $scope.selectRace = function(id) {
       var currentRace = _.find(vm.races, {id: id})
       vm.currentRace = angular.copy(currentRace)
@@ -3024,28 +3246,30 @@ window.twttr = (function(d, s, id) {
     //   }})
     // });
 
-    // event handlers
-    $(window).on('resize', FEScene.resize)
-    $container.on('click', function(e){
-      selectedHotspot(FEScene.findObjectOnClick(e))
-    })
-
     function selectedHotspot(key) {
       if (!key) return
       key = _.last(key.split('_'));
       var hotspot = SnippetSrv.getHotspot(key);
       vm.snippets = hotspot.snippets
+      var str = vm.snippets[vm.snippets.length-1].tpl
+      var re = /([^\/]*)\.html/g
+      var frag = re.exec(str)
+      var path = location.pathname + 'landing/'
+      GA.track(path + frag[1])
       if (!$scope.$$phase) $scope.$digest()
     }
-    $(window).on('keydown', function(event) {
-      if (event.key === 't') {
-        FEScene.getCameraPosition();
-      }
 
-      if (event.key === 'y') {
-        FEScene.testPanZoomCamera();
+    function setCurrentTour(tour, $index){
+      vm.currentTour = tour;
+      vm.snippets = angular.copy(tour.snippets)
+      if (!$scope.$$phase) $scope.$digest()
+      if(!vm.isMobile){
+        var el = $('#tour-menu').children().eq($index);
+        var pos = -el.position().left + $('#tour-wrapper').width() / 2 - el.width() / 2;
+        console.log(pos)
+        TweenMax.to($('#tour-menu'), .5, {scrollTo: {x: "#"+el.attr('id')}})
       }
-    });
+    }
 
     function setLogoFill(){
       TweenMax.set('#SafeZone', {fill: '#fff'});
@@ -3161,6 +3385,10 @@ window.twttr = (function(d, s, id) {
           FEScene.getCameraPosition();
         }
 
+        if (event.key === 'y') {
+          FEScene.getWorldRotation();
+        }
+
     });
 
     //DISABLE SCROLL
@@ -3213,7 +3441,7 @@ window.twttr = (function(d, s, id) {
     .controller('DashboardCtrl', dashboardCtrl)
 
   /* @ngInject */
-  function dashboardCtrl ($scope, $http, $timeout, races, areaChartData, _, ComparisonSrv) {
+  function dashboardCtrl ($rootScope, $scope, $http, $timeout, races, liveData, _, ComparisonSrv, ModelSrv) {
     var vm = this
 
     // races
@@ -3229,8 +3457,10 @@ window.twttr = (function(d, s, id) {
     vm.selectedKey = null
     $scope.selectAll = selectAll
     $scope.select = select
+    $scope.currentAreaShown = 'all'
 
     vm.races = races
+    vm.races.push(liveData)
     var currentRace = _.last(vm.races)
 
     // Logo change color animation
@@ -3361,11 +3591,13 @@ window.twttr = (function(d, s, id) {
 
     function selectAll() {
       vm.selectedKey = null
+      $scope.currentAreaShown = 'all'
       $scope.alldata = vm.streamPaddock
     }
 
     function emptyAll() {
       var selectedData = []
+      $scope.currentAreaShown = 'all'
       vm.streamPaddock.forEach(function(d){
         return selectedData.push(__emptyData(d))
       })
@@ -3373,6 +3605,7 @@ window.twttr = (function(d, s, id) {
     }
 
     function select(key){
+      $scope.currentAreaShown = key
       if (!key || key === vm.selectedKey) return selectAll()
       vm.selectedKey = key
       var selectedData = []
@@ -3395,14 +3628,26 @@ window.twttr = (function(d, s, id) {
     }
 
     // event handlers
-
-    $(window).on('scroll', function() {
-      TweenMax.to(header, .8, {top: 0})
-    })
+    $scope.getLiveData = function() {
+      return ModelSrv.getAllModels()
+                     .then(function(res) {
+                        console.info(res)
+                        if (vm.currentRace.live) {
+                          vm.streamData       = res.timeSeries.circuit.zones
+                          vm.streamPaddock    = res.timeSeries.paddock.zones
+                          vm.totalConsumption = res.totalConsumption
+                          vm.metersData       = res.meters
+                          $scope.getComparisons()
+                        }
+                        return res
+                     }, function(err) {
+                        console.error(err)
+                     })
+    }
+    $scope.$on('ModelSrv::ALL-MODELS-UPDATED', $scope.getLiveData)
 
     // deregister event handlers
     $scope.$on('$destroy', function () {
-      $(window).off('scroll')
       cleanRaceHandler()
       cleanBalanceHandler()
       cleanMixHandler()

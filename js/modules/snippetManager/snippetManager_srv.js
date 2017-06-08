@@ -14,9 +14,24 @@
     self.path = '../js/modules/snippetManager/templates'
     // tours
     var _availableTours = {
-      'solar': [],
-      'ecar': []
+      'eMobility': {
+        label: 'E-Mobility',
+        snippets: ['fastRecharge', 'efficiency', 'co2', 'regenerativeBraking', 'v2g']
+      },
+      'smartEnergy': {
+        label: 'Smart energy',
+        snippets: ['raceMicrogrid', 'smartMetering', 'storage', 'v2g', 'firstSmartCity'],
+      },
+      'cleanEnergy': {
+        label: 'Clean energy',
+        snippets: ['raceMicrogrid', 'solarPower', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld'],
+      },
+      'enelAchievements': {
+        label: 'Enel achievements',
+        snippets: ['howMuchSunMexico', 'cleanEnergySpain', 'firstSmartCity', 'formulaE', 'enelWorld'],
+      }
     }
+
 
     var _availableHotspots = {
       'info': {
@@ -232,6 +247,11 @@
         label: '',
         tpl: self.path + '/cleanEnergySpain.html'
       },
+      'cleanEnergyChile': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/cleanEnergyChile.html'
+      },
       'enelWorld': {
         desc: '',
         label: '',
@@ -269,14 +289,15 @@
     // -------
 
     function _getAvailableTours() {
-      return $q(function(resolve, reject) {
         var tours = _.map(angular.copy(_availableTours), function(value, key) {
           value.key = key
+          value.snippets = _.map(value.snippets, function(value) {
+            return angular.copy(_availableSnippets[value])
+          })
           return value
         })
-        if (!_.isEmpty(tours)) resolve(tours)
-        else reject('No available tours are defined!')
-      })
+        if (!_.isEmpty(tours)) return tours
+        else console.error('No available tours are defined!')
     }
 
     function _getAvailableSnippets() {

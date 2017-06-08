@@ -25,7 +25,7 @@
         param: 1/0.07/24/30/12,
         unit: 'years',
         tpl: self.path + '/test.html',
-        svg: 'dash_comparison_lcd'
+        svg: 'dash_comparison_tv'
       },
       'eVehicle': {
         label: 'E-vehicle autonomy',

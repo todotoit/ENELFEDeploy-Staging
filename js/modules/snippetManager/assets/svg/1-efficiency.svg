@@ -1,30 +1,36 @@
-<svg id="bg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 340 200">
+<svg id="bg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 340 250">
   <defs>
     <clipPath id="clip-path">
-      <rect x="3.62" y="-31.34" width="339.63" height="229.78" style="fill: none"/>
+      <rect x="0.2" y="49" width="339.6" height="201.4" style="fill: none"/>
     </clipPath>
   </defs>
   <title>1-efficiency</title>
-  <g style="clip-path: url(#clip-path)">
-    <g style="opacity: 0.30000000000000004">
-      <path d="M249.41,142.47a1.94,1.94,0,0,0,1.94-1.94v-8a1.94,1.94,0,0,1,2.49-1.85l13.53,4.06a5.37,5.37,0,0,1,3.83,5.14h0a5.37,5.37,0,0,1-5.37,5.37H257l-3.64,0-1.69,1.44a3.53,3.53,0,0,0-.81,4.38l5.4,9.9a33.12,33.12,0,0,1,4,15.86v28.61a11.66,11.66,0,0,1-3.42,8.25l-8.38,8.38a11.66,11.66,0,0,1-8.25,3.42H103.45a11.66,11.66,0,0,1-8.25-3.42l-8.38-8.38a11.66,11.66,0,0,1-3.42-8.25V176.91a33.12,33.12,0,0,1,4-15.86l5.4-9.9a3.53,3.53,0,0,0-.81-4.38l-1.69-1.44-3.64,0H77.91a5.37,5.37,0,0,1-5.37-5.37h0a5.37,5.37,0,0,1,3.83-5.14l13.53-4.06a1.94,1.94,0,0,1,2.49,1.85v8a1.94,1.94,0,0,0,1.94,1.94" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
-      <path d="M101.75,162.33l11.11,6.43a21.19,21.19,0,0,0,11.24,2.84L172,173.19l47.91-1.41a21.19,21.19,0,0,0,11.05-3.5l10.66-7" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
-      <path d="M216.1,177.77h0a6.25,6.25,0,0,0,6.25,6.25h21.22a10.15,10.15,0,0,0,10.15-10.15v-2.34a11.63,11.63,0,0,0-3.41-8.22l-3.43-3.43-.73-17.41-15.69-26.63A16,16,0,0,0,216.7,108H127a16,16,0,0,0-13.76,7.87L97.58,142.47l-.73,17.41-3.43,3.43A11.63,11.63,0,0,0,90,171.53v2.34A10.15,10.15,0,0,0,100.17,184h21.22a6.25,6.25,0,0,0,6.25-6.25h0" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
-      <path d="M232,131.89l-8.89-14.68a7.11,7.11,0,0,0-6.18-3.59H126.76a7.11,7.11,0,0,0-6.18,3.59L110.4,135a6,6,0,0,0,4.85,8.9l49.51,2.65a132.87,132.87,0,0,0,14.2,0l49.51-2.65a6,6,0,0,0,4.85-8.9" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+  <g id="car">
+    <g style="clip-path: url(#clip-path)">
+      <g style="opacity: 0.30000001192092896">
+        <path d="M250,193.5a1.9,1.9,0,0,0,1.9-1.9v-8a2,2,0,0,1,2.5-1.9l13.5,4.1a5.34,5.34,0,0,1,3.8,5.1h0a5.38,5.38,0,0,1-5.4,5.4H253.9l-1.7,1.4a3.52,3.52,0,0,0-.8,4.4l5.4,9.9a32.65,32.65,0,0,1,4,15.9v28.6a11.33,11.33,0,0,1-3.4,8.2l-8.4,8.4a11.67,11.67,0,0,1-8.2,3.4H104a11.33,11.33,0,0,1-8.2-3.4l-8.4-8.4a11.67,11.67,0,0,1-3.4-8.2V227.9A34.09,34.09,0,0,1,88,212l5.4-9.9a3.52,3.52,0,0,0-.8-4.4l-1.7-1.4H78.5a5.38,5.38,0,0,1-5.4-5.4h0a5.28,5.28,0,0,1,3.8-5.1l13.5-4.1a2,2,0,0,1,2.5,1.9v8a1.9,1.9,0,0,0,1.9,1.9" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.3963000774383545px"/>
+        <path d="M102.3,216.3l11.1,6.4a20.12,20.12,0,0,0,11.2,2.8l47.9.6,47.9-.4a21.09,21.09,0,0,0,11.1-3.5l10.7-7" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.3963000774383545px"/>
+        <path d="M216.7,228.8h0a6.23,6.23,0,0,0,6.2,6.2h21.2a10.07,10.07,0,0,0,10.1-10.1v-2.3a11.5,11.5,0,0,0-3.4-8.2l-3.4-3.4-.7-17.5L231,166.9a16,16,0,0,0-13.8-7.9H127.6a16,16,0,0,0-13.8,7.9L98.1,193.5l-.7,17.4L94,214.3a11.5,11.5,0,0,0-3.4,8.2v2.3a10.07,10.07,0,0,0,10.1,10.1h21.2a6.23,6.23,0,0,0,6.2-6.2h0" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.3963000774383545px"/>
+        <path d="M231.5,181l-7.8-12.8a7.18,7.18,0,0,0-6.2-3.6H127.3a7.18,7.18,0,0,0-6.2,3.6L111,186a6,6,0,0,0,4.9,8.9l49.5,2.6a112.13,112.13,0,0,0,14.2,0l49.5-2.6A6,6,0,0,0,234,186" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.3963000774383545px"/>
+      </g>
     </g>
   </g>
-  <g>
-    <path d="M139.35,10A47.89,47.89,0,0,0,119,30.45c-10,19.21-9.85,38.4-3.16,54.11a8.28,8.28,0,0,0,7.64,5h93.83a8.41,8.41,0,0,0,7.73-5.18,59.08,59.08,0,0,0,4.63-23C229.71,18.63,184.53-13.53,139.35,10Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.07335436755971px"/>
-    <g style="opacity: 0.30000000000000004">
-      <line x1="164.97" y1="60.37" x2="129.76" y2="43.58" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.39627957344055px"/>
-      <circle cx="170.43" cy="62.97" r="5.84" transform="matrix(0.65, -0.76, 0.76, 0.65, 11.82, 151.61)" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.39627957344055px"/>
-      <circle cx="170.43" cy="62.97" r="87.9" transform="translate(11.82 151.61) rotate(-49.48)" style="fill: none"/>
+  <g id="lancette">
+    <g id="electric">
+      <line x1="165.97" y1="107.49" x2="139.83" y2="78.5" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.3963000774383545px"/>
+      <circle cx="169.99" cy="112" r="5.8" transform="translate(-32.33 89.5) rotate(-27.03)" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.3963000774383545px"/>
+      <circle cx="169.99" cy="112" r="87.9" transform="translate(-32.33 89.5) rotate(-27.03)" style="fill: none"/>
     </g>
-    <g>
-      <line x1="167.3" y1="57.8" x2="147.1" y2="24.42" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.39627957344055px"/>
-      <circle cx="170.43" cy="62.97" r="5.84" transform="translate(-10.79 49.89) rotate(-16.15)" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.39627957344055px"/>
-      <circle cx="170.43" cy="62.97" r="87.9" transform="translate(-10.79 49.89) rotate(-16.15)" style="fill: none"/>
+    <g id="heat" style="opacity: 0.5">
+      <line x1="164.03" y1="111.02" x2="125.48" y2="104.88" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.3963000774383545px"/>
+      <circle cx="169.99" cy="112" r="5.8" transform="translate(-1.58 221.56) rotate(-65.94)" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.3963000774383545px"/>
+      <circle cx="169.99" cy="112" r="87.9" transform="translate(-1.58 221.56) rotate(-65.94)" style="fill: none"/>
     </g>
   </g>
-  <text transform="translate(57.61 60.37)" style="font-size: 14px;fill: red;font-family: UniversLTStd, Univers LT Std">Già presente nei vecchi assets</text>
+  <path d="M170,51a61,61,0,0,0-48.7,97.7h97.4A61,61,0,0,0,170,51Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.0734000205993652px"/>
+  <line x1="128.5" y1="66.9" x2="134" y2="72.7" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.0734000205993652px"/>
+  <line x1="110" y1="102.1" x2="117.2" y2="103.5" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.0734000205993652px"/>
+  <line x1="117.7" y1="143.5" x2="124.1" y2="139.7" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3.0734000205993652px"/>
+  <path d="M130.9,69.4A57.81,57.81,0,0,0,120.3,142" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 9px;opacity: 0.30000001192092896;isolation: isolate"/>
+  <path d="M130.9,69.4a57.52,57.52,0,0,0-18.1,33.3" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 9px;opacity: 0.5;isolation: isolate"/>
 </svg>

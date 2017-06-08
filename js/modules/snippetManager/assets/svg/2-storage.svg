@@ -16,7 +16,7 @@
       <circle cx="184.36" cy="86.18" r="1.68" style="fill: #fff"/>
     </g>
     <g>
-      <path d="M140,170.19H115.35a14.63,14.63,0,0,0-14.63,14.63V215A13.77,13.77,0,0,1,87,228.79H0" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
+      <path d="M140,170.19H115.35a14.63,14.63,0,0,0-14.63,14.63V215A13.77,13.77,0,0,1,87,228.79H-76" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
       <rect x="139.99" y="162.62" width="8.25" height="14.48" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
     </g>
   </g>

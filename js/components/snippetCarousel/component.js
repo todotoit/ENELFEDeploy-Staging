@@ -13,7 +13,8 @@
       controllerAs: 'snippetCarousel',
       bindings: {
         snippets: '<',
-        onCardSelect: '&'
+        onCardSelect: '&',
+        onExit: '&'
       }
     })
 
@@ -23,7 +24,9 @@
     // https://github.com/angular/angular.js/issues/14433
     // for the issue above we decided to use just $onChanges
     // ctrl.$onInit = init
+    $scope.snipCounter = 0;
     ctrl.$onChanges = init
+    $scope.isMobile = bowser.mobile || false;
     var vel = .45
     var direction = 'right'
     var debounce = {
@@ -42,9 +45,12 @@
     var $card = null
     var $cards = []
     var callback = null
+    var exitCallback = null;
 
     $scope.prev = function () {
       if (debounce.id) return
+      $scope.snipCounter--
+      if($scope.snipCounter < 0) $scope.snipCounter = $scope.snippets.length-1;
       debounce.start()
       direction = 'left'
       moveCards(direction)
@@ -52,6 +58,8 @@
 
     $scope.next = function () {
       if (debounce.id) return
+      $scope.snipCounter++
+      if($scope.snipCounter > $scope.snippets.length-1) $scope.snipCounter = 0;
       debounce.start()
       direction = 'right'
       moveCards(direction)
@@ -61,6 +69,7 @@
       _.each($cards, function(s, i) {
         animateCardOut(s, i, true)
       })
+      if(exitCallback) exitCallback();
     }
 
     $scope.loadCard = function() {
@@ -112,12 +121,15 @@
 
     // init after dom loaded
     function init() {
+      $scope.snipCounter = 0;
       hammertime = null
       card = null
       $card = null
       $cards = []
       $scope.snippets = ctrl.snippets
+      console.log($scope.snippets)
       callback = ctrl.onCardSelect()
+      exitCallback = ctrl.onExit
       if (_.isEmpty($scope.snippets)) return
       $element.fadeIn()
       if ($scope.snippets.length < showcaseElements) showcaseElements = $scope.snippets.length
@@ -130,7 +142,7 @@
       $card = _.first($cards)
       if (callback) callback(card)
       cardHandler()
-      debounce.cancel
+      debounce.cancel()
     }
 
     function removeLastCard() {
