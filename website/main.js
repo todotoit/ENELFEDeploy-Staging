@@ -2247,6 +2247,7 @@ window.twttr = (function(d, s, id) {
     }
     vm.snippets = angular.copy(_.initial(snippets))
     vm.tweets = []
+    vm.boots = []
 
     // initialize object for countdown
     $scope.countDown = {
@@ -2335,6 +2336,33 @@ window.twttr = (function(d, s, id) {
                     //        })
                     // })
                     $scope.twitDisplayNum = _getTwitDisplayNum()
+                  }, function(err) {
+                    console.error(err)
+                  })
+    }
+
+    retrieveBootInstFeed()
+    retrieveBootTweetFeed()
+    
+    function retrieveBootInstFeed() {
+      return $http.get('https://emiliobondioli.runkit.io/instagram-hashtag-scraper/branches/master')
+                  .then(function(res) {
+                    console.log(res.data)
+                    vm.boots = vm.boots.concat(res.data.items)
+                    
+                    $scope.bootDisplayNum = _getTwitDisplayNum()
+                  }, function(err) {
+                    console.error(err)
+                  })
+    }
+
+    function retrieveBootTweetFeed() {
+      return $http.get('https://emiliobondioli.runkit.io/twitter-hashtag-scraper/branches/master')
+                  .then(function(res) {
+                    console.log(res.data)
+                    vm.boots = vm.boots.concat(res.data.items)
+                    
+                    $scope.bootDisplayNum = _getTwitDisplayNum()
                   }, function(err) {
                     console.error(err)
                   })
