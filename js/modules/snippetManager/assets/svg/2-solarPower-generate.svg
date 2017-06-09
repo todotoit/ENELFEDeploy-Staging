@@ -2,7 +2,6 @@
   <title>2-solarPower-generate</title>
   <line x1="244.79" y1="76.72" x2="244.79" y2="68.36" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
   <g>
-    <rect x="0.43" y="60.33" width="339.57" height="139.67" style="fill: #002f91;opacity: 0"/>
     <g>
       <polyline points="91.51 162.48 106.25 162.48 94.71 127.38 122.44 127.38 133.66 162.48 115.23 162.48" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
       <polyline points="131.09 162.48 145.84 162.48 134.46 127.38 162.03 127.38 173.25 162.48 154.82 162.48" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>

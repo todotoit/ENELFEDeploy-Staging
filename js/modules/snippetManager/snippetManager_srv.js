@@ -14,30 +14,112 @@
     self.path = '../js/modules/snippetManager/templates'
     // tours
     var _availableTours = {
-      'solar': [],
-      'ecar': []
+      'eMobility': {
+        label: 'E-Mobility',
+        snippets: ['fastRecharge', 'efficiency', 'co2', 'regenerativeBraking', 'v2g']
+      },
+      'smartEnergy': {
+        label: 'Smart energy',
+        snippets: ['raceMicrogrid', 'smartMetering', 'storage', 'v2g', 'firstSmartCity'],
+      },
+      'cleanEnergy': {
+        label: 'Clean energy',
+        snippets: ['raceMicrogrid', 'solarPower', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld'],
+      },
+      'enelAchievements': {
+        label: 'Enel achievements',
+        snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'formulaE', 'enelWorld'],
+      }
     }
 
+
     var _availableHotspots = {
-      'info': {
+      'pin_1_info': {
         stage: 1,
         coords: [0.97, 4.74, 6.46],
         snippets: ['carSpecs']
       },
-      'tyre': {
+      'pin_1_tyre': {
         stage: 1,
         coords: [5.98, 2.32, 2.59],
         snippets: ['tyres', 'regenerativeBraking']
       },
-      'electricity': {
+      'pin_1_electricity': {
         stage: 1,
         coords: [-5.01, 1.12, -4.63],
-        snippets: ['batteryPower', 'fastRecharge', 'fanBoost']
+        snippets: ['fanBoost', 'fastRecharge', 'batteryPower']
       },
-      'engine': {
+      'pin_1_engine': {
         stage: 1,
         coords: [-3.19, 2.20, -5.73],
         snippets: ['co2', 'efficiency', 'enginePower', 'sound']
+      },
+      'pin_2_grid': {
+        stage: 2,
+        coords: [-654, 165, 456],
+        snippets: ['raceMicrogrid']
+      },
+      'pin_2_info': {
+        stage: 2,
+        coords: [730, 213, -139],
+        snippets: ['circuitBerlin2017']
+      },
+      'pin_2_meter': {
+        stage: 2,
+        coords: [12, 361, 684],
+        snippets: ['smartMetering']
+      },
+      'pin_2_solar': {
+        stage: 2,
+        coords: [117, 660, 298],
+        snippets: ['solarPower']
+      },
+      'pin_2_storage': {
+        stage: 2,
+        coords: [-759, 213, 200],
+        snippets: ['storage']
+      },
+      'pin_3_v2g': {
+        stage: 3,
+        // coords: [-0.039, 0.90, 0.61],
+        coords: [55],
+        snippets: ['v2g', 'v2gDenmark']
+      },
+      'pin_3_spain': {
+        stage: 3,
+        // coords: [-1.04, -0.25, 0.17],
+        coords: [129],
+        snippets: ['cleanEnergyGlobal', 'cleanEnergyChile']
+      },
+      'pin_3_rome': {
+        stage: 3,
+        // coords: [0.091, 0.64, 0.86],
+        coords: [60],
+        snippets: ['enelWorld']
+      },
+      'pin_3_milan': {
+        stage: 3,
+        // coords: [-0.049, 0.74, 0.78],
+        coords: [48],
+        snippets: ['firstSmartCity', 'internet']
+      },
+      'pin_3_berlin': {
+        stage: 3,
+        // coords: [0.081, 0.80, 0.72],
+        coords: [43],
+        snippets: ['germany']
+      },
+      'pin_3_fe': {
+        stage: 3,
+        // coords: [0.95, 0.39, -0.33],
+        coords: [-70],
+        snippets: ['formulaE']
+      },
+      'pin_3_solar': {
+        stage: 3,
+        // coords: [-0.91, 0.38, -0.45],
+        coords: [157],
+        snippets: ['howMuchSunGlobal', 'howMuchSunMexico']
       }
     }
 
@@ -232,6 +314,11 @@
         label: '',
         tpl: self.path + '/cleanEnergySpain.html'
       },
+      'cleanEnergyChile': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/cleanEnergyChile.html'
+      },
       'enelWorld': {
         desc: '',
         label: '',
@@ -269,14 +356,26 @@
     // -------
 
     function _getAvailableTours() {
-      return $q(function(resolve, reject) {
         var tours = _.map(angular.copy(_availableTours), function(value, key) {
           value.key = key
+          value.snippets = _.map(value.snippets, function(value) {
+            var snippet = angular.copy(_availableSnippets[value])
+            var hotspot = _.values(_.pickBy(_availableHotspots, function(o, k) {
+              o.key = k
+              return _.includes(o.snippets, value)
+            }))[0]
+            if (!hotspot) return snippet
+            snippet.hotspot = {
+              key: hotspot.key,
+              stage: hotspot.stage,
+              coords: hotspot.coords
+            }
+            return snippet
+          })
           return value
         })
-        if (!_.isEmpty(tours)) resolve(tours)
-        else reject('No available tours are defined!')
-      })
+        if (!_.isEmpty(tours)) return tours
+        else console.error('No available tours are defined!')
     }
 
     function _getAvailableSnippets() {

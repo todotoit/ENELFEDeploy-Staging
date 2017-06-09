@@ -35,21 +35,21 @@
     var X = d3.time.scale()
 
     // -------- AXIS ---------
-    var formatY = d3.format('.1f')
+    var formatY = d3.format('.0f')
     var axisY   = d3.svg.axis()
                     .scale(Y)
                     .orient('left')
-                    .tickSize(2)
+                    .tickSize(0)
                     .tickFormat(function(d,i) {
                       if(i === 0) return
-                      return formatY(d)
+                      return formatY(d)+'kW'
                     })
 
     var formatX = d3.time.format('%H:%M')
     var axisX   = d3.svg.axis()
                     .scale(X)
                     .orient('bottom')
-                    .tickSize(2)
+                    .tickSize(1)
                     .ticks(d3.time.hours)
                     .tickFormat(function(d,i) {
                       if(i === 0) return

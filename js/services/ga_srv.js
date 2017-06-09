@@ -35,6 +35,16 @@
       }
     }
 
+    that.trackLandingFrag = function(v){
+      that.track(location.pathname + 'landing/' + v)
+    }
+
+    that.cleanFragAndLandingTrack = function(str, prepend){
+      var re = /([^\/]*)\.html/g
+      var frag = re.exec(str)
+      that.trackLandingFrag(prepend + '/' + frag[1])
+    }
+
 
     function recordSession(){
       console.log('recordSession')

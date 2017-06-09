@@ -9280,18 +9280,211 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 		module.exports = getGlobal();
 	}
 }("DrawSVGPlugin"));
+/*!
+ * VERSION: 1.8.0
+ * DATE: 2016-07-09
+ * UPDATES AND DOCS AT: http://greensock.com
+ *
+ * @license Copyright (c) 2008-2016, GreenSock. All rights reserved.
+ * This work is subject to the terms at http://greensock.com/standard-license or for
+ * Club GreenSock members, the software agreement that was issued with your membership.
+ * 
+ * @author: Jack Doyle, jack@greensock.com
+ **/
+var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(global) !== "undefined") ? global : this || window; //helps ensure compatibility with AMD/RequireJS and CommonJS/Node
+(_gsScope._gsQueue || (_gsScope._gsQueue = [])).push( function() {
+
+	"use strict";
+
+	var _doc = document.documentElement,
+		_window = window,
+		_max = function(element, axis) {
+			var dim = (axis === "x") ? "Width" : "Height",
+				scroll = "scroll" + dim,
+				client = "client" + dim,
+				body = document.body;
+			return (element === _window || element === _doc || element === body) ? Math.max(_doc[scroll], body[scroll]) - (_window["inner" + dim] || _doc[client] || body[client]) : element[scroll] - element["offset" + dim];
+		},
+		_unwrapElement = function(value) {
+			if (typeof(value) === "string") {
+				value = TweenLite.selector(value);
+			}
+			if (value.length && value !== _window && value[0] && value[0].style && !value.nodeType) {
+				value = value[0];
+			}
+			return (value === _window || (value.nodeType && value.style)) ? value : null;
+		},
+		_buildGetter = function(e, axis) { //pass in an element and an axis ("x" or "y") and it'll return a getter function for the scroll position of that element (like scrollTop or scrollLeft, although if the element is the window, it'll use the pageXOffset/pageYOffset or the documentElement's scrollTop/scrollLeft or document.body's. Basically this streamlines things and makes a very fast getter across browsers.
+			var p = "scroll" + ((axis === "x") ? "Left" : "Top");
+			if (e === _window) {
+				if (e.pageXOffset != null) {
+					p = "page" + axis.toUpperCase() + "Offset";
+				} else if (_doc[p] != null) {
+					e = _doc;
+				} else {
+					e = document.body;
+				}
+			}
+			return function() {
+				return e[p];
+			};
+		},
+		_getOffset = function(element, container) {
+			var rect = _unwrapElement(element).getBoundingClientRect(),
+				isRoot = (!container || container === _window || container === document.body),
+				cRect = (isRoot ? _doc : container).getBoundingClientRect(),
+				offsets = {x: rect.left - cRect.left, y: rect.top - cRect.top};
+			if (!isRoot && container) { //only add the current scroll position if it's not the window/body.
+				offsets.x += _buildGetter(container, "x")();
+				offsets.y += _buildGetter(container, "y")();
+			}
+			return offsets;
+		},
+		_parseVal = function(value, target, axis) {
+			var type = typeof(value);
+			if (type === "number" || (type === "string" && value.charAt(1) === "=")) {
+				return value;
+			} else if (value === "max") {
+				return _max(target, axis);
+			}
+			return Math.min(_max(target, axis), _getOffset(value, target)[axis]);
+		},
+
+		ScrollToPlugin = _gsScope._gsDefine.plugin({
+			propName: "scrollTo",
+			API: 2,
+			version:"1.8.0",
+
+			//called when the tween renders for the first time. This is where initial values should be recorded and any setup routines should run.
+			init: function(target, value, tween) {
+				this._wdw = (target === _window);
+				this._target = target;
+				this._tween = tween;
+				if (typeof(value) !== "object") {
+					value = {y:value}; //if we don't receive an object as the parameter, assume the user intends "y".
+					if (typeof(value.y) === "string" && value.y !== "max" && value.y.charAt(1) !== "=") {
+						value.x = value.y;
+					}
+				} else if (value.nodeType) {
+					value = {y:value, x:value};
+				}
+				this.vars = value;
+				this._autoKill = (value.autoKill !== false);
+				this.getX = _buildGetter(target, "x");
+				this.getY = _buildGetter(target, "y");
+				this.x = this.xPrev = this.getX();
+				this.y = this.yPrev = this.getY();
+				if (value.x != null) {
+					this._addTween(this, "x", this.x, _parseVal(value.x, target, "x") - (value.offsetX || 0), "scrollTo_x", true);
+					this._overwriteProps.push("scrollTo_x");
+				} else {
+					this.skipX = true;
+				}
+				if (value.y != null) {
+					this._addTween(this, "y", this.y, _parseVal(value.y, target, "y") - (value.offsetY || 0), "scrollTo_y", true);
+					this._overwriteProps.push("scrollTo_y");
+				} else {
+					this.skipY = true;
+				}
+				return true;
+			},
+
+			//called each time the values should be updated, and the ratio gets passed as the only parameter (typically it's a value between 0 and 1, but it can exceed those when using an ease like Elastic.easeOut or Back.easeOut, etc.)
+			set: function(v) {
+				this._super.setRatio.call(this, v);
+
+				var x = (this._wdw || !this.skipX) ? this.getX() : this.xPrev,
+					y = (this._wdw || !this.skipY) ? this.getY() : this.yPrev,
+					yDif = y - this.yPrev,
+					xDif = x - this.xPrev,
+					threshold = ScrollToPlugin.autoKillThreshold;
+
+				if (this.x < 0) { //can't scroll to a position less than 0! Might happen if someone uses a Back.easeOut or Elastic.easeOut when scrolling back to the top of the page (for example)
+					this.x = 0;
+				}
+				if (this.y < 0) {
+					this.y = 0;
+				}
+				if (this._autoKill) {
+					//note: iOS has a bug that throws off the scroll by several pixels, so we need to check if it's within 7 pixels of the previous one that we set instead of just looking for an exact match.
+					if (!this.skipX && (xDif > threshold || xDif < -threshold) && x < _max(this._target, "x")) {
+						this.skipX = true; //if the user scrolls separately, we should stop tweening!
+					}
+					if (!this.skipY && (yDif > threshold || yDif < -threshold) && y < _max(this._target, "y")) {
+						this.skipY = true; //if the user scrolls separately, we should stop tweening!
+					}
+					if (this.skipX && this.skipY) {
+						this._tween.kill();
+						if (this.vars.onAutoKill) {
+							this.vars.onAutoKill.apply(this.vars.onAutoKillScope || this._tween, this.vars.onAutoKillParams || []);
+						}
+					}
+				}
+				if (this._wdw) {
+					_window.scrollTo((!this.skipX) ? this.x : x, (!this.skipY) ? this.y : y);
+				} else {
+					if (!this.skipY) {
+						this._target.scrollTop = this.y;
+					}
+					if (!this.skipX) {
+						this._target.scrollLeft = this.x;
+					}
+				}
+				this.xPrev = this.x;
+				this.yPrev = this.y;
+			}
+
+		}),
+		p = ScrollToPlugin.prototype;
+
+	ScrollToPlugin.max = _max;
+	ScrollToPlugin.getOffset = _getOffset;
+	ScrollToPlugin.autoKillThreshold = 7;
+
+	p._kill = function(lookup) {
+		if (lookup.scrollTo_x) {
+			this.skipX = true;
+		}
+		if (lookup.scrollTo_y) {
+			this.skipY = true;
+		}
+		return this._super._kill.call(this, lookup);
+	};
+
+}); if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); }
+
+//export to AMD/RequireJS and CommonJS/Node (precursor to full modular build system coming at a later date)
+(function(name) {
+	"use strict";
+	var getGlobal = function() {
+		return (_gsScope.GreenSockGlobals || _gsScope)[name];
+	};
+	if (typeof(define) === "function" && define.amd) { //AMD
+		define(["TweenLite"], getGlobal);
+	} else if (typeof(module) !== "undefined" && module.exports) { //node
+		require("../TweenLite.js");
+		module.exports = getGlobal();
+	}
+}("ScrollToPlugin"));
 (function(a,b){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4)))window.isMobile=true})(navigator.userAgent||navigator.vendor||window.opera);
 
 window.TERMINALIA = window.TERMINALIA || {};
 
 TERMINALIA.TerminUtils = function TerminUtils() {
-    
+
     var self = this;
-    this.objLoader = new THREE.OBJLoader();
+    this.loadingManager = new THREE.LoadingManager();
+    this.objLoader = new THREE.OBJLoader(this.loadingManager);
     this.cubeTextureLoader = new THREE.CubeTextureLoader();
     this.textureLoader = new THREE.TextureLoader();
-    this.rayCaster = new THREE.Raycaster();
-    this.rayCaster.ray.direction.set(0, -1, 0);
+    this.raycaster = new THREE.Raycaster();
+    //this.rayCaster.ray.direction.set(0, -1, 0);
+
+    self.loadingManager.onLoad = function() {
+      var event = new CustomEvent("AssetsLoaded");
+      window.dispatchEvent(event);
+      console.log("ALL IS COMPLETE");
+    }
 
     function loadObjModel(name, objFile, material) {
         var container = new THREE.Group();
@@ -9319,7 +9512,38 @@ TERMINALIA.TerminUtils = function TerminUtils() {
             }
         }
     }
-    
+
+    //Custom ray picking function that works with scaled objects
+    function rayPickObject(x, y, width, height, camera, objects) {
+        //Convert 2D mouse coords to NDC
+        var vector = new THREE.Vector3( ( x / width ) * 2 - 1, - ( y / height ) * 2 + 1, 0.5 );
+        vector.unproject(camera);
+
+        self.raycaster.ray.set(camera.position, vector.sub(camera.position).normalize());
+        self.raycaster.linePrecision = 0.2;
+
+        //Find distance from camera for every object
+        var intersected = undefined;
+        var intersections = self.raycaster.intersectObjects(objects, true);
+        for (var i=0; i<intersections.length; i++) {
+            var I = intersections[i];
+            I.distance = camera.position.distanceTo(I.point);
+        }
+
+        //Sort objects by their distance from camera
+        intersections.sort(function(a, b) {
+            return a.distance - b.distance;
+        });
+
+        //Return the first object
+        if (intersections.length > 0) {
+            intersected = intersections[0].object;
+            //console.log("Found: ", intersected.name);
+        }
+
+        return intersected;
+    }
+
     function createTextureReflectiveMaterial(texture_file, environment_map, reflectivity_amount) {
         var material = createTextureMaterial(texture_file);
         material.envMap = environment_map;
@@ -9366,7 +9590,7 @@ TERMINALIA.TerminUtils = function TerminUtils() {
     }
 
     function createRGBColor(r, g, b) {
-        return new THREE.Color('rgb(' + r + ',' + g + ',' + b + ')'); 
+        return new THREE.Color('rgb(' + r + ',' + g + ',' + b + ')');
     }
 
     function createRandomColor() {
@@ -9396,6 +9620,7 @@ TERMINALIA.TerminUtils = function TerminUtils() {
     this.createTexture = createTexture;
     this.degToRad = degToRad;
     this.raycastSprites = raycastSprites;
+    this.rayPickObject = rayPickObject;
 }
 
 
@@ -9416,6 +9641,7 @@ TERMINALIA.Trackball = function Trackball() {
     self.leftPressed = false;
     self.offset = 0;
     self.enabled = true;
+    self.rotationFactor = 1;
 
     function onMouseDown(x, y) {
         self.leftPressed = true;
@@ -9437,8 +9663,13 @@ TERMINALIA.Trackball = function Trackball() {
             self.rot_x += diff_x;
             self.rot_y += diff_y;
 
-            self.object.rotation.set(0, radians(self.rot_x), 0);
+            //self.object.rotation.set(0, self.animation_rot + radians(self.rot_x), 0);
+            updateRotation();
         }
+    }
+
+    function updateRotation() {
+        self.object.rotation.set(0, radians(self.rot_x) * self.rotationFactor, 0);
     }
 
     function addRotationToObject(object) {
@@ -9453,6 +9684,7 @@ TERMINALIA.Trackball = function Trackball() {
     self.onMouseUp = onMouseUp;
     self.onMouseMove = onMouseMove;
     self.addRotationToObject = addRotationToObject;
+    self.updateRotation = updateRotation;
 }
 
 window.TERMINALIA = window.TERMINALIA || {};
@@ -9567,7 +9799,8 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
     self.stats = null;
     self.container = null;
     self.reflectionMap = null;
-    self.pinsGroup = null;
+    self.pinsStage1 = null;
+    self.pinsStage2 = null;
     self.glarePlaneSize = 312;
     self.customShaders = CustomShaders;
     self.cameraAnimation = null;
@@ -9578,8 +9811,9 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
     self.worldSize = 6000;
     self.currentState = 'StageStart';
     self.animationCreated = false;
-    self.pinScaleFactor = 0.3;
+    self.pinScaleFactor = 0.45;
 	self.test_pin = null;
+    self.debugMode = false;
 
     init(container)
 
@@ -9624,16 +9858,18 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
     function initScene() {
         self.scene = new THREE.Scene();
         self.sceneOrtho = new THREE.Scene();
-        self.pinsGroup = new THREE.Group();
+        self.pinsStage1 = new THREE.Group();
+        self.pinsStage2 = new THREE.Group();
         initOrbitCamera();
         //initOrthoCamera();
-        addCubeMap('../libs/terminalia/assets/textures/cubemaps/parliament2/', '.jpg');
+        addCubeMap('../libs/terminalia/assets/textures/cubemaps/vancouver/', '.jpg');
         addAssets();
         addPins();
         ///addOrthoAssets();
         //addInfoFlags();
-        addHUD();
-
+        if (self.debugMode) {
+            addHUD();
+        }
     }
 
     //###########################################################################################################
@@ -9647,7 +9883,7 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         self.camera.updateProjectionMatrix();
         self.orbit_controls = new THREE.OrbitControls(self.camera, self.renderer.domElement);
         self.orbit_controls.maxPolarAngle = Math.PI/2 - 0.1;
-        self.orbit_controls.enableZoom = true;
+        self.orbit_controls.enableZoom = false;
         self.orbit_controls.target.set(0, 0, 0);
     }
 
@@ -9679,7 +9915,9 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
 
         self.renderer.render(self.scene, self.camera);
         requestAnimationFrame(render);
-        self.stats.update();
+        if (self.debugMode) {
+            self.stats.update();
+        }
     }
 
     //###########################################################################################################
@@ -9711,39 +9949,141 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
     //Find object using raycaster when user click/tap on an object
     function findObjectOnClick(event) {
         event.preventDefault();
-        var vector = new THREE.Vector3( ( event.clientX / container.offsetWidth ) * 2 - 1, - ( event.clientY / container.offsetHeight ) * 2 + 1, 0.5 );
-        vector.unproject(self.camera);
-        var raycaster = new THREE.Raycaster(self.camera.position,vector.sub(self.camera.position).normalize());
-        var intersected = raycaster.intersectObjects(self.pinsGroup.children);
+        if (self.currentState === 'StageStart') {
 
-        var pinName = null
-        if (intersected.length > 0) {
-            for (var i=0; i<self.pinsGroup.children.length; i++) {
-                if (intersected[0].object.name === self.pinsGroup.children[i].name) {
-                    console.log(intersected[0].object.name, self.pinsGroup.children[i].name, i)
-                    pinName = intersected[0].object.name;
-                    switch (i) {
-                        case 0:
-                            startCameraAnimation([-5.01, 1.12, -4.63], 2);
-                        break;
+            //Find object at click/tap
+            intersected = self.TerminUtils.rayPickObject(event.clientX, event.clientY, container.offsetWidth, container.offsetHeight, self.camera, self.pinsStage1.children);
 
-                        case 1:
-                            startCameraAnimation([-3.19, 2.20, -5.73], 2);
-                        break;
-
-                        case 2:
-                            startCameraAnimation([0.97, 4.74, 6.46], 2);
-                        break;
-
-                        case 3:
-                            startCameraAnimation([5.98, 2.32, 2.59], 2);
-                        break;
-                    }
+            if (intersected !== undefined)
+            {
+                switch(intersected.name) {
+                    //STAGE START
+                    case "pin_1_electricity":
+                        self.pinsStage1.children[0].material.map = self.pinsStage1.children[0].material.active_map;
+                        startCameraAnimation([-5.01, 1.12, -4.63], 2);
                     break;
+
+                    case "pin_1_engine":
+                        self.pinsStage1.children[1].material.map = self.pinsStage1.children[1].material.active_map;
+                        startCameraAnimation([-3.19, 2.20, -5.73], 2);
+                    break;
+
+                    case "pin_1_info":
+                        self.pinsStage1.children[2].material.map = self.pinsStage1.children[2].material.active_map;
+                        startCameraAnimation([0.97, 4.74, 6.46], 2);
+                    break;
+
+                    case "pin_1_tyre":
+                        self.pinsStage1.children[3].material.map = self.pinsStage1.children[3].material.active_map;
+                        startCameraAnimation([5.98, 2.32, 2.59], 2);
+                    break;
+                }
+
+                //When a pin is active, set the others to default map
+                for (var k=0; k<self.pinsStage1.children.length; k++) {
+                    if (self.pinsStage1.children[k].name !== intersected.name) {
+                        self.pinsStage1.children[k].material.map = self.pinsStage1.children[k].material.default_map;
+                    }
                 }
             }
         }
-        return pinName
+        //Stage Circuit
+        else if (self.currentState === 'StageCircuit') {
+            //Find object at click/tap
+            intersected = self.TerminUtils.rayPickObject(event.clientX, event.clientY, container.offsetWidth, container.offsetHeight, self.camera, self.pinsStage2.children);
+
+            if (intersected !== undefined)
+            {
+                switch(intersected.name)
+                {
+                    case "pin_2_grid":
+                        self.pinsStage2.children[0].material.map = self.pinsStage2.children[0].material.active_map;
+                        startCameraAnimation([-654, 165, 456], 2);
+                    break;
+
+                    case "pin_2_info":
+                        self.pinsStage2.children[1].material.map = self.pinsStage2.children[1].material.active_map;
+                        startCameraAnimation([730, 213, -139], 2);
+                    break;
+
+                    case "pin_2_meter":
+                        self.pinsStage2.children[2].material.map = self.pinsStage2.children[2].material.active_map;
+                        startCameraAnimation([12, 361, 684], 2);
+                    break;
+
+                    case "pin_2_solar":
+                        self.pinsStage2.children[3].material.map = self.pinsStage2.children[3].material.active_map;
+                        startCameraAnimation([117, 660, 298], 2);
+                    break;
+
+                    case "pin_2_storage":
+                        self.pinsStage2.children[4].material.map = self.pinsStage2.children[4].material.active_map;
+                        startCameraAnimation([-759, 213, 200], 2);
+                    break;
+                }
+
+                //When a pin is active, set the others to default map
+                for (var k=0; k<self.pinsStage2.children.length; k++) {
+                    if (self.pinsStage2.children[k].name !== intersected.name) {
+                        self.pinsStage2.children[k].material.map = self.pinsStage2.children[k].material.default_map;
+                    }
+                }
+            }
+        }
+        //Stage Final
+        else {
+            //Find object at click/tap
+            intersected = self.TerminUtils.rayPickObject(event.clientX, event.clientY, container.offsetWidth, container.offsetHeight, self.camera, self.world.children);
+
+            if (intersected !== undefined)
+            {
+                switch(intersected.name)
+                {
+                    case "pin_3_v2g":
+                        self.world.children[1].material.map = self.world.children[1].material.active_map;
+                        startWorldAnimation(55, 1);
+                    break;
+
+                    case "pin_3_spain":
+                        self.world.children[2].material.map = self.world.children[2].material.active_map;
+                        startWorldAnimation(129, 1);
+                    break;
+
+                    case "pin_3_rome":
+                        self.world.children[3].material.map = self.world.children[3].material.active_map;
+                        startWorldAnimation(60, 1);
+                    break;
+
+                    case "pin_3_milan":
+                        self.world.children[4].material.map = self.world.children[4].material.active_map;
+                        startWorldAnimation(48, 1);
+                    break;
+
+                    case "pin_3_berlin":
+                        self.world.children[5].material.map = self.world.children[5].material.active_map;
+                        startWorldAnimation(43, 1);
+                    break;
+
+                    case "pin_3_fe":
+                        self.world.children[6].material.map = self.world.children[6].material.active_map;
+                        startWorldAnimation(-70, 1);
+                    break;
+
+                    case "pin_3_solar":
+                        self.world.children[7].material.map = self.world.children[7].material.active_map;
+                        startWorldAnimation(157, 1);
+                    break;
+                }
+
+                //When a pin is active, reset all the others
+                for (var k=1; k<self.world.children.length; k++) {
+                    if (self.world.children[k].name !== intersected.name) {
+                        self.world.children[k].material.map = self.world.children[k].material.default_map;
+                    }
+                }
+            }
+        }
+        if (intersected) return intersected.name
     }
 
     //###########################################################################################################
@@ -9761,7 +10101,6 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
     //###########################################################################################################
 
     function addAssets() {
-        //addCar();
         addFECar();
         addCircuit(self.worldSize - 1, 0);
         addWorld(self.worldSize);
@@ -9863,98 +10202,154 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
 
         self.scene.add(carGroup);
     }
-
-    //Add assets to create the car
-    function addCar() {
-        //BODY
-        var carGroup = new THREE.Group();
-
-        var carBodyMat = self.TerminUtils.createTextureReflectiveMaterial('../libs/terminalia/assets/textures/car_body.png', self.reflectionMap, .5);
-        var carBody = self.TerminUtils.loadObjModel("CarBody", '../libs/terminalia/assets/models/obj/carbody.obj', carBodyMat);
-        carGroup.add(carBody);
-
-        //MECHANICAL
-        var carMechanicalMat = self.TerminUtils.createTextureReflectiveMaterial('../libs/terminalia/assets/textures/car_mechanical.png', self.reflectionMap, .5);
-        var carMechanical = self.TerminUtils.loadObjModel("CarMechanical", '../libs/terminalia/assets/models/obj/carmechanical.obj', carMechanicalMat);
-        carGroup.add(carMechanical);
-
-        //WHEELS
-        var carWheelsMat = self.TerminUtils.createTextureMaterial('../libs/terminalia/assets/textures/car_wheels.jpg');
-        var carWheels = self.TerminUtils.loadObjModel("CarWheels", '../libs/terminalia/assets/models/obj/carwheels.obj', carWheelsMat);
-        carGroup.add(carWheels);
-
-        //TYRES
-        var carTyresMat = new THREE.MeshLambertMaterial( { color: 0xcbcfd6, envMap: self.reflectionMap, combine: THREE.MixOperation, reflectivity: 1.0} );
-        var carTyres = self.TerminUtils.loadObjModel("CarWheels", '../libs/terminalia/assets/models/obj/cartyres.obj', carTyresMat);
-        carGroup.add(carTyres);
-
-        //ADD SHADOW MAP
-        var shadowMap = self.TerminUtils.createTexture("../libs/terminalia/assets/textures/car_shadow_bake.png");
-        var shadowMapMaterial = new THREE.MeshBasicMaterial({map: shadowMap, color: 0xffffff});
-        shadowMapMaterial.transparent = true;
-        shadowMapMaterial.opacity = 0.7;
-        var plane = self.TerminUtils.loadObjModel("ShadowPlane", '../libs/terminalia/assets/models/obj/ShadowPlane.obj', shadowMapMaterial);
-        carGroup.add(plane);
-
-        self.scene.add(carGroup);
-    }
-
     //Add clickable pins
     function addPins() {
 
 		//STAGE START
-        var pin1_electricity = self.TerminUtils.createSprite('pin1_electricity', '../libs/terminalia/assets/textures/pins/pin_1-electricity.png');
-        pin1_electricity.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
-        pin1_electricity.position.set(-0.6, 0.9, -0.5);
-        self.pinsGroup.add(pin1_electricity);
+        var pin_1_electricity = self.TerminUtils.createSprite('pin_1_electricity', '../libs/terminalia/assets/textures/pins/pin_1-electricity.png');
+        pin_1_electricity.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
+        pin_1_electricity.position.set(-0.6, 0.9, -0.5);
+        pin_1_electricity.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-electricity.png');
+        pin_1_electricity.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-electricity_on.png');
+        self.pinsStage1.add(pin_1_electricity);
 
-        var pin1_engine = self.TerminUtils.createSprite('pin1_engine', '../libs/terminalia/assets/textures/pins/pin_1-engine.png');
-        pin1_engine.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
-        pin1_engine.position.set(0.5, 0.9, -1.2);
-        self.pinsGroup.add(pin1_engine);
+        var pin_1_engine = self.TerminUtils.createSprite('pin_1_engine', '../libs/terminalia/assets/textures/pins/pin_1-engine.png');
+        pin_1_engine.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
+        pin_1_engine.position.set(0.5, 0.9, -1.2);
+        pin_1_engine.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-engine.png');
+        pin_1_engine.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-engine_on.png');
+        self.pinsStage1.add(pin_1_engine);
 
-        var pin1_info = self.TerminUtils.createSprite('pin1_info', '../libs/terminalia/assets/textures/pins/pin_1-info.png');
-        pin1_info.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
-        pin1_info.position.set(0, 0.9, 0.4);
-        self.pinsGroup.add(pin1_info);
+        var pin_1_info = self.TerminUtils.createSprite('pin_1_info', '../libs/terminalia/assets/textures/pins/pin_1-info.png');
+        pin_1_info.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
+        pin_1_info.position.set(0, 0.9, 0.9);
+        pin_1_info.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-info.png');
+        pin_1_info.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-info_on.png');
+        self.pinsStage1.add(pin_1_info);
 
         var pin_1_tyre = self.TerminUtils.createSprite('pin_1_tyre', '../libs/terminalia/assets/textures/pins/pin_1-tyre.png');
         pin_1_tyre.scale.set(self.pinScaleFactor, self.pinScaleFactor, self.pinScaleFactor);
         pin_1_tyre.position.set(0.9, 0.9, 1.2);
-        self.pinsGroup.add(pin_1_tyre);
+        pin_1_tyre.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-tyre.png');
+        pin_1_tyre.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_1-tyre_on.png');
+        self.pinsStage1.add(pin_1_tyre);
 
 		//STAGE CIRCUIT
+        var pinSize = 67;
 		var pin_2_grid = self.TerminUtils.createSprite('pin_2_grid', '../libs/terminalia/assets/textures/pins/pin_2-grid.png');
-		pin_2_grid.scale.set(40, 40, 40);
+		pin_2_grid.scale.set(pinSize, pinSize, pinSize);
 		pin_2_grid.position.set(-190, 40, 80);
-		self.pinsGroup.add(pin_2_grid);
+        pin_2_grid.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-grid.png');
+        pin_2_grid.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-grid_on.png');
+		self.pinsStage2.add(pin_2_grid);
 
 		var pin_2_info = self.TerminUtils.createSprite('pin_2_info', '../libs/terminalia/assets/textures/pins/pin_2-info.png');
-		pin_2_info.scale.set(40, 40, 40);
+		pin_2_info.scale.set(pinSize, pinSize, pinSize);
 		pin_2_info.position.set(280, 40, 0);
-		self.pinsGroup.add(pin_2_info);
+        pin_2_info.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-info.png');
+        pin_2_info.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-info_on.png');
+		self.pinsStage2.add(pin_2_info);
 
 		var pin_2_meter = self.TerminUtils.createSprite('pin_2_meter', '../libs/terminalia/assets/textures/pins/pin_2-meter.png');
-		pin_2_meter.scale.set(40, 40, 40);
+		pin_2_meter.scale.set(pinSize, pinSize, 40);
 		pin_2_meter.position.set(-20, 30, 20);
-		self.pinsGroup.add(pin_2_meter);
+        pin_2_meter.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-meter.png');
+        pin_2_meter.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-meter_on.png');
+		self.pinsStage2.add(pin_2_meter);
 
 		var pin_2_solar = self.TerminUtils.createSprite('pin_2_solar', '../libs/terminalia/assets/textures/pins/pin_2-solar.png');
-		pin_2_solar.scale.set(40, 40, 40);
-		pin_2_solar.position.set(-120, 30, -100);
-		self.pinsGroup.add(pin_2_solar);
+		pin_2_solar.scale.set(pinSize, pinSize, pinSize);
+		pin_2_solar.position.set(-120, 30, -90);
+        pin_2_solar.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-solar.png');
+        pin_2_solar.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-solar_on.png');
+		self.pinsStage2.add(pin_2_solar);
 
 		var pin_2_storage = self.TerminUtils.createSprite('pin_2_storage', '../libs/terminalia/assets/textures/pins/pin_2-storage.png');
-		pin_2_storage.scale.set(40, 40, 40);
-		pin_2_storage.position.set(-180, 30, -80);
-		self.pinsGroup.add(pin_2_storage);
+		pin_2_storage.scale.set(pinSize, pinSize, pinSize);
+		pin_2_storage.position.set(-180, 30, -70);
+        pin_2_storage.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-storage.png');
+        pin_2_storage.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-storage_on.png');
+		self.pinsStage2.add(pin_2_storage);
 
-        for (var i=4; i<9; i++) {
-            self.pinsGroup.children[i].material.opacity = 0;
+        for (var i=0; i<self.pinsStage2.children.length; i++) {
+            self.pinsStage2.children[i].material.opacity = 0;
         }
 
-        self.scene.add(self.pinsGroup);
+        self.scene.add(self.pinsStage1);
+        self.scene.add(self.pinsStage2);
     }
+
+    function addWorldPins() {
+        var pinsSize = 0.17;
+
+		self.test_pin = self.TerminUtils.createSprite('test_pin', '../libs/terminalia/assets/textures/pins/pin_3-v2g.png');
+		self.test_pin.scale.set(pinsSize, pinsSize, pinsSize);
+		self.test_pin.position.set(-0.039, 0.88, 0.61);
+        self.test_pin.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-v2g.png');
+        self.test_pin.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-v2g_on.png');
+		//self.world.add(self.test_pin);
+
+
+        //DENMARK
+		var pin_3_v2g = self.TerminUtils.createSprite('pin_3_v2g', '../libs/terminalia/assets/textures/pins/pin_3-v2g.png');
+		pin_3_v2g.scale.set(pinsSize, pinsSize, pinsSize);
+		pin_3_v2g.position.set(-0.039, 0.90, 0.61);
+        pin_3_v2g.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-v2g.png');
+        pin_3_v2g.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-v2g_on.png');
+		self.world.add(pin_3_v2g);
+
+        //CHILE
+		var pin_3_bio = self.TerminUtils.createSprite('pin_3_spain', '../libs/terminalia/assets/textures/pins/pin_3-bio.png');
+		pin_3_bio.scale.set(pinsSize, pinsSize, pinsSize);
+		pin_3_bio.position.set(-1.04, -0.25, 0.17);
+        pin_3_bio.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-bio.png');
+        pin_3_bio.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-bio_on.png');
+		self.world.add(pin_3_bio);
+
+        //ROME
+		var pin_3_world = self.TerminUtils.createSprite('pin_3_rome', '../libs/terminalia/assets/textures/pins/pin_3-world.png');
+		pin_3_world.scale.set(pinsSize, pinsSize, pinsSize);
+		pin_3_world.position.set(0.091, 0.64, 0.86);
+        pin_3_world.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-world.png');
+        pin_3_world.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-world_on.png');
+		self.world.add(pin_3_world);
+
+        //MILAN
+		var pin_3_smart = self.TerminUtils.createSprite('pin_3_milan', '../libs/terminalia/assets/textures/pins/pin_3-smart.png');
+		pin_3_smart.scale.set(pinsSize, pinsSize, pinsSize);
+		pin_3_smart.position.set(-0.049, 0.74, 0.78);
+        pin_3_smart.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-smart.png');
+        pin_3_smart.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-smart_on.png');
+		self.world.add(pin_3_smart);
+
+        //BERLIN
+		var pin_3_germany = self.TerminUtils.createSprite('pin_3_berlin', '../libs/terminalia/assets/textures/pins/pin_3-germany.png');
+		pin_3_germany.scale.set(pinsSize, pinsSize, pinsSize);
+		pin_3_germany.position.set(0.081, 0.80, 0.72);
+        pin_3_germany.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-germany.png');
+        pin_3_germany.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-germany_on.png');
+		self.world.add(pin_3_germany);
+
+        //HONG KONG
+		var pin_3_fe = self.TerminUtils.createSprite('pin_3_fe', '../libs/terminalia/assets/textures/pins/pin_3-fe.png');
+		pin_3_fe.scale.set(pinsSize, pinsSize, pinsSize);
+		pin_3_fe.position.set(0.95, 0.39, -0.33);
+        pin_3_fe.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-fe.png');
+        pin_3_fe.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-fe_on.png');
+		self.world.add(pin_3_fe);
+
+        //MEXICO
+		var pin_3_solar = self.TerminUtils.createSprite('pin_3_solar', '../libs/terminalia/assets/textures/pins/pin_3-solar.png');
+		pin_3_solar.scale.set(pinsSize, pinsSize, pinsSize);
+		pin_3_solar.position.set(-0.91, 0.38, -0.45);
+        pin_3_solar.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-solar.png');
+        pin_3_solar.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-solar_on.png');
+		self.world.add(pin_3_solar);
+
+        for (var i=1; i<self.world.children.length; i++) {
+            self.world.children[i].material.opacity = 0;
+        }
+	}
 
     //Add info flags
     function addInfoFlags() {
@@ -9975,7 +10370,7 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         if (offset === 0)
                 offset = 1;
 
-		var ambientLight = new THREE.AmbientLight(0xfaebd7, 2.0);
+		var ambientLight = new THREE.AmbientLight(0xfaebd7, 1.5);
         self.scene.add(ambientLight);
 
         //We add here a light because custom toon shader needs a light
@@ -10023,56 +10418,6 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         self.scene.add(self.circuitPivot);
     }
 
-	function addWorldPins() {
-		self.test_pin = self.TerminUtils.createSprite('pin_3_bio', '../libs/terminalia/assets/textures/pins/pin_3-bio.png');
-		self.test_pin.scale.set(0.09, 0.09, 0.09);
-		self.test_pin.position.set(-0.23, 0.65, 0.81);
-		//self.world.add(self.test_pin);
-
-        var pinsSize = 0.11;
-        //DENMARK
-		var pin_3_v2g = self.TerminUtils.createSprite('pin_3_v2g', '../libs/terminalia/assets/textures/pins/pin_3-v2g.png');
-		pin_3_v2g.scale.set(pinsSize, pinsSize, pinsSize);
-		pin_3_v2g.position.set(-0.009, 0.86, 0.61);
-		self.world.add(pin_3_v2g);
-
-        //SPAIN
-		var pin_3_bio = self.TerminUtils.createSprite('pin_3_spain', '../libs/terminalia/assets/textures/pins/pin_3-bio.png');
-		pin_3_bio.scale.set(pinsSize, pinsSize, pinsSize);
-		pin_3_bio.position.set(-1.01, -0.26, 0.17);
-		self.world.add(pin_3_bio);
-
-        //ROME
-		var pin_3_world = self.TerminUtils.createSprite('pin_3_rome', '../libs/terminalia/assets/textures/pins/pin_3-world.png');
-		pin_3_world.scale.set(pinsSize, pinsSize, pinsSize);
-		pin_3_world.position.set(0.079, 0.64, 0.82);
-		self.world.add(pin_3_world);
-
-        //MILAN
-		var pin_3_smart = self.TerminUtils.createSprite('pin_3_milan', '../libs/terminalia/assets/textures/pins/pin_3-smart.png');
-		pin_3_smart.scale.set(pinsSize, pinsSize, pinsSize);
-		pin_3_smart.position.set(-0.03, 0.74, 0.75);
-		self.world.add(pin_3_smart);
-
-        //BERLIN
-		var pin_3_germany = self.TerminUtils.createSprite('pin_3_berlin', '../libs/terminalia/assets/textures/pins/pin_3-germany.png');
-		pin_3_germany.scale.set(pinsSize, pinsSize, pinsSize);
-		pin_3_germany.position.set(0.05, 0.80, 0.69);
-		self.world.add(pin_3_germany);
-
-        //HONG KONG
-		var pin_3_fe = self.TerminUtils.createSprite('pin_3_fe', '../libs/terminalia/assets/textures/pins/pin_3-fe.png');
-		pin_3_fe.scale.set(pinsSize, pinsSize, pinsSize);
-		pin_3_fe.position.set(0.95, 0.39, -0.32);
-		self.world.add(pin_3_fe);
-
-        //MEXICO
-		var pin_3_solar = self.TerminUtils.createSprite('pin_3_solar', '../libs/terminalia/assets/textures/pins/pin_3-solar.png');
-		pin_3_solar.scale.set(pinsSize, pinsSize, pinsSize);
-		pin_3_solar.position.set(-0.91, 0.38, -0.41);
-		self.world.add(pin_3_solar);
-	}
-
     function addWorld(size) {
         var worldTexture = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/world-tex-4096.jpg');
         worldTexture.magFilter = THREE.NearestFilter;
@@ -10087,6 +10432,48 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         self.spaceBall.addRotationToObject(self.world);
     }
 
+    //Called when card has changed on screen
+    function highlightPin(stage, pin) {
+        switch(stage)
+        {
+            case 'StageStart':
+                for (var i=0; i<self.pinsStage1.children.length; i++) {
+                    if (self.pinsStage1.children[i].name !== pin) {
+                        self.pinsStage1.children[i].visible = false;
+                    }
+                    else {
+                        self.pinsStage1.children[i].visible = true;
+                        self.pinsStage1.children[i].material.map = self.pinsStage1.children[i].material.active_map;
+                    }
+                }
+            break;
+
+            case 'StageCircuit':
+                for (var i=0; i<self.pinsStage2.children.length; i++) {
+                    if (self.pinsStage2.children[i].name !== pin) {
+                        self.pinsStage2.children[i].visible = false;
+                    }
+                    else {
+                        self.pinsStage2.children[i].visible = true;
+                        self.pinsStage2.children[i].material.map = self.pinsStage2.children[i].material.active_map;
+                    }
+                }
+            break;
+
+            case 'StageFinal':
+                for (var i=1; i<self.world.children.length; i++) {
+                    if (self.world.children[i].name !== pin) {
+                        self.world.children[i].visible = false;
+                    }
+                    else {
+                        self.world.children[i].visible = true;
+                        self.world.children[i].material.map = self.world.children[i].material.active_map;
+                    }
+                }
+            break;
+        }
+    }
+
     //###########################################################################################################
     // ANIMATIONS
     //###########################################################################################################
@@ -10097,6 +10484,14 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         }});
     }
 
+    function startWorldAnimation(new_rot_x, duration) {
+        TweenMax.to(self.spaceBall, duration, {rot_x: new_rot_x,
+            onUpdate: function() {
+                self.spaceBall.updateRotation();
+            }
+        });
+    }
+
     function startStageAnimation(stage) {
         //Before starting any animation we have to create the actual stageAnimation
         if (self.animationCreated === false) {
@@ -10105,23 +10500,49 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
             self.animationCreated = true;
         }
 
+        //Reset pins from active to default state
+        resetPinsVisibility()
+
         switch(stage)
         {
             case 1:
-            self.stageAnimation.tweenFromTo(self.currentState, 'StageStart')
+            self.stageAnimation.tweenFromTo(self.currentState, 'StageStart', {onComplete: function() {
+                var event = new CustomEvent("StageTimeLineEnded", {"detail": self.currentState});
+                window.dispatchEvent(event);
+            }});
             self.currentState = 'StageStart'
             break;
 
             case 2:
-            self.stageAnimation.tweenFromTo(self.currentState, 'StageCircuit')
+            self.stageAnimation.tweenFromTo(self.currentState, 'StageCircuit', {onComplete: function() {
+                var event = new CustomEvent("StageTimeLineEnded", {"detail": self.currentState});
+                window.dispatchEvent(event);
+            }});
             self.currentState = 'StageCircuit'
             break;
 
             case 3:
-            self.stageAnimation.tweenFromTo(self.currentState, 'StageFinal')
+            self.stageAnimation.tweenFromTo(self.currentState, 'StageFinal', {onComplete: function() {
+                var event = new CustomEvent("StageTimeLineEnded", {"detail": self.currentState});
+                window.dispatchEvent(event);
+            }});
             self.currentState = 'StageFinal'
             break;
         }
+    }
+    function resetPinsVisibility(visibility) {
+      for (var i=0; i<self.pinsStage1.children.length; i++) {
+        self.pinsStage1.children[i].material.map = self.pinsStage1.children[i].material.default_map;
+        if (visibility !== undefined) self.pinsStage1.children[i].visible = visibility;
+      }
+      for (var i=0; i<self.pinsStage2.children.length; i++) {
+        self.pinsStage2.children[i].material.map = self.pinsStage2.children[i].material.default_map;
+        if (visibility !== undefined) self.pinsStage2.children[i].visible = visibility;
+      }
+      for (var i=1; i<self.world.children.length; i++) {
+        self.world.children[i].material.map = self.world.children[i].material.default_map;
+        if (visibility !== undefined) self.world.children[i].visible = visibility;
+      }
     }
 
     function createStageAnimations() {
@@ -10133,14 +10554,14 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         }}), "StageOrigin");
 
         //STAGE 2
-        newCameraPos = new THREE.Vector3(156, 320, 521);
+        newCameraPos = new THREE.Vector3(-246, 516, 699);
         self.stageAnimation.addLabel("StageStart");
         //1. rotate circuit 360
         self.stageAnimation.add(TweenLite.to(self.circuitPivot.rotation, 2, {x: 0, y: radians(360), z: 0, delay: 0,  ease: Power4.easeInOut}), "StageStart");
         //2. show pins
-        self.stageAnimation.add(TweenLite.to(self.pinsGroup.children[4].material, 0.5, {opacity: 1, onUpdate: function() {
-            for (var i=5; i<9; i++) {
-                self.pinsGroup.children[i].material.opacity = self.pinsGroup.children[4].material.opacity;
+        self.stageAnimation.add(TweenLite.to(self.pinsStage2.children[0].material, 0.1, {opacity: 1, onUpdate: function() {
+            for (var i=0; i<self.pinsStage2.children.length; i++) {
+                self.pinsStage2.children[i].material.opacity = self.pinsStage2.children[0].material.opacity;
             }
         }}));
         //3. zoom out camera
@@ -10150,7 +10571,8 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
 
         //STAGE 3
         //newCameraPos = new THREE.Vector3(2650, 1476, 8081);
-        newCameraPos = new THREE.Vector3(7621.50, -672.90, 12808.57);
+        //newCameraPos = new THREE.Vector3(7621.50, -672.90, 12808.57);
+        newCameraPos = new THREE.Vector3(-678, 2891, 18251);
         self.stageAnimation.addLabel("StageCircuit");
         //1. Make world visible by changing its opacity
         self.stageAnimation.add(TweenLite.to(self.world.children[0].children[0].material, 1, {opacity: 1}));
@@ -10159,6 +10581,12 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
 
         //2.Show Mexico Pin
         //self.stageAnimation.add(TweenLite.to(self.world.children[7].material, 1, {opacity: 1}));
+        //2. show pins
+        self.stageAnimation.add(TweenLite.to(self.world.children[1].material, 0.1, {opacity: 1, onUpdate: function() {
+            for (var i=2; i<self.world.children.length; i++) {
+                self.world.children[i].material.opacity = self.world.children[1].material.opacity;
+            }
+        }}));
         //3. Rotate circuit behind the world
         self.stageAnimation.add(TweenLite.to(self.circuitPivot.rotation, 1, {x: radians(-30), y: 0, z: 0, delay: 1, ease: Power1.easeInOut}), 'StageCircuit');
         //4. Rotate world
@@ -10220,17 +10648,16 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         self.container.appendChild(self.stats.domElement);
     }
 
-    function rotateWorld(angle) {
-        self.world.rotateX(radians(angle));
-        self.circuitPivot.rotateX(radians(angle));
-    }
-
     function radians(degrees) {
         return degrees * Math.PI / 180;
     }
 
     function getCameraPosition() {
         console.log(self.camera.position);
+    }
+
+    function getWorldRotation() {
+        console.log(self.spaceBall.rot_x);
     }
 
 	function movePins(x, y, z) {
@@ -10246,10 +10673,13 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
     this.findObjectOnClick = findObjectOnClick;
     this.startCameraAnimation = startCameraAnimation;
     this.startStageAnimation = startStageAnimation;
+    this.startWorldAnimation = startWorldAnimation;
     this.getCameraPosition = getCameraPosition;
     this.createStageAnimations = createStageAnimations;
-    this.rotateWorld = rotateWorld;
-	this.movePins = movePins;
+    this.getWorldRotation = getWorldRotation;
+	  this.movePins = movePins;
+    this.highlightPin = highlightPin;
+    this.resetPinsVisibility = resetPinsVisibility;
 }
 
 //# sourceMappingURL=libs.js.map

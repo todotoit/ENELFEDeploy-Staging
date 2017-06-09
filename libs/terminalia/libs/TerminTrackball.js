@@ -15,6 +15,7 @@ TERMINALIA.Trackball = function Trackball() {
     self.leftPressed = false;
     self.offset = 0;
     self.enabled = true;
+    self.rotationFactor = 1;
 
     function onMouseDown(x, y) {
         self.leftPressed = true;
@@ -36,8 +37,13 @@ TERMINALIA.Trackball = function Trackball() {
             self.rot_x += diff_x;
             self.rot_y += diff_y;
 
-            self.object.rotation.set(0, radians(self.rot_x), 0);
+            //self.object.rotation.set(0, self.animation_rot + radians(self.rot_x), 0);
+            updateRotation();
         }
+    }
+
+    function updateRotation() {
+        self.object.rotation.set(0, radians(self.rot_x) * self.rotationFactor, 0);
     }
 
     function addRotationToObject(object) {
@@ -52,4 +58,5 @@ TERMINALIA.Trackball = function Trackball() {
     self.onMouseUp = onMouseUp;
     self.onMouseMove = onMouseMove;
     self.addRotationToObject = addRotationToObject;
+    self.updateRotation = updateRotation;
 }

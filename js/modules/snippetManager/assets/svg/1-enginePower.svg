@@ -1,12 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 340 200">
-  <defs>
-    <clipPath id="clip-path">
-      <rect y="-24.95" width="340" height="223.39" style="fill: none"/>
-    </clipPath>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 200">
   <title>1-enginePower</title>
   <g id="UI">
-    <g style="clip-path: url(#clip-path)">
+    <g>
       <path d="M234.37,132.78a19.31,19.31,0,0,0,19.31-19.31" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
       <path d="M234.37,94.16a19.31,19.31,0,0,0-19.31,19.31" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
       <circle cx="234.37" cy="113.47" r="33.47" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 3px"/>
