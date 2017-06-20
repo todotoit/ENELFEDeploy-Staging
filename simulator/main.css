@@ -1,0 +1,75 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+header {
+  position: absolute;
+  width: 100%;
+  height: 30rem;
+  z-index: -1;
+  background: linear-gradient(180deg, #fc1c63, 30%, #a466a0, 80%, rgba(255, 255, 255, .5), 100%, rgba(255, 255, 255, 0));
+}
+
+article {
+  padding-top: 15rem;
+  width: 100%;
+  height: 100%;
+}
+
+article svg{
+  margin: auto;
+  width: 100%;
+}
+
+#appliances ul {
+  margin: 0;
+  padding: 0;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-align: center;
+      align-items: center;
+}
+
+#appliances li {
+  display: -ms-flexbox;
+  display: flex;
+  width: 10rem;
+  height: 5rem;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  color: #fff;
+  border: 1px solid;
+  cursor: pointer;
+}
+#appliances li.active {
+  background: #fff;
+  color: #fc1c63;
+}
+
+#teamAreaChart .axis text{
+  font-family: sans-serif;
+  fill: #fc1c63;
+  font-size: 7px;
+}
+
+#teamAreaChart .axis path,
+#teamAreaChart .axis line {
+  fill: none;
+  stroke: #fc1c63;
+  shape-rendering: crispEdges;
+}
+
+#teamAreaChart :nth-child(even) {
+  fill: url(#teamAreaChart_bl1);
+}
+#teamAreaChart :nth-child(odd) {
+  fill: url(#teamAreaChart_bl2);
+}
