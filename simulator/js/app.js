@@ -1,55 +1,102 @@
 (function(window, $, _, later, Simulator) {
   'use strict'
 
-  var appliances = []
-  var numOfApp = 5
-  var dataRange = 30
+  var stuck = null
+  var $apps = []
+  var time = null
   var maxScale = 0
   var maxScaleOffset = 100
+  var stored = false
 
-  // create appliances
-  _.times(numOfApp, function(i) {
-    var ap = { key: 'appliance'+i, values: [], status: 'off', maxV: Math.round(Math.random()*500*100)/100 }
-    maxScale += ap.maxV
-    // initialize data
-    _.times(dataRange, function(i) {
-      var v = { h: i, v: 0 }
-      ap.values.push(v)
-    })
-    appliances.push(ap)
-    // populate ui list
-    var $apElem = $('<li>'+ap.key+'<br>maxV: '+ap.maxV+'</li>')
-    $apElem.data('app', ap)
-    $apElem.click(function() {
-      $(this).toggleClass('active')
-      $(this).data('app').status == 'off'? $(this).data('app').status = 'on' : $(this).data('app').status = 'off'
-      updateStorage()
-    })
-    $('#appliances').find('ul').append($apElem)
-  })
-  maxScale += maxScaleOffset
-  // initialie area chart
-  var stuck = new StackedAreaChart('#storage', appliances, maxScale)
+  function toggleAppliance(app) {
+    $(app).toggleClass('active')
+    $(app).data('app').status == 'off'? $(app).data('app').status = 'on' : $(app).data('app').status = 'off'
+    updateStorage()
+  }
 
-  // schedule updates
-  var schedule = later.parse.text('every '+ Simulator.sampling_rate)
-  console.info("Setting schedule every " + Simulator.sampling_rate + ": ", schedule)
+  function initializaStorage() {
+    _.each(Simulator.appliances, function(app) {
+      maxScale += app.maxV
+      // initialize data
+      _.times(Simulator.dataset_length, function(i) {
+        var vv = 0
+        Math.random() > 0.5? vv = app.maxV : vv = 0
+        var v = { h: i, v: vv }
+        app.values.push(v)
+      })
+
+      // populate ui list
+      var $appElem = $('<li>'+app.key+'<br>maxV: '+app.maxV+'</li>')
+      $appElem.data('app', app)
+      $appElem.click(function() { return toggleAppliance(this) })
+      $apps.push($appElem)
+      $('#appliances').find('ul').append($appElem)
+    })
+    maxScale += maxScaleOffset
+  }
+
   function updateStorage() {
-    // console.log('update storage')
-    _.each(appliances, function(ap) {
+    _.each(Simulator.appliances, function(app) {
       // remove first data
-      ap.values.shift()
-      ap.values = _.map(ap.values, function(d) {
+      app.values.shift()
+      app.values = _.map(app.values, function(d,i) {
+        if (i>0) app.values[i-1].v = d.v
         d.h--
         return d
       })
       // create new data if appliance is on
-      var v = ap.status === 'on'? { h: ap.values.length, v: ap.maxV } : { h: ap.values.length, v: 0 }
-      ap.values.push(v)
+      var v = app.status === 'on'? { h: app.values.length, v: app.maxV } : { h: app.values.length, v: 0 }
+      app.values.push(v)
     })
-    stuck.update('#storage', appliances, maxScale)
+    stuck.update(Simulator.appliances, stored)
   }
-  later.setInterval(updateStorage, schedule)
 
+  function startStorage() {
+    // set schedule for updates
+    var schedule = later.parse.text('every '+ Simulator.sampling_rate)
+    console.info("Setting schedule every " + Simulator.sampling_rate + ": ", schedule)
+    // start schedule
+    time = later.setInterval(updateStorage, schedule)
+  }
+  function stopStorage() {
+    time.clear()
+    time = null
+  }
+
+  (function init() {
+    initializaStorage()
+    // initialie area chart
+    stuck = new StackedAreaChart('#storage', Simulator.appliances, maxScale)
+    startStorage()
+    setTimeout(function() {
+      stopStorage()
+    }, 1000);
+  })()
+
+  // event handlers
+  $(window).keydown(function(e) {
+    // console.warn('keydown', e)
+    switch (e.key) {
+      case ' ':
+        // console.warn('start/stop')
+        time? stopStorage() : startStorage()
+      break
+      case '0':
+      case 's':
+        // console.warn('activate storage')
+        stored? stored = false : stored = true
+        stuck.update(Simulator.appliances, stored)
+      break
+      case '1':
+      case '2':
+      case '3':
+        var appIdx = +e.key-1
+        toggleAppliance($apps[appIdx])
+      break
+      default:
+        return
+      break
+    }
+  })
 
 }(window, window.jQuery, window._, window.later, window.Simulator));

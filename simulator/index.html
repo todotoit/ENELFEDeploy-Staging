@@ -407,6 +407,7 @@ html,
 body {
   width: 100%;
   height: 100%;
+  background: grey;
 }
 
 header {
@@ -417,10 +418,17 @@ header {
   background: linear-gradient(180deg, #fc1c63, 30%, #a466a0, 80%, rgba(255, 255, 255, .5), 100%, rgba(255, 255, 255, 0));
 }
 
-article {
-  padding-top: 15rem;
+main {
   width: 100%;
   height: 100%;
+  background: linear-gradient(180deg, #6DCBFF, 60%, rgba(255, 255, 255, .5), 100%, rgba(255, 255, 255, 0));
+}
+
+article {
+  background: white;
+  padding-top: 15rem;
+  width: 100%;
+  /*height: 100%;*/
 }
 
 article svg{
@@ -450,35 +458,58 @@ article svg{
       justify-content: center;
   -ms-flex-align: center;
       align-items: center;
+  background: blue;
   color: #fff;
   border: 1px solid;
   cursor: pointer;
 }
 #appliances li.active {
   background: #fff;
-  color: #fc1c63;
+  color: blue;
 }
 
 #teamAreaChart .axis text{
   font-family: sans-serif;
-  fill: #fc1c63;
+  fill: blue;
   font-size: 7px;
 }
 
 #teamAreaChart .axis path,
 #teamAreaChart .axis line {
   fill: none;
-  stroke: #fc1c63;
+  stroke: blue;
   shape-rendering: crispEdges;
 }
 
-#teamAreaChart :nth-child(even) {
-  fill: url(#teamAreaChart_bl1);
+#teamAreaChart > g.areas {
+  fill: lightblue;
 }
-#teamAreaChart :nth-child(odd) {
-  fill: url(#teamAreaChart_bl2);
+#teamAreaChart g.toplines {
+  fill: none;
+  stroke: white;
+  stroke-width: 1;
 }
-</style></head><body><header><img src="assets/fe-enel_logo.png"></header><main><article id="storage"><nav id="appliances"><ul></ul></nav></article></main><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+#teamAreaChart g.toplines .topline {
+  stroke: blue;
+  stroke-width: 3;
+}
+#teamAreaChart g.toplines .storage {
+  stroke: darkgreen;
+  stroke-width: 0;
+}
+#teamAreaChart g.toplines circle {
+  fill: lightblue;
+  stroke-width: 3;
+}
+#teamAreaChart g.toplines circle.storage {
+  fill: green;
+}
+#teamAreaChart g.toplines .threshold {
+  stroke: black;
+  stroke-width: 1;
+  stroke-dasharray: 1 3;
+}
+</style></head><body><main><article id="storage"><nav id="appliances"><ul></ul></nav></article></main><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');</script><script type="text/javascript" src="vendors.js?v=1.0.33"></script><script type="text/javascript" src="main.js?v=1.0.33"></script></body></html>
