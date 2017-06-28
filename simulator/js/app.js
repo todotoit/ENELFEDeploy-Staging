@@ -63,10 +63,70 @@
     time = null
   }
 
+  function handleEvents() {
+    $(window).on('customEv', function(e,key) {
+      switch (key) {
+        case ' ':
+          // console.warn('start/stop')
+          time? stopStorage() : startStorage()
+        break
+        case '0':
+        case 's':
+          // console.warn('activate storage')
+          stored? stored = false : stored = true
+          stuck.update(Simulator.appliances, stored)
+        break
+        case '1':
+        case '2':
+        case '3':
+          var appIdx = +key-1
+          toggleAppliance($apps[appIdx])
+        break
+        default:
+          return
+        break
+      }
+    })
+  }
+
+  var bmod = false
+  var bot = null
+  function toggleBotMode() {
+    bmod = !bmod
+    if (bmod) {
+      $('article').css('background', 'transparent')
+      startStorage()
+      bot = setInterval(function() {
+        var choice = Math.floor(Math.random()*10)
+        switch (choice) {
+          case 0:
+          case 5:
+          case 9:
+            $(window).trigger('customEv', 's')
+          break
+          case 1:
+          case 2:
+          case 3:
+            $(window).trigger('customEv', choice.toString())
+          break
+          default:
+            return
+          break
+        }
+      }, 750)
+    } else {
+      $('article').css('background', 'white')
+      stopStorage()
+      clearInterval(bot)
+      bot = null
+    }
+  }
+
   (function init() {
     initializaStorage()
     // initialie area chart
     stuck = new StackedAreaChart('#storage', Simulator.appliances, maxScale)
+    handleEvents()
     startStorage()
     setTimeout(function() {
       stopStorage()
@@ -75,28 +135,8 @@
 
   // event handlers
   $(window).keydown(function(e) {
-    // console.warn('keydown', e)
-    switch (e.key) {
-      case ' ':
-        // console.warn('start/stop')
-        time? stopStorage() : startStorage()
-      break
-      case '0':
-      case 's':
-        // console.warn('activate storage')
-        stored? stored = false : stored = true
-        stuck.update(Simulator.appliances, stored)
-      break
-      case '1':
-      case '2':
-      case '3':
-        var appIdx = +e.key-1
-        toggleAppliance($apps[appIdx])
-      break
-      default:
-        return
-      break
-    }
+    if (e.altKey && e.keyCode === 66) return toggleBotMode()
+    $(window).trigger('customEv', e.key)
   })
 
 }(window, window.jQuery, window._, window.later, window.Simulator));
