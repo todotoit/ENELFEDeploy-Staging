@@ -413,9 +413,26 @@ body {
 header {
   position: absolute;
   width: 100%;
-  height: 30rem;
-  z-index: -1;
-  background: linear-gradient(180deg, #fc1c63, 30%, #a466a0, 80%, rgba(255, 255, 255, .5), 100%, rgba(255, 255, 255, 0));
+  margin: 0 3rem;
+  display: none;
+  -ms-flex-direction: row;
+      flex-direction: row;
+}
+header div * {
+  margin-right: 2rem;
+}
+header div label {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}
+header div input,
+header div button {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  width: 5rem;
 }
 
 main {
@@ -521,7 +538,7 @@ article svg{
   stroke-width: 1;
   stroke-dasharray: 1 3;
 }
-</style></head><body><main><article id="storage"><nav id="appliances"><ul></ul></nav></article></main><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+</style></head><body><header><img src="assets/fe-enel_logo.png"><div><h2>BOT SETTINGS</h2><form id="botsettings"><label>bot interval</label><input id="bottime" type="number" min="50" step="50"> <input id="setBottime" type="submit" value="set"></form></div></header><main><article id="storage"><nav id="appliances"><ul></ul></nav></article></main><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');</script><script type="text/javascript" src="vendors.js?v=1.0.33"></script><script type="text/javascript" src="main.js?v=1.0.33"></script></body></html>

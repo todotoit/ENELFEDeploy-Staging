@@ -8,9 +8,26 @@ body {
 header {
   position: absolute;
   width: 100%;
-  height: 30rem;
-  z-index: -1;
-  background: linear-gradient(180deg, #fc1c63, 30%, #a466a0, 80%, rgba(255, 255, 255, .5), 100%, rgba(255, 255, 255, 0));
+  margin: 0 3rem;
+  display: none;
+  -ms-flex-direction: row;
+      flex-direction: row;
+}
+header div * {
+  margin-right: 2rem;
+}
+header div label {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}
+header div input,
+header div button {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  width: 5rem;
 }
 
 main {

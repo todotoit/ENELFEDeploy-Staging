@@ -91,10 +91,16 @@
 
   var bmod = false
   var bot = null
+  var bottime = 750
   function toggleBotMode() {
-    bmod = !bmod
+    if (bot) {
+      clearInterval(bot)
+      bot = null
+    } else bmod = !bmod
     if (bmod) {
       $('article').css('background', 'transparent')
+      $('header').css('display', 'flex')
+      $('#bottime').val(bottime).focus()
       startStorage()
       bot = setInterval(function() {
         var choice = Math.floor(Math.random()*10)
@@ -113,9 +119,10 @@
             return
           break
         }
-      }, 750)
+      }, bottime)
     } else {
       $('article').css('background', 'white')
+      $('header').css('display', 'none')
       stopStorage()
       clearInterval(bot)
       bot = null
@@ -135,8 +142,15 @@
 
   // event handlers
   $(window).keydown(function(e) {
-    if (e.altKey && e.keyCode === 66) return toggleBotMode()
+    if (e.altKey && e.keyCode === 66) return toggleBotMode(bottime)
     $(window).trigger('customEv', e.key)
+  })
+  $('#botsettings').submit(function(e) {
+    e.preventDefault()
+    var btime = $('#bottime').val()
+    if (!btime) return $('#bottime').val(bottime).focus()
+    bottime = btime
+    toggleBotMode()
   })
 
 }(window, window.jQuery, window._, window.later, window.Simulator));
