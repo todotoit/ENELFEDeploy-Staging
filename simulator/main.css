@@ -84,6 +84,18 @@ article svg{
   stroke: white;
   stroke-width: 1;
 }
+/*#teamAreaChart g.toplines .arealine:nth-child(1) {
+  stroke: pink;
+  stroke-width: 1;
+}
+#teamAreaChart g.toplines .arealine:nth-child(2) {
+  stroke: violet;
+  stroke-width: 2;
+}
+#teamAreaChart g.toplines .arealine:nth-child(3) {
+  stroke: purple;
+  stroke-width: 3;
+}*/
 #teamAreaChart g.toplines .topline {
   stroke: blue;
   stroke-width: 3;
