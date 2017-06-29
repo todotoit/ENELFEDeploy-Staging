@@ -107,7 +107,8 @@
     // tl.resume()
   }
   function stopStorage() {
-    time.clear()
+    // time.clear()
+    clearInterval(time)
     time = null
     // tl.pause()
   }
