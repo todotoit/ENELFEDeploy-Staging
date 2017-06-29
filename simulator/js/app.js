@@ -1,4 +1,4 @@
-(function(window, $, _, later, Simulator) {
+(function(window, $, _, later, TweenMax, TimelineMax, Simulator) {
   'use strict'
 
   var stuck = null
@@ -7,6 +7,7 @@
   var maxScale = 0
   var maxScaleOffset = 100
   var stored = false
+  var tl = null
 
   function toggleAppliance(app) {
     $(app).toggleClass('active')
@@ -34,8 +35,12 @@
     })
     maxScale += maxScaleOffset
   }
-
   function updateStorage() {
+    // cleanOldData()
+    pushNewData()
+    stuck.update(Simulator.appliances, stored)
+  }
+  function cleanOldData() {
     _.each(Simulator.appliances, function(app) {
       // remove first data
       app.values.shift()
@@ -44,11 +49,30 @@
         d.h--
         return d
       })
+    })
+  }
+  function pushNewData() {
+    _.each(Simulator.appliances, function(app) {
       // create new data if appliance is on
       var v = app.status === 'on'? { h: app.values.length, v: app.maxV } : { h: app.values.length, v: 0 }
       app.values.push(v)
     })
-    stuck.update(Simulator.appliances, stored)
+  }
+
+  function slide() {
+    $('.arealine').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
+      complete: function() { $('.arealine').css({x: '0px'}) }
+    })
+    $('.topline path').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
+      complete: function() { $('.topline path').css({x: '0px'}) }
+    })
+    $('.areas').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
+      complete: function() {
+        pushNewData()
+        $('.areas').css({x: '0px'})
+        stuck.update(Simulator.appliances, stored)
+      }
+    })
   }
 
   function startStorage() {
@@ -56,11 +80,36 @@
     var schedule = later.parse.text('every '+ Simulator.sampling_rate)
     console.info("Setting schedule every " + Simulator.sampling_rate + ": ", schedule)
     // start schedule
-    time = later.setInterval(updateStorage, schedule)
+    // time = later.setInterval(slide, schedule)
+    time = setInterval(slide, 1250)
+    // if (!tl) {
+    //   var area = ['.areas', '.topline path', '.arealine']
+    //   tl = new TimelineMax({repeat: -1, repeatDelay:0})
+    //   stuck.update(Simulator.appliances, stored)
+    //   tl.to(area, 1, {
+    //     onStart: function() {
+    //       console.log('new')
+    //       $('.areas').transition({x: '-=40px', duration: 1000})
+    //     },
+    //     onComplete: function() {
+    //       // TweenMax.set(area, {x: '+=40px'})
+    //       pushNewData()
+    //       stuck.update(Simulator.appliances, stored)
+    //       console.log('clean')
+    //       // $('.areas path').css({x: 0})
+    //       // $('.toplines path').css({x: 0})
+    //       // $('.arealine').css({x: 0})
+    //       // cleanOldData()
+    //       // stuck.update(Simulator.appliances, stored)
+    //     }, ease: 'QuadInOut'
+    //   })
+    // }
+    // tl.resume()
   }
   function stopStorage() {
     time.clear()
     time = null
+    // tl.pause()
   }
 
   function handleEvents() {
@@ -69,16 +118,21 @@
         case ' ':
           // console.warn('start/stop')
           time? stopStorage() : startStorage()
+          // tl && tl.isActive()? stopStorage() : startStorage()
         break
         case '0':
         case 's':
           // console.warn('activate storage')
           stored? stored = false : stored = true
-          stuck.update(Simulator.appliances, stored)
+          var storUpdated = true
+          // pushNewData()
+          stuck.update(Simulator.appliances, stored, storUpdated)
         break
         case '1':
         case '2':
         case '3':
+        case '4':
+        case '5':
           var appIdx = +key-1
           toggleAppliance($apps[appIdx])
         break
@@ -106,13 +160,15 @@
         var choice = Math.floor(Math.random()*10)
         switch (choice) {
           case 0:
-          case 5:
+          case 7:
           case 9:
             $(window).trigger('customEv', 's')
           break
           case 1:
           case 2:
           case 3:
+          case 4:
+          case 5:
             $(window).trigger('customEv', choice.toString())
           break
           default:
@@ -134,9 +190,10 @@
     // initialie area chart
     stuck = new StackedAreaChart('#storage', Simulator.appliances, maxScale)
     handleEvents()
-    startStorage()
+    updateStorage()
+    // startStorage()
     setTimeout(function() {
-      stopStorage()
+      // stopStorage()
     }, 1000);
   })()
 
@@ -153,4 +210,4 @@
     toggleBotMode()
   })
 
-}(window, window.jQuery, window._, window.later, window.Simulator));
+}(window, window.jQuery, window._, window.later, window.TweenMax, window.TimelineMax, window.Simulator));

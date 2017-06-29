@@ -5,8 +5,10 @@
 
   var appliances = [
     { key: 'Air Conditioning', values: [], status: 'off', maxV: 1080 },
-    { key: 'Laser printer', values: [], status: 'off', maxV: 456 },
-    { key: 'Microwave', values: [], status: 'off', maxV: 101 }
+    { key: 'Laser printer', values: [], status: 'on', maxV: 456 },
+    { key: 'Microwave', values: [], status: 'off', maxV: 101 },
+    { key: 'Refrigerator', values: [], status: 'off', maxV: 785 },
+    { key: 'phon', values: [], status: 'on', maxV: 210 }
   ]
 
   var defaults = {

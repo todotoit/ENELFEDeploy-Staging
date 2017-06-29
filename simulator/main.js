@@ -8,12 +8,12 @@
       defs, grad,                                // gradients
       areas, lns, lnsTop, lnsStor,               // chart paths
       interpolation = 'basis',                   // chart paths config
-      delay = 200, duration = 450, ease = 'quad' // animation config
+      delay = 0, duration = 450, ease = 'quad' // animation config
 
   // -------- STORAGE CONST ---------
   var maxScale      = null
   var storageOffset = 50
-  var threshFactor  = 0.45
+  var threshFactor  = 0.15
 
   // -------- SCALES ---------
   var Y      = d3.scale.linear()
@@ -132,8 +132,8 @@
     console.log(thresh ,max, threshFactor)
 
     // update scales domain and range
-    var xDomain = [0, lastIdx-1]
-    var xRange  = [0, w-(p*2)]
+    var xDomain = [1, 29]
+    var xRange  = [0, w]
     X.domain(xDomain).range(xRange)
     var yDomain = [0, max]
     var yRange  = [h-(p*2), 0]
@@ -148,7 +148,7 @@
     lns.select('.threshold')
        .attr('x1', p)
        .attr('y1', p+Y(thresh))
-       .attr('x2', w-p)
+       .attr('x2', w)
        .attr('y2', p+Y(thresh))
     lns.selectAll('.arealine')
        .data(emptydata)
@@ -165,7 +165,7 @@
     axY.call(axisY)
     // axX.call(axisX)
   }
-  function update(data, stored) {
+  function update(data, stored, storUpdated) {
     if (_.isEmpty(data)) return console.error('data is empty')
     data = stack(data)
 
@@ -178,8 +178,9 @@
 
     // update scales domain and range
     // var xDomain = d3.extent(data[0].values, function(d,i) { return d.h })
-    var xDomain = [0, lastIdx-1]
-    var xRange  = [0, w-(p*2)]
+    console.log(lastIdx)
+    var xDomain = [1, 29]
+    var xRange  = [0, w]
     X.domain(xDomain).range(xRange)
     var yDomain = [0, max]
     var yRange  = [h-(p*2), 0]
@@ -188,37 +189,51 @@
 
     // update charts
     areas.selectAll('path').data(data)
-         .transition()
+         .transition().duration(function() { return stored && storUpdated? duration : 0 })
          .attr('d', function(d) { return area(d.values) })
     grad.select('.storstop')
-        .transition()
+        .transition().duration(duration).delay(delay).ease(ease)
         .attr('stop-color', function() { return stored? 'green': 'blue' })
     lns.selectAll('.arealine').data(data)
-       .transition()
+       .transition().duration(function() { return stored && storUpdated? duration : 0 })
        .attr('d', function(d){ return stackLine(d.values) })
        .style('stroke-opacity',   function() { return stored? '.3': '1' })
     lnsTop
-       .transition()
+       .transition().duration(function() { return stored && storUpdated? duration : 0 })
+       .delay(0).ease(ease)
        .attr('d', topLine(totData))
        .style('stroke-dasharray', function() { return stored? '1 5': '' })
        .style('stroke-width',     function() { return stored? '1': '3' })
     lnsStor
-       .transition()
+       .transition().duration(function() { return stored && storUpdated? duration : 0 })
+       .delay(0).ease(ease)
        .attr('d', storLine(totData))
        .style('stroke-width',     function() { return stored? '3': '0' })
     lns.select('.topcircle')
-       .transition()
+       .transition().duration(duration).delay(function() { return storUpdated? 0 : 1200 }).ease(ease)
        .attr('r',  function() { return stored? '1' : '5' })
-       .attr("cx", function() { return w-p })
+       .attr("cx", function() { return X(29)-p })
        .attr("cy", function() { return p + Y(_.last(totData).v) })
     lns.select('.storcircle')
-       .transition()
+       .transition().duration(function() { return stored? duration : duration/2})
+       .delay(function() { return storUpdated? 0 : 1200 }).ease(ease)
        .attr('r',  function() { return stored? '5' : '0' })
-       .attr("cx", function() { return w-p })
+       .attr("cx", function() { return X(29)-p })
        .attr("cy", function() { return p + YStor(_.last(totData).v) })
 
+    if (storUpdated) return
+    _.each(data, function(app) {
+      // remove first data
+      app.values.shift()
+      app.values = _.map(app.values, function(d,i) {
+        if (i>0) app.values[i-1].v = d.v
+        d.h--
+        return d
+      })
+    })
+
     // update axis data
-    axY.transition().delay(delay).call(axisY)
+    // axY.transition().delay(delay).call(axisY)
     // axX.transition().delay(delay).call(axisX)
   }
   function destroy() {}
@@ -245,8 +260,10 @@
 
   var appliances = [
     { key: 'Air Conditioning', values: [], status: 'off', maxV: 1080 },
-    { key: 'Laser printer', values: [], status: 'off', maxV: 456 },
-    { key: 'Microwave', values: [], status: 'off', maxV: 101 }
+    { key: 'Laser printer', values: [], status: 'on', maxV: 456 },
+    { key: 'Microwave', values: [], status: 'off', maxV: 101 },
+    { key: 'Refrigerator', values: [], status: 'off', maxV: 785 },
+    { key: 'phon', values: [], status: 'on', maxV: 210 }
   ]
 
   var defaults = {
@@ -259,7 +276,7 @@
 
 }(window, window._));
 
-(function(window, $, _, later, Simulator) {
+(function(window, $, _, later, TweenMax, TimelineMax, Simulator) {
   'use strict'
 
   var stuck = null
@@ -268,6 +285,7 @@
   var maxScale = 0
   var maxScaleOffset = 100
   var stored = false
+  var tl = null
 
   function toggleAppliance(app) {
     $(app).toggleClass('active')
@@ -295,8 +313,12 @@
     })
     maxScale += maxScaleOffset
   }
-
   function updateStorage() {
+    // cleanOldData()
+    pushNewData()
+    stuck.update(Simulator.appliances, stored)
+  }
+  function cleanOldData() {
     _.each(Simulator.appliances, function(app) {
       // remove first data
       app.values.shift()
@@ -305,11 +327,30 @@
         d.h--
         return d
       })
+    })
+  }
+  function pushNewData() {
+    _.each(Simulator.appliances, function(app) {
       // create new data if appliance is on
       var v = app.status === 'on'? { h: app.values.length, v: app.maxV } : { h: app.values.length, v: 0 }
       app.values.push(v)
     })
-    stuck.update(Simulator.appliances, stored)
+  }
+
+  function slide() {
+    $('.arealine').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
+      complete: function() { $('.arealine').css({x: '0px'}) }
+    })
+    $('.topline path').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
+      complete: function() { $('.topline path').css({x: '0px'}) }
+    })
+    $('.areas').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
+      complete: function() {
+        pushNewData()
+        $('.areas').css({x: '0px'})
+        stuck.update(Simulator.appliances, stored)
+      }
+    })
   }
 
   function startStorage() {
@@ -317,11 +358,36 @@
     var schedule = later.parse.text('every '+ Simulator.sampling_rate)
     console.info("Setting schedule every " + Simulator.sampling_rate + ": ", schedule)
     // start schedule
-    time = later.setInterval(updateStorage, schedule)
+    // time = later.setInterval(slide, schedule)
+    time = setInterval(slide, 1250)
+    // if (!tl) {
+    //   var area = ['.areas', '.topline path', '.arealine']
+    //   tl = new TimelineMax({repeat: -1, repeatDelay:0})
+    //   stuck.update(Simulator.appliances, stored)
+    //   tl.to(area, 1, {
+    //     onStart: function() {
+    //       console.log('new')
+    //       $('.areas').transition({x: '-=40px', duration: 1000})
+    //     },
+    //     onComplete: function() {
+    //       // TweenMax.set(area, {x: '+=40px'})
+    //       pushNewData()
+    //       stuck.update(Simulator.appliances, stored)
+    //       console.log('clean')
+    //       // $('.areas path').css({x: 0})
+    //       // $('.toplines path').css({x: 0})
+    //       // $('.arealine').css({x: 0})
+    //       // cleanOldData()
+    //       // stuck.update(Simulator.appliances, stored)
+    //     }, ease: 'QuadInOut'
+    //   })
+    // }
+    // tl.resume()
   }
   function stopStorage() {
     time.clear()
     time = null
+    // tl.pause()
   }
 
   function handleEvents() {
@@ -330,16 +396,21 @@
         case ' ':
           // console.warn('start/stop')
           time? stopStorage() : startStorage()
+          // tl && tl.isActive()? stopStorage() : startStorage()
         break
         case '0':
         case 's':
           // console.warn('activate storage')
           stored? stored = false : stored = true
-          stuck.update(Simulator.appliances, stored)
+          var storUpdated = true
+          // pushNewData()
+          stuck.update(Simulator.appliances, stored, storUpdated)
         break
         case '1':
         case '2':
         case '3':
+        case '4':
+        case '5':
           var appIdx = +key-1
           toggleAppliance($apps[appIdx])
         break
@@ -367,13 +438,15 @@
         var choice = Math.floor(Math.random()*10)
         switch (choice) {
           case 0:
-          case 5:
+          case 7:
           case 9:
             $(window).trigger('customEv', 's')
           break
           case 1:
           case 2:
           case 3:
+          case 4:
+          case 5:
             $(window).trigger('customEv', choice.toString())
           break
           default:
@@ -395,9 +468,10 @@
     // initialie area chart
     stuck = new StackedAreaChart('#storage', Simulator.appliances, maxScale)
     handleEvents()
-    startStorage()
+    updateStorage()
+    // startStorage()
     setTimeout(function() {
-      stopStorage()
+      // stopStorage()
     }, 1000);
   })()
 
@@ -414,6 +488,6 @@
     toggleBotMode()
   })
 
-}(window, window.jQuery, window._, window.later, window.Simulator));
+}(window, window.jQuery, window._, window.later, window.TweenMax, window.TimelineMax, window.Simulator));
 
 //# sourceMappingURL=main.js.map
