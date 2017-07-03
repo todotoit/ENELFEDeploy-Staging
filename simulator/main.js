@@ -2,43 +2,43 @@
   'use strict'
 
   // -------- SVG ELEMENTS ---------
-  var svgContainer,
-      svg, box, w, h, p,                         // svg config
+  var svgContainer, mask,
+      svg, box, w, wright, h, p, pright,         // svg config
       axY, axX, threshold,                       // axis and scales config
       defs, grad,                                // gradients
-      areas, lns, lnsTop, lnsStor,               // chart paths
+      areas, areaTot, areaTotStor,               // chart paths
+      lns, lnsTop, lnsStor,
+      circles, labels,
       interpolation = 'basis',                   // chart paths config
-      delay = 0, duration = 450, ease = 'quad' // animation config
+      delay = 0, duration = 450, ease = 'quad'   // animation config
 
   // -------- STORAGE CONST ---------
   var maxScale      = null
+  var dataLength    = 30
   var storageOffset = 50
-  var threshFactor  = 0.15
+  var threshFactor  = 0
 
   // -------- SCALES ---------
-  var Y      = d3.scale.linear()
-  var YStor  = d3.scale.linear()
-  var X      = d3.scale.linear()
+  var Y        = d3.scale.linear()
+  var YStor    = d3.scale.linear()
+  var X        = d3.scale.linear()
+  var YStorInv = d3.scale.linear()
 
   // -------- AXIS ---------
-  var formatY = d3.format('.0f')
-  var axisY   = d3.svg.axis()
-                  .scale(Y)
-                  .orient('left')
-                  .tickSize(0)
-                  .tickFormat(function(d,i) {
-                    if(i === 0) return
-                    return formatY(d)+'kW'
-                  })
-
-  // var axisX   = d3.svg.axis()
-  //                 .scale(X)
-  //                 .orient('bottom')
-  //                 .tickSize(1)
+  // var formatY = d3.format('.0f')
+  // var axisY   = d3.svg.axis()
+  //                 .scale(Y)
+  //                 .orient('left')
+  //                 .tickSize(0)
   //                 .tickFormat(function(d,i) {
   //                   if(i === 0) return
-  //                   return d
+  //                   return formatY(d)+'kW'
   //                 })
+
+  var axisX   = d3.svg.axis()
+                  .scale(X)
+                  .orient('top')
+                  .tickFormat('')
 
   // -------- STACK ---------
   var stack = d3.layout.stack()
@@ -50,8 +50,13 @@
   var area = d3.svg.area()
                .x(function(d,i) { return p + X(i) })
                .y0(function(d)  { return h - p })
-               .y1(function(d)  { return p + YStor(d.y+d.y0) })
+               .y1(function(d)  { return p + Y(d.y+d.y0) })
                .interpolate(interpolation)
+  var areaStor = d3.svg.area()
+                   .x(function(d,i) { return p + X(i) })
+                   .y0(function(d)  { return h - p })
+                   .y1(function(d)  { return p + YStor(d.y+d.y0) })
+                   .interpolate(interpolation)
 
   // -------- TOP LINES ---------
   var topLine   = d3.svg.line()
@@ -68,7 +73,7 @@
                     .interpolate(interpolation)
 
   // -------- CHART SVG TEMPLATE ---------
-  var tpl = '<svg id="teamAreaChart" viewBox="0 0 600 500"></svg>'
+  var tpl = '<svg id="teamAreaChart" viewBox="0 0 600 450"></svg>'
 
   function _emptyData(data) {
     var values = data.values
@@ -88,36 +93,60 @@
     w   = +box[2] // width
     h   = +box[3] // height
     p   = 30      // padding
+    pright = 75   // padding right
+    wright = w-pright
     svg = d3.select(svg.get(0))
     // create areas gradient fill
     defs = svg.append('defs')
+    var maskGrad = defs.append('linearGradient').attr('id', 'teamAreaChart_mask_grad').attr('gradientUnits', 'userSpaceOnUse')
+                       .attr('x1', 0).attr('y1', 0).attr('x2', wright).attr('y2', 0)
+    maskGrad.append('stop').attr('offset', 0).attr('stop-color', '#000')
+    maskGrad.append('stop').attr('offset', p/wright).attr('stop-color', '#000')
+    maskGrad.append('stop').attr('offset', p/wright).attr('stop-color', '#fff')
+    maskGrad.append('stop').attr('offset', 1-(p*0.6)/wright).attr('stop-color', '#fff')
+    maskGrad.append('stop').attr('offset', 1-p/wright).attr('stop-color', '#000')
+    maskGrad.append('stop').attr('offset', 1).attr('stop-color', '#000')
+    mask = defs.append('mask').attr('id', 'mask-border')
+    mask.append('rect').attr('x',0).attr('y',0).attr('width',wright).attr('height',h).attr('fill', 'url(#teamAreaChart_mask_grad)')
+
     grad = defs.append('linearGradient').attr('id', 'stor3Grd').attr('gradientUnits', 'userSpaceOnUse')
                .attr('x1', 0).attr('y1', p).attr('x2', 0).attr('y2', h-p)
-    grad.append('stop').attr('offset', 0).attr('stop-color', 'lightblue')
-    grad.append('stop').attr('offset', 1-threshFactor).attr('stop-color', 'lightblue')
-    grad.append('stop').attr('class', 'storstop').attr('offset', 1-threshFactor).attr('stop-color', 'blue')
+    grad.append('stop').attr('offset', 0).attr('stop-color', '#41b8e5')
+    grad.append('stop').attr('offset', 1-threshFactor).attr('stop-color', '#41b8e5')
+    grad.append('stop').attr('class', 'storstop').attr('offset', 1-threshFactor).attr('stop-color', '#0555f9')
     grad.append('stop').attr('offset', 1).attr('stop-color', '#ffffff')
     // create areas group
-    areas = svg.append('g').attr('class', 'areas')
+    areas = svg.append('g').attr('class', 'areas').attr('mask', 'url(#mask-border)')
+    areaTot = areas.append('g').attr('class', 'areaTot')
+    areaTotStor = areas.append('g').attr('class', 'areaStorage')
     // create lines groups
-    lns = svg.append('g').attr('class','toplines')
+    lns = svg.append('g').attr('class','toplines').attr('mask', 'url(#mask-border)')
+    // create circles group
+    circles = svg.append('g').attr('class','circles')
+    labels  = svg.append('g').attr('class', 'labels')
     // create path for each data
     _.each(data, function(d) {
-      areas.append('path').attr('class', 'area area-'+_.kebabCase(d.key))
+      areaTot.append('path').attr('class', 'area area-'+_.kebabCase(d.key))
+      areaTotStor.append('path').attr('class', 'area area-'+_.kebabCase(d.key))
       lns.append('path').attr('class', 'arealine line-'+_.kebabCase(d.key))
+      labels.append('g').attr('class', 'label label-'+_.kebabCase(d.key))
     })
     lnsTop  = lns.append('g').attr('class', 'topline').append('path')
     lnsStor = lns.append('g').attr('class', 'topline storage').append('path')
-    lns.select('.topline').append('circle').attr('class', 'topcircle')
-    lns.select('.topline.storage').append('circle').attr('class', 'storcircle')
+    circles.append('circle').attr('class', 'topcircle')
+    labels.append('g').attr('class', 'label toplabel').append('text').text('Energy demand')
+    circles.append('circle').attr('class', 'storcircle')
+    labels.append('g').attr('class', 'label storlabel').append('text').text('What your provider sees')
+
+    // create threshold line
     lns.append('line').attr('class', 'threshold')
     // create path for axis
-    axY = svg.append('g')
-             .attr('transform', 'translate('+p+', '+p+')')
-             .attr('class', 'axis')
-    // axX = svg.append('g')
-    //          .attr('transform', 'translate('+p+', '+(h-p)+')')
+    // axY = svg.append('g')
+    //          .attr('transform', 'translate('+p+', '+p+')')
     //          .attr('class', 'axis')
+    axX = svg.append('g')
+             .attr('transform', 'translate('+p+', '+(h-p)+')')
+             .attr('class', 'axis')
 
     // Initialize chart with emptyData
     var emptydata = _.map(data, function(d) { return _emptyData(d) })
@@ -129,44 +158,80 @@
     var emptyTotData   = _(emptyValues).groupBy('h').map(function(d,i){ return { h:+i, v:_.sumBy(d,'v') } }).value()
     var max = maxScale = max || 0
     var thresh         = max * threshFactor
-    console.log(thresh ,max, threshFactor)
 
-    // update scales domain and range
-    var xDomain = [1, 29]
-    var xRange  = [0, w]
+    // initialize scales domain and range
+    var xDomain = [1, dataLength-1]
+    var xRange  = [0, wright]
     X.domain(xDomain).range(xRange)
     var yDomain = [0, max]
     var yRange  = [h-(p*2), 0]
     Y.domain(yDomain).range(yRange)
     YStor.domain(yDomain).range(yRange)
 
-    // update charts
-    areas.selectAll('path')
-         .data(emptydata)
-         .attr('d', function(d){ return area(d.values) })
-         .attr('fill', function()  { return 'url(#'+grad.attr('id')+')' })
+    // initialize charts
+    areaTot.selectAll('path')
+           .data(emptydata)
+           .attr('d', function(d){ return area(d.values) })
+           .attr('fill', function()  { return '#0555f9' })
+    areaTotStor.selectAll('path')
+               .data(emptydata)
+               .attr('d', function(d){ return areaStor(d.values) })
+               .attr('fill', function()  { return 'url(#'+grad.attr('id')+')' })
     lns.select('.threshold')
        .attr('x1', p)
        .attr('y1', p+Y(thresh))
-       .attr('x2', w)
+       .attr('x2', wright)
        .attr('y2', p+Y(thresh))
+    lns.append('text').text('Threshold')
+       .attr('x', p+(p/2))
+       .attr('y', Y(thresh)+(p/2))
+    lns.append('text').html('Extra demand')
+       .attr('x', p+(p/2))
+       .attr('y', h -p-(p/2) -Y(thresh/2))
     lns.selectAll('.arealine')
        .data(emptydata)
        .attr('d', function(d) { return stackLine(d.values) })
     lnsTop.attr('d', topLine(emptyTotData))
     lnsStor.attr('d', storLine(emptyTotData))
-    lns.selectAll('circle')
-       .data(emptyTotData)
-       .attr('r', 0)
-       .attr("cx", function(d) { return w-p })
-       .attr("cy", function(d) { return p+Y(d.v) })
+    circles.selectAll('circle')
+           .data(emptyTotData)
+           .attr('r', 0)
+           .attr('cx', function(d) { return wright-p })
+           .attr('cy', function(d) { return p+Y(d.v) })
+    labels.selectAll('.label')
+           .attr('opacity', 0)
+           .attr('transform', function(d) { return 'translate(' + wright +','+ (p+Y(_.last(emptyTotData).v)) +')' })
+    labels.select('.toplabel')
+           .attr('opacity', 1)
+           .append('text')
+           .attr('class', 'tot_value')
+           .attr('y', 10)
+           .text(_.last(emptyTotData).v + ' w')
+    labels.select('.storlabel')
+           .append('text')
+           .attr('class', 'tot_value')
+           .attr('y', 10)
+           .text(_.last(emptyTotData).v + ' w')
 
-    // update axis data
-    axY.call(axisY)
-    // axX.call(axisX)
+    // initialize axis data
+    // axY.call(axisY)
+    axX.call(axisX.tickSize(h))
   }
   function update(data, stored, storUpdated) {
     if (_.isEmpty(data)) return console.error('data is empty')
+
+    if (!storUpdated) {
+      _.each(data, function(app) {
+        // remove first data
+        app.values.shift()
+        app.values = _.map(app.values, function(d,i) {
+          if (i>0) app.values[i-1].v = d.v
+          d.h--
+          return d
+        })
+      })
+    }
+
     data = stack(data)
 
     // -------- DATA MAP ---------
@@ -177,73 +242,80 @@
     var thresh  = maxScale * threshFactor
 
     // update scales domain and range
-    // var xDomain = d3.extent(data[0].values, function(d,i) { return d.h })
-    console.log(lastIdx)
-    var xDomain = [1, 29]
-    var xRange  = [0, w]
+    var xDomain = [1, dataLength-1]
+    var xRange  = [0, wright]
     X.domain(xDomain).range(xRange)
     var yDomain = [0, max]
     var yRange  = [h-(p*2), 0]
     Y.domain(yDomain).range(yRange)
     stored? YStor.domain(yDomain).range([p+Y(thresh+storageOffset), Y(thresh)]) : YStor.domain(yDomain).range(yRange)
+    YStorInv.domain(yRange).range(yDomain)
 
     // update charts
-    areas.selectAll('path').data(data)
-         .transition().duration(function() { return stored && storUpdated? duration : 0 })
-         .attr('d', function(d) { return area(d.values) })
+    areaTot.selectAll('path').data(data)
+           .transition().duration(function() { return stored && storUpdated? duration : 0 })
+           .delay(delay).ease(ease)
+           .attr('d', function(d) { return area(d.values) })
+           .attr('opacity', .1)
+    areaTotStor.selectAll('path').data(data)
+               .transition().duration(function() { return stored && storUpdated? duration : 0 })
+               .delay(delay).ease(ease)
+               .attr('d', function(d) { return areaStor(d.values) })
     grad.select('.storstop')
         .transition().duration(duration).delay(delay).ease(ease)
-        .attr('stop-color', function() { return stored? 'green': 'blue' })
+        .attr('stop-color', function() { return stored? '#55bd5a': '#0555f9' })
     lns.selectAll('.arealine').data(data)
        .transition().duration(function() { return stored && storUpdated? duration : 0 })
        .attr('d', function(d){ return stackLine(d.values) })
        .style('stroke-opacity',   function() { return stored? '.3': '1' })
     lnsTop
-       .transition().duration(function() { return stored && storUpdated? duration : 0 })
+       .transition().delay(0).duration(function() { return stored && storUpdated? duration : 0 })
        .delay(0).ease(ease)
        .attr('d', topLine(totData))
-       .style('stroke-dasharray', function() { return stored? '1 5': '' })
-       .style('stroke-width',     function() { return stored? '1': '3' })
+       .attr('opacity', function() { return stored? .2 : 1 })
     lnsStor
-       .transition().duration(function() { return stored && storUpdated? duration : 0 })
+       .transition().delay(0).duration(function() { return stored && storUpdated? duration : 0 })
        .delay(0).ease(ease)
        .attr('d', storLine(totData))
        .style('stroke-width',     function() { return stored? '3': '0' })
-    lns.select('.topcircle')
-       .transition().duration(duration).delay(function() { return storUpdated? 0 : 1200 }).ease(ease)
-       .attr('r',  function() { return stored? '1' : '5' })
-       .attr("cx", function() { return X(29)-p })
-       .attr("cy", function() { return p + Y(_.last(totData).v) })
-    lns.select('.storcircle')
-       .transition().duration(function() { return stored? duration : duration/2})
-       .delay(function() { return storUpdated? 0 : 1200 }).ease(ease)
-       .attr('r',  function() { return stored? '5' : '0' })
-       .attr("cx", function() { return X(29)-p })
-       .attr("cy", function() { return p + YStor(_.last(totData).v) })
-
-    if (storUpdated) return
-    _.each(data, function(app) {
-      // remove first data
-      app.values.shift()
-      app.values = _.map(app.values, function(d,i) {
-        if (i>0) app.values[i-1].v = d.v
-        d.h--
-        return d
-      })
-    })
+    circles.select('.topcircle')
+           .transition()
+           .duration(function() { return storUpdated? duration : duration+100 }).ease(ease)
+           .delay(245)
+           .attr('r',  function() { return stored? '0' : '5' })
+           .attr('cx', function() { return X(dataLength-1)-p*0.6 })
+           .attr('cy', function() { return p + Y(_.last(totData).v) })
+    labels.select('.toplabel')
+           .transition()
+           .duration(function() { return storUpdated? duration : duration+100 }).ease(ease)
+           .delay(245)
+           .attr('transform', function(d) { return 'translate(' + wright +','+ (p+Y(_.last(totData).v)) +')' })
+           .select('.tot_value')
+           .text(_.last(totData).v + ' w')
+    circles.select('.storcircle')
+           .transition().duration(function() { return stored? duration : duration/2}).ease(ease)
+           .attr('r',  function() { return stored? '5' : '0' })
+           .attr('cx', function() { return X(dataLength-1)-p*0.6 })
+           .attr('cy', function() { return p + YStor(_.last(totData).v) })
+    labels.select('.storlabel')
+           .transition().duration(function() { return stored? duration : duration/2}).ease(ease)
+           .attr('transform', function(d) { return 'translate(' + wright +','+ (p+YStor(_.last(totData).v)) +')' })
+           .attr('opacity', function() { return stored? 1 : 0 })
+           .select('.tot_value')
+           .text(Math.round(YStorInv(YStor(_.last(totData).v))) + ' w')
 
     // update axis data
     // axY.transition().delay(delay).call(axisY)
-    // axX.transition().delay(delay).call(axisX)
+    axX.transition().delay(delay).call(axisX)
   }
-  function destroy() {}
 
   // -------- CONSTRUCTOR ---------
-  function StackedAreaChart(container, datasource, maxScale) {
+  function StackedAreaChart(container, datasource, dataset_length, maxScale, thFactor) {
     var self = this
     self.update = update
-    self.destroy = destroy
     self.container = svgContainer = container
+    dataLength = dataset_length
+    threshFactor = thFactor
 
     init(datasource, maxScale)
     return self
@@ -259,181 +331,292 @@
   window.Simulator = window.Simulator || {}
 
   var appliances = [
-    { key: 'Air Conditioning', values: [], status: 'off', maxV: 1080 },
-    { key: 'Laser printer', values: [], status: 'on', maxV: 456 },
-    { key: 'Microwave', values: [], status: 'off', maxV: 101 },
-    { key: 'Refrigerator', values: [], status: 'off', maxV: 785 },
-    { key: 'phon', values: [], status: 'on', maxV: 210 }
+    { key: 'Air Conditioning', icon: 'icon_cooling.svg', uid: ['95E8432A'], status: 'off', values: [], maxV: 4000 },
+    { key: 'Hot plate',        icon: 'icon_brewing.svg', uid: ['C5DA2C2A'], status: 'off', values: [], maxV: 2000 },
+    { key: 'Hair dryer',       icon: 'icon_drying.svg', uid: ['75423F2A'], status: 'off', values: [], maxV: 1500 },
+    { key: 'Microwave',        icon: 'icon_heating.svg', uid: [], status: 'off', values: [], maxV: 1200 },
+    { key: 'Laser printer',    icon: 'icon_printing.svg', uid: [], status: 'off', values: [], maxV: 350  }
   ]
+  var storageUid = ['35AA462A']
 
   var defaults = {
-    sampling_rate: 1+' second', // scheduled update time
+    sampling_rate: 1200,                  // millis
     appliances: appliances,
     num_of_appliances: appliances.length,
-    dataset_length: 30
+    rfidReaders: 4,                       // 0 is storage
+    dataset_length: 30,
+    storageUid: storageUid
   }
   _.defaultsDeep(window.Simulator, defaults)
 
 }(window, window._));
 
-(function(window, $, _, later, TweenMax, TimelineMax, Simulator) {
+(function(window, $, _, WebSocket, Simulator) {
   'use strict'
 
-  var stuck = null
-  var $apps = []
-  var time = null
-  var maxScale = 0
-  var maxScaleOffset = 100
+  // simulator
+  var $readers = []
+  var connectedAppliances = []
+  var apps = []
   var stored = false
-  var tl = null
+  var totalDemand = 0
+  var treshDemand = 0
+  var threshFactor = 0.5
+  // chart
+  var stuck = null
+  var maxDemand = 0
+  var maxDemandOffset = 0
+  // updates
+  var updateInterval = null
+  var updateTime = 0
+  var animationOffTime = 75
+  // web socket
+  var ws = null
+  var wssURL = 'ws://192.168.1.133:9000'
+  var wssURL = '' // test
+  var wsPollingTime = 1000
 
-  function toggleAppliance(app) {
-    $(app).toggleClass('active')
-    $(app).data('app').status == 'off'? $(app).data('app').status = 'on' : $(app).data('app').status = 'off'
-    updateStorage()
+  function toggleAppliance(app, readerId) {
+    // readerId 0 is reserved for storage
+    var $reader = $readers[readerId-1]
+    if (app.status == 'on') {
+      $reader.addClass('on')
+      $reader.data().reader.connectedAppliances.push(app)
+      connectedAppliances.push(app)
+      // populate reader ui element
+      $reader.find('span').css('background', 'url("assets/'+app.icon+'")')
+      $reader.find('h4').text(app.key)
+      $reader.find('label').text(app.maxV+'w')
+    } else {
+      _.pull($reader.data().reader.connectedAppliances, app)
+      _.pull(connectedAppliances, app)
+      if (_.isEmpty($reader.data().reader.connectedAppliances)) {
+        // clean reader ui element
+        $reader.removeClass('on')
+        $reader.find('span').css('background', 'none')
+        $reader.find('h4').text('')
+        $reader.find('label').text('')
+      } else {
+        // populate reader ui element with last element
+        var lastapp = _.last($reader.data().reader.connectedAppliances)
+        $reader.find('span').css('background', 'url("assets/'+lastapp.icon+'")')
+        $reader.find('h4').text(lastapp.key)
+        $reader.find('label').text(lastapp.maxV+'w')
+      }
+    }
+    if (_.isEmpty(connectedAppliances)) {
+      $('#appliances .active').hide()
+      $('#appliances .inactive').show()
+    } else {
+      $('#appliances .inactive').hide()
+      $('#appliances .active').show()
+    }
+    // updateStorage()
+    if (!updateInterval) {
+      slide()
+      startStorage()
+    }
   }
 
   function initializaStorage() {
-    _.each(Simulator.appliances, function(app) {
-      maxScale += app.maxV
+    updateTime = Simulator.sampling_rate
+    apps = Simulator.appliances
+    // populate ui readers list
+    _.times(Simulator.rfidReaders-1, function(i) {
+      var $readerElem = $('<li class="reader"><span></span><h4></h4><label></label></li>')
+      $readerElem.data('reader', { id: i+1, connectedAppliances: [] })
+      $readers.push($readerElem)
+      $('#readers').find('ul').append($readerElem)
+    })
+    _.each(apps, function(app) {
+      // maxDemand += app.maxV
       // initialize data
       _.times(Simulator.dataset_length, function(i) {
         var vv = 0
-        Math.random() > 0.5? vv = app.maxV : vv = 0
+        // Math.random() > 0.5? vv = app.maxV : vv = 0
         var v = { h: i, v: vv }
         app.values.push(v)
       })
-
-      // populate ui list
-      var $appElem = $('<li>'+app.key+'<br>maxV: '+app.maxV+'</li>')
-      $appElem.data('app', app)
-      $appElem.click(function() { return toggleAppliance(this) })
-      $apps.push($appElem)
-      $('#appliances').find('ul').append($appElem)
     })
-    maxScale += maxScaleOffset
+    maxDemand = _.sumBy(_(apps).sortBy('maxV')
+                              .reverse()
+                              .take(Simulator.rfidReaders-1)
+                              .value(),'maxV')
+    maxDemand += maxDemandOffset
+    treshDemand = maxDemand * threshFactor
+    $('#appliances .active').hide()
+    $('#appliances .inactive').show()
   }
   function updateStorage() {
-    // cleanOldData()
+    totalDemand = _.sumBy(connectedAppliances, 'maxV')
     pushNewData()
-    stuck.update(Simulator.appliances, stored)
-  }
-  function cleanOldData() {
-    _.each(Simulator.appliances, function(app) {
-      // remove first data
-      app.values.shift()
-      app.values = _.map(app.values, function(d,i) {
-        if (i>0) app.values[i-1].v = d.v
-        d.h--
-        return d
-      })
-    })
+    stuck.update(apps, stored)
+    updateStorageBehaviour()
   }
   function pushNewData() {
-    _.each(Simulator.appliances, function(app) {
+    _.each(apps, function(app) {
       // create new data if appliance is on
       var v = app.status === 'on'? { h: app.values.length, v: app.maxV } : { h: app.values.length, v: 0 }
       app.values.push(v)
     })
   }
+  function updateStorageBehaviour() {
+    // update percent demand
+    var percDemand = totalDemand/maxDemand *100
+    $('#demand > span').css('width', percDemand+'%')
+    // update storage energy in/out
+    if (totalDemand > treshDemand) {
+      // storage => energy out
+      $('#storage .active #dot #bolt').fadeOut()
+      $('#storage .active #dot').css('transform', 'translateY(-40px)')
+    } else {
+      // storage => energy in
+      $('#storage .active #dot #bolt').fadeIn()
+      $('#storage .active #dot').css('transform', 'translateY(0)')
+    }
+    // update energy flow grid - storage - home
+    if (!stored && _.isEmpty(connectedAppliances)) {
+      $('g[id*="arrow"]').removeClass('animate')
+    } else if (!stored && !_.isEmpty(connectedAppliances)) {
+      $('g[id*="arrow"]').removeClass('animate')
+      $('#arrowGtoH').addClass('animate')
+    } else if (stored && _.isEmpty(connectedAppliances)) {
+      $('g[id*="arrow"]').removeClass('animate')
+      $('#arrowGtoS').addClass('animate')
+    } else if (stored && totalDemand > treshDemand) {
+      $('g[id*="arrow"]').removeClass('animate')
+      $('#arrowGtoH').addClass('animate')
+      $('#arrowStoH').addClass('animate')
+    } else {
+      $('g[id*="arrow"]').removeClass('animate')
+      $('#arrowGtoH').addClass('animate')
+      $('#arrowGtoS').addClass('animate')
+    }
+  }
+  function toggleStorage(storageState) {
+    if (storageState) {
+      $('#storage .active').hide()
+      $('#storage .inactive').show()
+      $('main').css('background-position-y', '0%')
+      $('article#storage').removeClass('on')
+      stored = false
+    } else {
+      $('#storage .inactive').hide()
+      $('#storage .active').show()
+      $('main').css('background-position-y', '100%')
+      $('article#storage').addClass('on')
+      stored = true
+    }
+    var storUpdated = true
+    updateStorageBehaviour()
+    return stuck.update(apps, stored, storUpdated)
+  }
 
   function slide() {
-    $('.arealine').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
-      complete: function() { $('.arealine').css({x: '0px'}) }
-    })
-    $('.topline path').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
-      complete: function() { $('.topline path').css({x: '0px'}) }
-    })
-    $('.areas').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
-      complete: function() {
-        pushNewData()
-        $('.areas').css({x: '0px'})
-        stuck.update(Simulator.appliances, stored)
-      }
-    })
+    $('.arealine').transition({     x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
+    $('.topline path').transition({ x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
+    $('.areas path').transition({   x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
+    setTimeout(function() {
+      updateStorage()
+      $('.arealine').css({     x: '0px' })
+      $('.topline path').css({ x: '0px' })
+      $('.areas path').css({   x: '0px' })
+    }, updateTime-animationOffTime);
   }
 
   function startStorage() {
-    // set schedule for updates
-    var schedule = later.parse.text('every '+ Simulator.sampling_rate)
-    console.info("Setting schedule every " + Simulator.sampling_rate + ": ", schedule)
-    // start schedule
-    // time = later.setInterval(slide, schedule)
-    time = setInterval(slide, 1250)
-    // if (!tl) {
-    //   var area = ['.areas', '.topline path', '.arealine']
-    //   tl = new TimelineMax({repeat: -1, repeatDelay:0})
-    //   stuck.update(Simulator.appliances, stored)
-    //   tl.to(area, 1, {
-    //     onStart: function() {
-    //       console.log('new')
-    //       $('.areas').transition({x: '-=40px', duration: 1000})
-    //     },
-    //     onComplete: function() {
-    //       // TweenMax.set(area, {x: '+=40px'})
-    //       pushNewData()
-    //       stuck.update(Simulator.appliances, stored)
-    //       console.log('clean')
-    //       // $('.areas path').css({x: 0})
-    //       // $('.toplines path').css({x: 0})
-    //       // $('.arealine').css({x: 0})
-    //       // cleanOldData()
-    //       // stuck.update(Simulator.appliances, stored)
-    //     }, ease: 'QuadInOut'
-    //   })
-    // }
-    // tl.resume()
+    if (updateInterval) stopStorage()
+    updateInterval = setInterval(slide, updateTime)
+    $('#clock svg line').css('animation-play-state', 'running')
   }
   function stopStorage() {
-    // time.clear()
-    clearInterval(time)
-    time = null
-    // tl.pause()
+    clearInterval(updateInterval)
+    updateInterval = null
+    $('#clock svg line').css('animation-play-state', 'paused')
   }
 
   function handleEvents() {
     $(window).on('customEv', function(e,key) {
       switch (key) {
         case ' ':
-          // console.warn('start/stop')
-          time? stopStorage() : startStorage()
-          // tl && tl.isActive()? stopStorage() : startStorage()
+          updateInterval? stopStorage() : startStorage()
         break
         case '0':
         case 's':
-          // console.warn('activate storage')
-          stored? stored = false : stored = true
-          var storUpdated = true
-          // pushNewData()
-          stuck.update(Simulator.appliances, stored, storUpdated)
+          toggleStorage(stored)
         break
         case '1':
         case '2':
+          var appIdx = +key-1
+          var app = apps[appIdx]
+          app.status = app.status == 'off'? 'on' : 'off'
+          toggleAppliance(app, 1)
+        break
         case '3':
+          var appIdx = +key-1
+          var app = apps[appIdx]
+          app.status = app.status == 'off'? 'on' : 'off'
+          toggleAppliance(app, 2)
+        break
         case '4':
         case '5':
           var appIdx = +key-1
-          toggleAppliance($apps[appIdx])
+          var app = apps[appIdx]
+          app.status = app.status == 'off'? 'on' : 'off'
+          toggleAppliance(app, 3)
         break
         default:
           return
         break
       }
     })
+
+  }
+  function handleSockEvents() {
+    if (!ws) return
+    ws.onopen = function(e) {
+      console.info('open ws connection!', e)
+    }
+    ws.onmessage = function(e) {
+      var data = JSON.parse(e.data.split(' from ')[0])
+      console.log('message received', e, data)
+      // toggle storage
+      if (data.id === 0) {
+        var storageState = _.lowerCase(data.state) === 'off'
+        var stor = _.includes(Simulator.storageUid, data.uid)
+        if (!stor) return console.error('Invalid Storage UID:', data)
+        return toggleStorage(storageState)
+      } else {
+        var app = _.find(apps, function(app) { return _.includes(app.uid, data.uid) })
+        if (!app) return console.error('Invalid UID:', data)
+        app.status = _.lowerCase(data.state)
+        var readersId = data.id
+        return toggleAppliance(app, readersId)
+      }
+    }
+    ws.onclose = function(e) {
+      console.info('closed ws connection!', e)
+      ws = null
+      setTimeout(function() {
+        ws = new WebSocket(wssURL)
+        handleSockEvents()
+      }, wsPollingTime)
+    }
+    ws.onerror = function(e) {
+      console.error('error on ws connection!', e)
+    }
   }
 
   var bmod = false
   var bot = null
-  var bottime = 750
+  var bottime = 1250
   function toggleBotMode() {
     if (bot) {
       clearInterval(bot)
       bot = null
+      bmod = false
     } else bmod = !bmod
     if (bmod) {
-      $('article').css('background', 'transparent')
-      $('header').css('display', 'flex')
-      $('#bottime').val(bottime).focus()
       startStorage()
       bot = setInterval(function() {
         var choice = Math.floor(Math.random()*10)
@@ -456,8 +639,6 @@
         }
       }, bottime)
     } else {
-      $('article').css('background', 'white')
-      $('header').css('display', 'none')
       stopStorage()
       clearInterval(bot)
       bot = null
@@ -467,28 +648,20 @@
   (function init() {
     initializaStorage()
     // initialie area chart
-    stuck = new StackedAreaChart('#storage', Simulator.appliances, maxScale)
+    stuck = new StackedAreaChart('#monitor-chart', apps, Simulator.dataset_length, maxDemand, threshFactor)
+    if (wssURL) ws = new WebSocket(wssURL)
+    handleSockEvents()
     handleEvents()
+    toggleStorage(!stored)
     updateStorage()
-    // startStorage()
-    setTimeout(function() {
-      // stopStorage()
-    }, 1000);
   })()
 
-  // event handlers
+  // bot event handlers
   $(window).keydown(function(e) {
-    if (e.altKey && e.keyCode === 66) return toggleBotMode(bottime)
+    if (e.altKey && e.keyCode === 66) return toggleBotMode()
     $(window).trigger('customEv', e.key)
   })
-  $('#botsettings').submit(function(e) {
-    e.preventDefault()
-    var btime = $('#bottime').val()
-    if (!btime) return $('#bottime').val(bottime).focus()
-    bottime = btime
-    toggleBotMode()
-  })
 
-}(window, window.jQuery, window._, window.later, window.TweenMax, window.TimelineMax, window.Simulator));
+}(window, window.jQuery, window._, window.WebSocket, window.Simulator));
 
 //# sourceMappingURL=main.js.map

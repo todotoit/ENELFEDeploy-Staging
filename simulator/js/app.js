@@ -1,161 +1,269 @@
-(function(window, $, _, later, TweenMax, TimelineMax, Simulator) {
+(function(window, $, _, WebSocket, Simulator) {
   'use strict'
 
-  var stuck = null
-  var $apps = []
-  var time = null
-  var maxScale = 0
-  var maxScaleOffset = 100
+  // simulator
+  var $readers = []
+  var connectedAppliances = []
+  var apps = []
   var stored = false
-  var tl = null
+  var totalDemand = 0
+  var treshDemand = 0
+  var threshFactor = 0.5
+  // chart
+  var stuck = null
+  var maxDemand = 0
+  var maxDemandOffset = 0
+  // updates
+  var updateInterval = null
+  var updateTime = 0
+  var animationOffTime = 75
+  // web socket
+  var ws = null
+  var wssURL = 'ws://192.168.1.133:9000'
+  var wssURL = '' // test
+  var wsPollingTime = 1000
 
-  function toggleAppliance(app) {
-    $(app).toggleClass('active')
-    $(app).data('app').status == 'off'? $(app).data('app').status = 'on' : $(app).data('app').status = 'off'
-    updateStorage()
+  function toggleAppliance(app, readerId) {
+    // readerId 0 is reserved for storage
+    var $reader = $readers[readerId-1]
+    if (app.status == 'on') {
+      $reader.addClass('on')
+      $reader.data().reader.connectedAppliances.push(app)
+      connectedAppliances.push(app)
+      // populate reader ui element
+      $reader.find('span').css('background', 'url("assets/'+app.icon+'")')
+      $reader.find('h4').text(app.key)
+      $reader.find('label').text(app.maxV+'w')
+    } else {
+      _.pull($reader.data().reader.connectedAppliances, app)
+      _.pull(connectedAppliances, app)
+      if (_.isEmpty($reader.data().reader.connectedAppliances)) {
+        // clean reader ui element
+        $reader.removeClass('on')
+        $reader.find('span').css('background', 'none')
+        $reader.find('h4').text('')
+        $reader.find('label').text('')
+      } else {
+        // populate reader ui element with last element
+        var lastapp = _.last($reader.data().reader.connectedAppliances)
+        $reader.find('span').css('background', 'url("assets/'+lastapp.icon+'")')
+        $reader.find('h4').text(lastapp.key)
+        $reader.find('label').text(lastapp.maxV+'w')
+      }
+    }
+    if (_.isEmpty(connectedAppliances)) {
+      $('#appliances .active').hide()
+      $('#appliances .inactive').show()
+    } else {
+      $('#appliances .inactive').hide()
+      $('#appliances .active').show()
+    }
+    // updateStorage()
+    if (!updateInterval) {
+      slide()
+      startStorage()
+    }
   }
 
   function initializaStorage() {
-    _.each(Simulator.appliances, function(app) {
-      maxScale += app.maxV
+    updateTime = Simulator.sampling_rate
+    apps = Simulator.appliances
+    // populate ui readers list
+    _.times(Simulator.rfidReaders-1, function(i) {
+      var $readerElem = $('<li class="reader"><span></span><h4></h4><label></label></li>')
+      $readerElem.data('reader', { id: i+1, connectedAppliances: [] })
+      $readers.push($readerElem)
+      $('#readers').find('ul').append($readerElem)
+    })
+    _.each(apps, function(app) {
+      // maxDemand += app.maxV
       // initialize data
       _.times(Simulator.dataset_length, function(i) {
         var vv = 0
-        Math.random() > 0.5? vv = app.maxV : vv = 0
+        // Math.random() > 0.5? vv = app.maxV : vv = 0
         var v = { h: i, v: vv }
         app.values.push(v)
       })
-
-      // populate ui list
-      var $appElem = $('<li>'+app.key+'<br>maxV: '+app.maxV+'</li>')
-      $appElem.data('app', app)
-      $appElem.click(function() { return toggleAppliance(this) })
-      $apps.push($appElem)
-      $('#appliances').find('ul').append($appElem)
     })
-    maxScale += maxScaleOffset
+    maxDemand = _.sumBy(_(apps).sortBy('maxV')
+                              .reverse()
+                              .take(Simulator.rfidReaders-1)
+                              .value(),'maxV')
+    maxDemand += maxDemandOffset
+    treshDemand = maxDemand * threshFactor
+    $('#appliances .active').hide()
+    $('#appliances .inactive').show()
   }
   function updateStorage() {
-    // cleanOldData()
+    totalDemand = _.sumBy(connectedAppliances, 'maxV')
     pushNewData()
-    stuck.update(Simulator.appliances, stored)
-  }
-  function cleanOldData() {
-    _.each(Simulator.appliances, function(app) {
-      // remove first data
-      app.values.shift()
-      app.values = _.map(app.values, function(d,i) {
-        if (i>0) app.values[i-1].v = d.v
-        d.h--
-        return d
-      })
-    })
+    stuck.update(apps, stored)
+    updateStorageBehaviour()
   }
   function pushNewData() {
-    _.each(Simulator.appliances, function(app) {
+    _.each(apps, function(app) {
       // create new data if appliance is on
       var v = app.status === 'on'? { h: app.values.length, v: app.maxV } : { h: app.values.length, v: 0 }
       app.values.push(v)
     })
   }
+  function updateStorageBehaviour() {
+    // update percent demand
+    var percDemand = totalDemand/maxDemand *100
+    $('#demand > span').css('width', percDemand+'%')
+    // update storage energy in/out
+    if (totalDemand > treshDemand) {
+      // storage => energy out
+      $('#storage .active #dot #bolt').fadeOut()
+      $('#storage .active #dot').css('transform', 'translateY(-40px)')
+    } else {
+      // storage => energy in
+      $('#storage .active #dot #bolt').fadeIn()
+      $('#storage .active #dot').css('transform', 'translateY(0)')
+    }
+    // update energy flow grid - storage - home
+    if (!stored && _.isEmpty(connectedAppliances)) {
+      $('g[id*="arrow"]').removeClass('animate')
+    } else if (!stored && !_.isEmpty(connectedAppliances)) {
+      $('g[id*="arrow"]').removeClass('animate')
+      $('#arrowGtoH').addClass('animate')
+    } else if (stored && _.isEmpty(connectedAppliances)) {
+      $('g[id*="arrow"]').removeClass('animate')
+      $('#arrowGtoS').addClass('animate')
+    } else if (stored && totalDemand > treshDemand) {
+      $('g[id*="arrow"]').removeClass('animate')
+      $('#arrowGtoH').addClass('animate')
+      $('#arrowStoH').addClass('animate')
+    } else {
+      $('g[id*="arrow"]').removeClass('animate')
+      $('#arrowGtoH').addClass('animate')
+      $('#arrowGtoS').addClass('animate')
+    }
+  }
+  function toggleStorage(storageState) {
+    if (storageState) {
+      $('#storage .active').hide()
+      $('#storage .inactive').show()
+      $('main').css('background-position-y', '0%')
+      $('article#storage').removeClass('on')
+      stored = false
+    } else {
+      $('#storage .inactive').hide()
+      $('#storage .active').show()
+      $('main').css('background-position-y', '100%')
+      $('article#storage').addClass('on')
+      stored = true
+    }
+    var storUpdated = true
+    updateStorageBehaviour()
+    return stuck.update(apps, stored, storUpdated)
+  }
 
   function slide() {
-    $('.arealine').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
-      complete: function() { $('.arealine').css({x: '0px'}) }
-    })
-    $('.topline path').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
-      complete: function() { $('.topline path').css({x: '0px'}) }
-    })
-    $('.areas').transition({x: '-40px', duration: 1000, easing: 'easeInOutSine',
-      complete: function() {
-        pushNewData()
-        $('.areas').css({x: '0px'})
-        stuck.update(Simulator.appliances, stored)
-      }
-    })
+    $('.arealine').transition({     x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
+    $('.topline path').transition({ x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
+    $('.areas path').transition({   x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
+    setTimeout(function() {
+      updateStorage()
+      $('.arealine').css({     x: '0px' })
+      $('.topline path').css({ x: '0px' })
+      $('.areas path').css({   x: '0px' })
+    }, updateTime-animationOffTime);
   }
 
   function startStorage() {
-    // set schedule for updates
-    var schedule = later.parse.text('every '+ Simulator.sampling_rate)
-    console.info("Setting schedule every " + Simulator.sampling_rate + ": ", schedule)
-    // start schedule
-    // time = later.setInterval(slide, schedule)
-    time = setInterval(slide, 1250)
-    // if (!tl) {
-    //   var area = ['.areas', '.topline path', '.arealine']
-    //   tl = new TimelineMax({repeat: -1, repeatDelay:0})
-    //   stuck.update(Simulator.appliances, stored)
-    //   tl.to(area, 1, {
-    //     onStart: function() {
-    //       console.log('new')
-    //       $('.areas').transition({x: '-=40px', duration: 1000})
-    //     },
-    //     onComplete: function() {
-    //       // TweenMax.set(area, {x: '+=40px'})
-    //       pushNewData()
-    //       stuck.update(Simulator.appliances, stored)
-    //       console.log('clean')
-    //       // $('.areas path').css({x: 0})
-    //       // $('.toplines path').css({x: 0})
-    //       // $('.arealine').css({x: 0})
-    //       // cleanOldData()
-    //       // stuck.update(Simulator.appliances, stored)
-    //     }, ease: 'QuadInOut'
-    //   })
-    // }
-    // tl.resume()
+    if (updateInterval) stopStorage()
+    updateInterval = setInterval(slide, updateTime)
+    $('#clock svg line').css('animation-play-state', 'running')
   }
   function stopStorage() {
-    // time.clear()
-    clearInterval(time)
-    time = null
-    // tl.pause()
+    clearInterval(updateInterval)
+    updateInterval = null
+    $('#clock svg line').css('animation-play-state', 'paused')
   }
 
   function handleEvents() {
     $(window).on('customEv', function(e,key) {
       switch (key) {
         case ' ':
-          // console.warn('start/stop')
-          time? stopStorage() : startStorage()
-          // tl && tl.isActive()? stopStorage() : startStorage()
+          updateInterval? stopStorage() : startStorage()
         break
         case '0':
         case 's':
-          // console.warn('activate storage')
-          stored? stored = false : stored = true
-          var storUpdated = true
-          // pushNewData()
-          stuck.update(Simulator.appliances, stored, storUpdated)
+          toggleStorage(stored)
         break
         case '1':
         case '2':
+          var appIdx = +key-1
+          var app = apps[appIdx]
+          app.status = app.status == 'off'? 'on' : 'off'
+          toggleAppliance(app, 1)
+        break
         case '3':
+          var appIdx = +key-1
+          var app = apps[appIdx]
+          app.status = app.status == 'off'? 'on' : 'off'
+          toggleAppliance(app, 2)
+        break
         case '4':
         case '5':
           var appIdx = +key-1
-          toggleAppliance($apps[appIdx])
+          var app = apps[appIdx]
+          app.status = app.status == 'off'? 'on' : 'off'
+          toggleAppliance(app, 3)
         break
         default:
           return
         break
       }
     })
+
+  }
+  function handleSockEvents() {
+    if (!ws) return
+    ws.onopen = function(e) {
+      console.info('open ws connection!', e)
+    }
+    ws.onmessage = function(e) {
+      var data = JSON.parse(e.data.split(' from ')[0])
+      console.log('message received', e, data)
+      // toggle storage
+      if (data.id === 0) {
+        var storageState = _.lowerCase(data.state) === 'off'
+        var stor = _.includes(Simulator.storageUid, data.uid)
+        if (!stor) return console.error('Invalid Storage UID:', data)
+        return toggleStorage(storageState)
+      } else {
+        var app = _.find(apps, function(app) { return _.includes(app.uid, data.uid) })
+        if (!app) return console.error('Invalid UID:', data)
+        app.status = _.lowerCase(data.state)
+        var readersId = data.id
+        return toggleAppliance(app, readersId)
+      }
+    }
+    ws.onclose = function(e) {
+      console.info('closed ws connection!', e)
+      ws = null
+      setTimeout(function() {
+        ws = new WebSocket(wssURL)
+        handleSockEvents()
+      }, wsPollingTime)
+    }
+    ws.onerror = function(e) {
+      console.error('error on ws connection!', e)
+    }
   }
 
   var bmod = false
   var bot = null
-  var bottime = 750
+  var bottime = 1250
   function toggleBotMode() {
     if (bot) {
       clearInterval(bot)
       bot = null
+      bmod = false
     } else bmod = !bmod
     if (bmod) {
-      $('article').css('background', 'transparent')
-      $('header').css('display', 'flex')
-      $('#bottime').val(bottime).focus()
       startStorage()
       bot = setInterval(function() {
         var choice = Math.floor(Math.random()*10)
@@ -178,8 +286,6 @@
         }
       }, bottime)
     } else {
-      $('article').css('background', 'white')
-      $('header').css('display', 'none')
       stopStorage()
       clearInterval(bot)
       bot = null
@@ -189,26 +295,18 @@
   (function init() {
     initializaStorage()
     // initialie area chart
-    stuck = new StackedAreaChart('#storage', Simulator.appliances, maxScale)
+    stuck = new StackedAreaChart('#monitor-chart', apps, Simulator.dataset_length, maxDemand, threshFactor)
+    if (wssURL) ws = new WebSocket(wssURL)
+    handleSockEvents()
     handleEvents()
+    toggleStorage(!stored)
     updateStorage()
-    // startStorage()
-    setTimeout(function() {
-      // stopStorage()
-    }, 1000);
   })()
 
-  // event handlers
+  // bot event handlers
   $(window).keydown(function(e) {
-    if (e.altKey && e.keyCode === 66) return toggleBotMode(bottime)
+    if (e.altKey && e.keyCode === 66) return toggleBotMode()
     $(window).trigger('customEv', e.key)
   })
-  $('#botsettings').submit(function(e) {
-    e.preventDefault()
-    var btime = $('#bottime').val()
-    if (!btime) return $('#bottime').val(bottime).focus()
-    bottime = btime
-    toggleBotMode()
-  })
 
-}(window, window.jQuery, window._, window.later, window.TweenMax, window.TimelineMax, window.Simulator));
+}(window, window.jQuery, window._, window.WebSocket, window.Simulator));

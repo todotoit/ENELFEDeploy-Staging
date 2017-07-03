@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 980 530" enable-background="new 0 0 980 530" xml:space="preserve">
+<g id="storage">
+	<path fill="none" stroke="#FFFFFF" stroke-width="6.5443" stroke-linejoin="round" d="M120.7,336.2l17.1-0.1v91.5H86.5v-91.5h12.9
+		v-4.2c0-8.5,8.1-8.5,8.1-8.5h13.1c0,0,4.2-0.2,4.2,4.2"/>
+	<text transform="matrix(1 0 0 1 47.8546 481.9129)" fill="#FFFFFF" font-family="'UniversLTStd-Light'" font-size="36">Storage</text>
+	<g>
+		<polyline id="XMLID_19_" fill="none" stroke="#FFFFFF" stroke-width="2.5923" stroke-miterlimit="10" points="99.6,500.6 
+			109,510.1 118.5,500.8 		"/>
+	</g>
+</g>
+<g id="yourHome">
+	<polyline fill="none" stroke="#FFFFFF" stroke-width="6.5443" stroke-linejoin="round" points="633.5,416.5 633.5,390.2 611,390.2 
+		611,427.7 656,427.7 656,371.5 667.2,371.5 667.2,367.7 652.3,355.2 652.3,334 637.3,334 637.3,341.5 622.3,330.3 577.3,367.7 
+		577.3,371.5 588.5,371.5 588.5,427.7 599.8,427.7 	"/>
+	<text transform="matrix(1 0 0 1 529.0606 480.9174)" fill="#FFFFFF" font-family="'UniversLTStd-Light'" font-size="36">Your home</text>
+	<g>
+		<polyline id="XMLID_20_" fill="none" stroke="#FFFFFF" stroke-width="2.5923" stroke-miterlimit="10" points="608.9,500.6 
+			618.2,510.1 627.7,500.8 		"/>
+	</g>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 100.1464 413.7529)" fill="#FFFFFF" font-family="'UniversLTStd-Bold'" font-size="14.1425">on</text>
+</g>
+<g id="theGrid">
+	<polyline fill="none" stroke="#FFFFFF" stroke-width="6.5443" stroke-linejoin="round" points="111,116.4 107,82.9 134.1,82.9 
+		142.6,150.2 115,150.2 122.8,193.6 75.7,130.4 113,130.4 	"/>
+	<text transform="matrix(1 0 0 1 53.5217 46.8049)" fill="#FFFFFF" font-family="'UniversLTStd-Light'" font-size="36">The grid</text>
+</g>
+<g id="arrowGtoH">
+	<defs>
+		<filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="188.8" y="130" width="436.4" height="151">
+			<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+		</filter>
+	</defs>
+	<mask maskUnits="userSpaceOnUse" x="188.8" y="130" width="436.4" height="151" id="SVGID_1_">
+		<g filter="url(#Adobe_OpacityMaskFilter)">
+			
+				<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="170.2551" y1="194.3712" x2="652.2502" y2="194.3712" gradientTransform="matrix(0.9524 0.1885 -0.1941 0.981 50.4244 -75.1757)">
+				<stop  offset="0" style="stop-color:#000000"/>
+				<stop  offset="0.5669" style="stop-color:#FFFFFF"/>
+				<stop  offset="0.932" style="stop-color:#FFFFFF"/>
+				<stop  offset="0.9778" style="stop-color:#505050"/>
+				<stop  offset="1" style="stop-color:#000000"/>
+			</linearGradient>
+			<polygon fill="url(#SVGID_2_)" points="616.9,324.2 157.9,233.4 191.8,61.8 650.9,152.6 			"/>
+		</g>
+	</mask>
+	<g mask="url(#SVGID_1_)">
+		
+			<path fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="0,19" d="
+			M191.8,133h321.8c60,0,108.6,48.6,108.6,108.6V278"/>
+	</g>
+	<g>
+		<polyline id="XMLID_2_" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" points="609.9,281.6 622.2,294.1 
+			634.6,281.8 		"/>
+	</g>
+</g>
+<g id="arrowStoH">
+	<defs>
+		<filter id="Adobe_OpacityMaskFilter_1_" filterUnits="userSpaceOnUse" x="188.8" y="378.4" width="326.5" height="6">
+			<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+		</filter>
+	</defs>
+	<mask maskUnits="userSpaceOnUse" x="188.8" y="378.4" width="326.5" height="6" id="SVGID_3_">
+		<g filter="url(#Adobe_OpacityMaskFilter_1_)">
+			<g>
+				<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="185.8456" y1="381.4444" x2="518.3349" y2="381.4444">
+					<stop  offset="0" style="stop-color:#000000"/>
+					<stop  offset="0.5669" style="stop-color:#FFFFFF"/>
+					<stop  offset="0.932" style="stop-color:#FFFFFF"/>
+					<stop  offset="0.9778" style="stop-color:#505050"/>
+					<stop  offset="1" style="stop-color:#000000"/>
+				</linearGradient>
+				
+					<line fill="none" stroke="url(#SVGID_4_)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="191.8" y1="381.4" x2="512.3" y2="381.4"/>
+			</g>
+		</g>
+	</mask>
+	<g mask="url(#SVGID_3_)">
+		
+			<line fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="0,19" x1="191.8" y1="381.4" x2="512.3" y2="381.4"/>
+	</g>
+	<g>
+		<polyline id="XMLID_1_" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" points="522.8,393.8 535.3,381.5 
+			523,369.1 		"/>
+	</g>
+</g>
+<g id="arrowGtoS">
+	<g>
+		<polyline id="XMLID_22_" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-miterlimit="10" points="99.7,280.4 112,292.8 
+			124.5,280.5 		"/>
+	</g>
+	<defs>
+		<filter id="Adobe_OpacityMaskFilter_2_" filterUnits="userSpaceOnUse" x="108" y="220" width="6" height="59">
+			<feColorMatrix  type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+		</filter>
+	</defs>
+	<mask maskUnits="userSpaceOnUse" x="108" y="220" width="6" height="59" id="SVGID_5_">
+		<g filter="url(#Adobe_OpacityMaskFilter_2_)">
+			<g>
+				<g>
+					<g>
+						<defs>
+							<path id="SVGID_6_" d="M117,281v1c0,3.6-2.4,6.4-6,6.4s-6-2.9-6-6.4v-1H117z"/>
+						</defs>
+						<clipPath id="SVGID_7_">
+							<use xlink:href="#SVGID_6_"  overflow="visible"/>
+						</clipPath>
+						<g clip-path="url(#SVGID_7_)">
+							
+								<image overflow="visible" width="12.9" height="26.8" xlink:href="9E22FFB02E6A06F3.png"  transform="matrix(1 0 0 1 104.555 281.02)"/>
+						</g>
+					</g>
+					
+						<image overflow="visible" width="12.9" height="74" xlink:href="9E22FFB02E6A06F1.png"  transform="matrix(1 0 0 1 104.555 208)"/>
+					<g>
+						<defs>
+							<path id="SVGID_8_" d="M105,209v-1c0-3.6,2.4-6.4,6-6.4s6,2.9,6,6.4v1H105z"/>
+						</defs>
+						<clipPath id="SVGID_9_">
+							<use xlink:href="#SVGID_8_"  overflow="visible"/>
+						</clipPath>
+						<g clip-path="url(#SVGID_9_)">
+							
+								<image overflow="visible" width="12.9" height="26.8" xlink:href="9E22FFB02E6A06F7.png"  transform="matrix(1 0 0 1 104.555 182.2199)"/>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+	</mask>
+	
+		<line mask="url(#SVGID_5_)" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="0,19" x1="111" y1="276" x2="111" y2="223"/>
+</g>
+</svg>
