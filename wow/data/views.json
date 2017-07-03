@@ -1,0 +1,59 @@
+{
+  "views": [
+    {
+      "label": {
+        "title": "Battery capacity",
+        "description": "Formula E car"
+      },
+      "value": "200",
+      "graph": "#position-map",
+      "unit": "kWh"
+    },
+    {
+      "label": {
+        "title": "Battery capacity",
+        "description": "Utility car"
+      },
+      "value": "2",
+      "graph": "#position-map-b",
+      "unit": "units"
+    },
+    {
+      "label": {
+        "title": "Energy for 1 lap",
+        "description": "Formula E car"
+      },
+      "value": "1200",
+      "graph": "#position-map",
+      "unit": "kWh"
+    },
+    {
+      "label": {
+        "title": "Energy for 1 lap",
+        "description": "Average e-vehicle"
+      },
+      "value": "3000",
+      "graph": "#position-map-b",
+      "unit": "kWh"
+    },
+    {
+      "label": {
+        "title": "Daily progress",
+        "description": "ePrix energy"
+      },
+      "realtime": "true",
+      "value": "6000",
+      "graph": "#position-map-2",
+      "unit": "kW"
+    },
+    {
+      "label": {
+        "title": "Charge status",
+        "description": "DEN battery"
+      },
+      "value": "20",
+      "graph": "#position-map-b",
+      "unit": "%"
+    }
+  ]
+}
