@@ -1,0 +1,14 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 840 840">
+  <defs>
+    <linearGradient id="linear-gradient" x1="495.5" y1="819.74" x2="334.05" y2="172.18" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ed2d24"/>
+      <stop offset="0.54" stop-color="#f05e2a"/>
+      <stop offset="0.81" stop-color="#ec0c6e" stop-opacity="0.5"/>
+      <stop offset="0.85" stop-color="#ec0c6e" stop-opacity="0.44"/>
+      <stop offset="0.92" stop-color="#ec0c6e" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#ec0c6e" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  <title>battery</title>
+  <path d="M567.26,801.19H272.74A21.21,21.21,0,0,1,251.52,780V253.84a21.21,21.21,0,0,1,21.21-21.21h53.13v-3.21c0-28.05,12.33-50,34.72-61.73a77.33,77.33,0,0,1,33.23-8.57h75c4.44-.1,20.14.46,32.43,12.21,6,5.71,13.09,16.07,13.09,33H471.88a10.81,10.81,0,0,0-.22-2.39,8.11,8.11,0,0,0-1.9-.39,4.75,4.75,0,0,1-.68,0H394a34.93,34.93,0,0,0-14.58,4.19c-4.78,2.75-11.14,8.2-11.14,23.69v24.42a21.21,21.21,0,0,1-21.21,21.21H293.95V758.76H546V275.12l-76.9.24L469,232.93l98.17-.3h.07a21.21,21.21,0,0,1,21.21,21.21V780A21.21,21.21,0,0,1,567.26,801.19Z" style="fill: url(#linear-gradient)"/>
+</svg>
