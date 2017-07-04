@@ -95,7 +95,7 @@
     p   = 30      // padding
     pright = 75   // padding right
     wright = w-pright
-    console.log(wright)
+    console.log(svg, box, w, h, p, wright)
     svg = d3.select(svg.get(0))
     // create areas gradient fill
     defs = svg.append('defs')
