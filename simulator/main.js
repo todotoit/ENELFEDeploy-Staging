@@ -88,14 +88,13 @@
     if (_.isEmpty(data)) return console.error('data is empty')
 
     // -------- INITIALIZE CHART ---------
-    svg = $(svgContainer).append(tpl).find('svg')
+    svg = $(svgContainer).append(tpl).find('svg#teamAreaChart')
     box = svg.attr('viewBox').split(' ')
     w   = +box[2] // width
     h   = +box[3] // height
     p   = 30      // padding
     pright = 75   // padding right
     wright = w-pright
-    console.log(svg, box, w, h, p, wright)
     svg = d3.select(svg.get(0))
     // create areas gradient fill
     defs = svg.append('defs')
