@@ -1,0 +1,16 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 840 840">
+  <defs>
+    <linearGradient id="linear-gradient" x1="171.2" y1="495.42" x2="673" y2="495.42" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00c0e8"/>
+      <stop offset="0.59" stop-color="#6cc071"/>
+      <stop offset="0.6" stop-color="#71c16e" stop-opacity="0.96"/>
+      <stop offset="0.75" stop-color="#9bd056" stop-opacity="0.63"/>
+      <stop offset="0.83" stop-color="#acd54d" stop-opacity="0.5"/>
+      <stop offset="0.89" stop-color="#ccdf3b" stop-opacity="0.34"/>
+      <stop offset="0.96" stop-color="#efea28" stop-opacity="0.17"/>
+      <stop offset="1" stop-color="#fcee21" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  <title>car</title>
+  <path d="M619.32,423.84l-6,0-.2,34,6,0A20,20,0,0,1,639,477.61V585.49a20,20,0,0,1-19.77,19.88H555.88l9.63,23.46a29.92,29.92,0,0,1,2.3,11.32,37.57,37.57,0,0,1-75.13.11A29.69,29.69,0,0,1,495,628.82l9.63-23.46H340.79l9.63,23.46a30,30,0,0,1,2.28,11.32,37.57,37.57,0,0,1-75.13.13,30.63,30.63,0,0,1,2.28-11.45l9.63-23.46H225.11A20,20,0,0,1,205.2,585.6V477.76A20,20,0,0,1,225,457.86H602L566.11,327.35c-4.35-13.08-16.08-48.25-52.84-48.25H334.12c-24.68,0-45.1,19-53.29,49.71L264,396.33l33,8.23,16.81-67.22c1.07-4.09,7.08-24.24,20.34-24.24H513.27c6.47,0,12.88,1.85,20.34,24.12l23.79,86.62H224.85a54.3,54.3,0,0,0-53.66,53.81V585.71A54.3,54.3,0,0,0,225,639.37h18.49l.09,3.13a71.59,71.59,0,0,0,143.09,0l.09-3.13h71.82l.11,3.13a71.58,71.58,0,0,0,143.08,0l.09-3.13h17.47A54.3,54.3,0,0,0,673,585.58V477.5a54.24,54.24,0,0,0-53.68-53.66" style="fill: url(#linear-gradient)"/>
+</svg>
