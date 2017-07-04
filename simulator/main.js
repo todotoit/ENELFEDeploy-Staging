@@ -5,7 +5,7 @@
   var svgContainer, mask,
       svg, box, w, wright, h, p, pright,         // svg config
       axY, axX, threshold,                       // axis and scales config
-      defs, grad,                                // gradients
+      defs, grad, gradStor,                      // gradients
       areas, areaTot, areaTotStor,               // chart paths
       lns, lnsTop, lnsStor,
       circles, labels,
@@ -17,6 +17,7 @@
   var dataLength    = 30
   var storageOffset = 50
   var threshFactor  = 0
+  var dangerFactor  = 0
 
   // -------- SCALES ---------
   var Y        = d3.scale.linear()
@@ -108,13 +109,20 @@
     maskGrad.append('stop').attr('offset', 1).attr('stop-color', '#000')
     mask = defs.append('mask').attr('id', 'mask-border')
     mask.append('rect').attr('x',0).attr('y',0).attr('width',wright).attr('height',h).attr('fill', 'url(#teamAreaChart_mask_grad)')
-
-    grad = defs.append('linearGradient').attr('id', 'stor3Grd').attr('gradientUnits', 'userSpaceOnUse')
+    // gradient for fixed area
+    grad = defs.append('linearGradient').attr('id', 'areaGrd').attr('gradientUnits', 'userSpaceOnUse')
                .attr('x1', 0).attr('y1', p).attr('x2', 0).attr('y2', h-p)
-    grad.append('stop').attr('offset', 0).attr('stop-color', '#41b8e5')
-    grad.append('stop').attr('offset', 1-threshFactor).attr('stop-color', '#41b8e5')
-    grad.append('stop').attr('class', 'storstop').attr('offset', 1-threshFactor).attr('stop-color', '#0555f9')
+    grad.append('stop').attr('offset', 0).attr('stop-color', '#fc1c63')
+    grad.append('stop').attr('offset', 1-(threshFactor+threshFactor/1.5)).attr('stop-color', '#fc1c63')
+    grad.append('stop').attr('offset', 1-threshFactor).attr('stop-color', '#0555f9')
     grad.append('stop').attr('offset', 1).attr('stop-color', '#ffffff')
+    // gradient for storage area
+    gradStor = defs.append('linearGradient').attr('id', 'storAreaGrd').attr('gradientUnits', 'userSpaceOnUse')
+               .attr('x1', 0).attr('y1', p).attr('x2', 0).attr('y2', h-p)
+    gradStor.append('stop').attr('offset', 0).attr('stop-color', '#fc1c63')
+    gradStor.append('stop').attr('offset', 1-(threshFactor+threshFactor/1.5)).attr('stop-color', '#fc1c63')
+    gradStor.append('stop').attr('class', 'storstop').attr('offset', 1-threshFactor).attr('stop-color', '#0555f9')
+    gradStor.append('stop').attr('offset', 1).attr('stop-color', 'rgba(255,255,255,.1)')
     // create areas group
     areas = svg.append('g').attr('class', 'areas').attr('mask', 'url(#mask-border)')
     areaTot = areas.append('g').attr('class', 'areaTot')
@@ -140,6 +148,7 @@
 
     // create threshold line
     lns.append('line').attr('class', 'threshold')
+    lns.append('line').attr('class', 'danger')
     // create path for axis
     // axY = svg.append('g')
     //          .attr('transform', 'translate('+p+', '+p+')')
@@ -158,6 +167,7 @@
     var emptyTotData   = _(emptyValues).groupBy('h').map(function(d,i){ return { h:+i, v:_.sumBy(d,'v') } }).value()
     var max = maxScale = max || 0
     var thresh         = max * threshFactor
+    var danger         = max * dangerFactor
 
     // initialize scales domain and range
     var xDomain = [1, dataLength-1]
@@ -172,22 +182,31 @@
     areaTot.selectAll('path')
            .data(emptydata)
            .attr('d', function(d){ return area(d.values) })
-           .attr('fill', function()  { return '#0555f9' })
+           .attr('fill', function()  { return 'url(#'+grad.attr('id')+')' })
     areaTotStor.selectAll('path')
                .data(emptydata)
                .attr('d', function(d){ return areaStor(d.values) })
-               .attr('fill', function()  { return 'url(#'+grad.attr('id')+')' })
+               .attr('fill', function()  { return 'url(#'+gradStor.attr('id')+')' })
     lns.select('.threshold')
        .attr('x1', p)
        .attr('y1', p+Y(thresh))
        .attr('x2', wright)
        .attr('y2', p+Y(thresh))
+    lns.select('.danger')
+       .attr('x1', p)
+       .attr('y1', p+Y(danger))
+       .attr('x2', wright)
+       .attr('y2', p+Y(danger))
     lns.append('text').text('Threshold')
        .attr('x', p+(p/2))
        .attr('y', Y(thresh)+(p/2))
-    lns.append('text').html('Extra demand')
+    // lns.append('text').html('Extra demand')
+    //    .attr('x', p+(p/2))
+    //    .attr('y', h -p-(p/2) -Y(thresh/2))
+    lns.append('text').text('Critical demand')
+       .attr('class', 'danger')
        .attr('x', p+(p/2))
-       .attr('y', h -p-(p/2) -Y(thresh/2))
+       .attr('y', Y(danger)+(p/2))
     lns.selectAll('.arealine')
        .data(emptydata)
        .attr('d', function(d) { return stackLine(d.values) })
@@ -252,37 +271,41 @@
     YStorInv.domain(yRange).range(yDomain)
 
     // update charts
+    areaTot.transition().attr('opacity', function() { return stored? .3 : 1 })
     areaTot.selectAll('path').data(data)
            .transition().duration(function() { return stored && storUpdated? duration : 0 })
            .delay(delay).ease(ease)
            .attr('d', function(d) { return area(d.values) })
-           .attr('opacity', .1)
+           .attr('opacity', function() { return stored? .2 : .4 })
+    areaTotStor.transition().attr('opacity', .7)
     areaTotStor.selectAll('path').data(data)
                .transition().duration(function() { return stored && storUpdated? duration : 0 })
                .delay(delay).ease(ease)
                .attr('d', function(d) { return areaStor(d.values) })
-    grad.select('.storstop')
+    gradStor.select('.storstop')
         .transition().duration(duration).delay(delay).ease(ease)
         .attr('stop-color', function() { return stored? '#55bd5a': '#0555f9' })
     lns.selectAll('.arealine').data(data)
        .transition().duration(function() { return stored && storUpdated? duration : 0 })
        .attr('d', function(d){ return stackLine(d.values) })
-       .style('stroke-opacity',   function() { return stored? '.3': '1' })
+       .attr('stroke-width', function() { return stored? 0 : 0 })
+       .style('stroke-opacity', function() { return stored? .3 : 1 })
     lnsTop
        .transition().delay(0).duration(function() { return stored && storUpdated? duration : 0 })
        .delay(0).ease(ease)
        .attr('d', topLine(totData))
-       .attr('opacity', function() { return stored? .2 : 1 })
+       .attr('stroke-width', function() { return stored? 0 : 3 })
+       .attr('stroke-opacity', function() { return stored? 0 : 1 })
     lnsStor
        .transition().delay(0).duration(function() { return stored && storUpdated? duration : 0 })
        .delay(0).ease(ease)
        .attr('d', storLine(totData))
-       .style('stroke-width',     function() { return stored? '3': '0' })
+       .style('stroke-width',     function() { return stored? 3 : 0 })
     circles.select('.topcircle')
            .transition()
            .duration(function() { return storUpdated? duration : duration+100 }).ease(ease)
            .delay(245)
-           .attr('r',  function() { return stored? '0' : '5' })
+           .attr('r',  function() { return stored? 0 : 5 })
            .attr('cx', function() { return X(dataLength-1)-p*0.6 })
            .attr('cy', function() { return p + Y(_.last(totData).v) })
     labels.select('.toplabel')
@@ -310,12 +333,13 @@
   }
 
   // -------- CONSTRUCTOR ---------
-  function StackedAreaChart(container, datasource, dataset_length, maxScale, thFactor) {
+  function StackedAreaChart(container, datasource, dataset_length, maxScale, thFactor, dangFactor) {
     var self = this
     self.update = update
     self.container = svgContainer = container
     dataLength = dataset_length
     threshFactor = thFactor
+    dangerFactor = dangFactor
 
     init(datasource, maxScale)
     return self
@@ -345,7 +369,9 @@
     num_of_appliances: appliances.length,
     rfidReaders: 4,                       // 0 is storage
     dataset_length: 30,
-    storageUid: storageUid
+    storageUid: storageUid,
+    threshFactor: 0.5,
+    dangerFactor: 0.95
   }
   _.defaultsDeep(window.Simulator, defaults)
 
@@ -361,7 +387,6 @@
   var stored = false
   var totalDemand = 0
   var treshDemand = 0
-  var threshFactor = 0.5
   // chart
   var stuck = null
   var maxDemand = 0
@@ -442,7 +467,7 @@
                               .take(Simulator.rfidReaders-1)
                               .value(),'maxV')
     maxDemand += maxDemandOffset
-    treshDemand = maxDemand * threshFactor
+    treshDemand = maxDemand * Simulator.threshFactor
     $('#appliances .active').hide()
     $('#appliances .inactive').show()
   }
@@ -462,7 +487,8 @@
   function updateStorageBehaviour() {
     // update percent demand
     var percDemand = totalDemand/maxDemand *100
-    $('#demand > span').css('width', percDemand+'%')
+    if (percDemand > 100) percDemand = 100
+    $('#demand > span').css({'width': percDemand+'%', 'background-position-x': percDemand+'%'})
     // update storage energy in/out
     if (totalDemand > treshDemand) {
       // storage => energy out
@@ -512,14 +538,14 @@
   }
 
   function slide() {
-    $('.arealine').transition({     x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
+    $('.arealine').transition({ x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
     $('.topline path').transition({ x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
-    $('.areas path').transition({   x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
+    $('.areas path').transition({ x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
     setTimeout(function() {
       updateStorage()
-      $('.arealine').css({     x: '0px' })
+      $('.arealine').css({ x: '0px' })
       $('.topline path').css({ x: '0px' })
-      $('.areas path').css({   x: '0px' })
+      $('.areas path').css({ x: '0px' })
     }, updateTime-animationOffTime)
   }
 
@@ -647,7 +673,7 @@
   (function init() {
     initializaStorage()
     // initialie area chart
-    stuck = new StackedAreaChart('#monitor-chart', apps, Simulator.dataset_length, maxDemand, threshFactor)
+    stuck = new StackedAreaChart('#monitor-chart', apps, Simulator.dataset_length, maxDemand, Simulator.threshFactor, Simulator.dangerFactor)
     if (wssURL) ws = new WebSocket(wssURL)
     handleSockEvents()
     handleEvents()

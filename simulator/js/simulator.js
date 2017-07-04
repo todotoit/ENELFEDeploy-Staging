@@ -18,7 +18,9 @@
     num_of_appliances: appliances.length,
     rfidReaders: 4,                       // 0 is storage
     dataset_length: 30,
-    storageUid: storageUid
+    storageUid: storageUid,
+    threshFactor: 0.5,
+    dangerFactor: 0.95
   }
   _.defaultsDeep(window.Simulator, defaults)
 

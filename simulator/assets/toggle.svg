@@ -1,44 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 195 260" enable-background="new 0 0 195 260" xml:space="preserve">
-<g id="bg">
-	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="97.5" y1="1.129" x2="97.5" y2="250.3441">
-		<stop  offset="0" style="stop-color:#FFFFFF"/>
-		<stop  offset="0.4801" style="stop-color:#FCFCFC"/>
-		<stop  offset="0.7657" style="stop-color:#F4F4F4"/>
-		<stop  offset="1" style="stop-color:#E6E6E6"/>
-	</linearGradient>
-	<rect x="0" fill-rule="evenodd" clip-rule="evenodd" fill="url(#SVGID_1_)" width="195" height="260"/>
-</g>
+	 viewBox="0 0 110 220" enable-background="new 0 0 110 220" xml:space="preserve">
 <g id="ChargingTxt">
 	<g>
-		<text transform="matrix(1 0 0 1 63.9541 232.9622)" fill="#55BD5A" font-family="'UniversLTStd-Light'" font-size="14">Energy IN</text>
+		<text transform="matrix(1 0 0 1 21.7497 212.239)" fill="#55BD5A" font-family="'UniversLTStd-Light'" font-size="14">Energy IN</text>
 	</g>
 	<g>
-		<text transform="matrix(1 0 0 1 49.5309 213.0264)" fill="#55BD5A" font-family="'UniversLTStd-Bold'" font-size="22">Charging</text>
+		<text transform="matrix(1 0 0 1 7.3264 192.3032)" fill="#55BD5A" font-family="'UniversLTStd-Bold'" font-size="22">Charging</text>
 	</g>
 </g>
 <g id="SupplyingTxt">
 	<g>
-		<text transform="matrix(1 0 0 1 58.271 36.6049)" fill="#55BD5A" font-family="'UniversLTStd-Light'" font-size="14">Energy OUT</text>
+		<text transform="matrix(1 0 0 1 16.0665 15.8817)" fill="#55BD5A" font-family="'UniversLTStd-Light'" font-size="14">Energy OUT</text>
 	</g>
 	<g>
-		<text transform="matrix(1 0 0 1 44.0307 59.0312)" fill="#55BD5A" font-family="'UniversLTStd-Bold'" font-size="22">Supplying</text>
+		<text transform="matrix(1 0 0 1 1.8262 38.308)" fill="#55BD5A" font-family="'UniversLTStd-Bold'" font-size="22">Supplying</text>
 	</g>
 </g>
-<linearGradient id="toggle_1_" gradientUnits="userSpaceOnUse" x1="97.2044" y1="78.2346" x2="97.2044" y2="180.2395">
+<linearGradient id="toggle_1_" gradientUnits="userSpaceOnUse" x1="55" y1="57.5115" x2="55" y2="159.5164">
 	<stop  offset="0" style="stop-color:#E6E6E6"/>
 	<stop  offset="0.2343" style="stop-color:#F4F4F4"/>
 	<stop  offset="0.5199" style="stop-color:#FCFCFC"/>
 	<stop  offset="1" style="stop-color:#FFFFFF"/>
 </linearGradient>
-<path id="toggle" fill="url(#toggle_1_)" stroke="#CCCCCC" stroke-width="3" stroke-miterlimit="10" d="M97.2,181.4L97.2,181.4
-	c-16.3,0-29.5-13.2-29.5-29.5v-43.6c0-16.3,13.2-29.5,29.5-29.5h0c16.3,0,29.5,13.2,29.5,29.5V152
-	C126.7,168.2,113.5,181.4,97.2,181.4z"/>
+<path id="toggle" fill="url(#toggle_1_)" stroke="#CCCCCC" stroke-width="3" stroke-miterlimit="10" d="M55,160.7L55,160.7
+	c-16.3,0-29.5-13.2-29.5-29.5V87.7c0-16.3,13.2-29.5,29.5-29.5h0c16.3,0,29.5,13.2,29.5,29.5v43.6C84.5,147.5,71.3,160.7,55,160.7z"
+	/>
 <g id="dot">
-	<ellipse fill="#55BD5A" cx="97.2" cy="152.7" rx="22.7" ry="22.2"/>
-	<path id="bolt" fill="#008B5A" d="M95,145.3l1.1,5.6c0,0.2-0.1,0.5-0.4,0.5h-4l1.6,2.5l5.2,8.1c0.2,0.3,0.7,0.2,0.7-0.2l-0.5-6.6
-		c0-0.2,0.2-0.4,0.4-0.4h3.1c0.3,0,0.4-0.2,0.4-0.5l-2.3-9.1c0-0.2-0.2-0.3-0.4-0.3l-4.5,0C95.2,144.8,95,145.1,95,145.3z"/>
+	<ellipse fill="#55BD5A" cx="55" cy="132" rx="22.7" ry="22.2"/>
+	<path id="bolt" fill="#008B5A" d="M52.8,124.6l1.1,5.6c0,0.2-0.1,0.5-0.4,0.5h-4l1.6,2.5l5.2,8.1c0.2,0.3,0.7,0.2,0.7-0.2l-0.5-6.6
+		c0-0.2,0.2-0.4,0.4-0.4H60c0.3,0,0.4-0.2,0.4-0.5l-2.3-9.1c0-0.2-0.2-0.3-0.4-0.3l-4.5,0C53,124.1,52.8,124.3,52.8,124.6z"/>
 </g>
 </svg>

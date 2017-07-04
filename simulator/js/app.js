@@ -8,7 +8,6 @@
   var stored = false
   var totalDemand = 0
   var treshDemand = 0
-  var threshFactor = 0.5
   // chart
   var stuck = null
   var maxDemand = 0
@@ -89,7 +88,7 @@
                               .take(Simulator.rfidReaders-1)
                               .value(),'maxV')
     maxDemand += maxDemandOffset
-    treshDemand = maxDemand * threshFactor
+    treshDemand = maxDemand * Simulator.threshFactor
     $('#appliances .active').hide()
     $('#appliances .inactive').show()
   }
@@ -109,7 +108,8 @@
   function updateStorageBehaviour() {
     // update percent demand
     var percDemand = totalDemand/maxDemand *100
-    $('#demand > span').css('width', percDemand+'%')
+    if (percDemand > 100) percDemand = 100
+    $('#demand > span').css({'width': percDemand+'%', 'background-position-x': percDemand+'%'})
     // update storage energy in/out
     if (totalDemand > treshDemand) {
       // storage => energy out
@@ -159,14 +159,14 @@
   }
 
   function slide() {
-    $('.arealine').transition({     x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
+    $('.arealine').transition({ x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
     $('.topline path').transition({ x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
-    $('.areas path').transition({   x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
+    $('.areas path').transition({ x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
     setTimeout(function() {
       updateStorage()
-      $('.arealine').css({     x: '0px' })
+      $('.arealine').css({ x: '0px' })
       $('.topline path').css({ x: '0px' })
-      $('.areas path').css({   x: '0px' })
+      $('.areas path').css({ x: '0px' })
     }, updateTime-animationOffTime)
   }
 
@@ -294,7 +294,7 @@
   (function init() {
     initializaStorage()
     // initialie area chart
-    stuck = new StackedAreaChart('#monitor-chart', apps, Simulator.dataset_length, maxDemand, threshFactor)
+    stuck = new StackedAreaChart('#monitor-chart', apps, Simulator.dataset_length, maxDemand, Simulator.threshFactor, Simulator.dangerFactor)
     if (wssURL) ws = new WebSocket(wssURL)
     handleSockEvents()
     handleEvents()
