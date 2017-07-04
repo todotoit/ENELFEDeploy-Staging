@@ -168,7 +168,7 @@
       $('.arealine').css({     x: '0px' })
       $('.topline path').css({ x: '0px' })
       $('.areas path').css({   x: '0px' })
-    }, updateTime-animationOffTime);
+    }, updateTime-animationOffTime)
   }
 
   function startStorage() {
