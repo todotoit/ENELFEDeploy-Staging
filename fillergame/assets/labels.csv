@@ -17,16 +17,16 @@ win_title,Congratulations! <br />You completed the smart grid
 win_panel_label,Well done!
 win_panel_title,You found all your targets
 win_panel_button,PLAY AGAIN
-win_mainlabel,Well Done!
+win_mainlabel,Well done!
 dialogbox,Are you sure you want to restart the game?
 turn_label,Please rotate the tablet to play the game
 bonus_pre_title,Bonus Level
-bonus_description,Formula e cars charge their batteries 7 times faster than an average e-car
+bonus_description,Formula E cars charge their batteries <BR>7 times faster than an average e-car
 bonus_title,Can you beat them?
 bonus_start_btn,Start
-bonus_push_btn,Push
+bonus_push_btn,Press
 submit_level_label,Bonus Level
 submit_title_won,Can you beat them?
-submit_title_over,Time is over You got XX targets
+submit_title_over,Time's up! <BR>Targets found: XX
 submit_enter_nick,Enter a nickname and check your ranking
 board_play_again_btn,Play again
