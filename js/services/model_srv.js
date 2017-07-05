@@ -15,6 +15,10 @@
     var _totalConsumptionData   = null
     var _timeSeriesData         = {}
     var _metersData             = {}
+    var enelStandMeter = 'Smart_Kit2_FE_038'
+
+    var beUrl = 'http://backend.enelformulae.todo.to.it'
+    // var beUrl = 'http://192.168.3.10:5001'
 
     self.getTotal               = _getTotal
     self.getTimeSeries          = _getTimeSeries
@@ -42,7 +46,7 @@
       return _metersData[meter_name] || _updateMeter(meter_name)
     }
     function _getAll() {
-      return $q.all([_getTotal(), _getTimeSeries(), _getTimeSeries('paddock'), _getMeter('Smart_Kit2_FE_040')])
+      return $q.all([_getTotal(), _getTimeSeries(), _getTimeSeries('paddock'), _getMeter(enelStandMeter)])
                .then(
                   function(res) {
                     return {
@@ -57,7 +61,8 @@
     }
 
     function _updateTotal() {
-      return $http.get('http://backend.enelformulae.todo.to.it/zoneenergyconsumption')
+      console.log('get from ', beUrl)
+      return $http.get(beUrl + '/zoneenergyconsumption')
                   .then(
                     function(res) {
                       console.info(res)
@@ -69,7 +74,7 @@
                     })
     }
     function _updateTimeSeries(zone_name) {
-      return $http.get('http://backend.enelformulae.todo.to.it/time_series/' + (zone_name || ''))
+      return $http.get(beUrl + '/time_series/' + (zone_name || ''))
                   .then(
                     function(res) {
                       console.info(res)
@@ -82,7 +87,7 @@
                     })
     }
     function _updateMeter(meter_name) {
-      return $http.get('http://backend.enelformulae.todo.to.it/meter/' + (meter_name || ''))
+      return $http.get(beUrl + '/meter/' + (meter_name || ''))
                   .then(
                     function(res) {
                       console.info(res)
@@ -94,7 +99,7 @@
                     })
     }
     function _updateAll() {
-      return $q.all([_updateTotal(), _updateTimeSeries(), _updateTimeSeries('paddock'), _updateMeter('Smart_Kit2_FE_040')])
+      return $q.all([_updateTotal(), _updateTimeSeries(), _updateTimeSeries('paddock'), _updateMeter(enelStandMeter)])
                .then(
                   function(res) {
                     console.info('All models updated: ', res)

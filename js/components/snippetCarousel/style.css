@@ -20,14 +20,19 @@ snippet-carousel .control_arrow, snippet-carousel span#exit {
   text-align: center;
   background: white;
   fill: blue;
-  width: 3.5vh;
-  height: 3.5vh;
+  width: 3.5rem;
+  height: 3.5rem;
   left: 50%;
   bottom: -1.75vh;
   transform: translate(-50%, -50%);
+  transition: transform .5s;
 }
 snippet-carousel span#prev, snippet-carousel .carousel-controls span#prev {
   transform: rotate(180deg)
+}
+
+snippet-carousel span#next.tour-next {
+  transform: translate(-50%, -50%) scale(1.5);
 }
 
 snippet-carousel .control_arrow{
@@ -51,6 +56,7 @@ snippet-carousel > span#exit {
   height: 5.5vh;
   z-index: 10;
   opacity: .6;
+  cursor: pointer;
 }
 
 span#exit svg {
@@ -67,7 +73,7 @@ snippet-carousel .carousel_control {
 snippet-carousel .carousel_controls {
   height: 10vh;
   background: #0555f9;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;

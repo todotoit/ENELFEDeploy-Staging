@@ -15,7 +15,7 @@ TERMINALIA.Trackball = function Trackball() {
     self.leftPressed = false;
     self.offset = 0;
     self.enabled = true;
-    self.rotationFactor = 1;
+    self.rotationFactor = 0.2;
 
     function onMouseDown(x, y) {
         self.leftPressed = true;

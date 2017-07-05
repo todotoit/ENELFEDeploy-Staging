@@ -205,7 +205,8 @@
       console.log('update streamgraph')
 
       // -------- DATA MAP ---------
-      var values = _(data).groupBy('key').mapValues(function(d){ return d[0].values }).merge().values().flatten().value()
+      var lastIdx = d3.min(data, function(d) {return d.values.length})
+      var values = _(data).groupBy('key').mapValues(function(d){return d[0].values.slice(0, lastIdx) }).merge().values().flatten().value()
       data = _.map(values, function(d) {
         d.date = format.parse(d.h)
         d.value = +d.v
@@ -1293,25 +1294,25 @@
       'pin_3_v2g': {
         stage: 3,
         // coords: [-0.039, 0.90, 0.61],
-        coords: [55],
+        coords: [181],
         snippets: ['v2g', 'v2gDenmark']
       },
       'pin_3_spain': {
         stage: 3,
         // coords: [-1.04, -0.25, 0.17],
-        coords: [129],
+        coords: [566],
         snippets: ['cleanEnergyGlobal', 'cleanEnergyChile']
       },
       'pin_3_rome': {
         stage: 3,
         // coords: [0.091, 0.64, 0.86],
-        coords: [60],
+        coords: [206],
         snippets: ['enelWorld']
       },
       'pin_3_milan': {
         stage: 3,
         // coords: [-0.049, 0.74, 0.78],
-        coords: [48],
+        coords: [284],
         snippets: ['firstSmartCity', 'internet']
       },
       'pin_3_berlin': {
@@ -1323,13 +1324,13 @@
       'pin_3_fe': {
         stage: 3,
         // coords: [0.95, 0.39, -0.33],
-        coords: [-70],
+        coords: [-364],
         snippets: ['formulaE']
       },
       'pin_3_solar': {
         stage: 3,
         // coords: [-0.91, 0.38, -0.45],
-        coords: [157],
+        coords: [756],
         snippets: ['howMuchSunGlobal', 'howMuchSunMexico']
       }
     }
@@ -1420,7 +1421,7 @@
       'regenerativeBraking': {
         desc: '',
         label: '',
-        tpl: self.path + '/regenerativeBraking.html',
+        tpl: self.path + '/regenerativebraking.html',
         subContent: [
           {
             desc: '',
@@ -1554,10 +1555,35 @@
         desc: '',
         label: '',
         tpl: self.path + '/formulaE.html'
+      },
+      'enelStand': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/enelstand.html'
       }
     }
 
+    var _qrcodeSnipsDef = [
+      'cleanEnergyGlobal',
+      'cleanEnergyChile',
+      'howMuchSunGlobal',
+      'howMuchSunMexico',
+      'fastRecharge',
+      'v2g',
+      'v2gDenmark',
+      'enelStand'
+    ]
+
+    var _qrcodeSnippets = {}
+    _.map(_qrcodeSnipsDef, function(k, i){
+      _qrcodeSnippets[k] = _availableSnippets[k]
+      _qrcodeSnippets[k].key = k
+    })
+
+    console.warn(_qrcodeSnippets)
+
     self.getAvailableSnippets = _getAvailableSnippets
+    self.getQRCodeSnippets = _getQRCodeSnippets
     self.getSnippet = _getSnippet
     self.getAvailableTours = _getAvailableTours
     self.getHotspot = _getHotspot
@@ -1592,6 +1618,17 @@
     function _getAvailableSnippets() {
       return $q(function(resolve, reject) {
         var snippets = _.map(angular.copy(_availableSnippets), function(value, key) {
+          value.key = key
+          return value
+        })
+        if (!_.isEmpty(snippets)) resolve(snippets)
+        else reject('No available snippets are defined!')
+      })
+    }
+
+    function _getQRCodeSnippets() {
+      return $q(function(resolve, reject) {
+        var snippets = _.map(angular.copy(_qrcodeSnippets), function(value, key) {
           value.key = key
           return value
         })
@@ -2204,18 +2241,6 @@ window.twttr = (function(d, s, id) {
     vm.races = []
     vm.upcomings = [
       {
-        id: 'r7',
-        date: '10 june 2017',
-        location: 'Berlin',
-        circuit: 'Tempelhof Circuit'
-      },
-      {
-        id: 'r8',
-        date: '11 june 2017',
-        location: 'Berlin',
-        circuit: 'Tempelhof Circuit'
-      },
-      {
         id: 'r9',
         date: '15 july 2017',
         location: 'New York City',
@@ -2283,9 +2308,9 @@ window.twttr = (function(d, s, id) {
     }
 
     // races
-    vm.currentRace = {}
+    vm.currentRace = vm.upcomings[0]
     // delay streamgraph load data
-    $timeout(function(){ retrieveRacesFeed() }, 1000)
+    // $timeout(function(){ retrieveRacesFeed() }, 1000)
 
     function retrieveRacesFeed() {
       return $http.get('../assets/jsonData/races.json')
@@ -2318,7 +2343,7 @@ window.twttr = (function(d, s, id) {
     retrieveTweetFeed()
 
     function retrieveTweetFeed() {
-      return $http.get('https://marcoaimo.runkit.io/enelfetweetfeed/branches/master')
+      return $http.get('https://enelfetweetfeed-j7ra6s353sul.runkit.sh/')
                   .then(function(res) {
                     console.log(res.data)
                     vm.tweets = res.data.items
@@ -2343,13 +2368,13 @@ window.twttr = (function(d, s, id) {
 
     retrieveBootInstFeed()
     retrieveBootTweetFeed()
-    
+
     function retrieveBootInstFeed() {
-      return $http.get('https://emiliobondioli.runkit.io/instagram-hashtag-scraper/branches/master')
+      return $http.get('https://instagram-hashtag-scraper-yhhwg0exbkj5.runkit.sh/')
                   .then(function(res) {
                     console.log(res.data)
                     vm.boots = vm.boots.concat(res.data.items)
-                    
+
                     $scope.bootDisplayNum = _getTwitDisplayNum()
                   }, function(err) {
                     console.error(err)
@@ -2357,11 +2382,11 @@ window.twttr = (function(d, s, id) {
     }
 
     function retrieveBootTweetFeed() {
-      return $http.get('https://emiliobondioli.runkit.io/twitter-hashtag-scraper/branches/master')
+      return $http.get('https://twitter-hashtag-scraper-1d5rh9l89tep.runkit.sh/')
                   .then(function(res) {
                     console.log(res.data)
                     vm.boots = vm.boots.concat(res.data.items)
-                    
+
                     $scope.bootDisplayNum = _getTwitDisplayNum()
                   }, function(err) {
                     console.error(err)

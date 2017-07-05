@@ -18,9 +18,9 @@
     var intrvl
     var readyToSession = true
 
-    $interval(function(){
-      recordSession()
-    }, overSessionTime)
+    // $interval(function(){
+    //   recordSession()
+    // }, overSessionTime)
 
     /*
     webapp/landing/car/card_id

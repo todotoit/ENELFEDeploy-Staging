@@ -133,16 +133,26 @@ snippet-card .info_block span.info_note:first-child {
 snippet-card > div.content.sub-snippet > div > .info_block{
   margin-top: 1vh;
 }
+snippet-card .sub-snippet {
+  overflow: hidden;
+}
 
+snippet-card .sub-snippet > ul {
+  display: flex;
+  overflow: visible;
+  justify-content: flex-start;
+}
 
 snippet-card .sub-snippet > ul .note {
-  font-size: 2vh;
+  flex: 1 0 auto;
+  font-size: 2.3vh;
   list-style: none;
   position: relative;
   display: flex;
   padding-left: 1.5vh;
   opacity: .5;
   transition: opacity .5s;
+  margin-right: 3rem;
   cursor: pointer;
 }
 snippet-card .sub-snippet > ul .note.active {
@@ -155,7 +165,7 @@ snippet-card .sub-snippet > ul .note:after
   content: '';
   position: absolute;
   left: 0;
-  top: 20%;
+  top: 28%;
   width: 1.2vh;
   height: 1.2vh;
   border-bottom: .15vh solid #fff;
@@ -164,7 +174,7 @@ snippet-card .sub-snippet > ul .note:after
   display: block;
 }
 snippet-card .sub-snippet > ul .note:after {
-  top: 45%;
+  top: 50%;
 }
 
 snippet-card .info_comparator {

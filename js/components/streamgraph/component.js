@@ -191,7 +191,8 @@
       console.log('update streamgraph')
 
       // -------- DATA MAP ---------
-      var values = _(data).groupBy('key').mapValues(function(d){ return d[0].values }).merge().values().flatten().value()
+      var lastIdx = d3.min(data, function(d) {return d.values.length})
+      var values = _(data).groupBy('key').mapValues(function(d){return d[0].values.slice(0, lastIdx) }).merge().values().flatten().value()
       data = _.map(values, function(d) {
         d.date = format.parse(d.h)
         d.value = +d.v
