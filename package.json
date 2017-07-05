@@ -1,6 +1,6 @@
 {
   "name": "fedeploy",
-  "version": "1.0.161",
+  "version": "1.0.162",
   "main": "index.js",
   "scripts": {
     "deploy_common": "git add -A && git commit -m \"deploy\" && npm version patch && git push",
@@ -8,7 +8,7 @@
     "deploy_wow": "git pull && node deploy.js wow && npm run deploy_common",
     "deploy_website": "git pull && node deploy.js website && npm run deploy_common",
     "deploy_webapp": "git pull && node deploy.js webapp && npm run deploy_common",
-    "deploy_podio": "git pull && node deploy.js podio && npm run deploy_common",    
+    "deploy_podio": "git pull && node deploy.js podio && npm run deploy_common",
     "deploy_snippets": "git pull && node deploy.js snippets && npm run deploy_common"
   },
   "dependencies": {
