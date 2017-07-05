@@ -53,10 +53,9 @@
       if (contentIdx <= 0) return prevCallback()
       contentIdx--
       $scope.subsnip = content[contentIdx]
+      // $content.find('li').removeClass('active')
+      // $content.find('li').eq(contentIdx).addClass('active')
       TweenMax.to($content.find('ul'), swipeVel, { x: '+='+ swipeOffset +'%', onComplete: function() {
-        if (!$scope.$$phase) $scope.$digest()
-      } })
-      TweenMax.to($content.find('.sub-snip-content'), swipeVel, { x: '+='+ swipeOffset +'%', opacity: 0.1, onComplete: function() {
         if (!$scope.$$phase) $scope.$digest()
       } })
     }
@@ -65,9 +64,6 @@
       contentIdx++
       $scope.subsnip = content[contentIdx]
       TweenMax.to($content.find('ul'), swipeVel, { x: '-='+ swipeOffset +'%', onComplete: function() {
-        if (!$scope.$$phase) $scope.$digest()
-      } })
-      TweenMax.to($content.find('.sub-snip-content'), swipeVel, { x: '-='+ swipeOffset +'%', opacity: 0.1, onComplete: function() {
         if (!$scope.$$phase) $scope.$digest()
       } })
     }
@@ -82,7 +78,7 @@
       if (contentIdx < 0) contentIdx = 0
       else if (contentIdx >= content.length) contentIdx = content.length -1
       $scope.subsnip = content? content[contentIdx] : null
-      $element.ready(createContentHandler)
+      if(!bowser.mobile) $element.ready(createContentHandler)
     }
 
     // event handlers
@@ -99,8 +95,10 @@
         e.srcEvent.stopPropagation()
       })
       $element.on('touchmove', function(e) {
-        e.stopPropagation()
-        e.preventDefault()
+        if(!bowser.mobile){
+          e.stopPropagation()
+          e.preventDefault()
+        }
       })
       $element.click(function(e) {
         e.stopPropagation()
