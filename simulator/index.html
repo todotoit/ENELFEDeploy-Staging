@@ -500,7 +500,7 @@ section#grid {
 section#grid svg g[id*="arrow"] path,
 section#grid svg g[id*="arrow"] line,
 section#grid svg g[id*="arrow"] polyline {
-  opacity: .4;
+  opacity: .3;
   transition: opacity .5s ease;
 }
 section#grid svg g[id*="arrow"].animate path,
@@ -509,7 +509,8 @@ section#grid svg g[id*="arrow"].animate polyline {
   opacity: 1;
   animation: dasharrow 10s linear infinite;
 }
-section#grid svg g#arrowGtoS.animate line {
+section#grid svg g#arrowStoH.animate line,
+section#grid svg g#arrowStoH.animate path {
   animation: dasharrow-inv 10s linear infinite;
 }
 

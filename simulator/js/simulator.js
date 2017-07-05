@@ -4,13 +4,13 @@
   window.Simulator = window.Simulator || {}
 
   var appliances = [
-    { key: 'Air Conditioning', icon: 'icon_cooling.svg', uid: ['95E8432A'], status: 'off', values: [], maxV: 4000 },
-    { key: 'Hot plate',        icon: 'icon_brewing.svg', uid: ['C5DA2C2A'], status: 'off', values: [], maxV: 2000 },
-    { key: 'Hair dryer',       icon: 'icon_drying.svg', uid: ['75423F2A'], status: 'off', values: [], maxV: 1500 },
-    { key: 'Microwave',        icon: 'icon_heating.svg', uid: [], status: 'off', values: [], maxV: 1200 },
-    { key: 'Laser printer',    icon: 'icon_printing.svg', uid: [], status: 'off', values: [], maxV: 350  }
+    { key: 'Cooling', icon: 'icon_cooling.svg',  uid: ['B5C43A2A', '95E8432A'], status: 'off', values: [], maxV: 4000 },
+    { key: 'Brewing', icon: 'icon_brewing.svg',  uid: ['C5DA2C2A', '857F3A2A'], status: 'off', values: [], maxV: 2000 },
+    { key: 'Drying',  icon: 'icon_drying.svg',   uid: ['75423F2A', '25FB392A'], status: 'off', values: [], maxV: 1500 },
+    { key: 'Eating',  icon: 'icon_heating.svg',  uid: ['3549482A', '8517412A'], status: 'off', values: [], maxV: 1200 },
+    { key: '?',       icon: 'icon_printing.svg', uid: ['A5312E2A', 'C59E482A', 'A5DA422A'], status: 'off', values: [], maxV: 350  }
   ]
-  var storageUid = ['35AA462A']
+  var storageUid = ['65AB332A', '35AA462A', '75A1322A']
 
   var defaults = {
     sampling_rate: 1200,                  // millis
