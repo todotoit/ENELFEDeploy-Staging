@@ -4,9 +4,10 @@ var replace = require('replace')
 var pkg = require('./package.json')
 
 if (process.argv[2]) {
+  console.log('trying to copy ', process.argv[2])
   if (process.argv[2] === 'fillergame') {
     console.log('deploying fillergame')
-    copydir.sync(path.join('..', 'ENEL-FE-FillerGame/public'), 'fillergame')
+    copydir.sync(path.join('..', 'ENEL-FE-FillerGame/public'), 'game')
   }
 
   if (process.argv[2] === 'podio') {
@@ -51,19 +52,21 @@ if (process.argv[2]) {
     copydir.sync(path.join('..', 'ENEL-F-E-APP/public/assets'), 'assets')
     copydir.sync(path.join('..', 'ENEL-F-E-APP/public/js'), 'js')
     copydir.sync(path.join('..', 'ENEL-F-E-APP/public/libs'), 'libs')
-    copydir.sync(path.join('..', 'ENEL-F-E-APP/public/webapp'), 'webapp')
+    copydir.sync(path.join('..', 'ENEL-F-E-APP/public/app'), 'app')
+    copydir.sync(path.join('..', 'ENEL-F-E-APP/public/webapp'), 'app')
   }
 
-  if (process.argv[2] === 'snippet') {
-    console.log('deploying snippet')
+  if (process.argv[2] === 'snippets') {
+    console.log('deploying snippets')
     copydir.sync(path.join('..', 'ENEL-F-E-APP/public/assets'), 'assets')
     copydir.sync(path.join('..', 'ENEL-F-E-APP/public/js'), 'js')
     copydir.sync(path.join('..', 'ENEL-F-E-APP/public/libs'), 'libs')
-    copydir.sync(path.join('..', 'ENEL-F-E-APP/public/solar'), 'solar')
-    copydir.sync(path.join('..', 'ENEL-F-E-APP/public/ecar'), 'ecar')
+    copydir.sync(path.join('..', 'ENEL-F-E-APP/public/snippets'), 'snippets')
+
+    copydir.sync(path.join('..', 'ENEL-F-E-APP/app/redirects/'), '')
   }
 
-  if (process.argv[2] === 'tablet') {
+  /* if (process.argv[2] === 'tablet') {
     console.log('deploying tablet')
     copydir.sync(path.join('..', 'ENEL-F-E/app/'), 'app')
     copydir.sync(path.join('..', 'ENEL-F-E/app/'), 'monitor')
@@ -88,7 +91,7 @@ if (process.argv[2]) {
         //     paths: ['app/index.html'],
         //     recursive: true
         // });
-  }
+  } */
 } else {
   console.log('you need to specify the app name')
 }
