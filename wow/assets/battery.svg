@@ -1,11 +1,22 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 840 840">
-  <defs>
-    <linearGradient id="linear-gradient" x1="470.47" y1="800.22" x2="361.23" y2="180.7" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#ed2d24"/>
-      <stop offset="0.54" stop-color="#f05e2a"/>
-      <stop offset="1" stop-color="#ec0c6e" stop-opacity="0.5"/>
-    </linearGradient>
-  </defs>
-  <title>battery</title>
-  <path d="M575.86,251.55a28.87,28.87,0,0,0-20.57-8.46l-99.76.31.18,58,70.67-.22V726.79H313.62V301.09H353a29,29,0,0,0,29-29V249.64c0-10.39,3.7-12.52,5.48-13.54a22.63,22.63,0,0,1,8.92-2.58h61.83v2.56h58v-9.5c0-18.93-8.14-30.69-15-37.21-13.81-13.2-31.28-14-36.48-13.86H395.93a80,80,0,0,0-35,9c-22.07,11.59-35,32.25-36.78,58.62H284.61a29,29,0,0,0-29,29v483.7a29,29,0,0,0,29,29H555.39a29,29,0,0,0,29-29V272.09A29.2,29.2,0,0,0,575.86,251.55Z" style="fill: url(#linear-gradient)"/>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 1200 1200" style="enable-background:new 0 0 1200 1200;" xml:space="preserve">
+<style type="text/css">
+  .st0{fill:url(#SVGID_1_);}
+  .st1{fill:url(#SVGID_2_);}
+</style>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="862.5645" y1="475.691" x2="862.5645" y2="475.691">
+  <stop  offset="0" style="stop-color:#55BE5A"/>
+  <stop  offset="1" style="stop-color:#41B9E6"/>
+</linearGradient>
+<polygon class="st0" points="862.6,475.7 862.6,475.7 862.6,475.7 "/>
+<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="809.4187" y1="1090.7279" x2="809.4187" y2="394.7136">
+  <stop  offset="0" style="stop-color:#55BE5A"/>
+  <stop  offset="1" style="stop-color:#41B9E6"/>
+</linearGradient>
+<path class="st1" d="M984.9,481.9c-4.3-4.2-9.9-6.6-16-6.6l-106.4,0.3l0.1,45l83.9-0.3v525.3l-274.3,0V520.4h58.1
+  c5.9,0,11.7-2.4,15.9-6.6c4.2-4.2,6.6-10,6.6-15.9v-26.5c0.6-18.1,5.8-21.4,12-25.9c6-3.8,14.6-4.8,16.2-4.8v0h81.6l0.5,0v0
+  c0,0,2,0.3,2.7,0.5c0.1,0.3,0.3,1.1,0.3,3h45c0.7-19.2-10.9-36-22.9-42c-11.7-6.4-21.4-6.4-25.2-6.6c-0.3,0-0.5,0-0.7,0H781
+  c-2,0.1-17.6-0.1-35.8,9.2c-18.4,8.7-38.1,32.4-37.4,66.5l0,4h-58.1c-5.9,0-11.7,2.4-15.9,6.6c-4.2,4.2-6.6,10-6.6,15.9v570.4
+  c0,5.9,2.4,11.7,6.6,15.9s10,6.6,15.9,6.6h319.3c5.9,0,11.7-2.4,15.9-6.6c4.2-4.2,6.6-10,6.6-15.9V497.9
+  C991.6,491.9,989.2,486.2,984.9,481.9z"/>
 </svg>
