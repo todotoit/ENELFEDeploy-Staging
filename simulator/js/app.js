@@ -18,7 +18,7 @@
   var animationOffTime = 75
   // web socket
   var ws = null
-  var wssURL = 'ws://192.168.1.133:9000'
+  var wssURL = 'ws://7.7.7.7:9000'
   var wsPollingTime = 1000
 
   function toggleAppliance(app, readerId) {
