@@ -1,0 +1,10 @@
+<svg id="icons_expanded" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <defs>
+    <linearGradient id="New_Gradient_Swatch_copy" data-name="New Gradient Swatch copy" x1="860.74" y1="1090.54" x2="739.83" y2="404.84" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#41b9e6"/>
+      <stop offset="1" stop-color="#ff4687"/>
+    </linearGradient>
+  </defs>
+  <title>paddock_demand</title>
+  <path d="M872.12,1088.23a20,20,0,0,1-16-8L579.31,709.27a20,20,0,0,1,16-32H814.59v40H635.22L837.37,988.22,806.53,817.17a20,20,0,0,1,19.68-23.55H965.59l-45-355.45H801.89L822.3,612.73l-39.73,4.64-23-196.89a20,20,0,0,1,19.86-22.32H938.25a20,20,0,0,1,19.84,17.49l50,395.45a20,20,0,0,1-19.84,22.51H850.15l41.65,231.06a20,20,0,0,1-19.67,23.55Z" style="fill: url(#New_Gradient_Swatch_copy)"/>
+</svg>
