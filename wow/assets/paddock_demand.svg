@@ -1,10 +1,18 @@
-<svg id="icons_expanded" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
-  <defs>
-    <linearGradient id="New_Gradient_Swatch_copy" data-name="New Gradient Swatch copy" x1="860.74" y1="1090.54" x2="739.83" y2="404.84" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#41b9e6"/>
-      <stop offset="1" stop-color="#ff4687"/>
-    </linearGradient>
-  </defs>
-  <title>paddock_demand</title>
-  <path d="M872.12,1088.23a20,20,0,0,1-16-8L579.31,709.27a20,20,0,0,1,16-32H814.59v40H635.22L837.37,988.22,806.53,817.17a20,20,0,0,1,19.68-23.55H965.59l-45-355.45H801.89L822.3,612.73l-39.73,4.64-23-196.89a20,20,0,0,1,19.86-22.32H938.25a20,20,0,0,1,19.84,17.49l50,395.45a20,20,0,0,1-19.84,22.51H850.15l41.65,231.06a20,20,0,0,1-19.67,23.55Z" style="fill: url(#New_Gradient_Swatch_copy)"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="icons_expanded" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 -200 1200 1200" style="enable-background:new 0 -200 1200 1200;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+</style>
+<title>paddock_demand</title>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="817.4771" y1="925.533" x2="699.009" y2="253.6811">
+	<stop  offset="0" style="stop-color:#41B9E6"/>
+	<stop  offset="1" style="stop-color:#FF4687"/>
+</linearGradient>
+<path class="st0" d="M829.6,923.1c-3.9-0.2-7.5-2.1-9.9-5.2L542.9,547c-4.3-5.7-3.1-13.9,2.6-18.2c2.2-1.7,5-2.6,7.8-2.6h212.3v26
+	H579.3l228.6,306.3l-36.4-200.6c-1.3-7.1,3.4-13.8,10.5-15.1c0.8-0.1,1.5-0.2,2.3-0.2h147.3l-46.8-369.5H752l20.5,175.4l-25.8,3
+	l-22.2-189.9c-0.4-3.4,0.6-6.8,2.7-9.6c2.2-2.7,5.2-4.4,8.7-4.8c0.5-0.1,1-0.1,1.5-0.1h158.8c6.5,0,12.1,4.9,12.9,11.4l50,395.4
+	c0.4,3.4-0.5,6.9-2.6,9.6s-5.2,4.5-8.6,4.9c-0.5,0.1-1.1,0.1-1.6,0.1H799.8l43.1,239.3c0.6,3.4-0.1,6.9-2.1,9.7
+	c-2,2.9-5,4.8-8.4,5.4c-0.8,0.1-1.5,0.2-2.3,0.2H829.6z"/>
 </svg>
