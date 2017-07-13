@@ -53,6 +53,7 @@ TERMINALIA.CustomShaders = {
             uMaterialColor3: { value: new THREE.Vector3(1, 0, 0) },
             uTone1: { value: 0.3},
             uTone2: { value: 0.3},
+            uAlpha: { value: 1.0},
             uDirLightPos: { value: new THREE.Vector3()},
             uDirLightColor: { value: new THREE.Color(0xffffff)}
         },
@@ -77,6 +78,7 @@ TERMINALIA.CustomShaders = {
             "uniform vec3 uDirLightColor;",
             "uniform float uTone1;",
             "uniform float uTone2;",
+            "uniform float uAlpha;",
             
             "void main() {",
                 "vec4 lDirection = viewMatrix * vec4( uDirLightPos, 0.0 );",
@@ -90,6 +92,7 @@ TERMINALIA.CustomShaders = {
                 "else { diffuse = uTone2; currentColor = uMaterialColor3; }",
 
                 "gl_FragColor = vec4(currentColor * uDirLightColor * diffuse, 1);",
+                //"gl_FragColor.a = uAlpha;",
             "}"
         ].join("\n")
     }

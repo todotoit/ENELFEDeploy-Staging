@@ -1,16 +1,15 @@
-snippet-card[size*="full"] {
+snippet-carousel snippet-card[size*="full"] {
   position: absolute;
   width: 42vh;
   height: 68vh;
   opacity: 0;
   color: #ffffff;
 }
-snippet-card {
+snippet-carousel snippet-card {
   background: linear-gradient(180deg, #41b9e6, #0555fa);
 }
-snippet-card > div.content {
+snippet-carousel snippet-card > div.content {
   flex: 2 0 0% !important;
-  background: linear-gradient(180deg, #2383e5, #0451ef);
 }
 
 snippet-card > .content-parent[layout*="column"][layout*="stretch-"]{
@@ -21,9 +20,10 @@ snippet-card .content-parent > .info-block {
   flex: 0 1 auto !important;
 }
 
-
-
-/*snippet-card:after {
+snippet-card .sub-snippet > div {
+  background: rgba(255,255,255,.3);
+}
+/*snippet-carousel snippet-card:after {
   content: "";
   position: absolute;
   box-shadow: 0 5px 50px rgba(0, 0, 0, 0.2), 0 10px 35px rgba(0, 0, 0, 0.1);
@@ -31,7 +31,7 @@ snippet-card .content-parent > .info-block {
   width: 85%;
   z-index: -1;
 }*/
-snippet-card {
+snippet-carousel snippet-card {
   box-shadow: 0 5px 50px rgba(0, 0, 0, 0.2), 0 10px 35px rgba(0, 0, 0, 0.1);
 }
 
@@ -71,7 +71,7 @@ snippet-card > div.content > div > .info_block {
   position: absolute;
   z-index: 1;
 }
-snippet-card > div.content .animation {
+snippet-carousel snippet-card > div.content .animation {
   position: relative;
   width: 70%;
   right: -12.5vh;
@@ -138,43 +138,27 @@ snippet-card .sub-snippet {
 }
 
 snippet-card .sub-snippet > ul {
-  display: flex;
-  overflow: visible;
+  overflow: hidden;
   justify-content: flex-start;
+  padding-left: 0;
+  margin-bottom: 0;
 }
 
 snippet-card .sub-snippet > ul .note {
   flex: 1 0 auto;
-  font-size: 2.3vh;
+  font-size: 3rem;
+  font-weight: bold;
   list-style: none;
-  position: relative;
-  display: flex;
-  padding-left: 1.5vh;
   opacity: .5;
-  transition: opacity .5s;
-  margin-right: 3rem;
+  transition: opacity .5s border .5s;
   cursor: pointer;
+  text-align: center;
+  padding: 2vh;
+  padding-top: 0;
 }
 snippet-card .sub-snippet > ul .note.active {
   opacity: 1;
-}
-
-snippet-card .sub-snippet > ul .note:before,
-snippet-card .sub-snippet > ul .note:after
-{
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 28%;
-  width: 1.2vh;
-  height: 1.2vh;
-  border-bottom: .15vh solid #fff;
-  border-right: .15vh solid #fff;
-  transform: scaleY(.6) translate(-100%, -50%) rotate(45deg);
-  display: block;
-}
-snippet-card .sub-snippet > ul .note:after {
-  top: 50%;
+  border-bottom: .65rem solid
 }
 
 snippet-card .info_comparator {

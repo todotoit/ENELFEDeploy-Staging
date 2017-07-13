@@ -1,0 +1,69 @@
+{
+  "drivetrains": {
+    "idle": {
+      "title": "Boosting technology",
+      "desc": "This is the second season in which teams have been allowed to develop their own drivetrain, innovating and testing different technologies to improve the way energy is delivered to the road.",
+      "tabs": [
+        {
+          "title": "Battery",
+          "desc": ["All teams make use of a traction battery provided by Williams Advanced Engineering, which they are not allowed to modify or maintain in any way."]
+        },
+        {
+          "title": "Inverter",
+          "desc": ["By switching the current delivered to the motor at +10,000 p/sec, the inverter sets in motion the rotor inside the stator."]
+        },
+        {
+          "title": "Motor",
+          "desc": ["Inside the motor, the magnets of the rotor are alternatively attracted and repelled by the magnetic fields of the stator, therefore generating the motor’s spin."]
+        },
+        {
+          "title": "Transmission",
+          "desc": ["The transmission transfers the power from the motor to the wheels.","Depending on the type, size and spinning speed of the motor, different gearboxes are required to transform the motor spinning into torque."]
+        }
+      ]
+    },
+    "drives": [
+      {
+        "title": "1 Longitudinal motor",
+        "icon": "icon_motor_1long",
+        "desc": "Longitudinal motors are oriented along the long axis of the vehicle, front to back, and typically can be placed lower than transverse motors, improving weight distribution. In this season, 4 teams have opted for this solution.",
+        "tabs": [
+          {
+            "title": "2 GEARS",
+            "desc": ["Panasonic Jaguar Racing","Venturi Formula E"]
+          },
+          {
+            "title": "3 GEARS",
+            "desc": ["ABT Schaeffler Audi Sport","Andretti Formula E"]
+          }
+        ]
+      },
+      {
+        "title": "1 Transverse motor",
+        "icon": "icon_motor_1traverse",
+        "desc": "Transverse motors make for a more compact – and usually lighter – layout because they are mounted perpendicularly to the direction of travel. In this season, 6 teams have opted for this solution.",
+        "tabs": [
+          {
+            "title": "DIRECT DRIVE",
+            "desc": ["Renault e.dams","Techeetah"]
+          },
+          {
+            "title": "2 GEARS",
+            "desc": ["DS Virgin Racing","Mahindra Racing","Faraday Future Dragon Racing"]
+          }
+        ]
+      },
+      {
+        "title": "2 Transverse motors",
+        "icon": "icon_motor_2traverse",
+        "desc": "Having two motors provides the most torque – so the car can accelerate to top speed without needing a multi-speed gearbox. The downside is that the two motors are heavy. In this season, only one team has opted for this solution.",
+        "tabs": [
+          {
+            "title": "DIRECT DRIVE",
+            "desc": ["Next EV NIO"]
+          }
+        ]
+      }
+    ]
+  }
+}

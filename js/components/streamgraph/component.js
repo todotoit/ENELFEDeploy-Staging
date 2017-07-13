@@ -123,10 +123,34 @@
       })
     }
 
+    var grads = '<defs id="gradients">' +
+                '  <linearGradient id="stream_gr1" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="0" y2="300">' +
+                '    <stop offset="0%" stop-color="#3eae95"></stop>' +
+                '    <stop offset="100%" stop-color="#4ab352"></stop>' +
+                '  </linearGradient>' +
+                '  <linearGradient id="stream_gr2" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="0" y2="300">' +
+                '    <stop offset="0%" stop-color="#32a28a"></stop>' +
+                '    <stop offset="100%" stop-color="#3ea849"></stop>' +
+                '  </linearGradient>' +
+                '  <linearGradient id="stream_gr3" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="0" y2="300">' +
+                '    <stop offset="0%" stop-color="#2d987f"></stop>' +
+                '    <stop offset="100%" stop-color="#329d3f"></stop>' +
+                '  </linearGradient>' +
+                '  <linearGradient id="stream_gr4" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="0" y2="300">' +
+                '    <stop offset="0%" stop-color="#298c74"></stop>' +
+                '    <stop offset="100%" stop-color="#2e9232"></stop>' +
+                '  </linearGradient>' +
+                '  <linearGradient id="stream_gr5" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="0" y2="300">' +
+                '    <stop offset="0%" stop-color="#258069"></stop>' +
+                '    <stop offset="100%" stop-color="#298725"></stop>' +
+                '  </linearGradient>' +
+                '</defs'
+
     function init() {
       console.log('init streamgraph')
       var data = ctrl.datasource
       $element.find('svg').empty()
+      $element.find('svg').html(grads)
       _callback = ctrl.onSelect()
       touchEnabled = _.isUndefined(ctrl.touchEnabled)? true : ctrl.touchEnabled
 
@@ -216,7 +240,7 @@
            .attr('clip-path', 'url(#clipMask)')
            .attr('class', function(d,i) { return 'layer layer-'+(i+1) })
            .attr('d', function(d,i) { return area(d.values) })
-           .attr('fill', function(d, i) { return Z(i) })
+           .attr('fill', function(d, i) { return 'url(#stream_gr'+(i+1)+')' })
       if (touchEnabled) _attachToolipEvents()
 
       // update axis data

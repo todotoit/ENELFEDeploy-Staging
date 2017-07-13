@@ -1,0 +1,226 @@
+{
+  "teams": [
+    {
+      "name": "Abt Schaeffler Audi Sport",
+      "country": "Germany",
+      "car_model": {
+        "name": "ABT Schaeffler FE02",
+        "pic": "teams_car_profile_audi.png"
+      },
+      "drivetrain_spec": ["1 Longitudinal motor", "3 Gears"],
+      "pilots": [
+        {
+          "name": "L. di Grassi",
+          "number": "11",
+          "pic": "ABT SCHAEFFLER_11_LUCAS DI GRASSI.png"
+        },
+        {
+          "name": "D. Abt",
+          "number": "66",
+          "pic": "ABT SCHAEFFLER_66_DANIEL ABT.png"
+        }
+      ]
+    },
+    {
+      "name": "Andretti Formula e",
+      "country": "USA",
+      "car_model": {
+        "name": "Andretti ATEC-02",
+        "pic": "teams_car_profile_andretti.png"
+      },
+      "drivetrain_spec": ["1 Longitudinal motor", "3 Gears"],
+      "pilots": [
+        {
+          "name": "R. Frijns",
+          "number": "27",
+          "pic": "ANDRETTI_27_ROBIN FRIJNS.png"
+        },
+        {
+          "name": "A. da Costa",
+          "number": "28",
+          "pic": "ANDRETTI_28_ANTONIO FELIX DA COSTA.png"
+        }
+      ]
+    },
+    {
+      "name": "DS Virgin Racing",
+      "country": "UK",
+      "car_model": {
+        "name": "DS-Virgin DSV-02",
+        "pic": "teams_car_profile_virgin.png"
+      },
+      "drivetrain_spec": ["1 Transverse motor", "2 Gears"],
+      "pilots": [
+        {
+          "name": "S. Bird",
+          "number": "2",
+          "pic": "DS VIRGIN_2_SAM BIRD.png"
+        },
+        {
+          "name": "J. Lopez",
+          "number": "37",
+          "pic": "DS VIRGIN_37_JOSE MARIA LOPEZ.png",
+          "inactive": "true"
+        },
+        {
+          "name": "A. Lynn",
+          "number": "37",
+          "pic": ""
+        }
+      ]
+    },
+    {
+      "name": "Faraday Future Dragon Racing",
+      "country": "USA",
+      "car_model": {
+        "name": "Penske 701-EV",
+        "pic": "teams_car_profile_faraday.png"
+      },
+      "drivetrain_spec": ["1 Transverse motor", "2 Gears"],
+      "pilots": [
+        {
+          "name": "J. D'Ambrosio",
+          "number": "7",
+          "pic": "FARADAY FUTURE_7_JEROME D'AMBROSIO.png"
+        },
+        {
+          "name": "L. Duval",
+          "number": "6",
+          "pic": "FARADAY FUTURE_6_LOIC DUVAL.png"
+        }
+      ]
+    },
+    {
+      "name": "Panasonic Jaguar Racing",
+      "country": "UK",
+      "car_model": {
+        "name": "Jaguar I-Type 1",
+        "pic": "teams_car_profile_jaguar.png"
+      },
+      "drivetrain_spec": ["1 Longitudinal motor", "2 Gears"],
+      "pilots": [
+        {
+          "name": "A. Carrol",
+          "number": "47",
+          "pic": "PANASONIC JAGUAR_47_ADAM CARROLL.png"
+        },
+        {
+          "name": "M. Evans",
+          "number": "20",
+          "pic": "PANASONIC JAGUAR_20_MITCH EVANS.png"
+        }
+      ]
+    },
+    {
+      "name": "Mahindra Racing",
+      "country": "India",
+      "car_model": {
+        "name": "Mahindra M3 ELECTRO",
+        "pic": "teams_car_profile_mahindra.png"
+      },
+      "drivetrain_spec": ["1 Transverse motor", "2 Gears"],
+      "pilots": [
+        {
+          "name": "N. Heidfeld",
+          "number": "23",
+          "pic": "MAHINDRA_23_HEIDFELD.png"
+        },
+        {
+          "name": "F. Rosenqvist",
+          "number": "19",
+          "pic": "MAHINDRA_19_FELIX ROSENQVIST.png"
+        }
+      ]
+    },
+    {
+      "name": "Next EV NIO",
+      "country": "UK",
+      "car_model": {
+        "name": "NEXTEV TCR Formula 002",
+        "pic": "teams_car_profile_nextev.png"
+      },
+      "drivetrain_spec": ["2 Transverse pancake motors", "Direct drive"],
+      "pilots": [
+        {
+          "name": "N. Piquet",
+          "number": "3",
+          "pic": "NEXTEV NIO_3_NELSON PIQUET JR.png"
+        },
+        {
+          "name": "O. Turvey",
+          "number": "88",
+          "pic": "NEXTEV NIO_88_OLIVER TURVEY.png"
+        }
+      ]
+    },
+    {
+      "name": "Renault e.dams",
+      "country": "France",
+      "car_model": {
+        "name": "Renault Z.E.16",
+        "pic": "teams_car_profile_renault.png"
+      },
+      "drivetrain_spec": ["1 Transverse motor", "Direct drive"],
+      "pilots": [
+        {
+          "name": "N. Prost",
+          "number": "8",
+          "pic": "RENAULT E DAMS_8_NICO PROST.png"
+        },
+        {
+          "name": "S. Buemi",
+          "number": "9",
+          "pic": "RENAULT E DAMS_9_SEBASTIEN BUEMI.png",
+          "inactive": "true"
+        },
+        {
+          "name": "P. Gasly",
+          "number": "9",
+          "pic": ""
+        }
+      ]
+    },
+    {
+      "name": "Techeetah",
+      "country": "China",
+      "car_model": {
+        "name": "Renault Z.E.16",
+        "pic": "teams_car_profile_techeetah.png"
+      },
+      "drivetrain_spec": ["1 Transverse motor", "Direct drive"],
+      "pilots": [
+        {
+          "name": "J. Vergne",
+          "number": "25",
+          "pic": "TECHEETAH_25_JEAN ERIC VERGNE.png"
+        },
+        {
+          "name": "S. Sarrazin",
+          "number": "33",
+          "pic": ""
+        }
+      ]
+    },
+    {
+      "name": "Venturi Formula E",
+      "country": "Principality of Monaco",
+      "car_model": {
+        "name": "Venturi VM200-FE-02",
+        "pic": "teams_car_profile_venturi.png"
+      },
+      "drivetrain_spec": ["1 Longitudinal motor", "2 Gears"],
+      "pilots": [
+        {
+          "name": "M. Engel",
+          "number": "5",
+          "pic": "VENTURI_5_MARO ENGEL.png"
+        },
+        {
+          "name": "T. Dillman",
+          "number": "4",
+          "pic": "VENTURI_4_TOM DILLMAN.png"
+        }
+      ]
+    }
+  ]
+}

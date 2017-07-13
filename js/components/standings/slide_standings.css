@@ -1,0 +1,33 @@
+
+/*FAKE ENVIRONMENT*/
+.container{
+  font-weight: normal;
+  font-family: 'UniversLT';
+  background: -webkit-linear-gradient(left, #41B9E6, #0555FA);
+  color: #FFF;
+}
+
+.slide_content{
+  border: 1px solid #FFF;
+  position: absolute;
+  bottom: 77px;
+  width: 830px;
+  left: 95px;
+  height: 590px;
+}
+
+#top{
+  background: #0555fa;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 85px;
+  width: 100%
+}
+
+#chart_standings{
+  position: absolute;
+  left: 50px;
+  top: 75px;
+  width: 728px;
+}

@@ -24,6 +24,9 @@ streamgraph {
 #streamgraph .x.axis.line line {
   stroke-dasharray: 1, 5;
 }
+/*#streamgraph g.chart path.layer.layer-1 {
+  fill: url(#stream_gr1);
+}*/
 
 streamgraph .tooltip {
   position: absolute;

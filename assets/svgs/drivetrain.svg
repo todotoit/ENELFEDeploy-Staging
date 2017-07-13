@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="ill_powertrain" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="331 202 615 230" enable-background="new 331 202 615 230" xml:space="preserve">
+<g id="ill_powertrain_bgcar" opacity="0.3">
+	<circle fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" cx="766" cy="354.1" r="72.5"/>
+	<path fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" d="M910.2,361.3h31.2v-26.1h-44.6v-26.7l19.1-31.5
+		v-31.5l-28.6-6.7h-65.4v42.9c29.3,22.7,42.1,60.7,32.4,96.5l42.5-17.1v-12.5"/>
+	<path fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" d="M633.7,308.5c-38.1-10.1-131.1-26.8-160.3-26.8
+		h-31.1c-25.8,0-31.5,15.3-64.9,15.3H344l-2.4-0.2c-2.7-0.2-4.9-2.5-4.9-5.2v-15.7h13.8"/>
+	<path fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" d="M674.4,354.1c0,20.3,6.7,39.9,19.1,56l-30.3,10.3
+		H386.1"/>
+	<path fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" d="M482,272.1v-19l-8.5-43.9h37.2
+		c0,0,32.4,22.9,59.1,43.9c59.1,12.4,104.7,36.2,104.7,36.2h26.9c-10.9,10.9-18.9,24.3-23.2,39.1c-0.6,2.2-1.2,4.5-1.7,6.8
+		c-20.5-4.4-41.4-6.7-62.4-6.8H469.2c-9,0-16.2,7.3-16.2,16.2c0,0,0,0,0,0l0,0V378c0,9,7.3,16.2,16.2,16.2c0,0,0,0,0,0h122.9
+		c14.9,0,29.8-1.3,44.4-4l19.9-3.6"/>
+	<circle fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" cx="766" cy="354.1" r="47.3"/>
+</g>
+<g id="ill_powertrain_longitudinal">
+	<polyline fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" points="649.3,343.9 649.3,331 623.6,331 
+		623.6,343.9 597.9,343.9 597.9,401.7 623.6,401.7 623.6,414.6 649.3,414.6 649.3,401.7 662.1,401.7 662.1,343.9 658.9,343.9 	"/>
+	<line fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" x1="649.3" y1="343.9" x2="649.3" y2="388.9"/>
+	<line fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" x1="623.6" y1="343.9" x2="623.6" y2="401.7"/>
+</g>
+<g id="ill_powertrain_transmission">
+	
+		<line fill="none" stroke="#666666" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10" x1="769.8" y1="372.7" x2="661.9" y2="396.2"/>
+	
+		<line fill="none" stroke="#666666" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10" x1="663.9" y1="349.2" x2="763.6" y2="335.4"/>
+</g>
+<g id="ill_powertrain_traverse_element">
+	
+		<line id="trav_el" fill="none" stroke="#666666" stroke-width="4" stroke-miterlimit="10" x1="644.8" y1="376" x2="632.6" y2="376"/>
+	<circle fill="none" cx="638.6" cy="375.9" r="8.6"/>
+</g>
+<path id="ill_powertrain_traverse1" fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" d="M620.3,408.8
+	c-18.2-4.4-29.3-22.6-25-40.8c4.4-18.2,22.6-29.3,40.8-25c18.2,4.4,29.3,22.6,25,40.8c-3.7,15.2-17.3,26-33,25.9v-10.4
+	c-12.9-0.1-23.3-10.6-23.2-23.4c0.1-12.9,10.6-23.3,23.4-23.2s23.3,10.6,23.2,23.4c0,10.3-6.9,19.4-16.8,22.3"/>
+<path id="ill_powertrain_traverse2" fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" d="M635,398.1
+	c12.3-3.6,19.3-16.5,15.7-28.8c-3.6-12.3-16.5-19.3-28.8-15.7c-12.3,3.6-19.3,16.5-15.7,28.8c2.9,9.9,11.9,16.6,22.2,16.7v10.3
+	c18.5,0.1,33.5-14.8,33.6-33.3c0.1-18.5-14.8-33.5-33.3-33.6c-18.5-0.1-33.5,14.8-33.6,33.3c-0.1,15.5,10.5,29,25.6,32.6v0.9h-12.9
+	c-18.5,0-33.5-15-33.4-33.5c0-16.9,12.6-31.1,29.3-33.2"/>
+<g id="ill_powertrain_wheel">
+	<circle fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" cx="766" cy="354.1" r="18.9"/>
+	<path fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" d="M775.7,351.9c-1.2-5.4-6.6-8.7-12-7.5
+		c-3.7,0.9-6.6,3.8-7.5,7.5"/>
+	<path fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" stroke-opacity="0" d="M756.2,356.4
+		c1.2,5.4,6.6,8.7,12,7.5c3.7-0.9,6.6-3.8,7.5-7.5"/>
+</g>
+<g id="ill_powertrain_idle">
+	<g id="ill_powertrain_inverter">
+		<polyline fill="none" stroke="#666666" stroke-width="4.2731" stroke-linejoin="round" points="540.2,265.2 540.2,296.7 
+			529.4,296.7 529.4,265.2 		"/>
+		<path fill="none" stroke="#666666" stroke-width="4.2731" stroke-linejoin="round" d="M500.9,301.4c0-10.8,8.8-19.6,19.6-19.6l0,0
+			h8.5"/>
+		<path fill="none" stroke="#666666" stroke-width="4.2731" stroke-linejoin="round" d="M482.8,301.4c0-16.4,13.3-29.7,29.7-29.7
+			l0,0h16.6"/>
+		<polyline fill="none" stroke="#666666" stroke-width="4.2731" stroke-linejoin="round" points="540.2,296.7 540.2,265.2 
+			597.5,265.2 597.5,296.7 558,296.7 		"/>
+		
+			<line id="inverter_el" fill="none" stroke="#666666" stroke-width="4.2731" stroke-linejoin="round" x1="569.1" y1="281.7" x2="584.1" y2="281.7"/>
+	</g>
+	<g id="battery">
+		<polyline fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" points="597.4,309.8 597.4,302.8 440.5,302.8 
+			431.1,318.1 597.7,318.1 597.7,420.2 415.3,420.2 415.3,343.3 427,325 		"/>
+		<line fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" x1="442.8" y1="345.5" x2="442.8" y2="359.7"/>
+		<line fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" x1="449.9" y1="352.6" x2="435.7" y2="352.6"/>
+		<line fill="none" stroke="#666666" stroke-width="4" stroke-linejoin="round" x1="449.9" y1="378.3" x2="435.7" y2="378.3"/>
+	</g>
+</g>
+</svg>

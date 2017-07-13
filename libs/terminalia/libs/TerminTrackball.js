@@ -16,6 +16,10 @@ TERMINALIA.Trackball = function Trackball() {
     self.offset = 0;
     self.enabled = true;
     self.rotationFactor = 0.2;
+    self.currentAngle = 0.0;
+    self.targetRot = 0.0;
+    self.autoRotate = false;
+    self.pinInterpolating = false;
 
     function onMouseDown(x, y) {
         self.leftPressed = true;
@@ -34,16 +38,59 @@ TERMINALIA.Trackball = function Trackball() {
         self.last_y = y;
 
         if (self.leftPressed && self.enabled) {
-            self.rot_x += diff_x;
             self.rot_y += diff_y;
+            self.currentAngle += diff_x;
 
-            //self.object.rotation.set(0, self.animation_rot + radians(self.rot_x), 0);
+            //If world has turned around 360 degress on the left reset currentAngle to zero
+            if ((radians(self.currentAngle) * self.rotationFactor) < -(radians(360))) {
+                self.currentAngle = 0;
+            }
+
+            //If world has turned around 360 degress on the right reset currentAngle to zero
+            if ((radians(self.currentAngle) * self.rotationFactor) > radians(360)) {
+                self.currentAngle = 0;
+            }
+
             updateRotation();
         }
     }
 
     function updateRotation() {
-        self.object.rotation.set(0, radians(self.rot_x) * self.rotationFactor, 0);
+        self.object.rotation.set(0, radians(self.currentAngle) * self.rotationFactor, 0);
+    }
+
+    function updateRotationPin() {
+        if (self.pinInterpolating) {
+            var diff = Math.floor(self.currentAngle) - Math.floor(self.targetRot);
+            if (diff > 1 || diff < -1) {
+                self.currentAngle += (self.targetRot - self.currentAngle) * 0.03;
+                self.object.rotation.set(0, radians(self.currentAngle) * self.rotationFactor, 0);
+            }
+            else {
+                self.pinInterpolating = false;
+            }
+
+            //console.log("Interpolating...");
+        }
+    }
+
+    function autoRotateAnimation() {
+        if (self.autoRotate) {
+            self.currentAngle += 1;
+            
+            //If world has turned around 360 degress on the left reset currentAngle to zero
+            if ((radians(self.currentAngle) * self.rotationFactor) < -(radians(360))) {
+                self.currentAngle = 0;
+            }
+
+            //If world has turned around 360 degress on the right reset currentAngle to zero
+            if ((radians(self.currentAngle) * self.rotationFactor) > radians(360)) {
+                self.currentAngle = 0;
+            }
+
+            //console.log("Autorotate", self.currentAngle);
+            self.object.rotation.set(0, radians(self.currentAngle) * self.rotationFactor, 0);
+        }
     }
 
     function addRotationToObject(object) {
@@ -59,4 +106,6 @@ TERMINALIA.Trackball = function Trackball() {
     self.onMouseMove = onMouseMove;
     self.addRotationToObject = addRotationToObject;
     self.updateRotation = updateRotation;
+    self.updateRotationPin = updateRotationPin;
+    self.autoRotateAnimation = autoRotateAnimation;
 }

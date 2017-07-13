@@ -23,8 +23,8 @@
     var ctrl = this
     // https://github.com/angular/angular.js/issues/14433
     // for the issue above we decided to use just $onChanges
-    ctrl.$onInit = init
-    // ctrl.$onChanges = update
+    // ctrl.$onInit = init
+    ctrl.$onChanges = init
 
     $scope.prevTab  = prevTab
     $scope.nextTab  = nextTab
@@ -49,23 +49,39 @@
       return idx === contentIdx
     }
 
-    function prevTab() {
-      if (contentIdx <= 0) return prevCallback()
-      contentIdx--
-      $scope.subsnip = content[contentIdx]
-      // $content.find('li').removeClass('active')
-      // $content.find('li').eq(contentIdx).addClass('active')
-      TweenMax.to($content.find('ul'), swipeVel, { x: '+='+ swipeOffset +'%', onComplete: function() {
-        if (!$scope.$$phase) $scope.$digest()
-      } })
+    // function prevTab() {
+    //   if (contentIdx <= 0) return prevCallback()
+    //   contentIdx--
+    //   $scope.subsnip = content[contentIdx]
+    //   TweenMax.to($content.find('ul'), swipeVel, { x: '+='+ swipeOffset +'%', onComplete: function() {
+    //     if (!$scope.$$phase) $scope.$digest()
+    //   } })
+    //   TweenMax.to($content.find('.sub-snip-content'), swipeVel, { x: '+='+ swipeOffset +'%', opacity: 0.1, onComplete: function() {
+    //     if (!$scope.$$phase) $scope.$digest()
+    //   } })
+    // }
+    // function nextTab() {
+    //   if (contentIdx >= content.length -1) return nextCallback()
+    //   contentIdx++
+    //   $scope.subsnip = content[contentIdx]
+    //   TweenMax.to($content.find('ul'), swipeVel, { x: '-='+ swipeOffset +'%', onComplete: function() {
+    //     if (!$scope.$$phase) $scope.$digest()
+    //   } })
+    //   TweenMax.to($content.find('.sub-snip-content'), swipeVel, { x: '-='+ swipeOffset +'%', opacity: 0.1, onComplete: function() {
+    //     if (!$scope.$$phase) $scope.$digest()
+    //   } })
+    // }
+    //
+    function prevTab(){
+        if (contentIdx <= 0) return prevCallback()
+        contentIdx--
+        $scope.subsnip = content[contentIdx]
     }
-    function nextTab() {
-      if (contentIdx >= content.length -1) return nextCallback()
-      contentIdx++
-      $scope.subsnip = content[contentIdx]
-      TweenMax.to($content.find('ul'), swipeVel, { x: '-='+ swipeOffset +'%', onComplete: function() {
-        if (!$scope.$$phase) $scope.$digest()
-      } })
+
+    function nextTab(){
+        if (contentIdx >= content.length -1) return nextCallback()
+        contentIdx++
+        $scope.subsnip = content[contentIdx]
     }
 
     // init after dom loaded
@@ -78,7 +94,7 @@
       if (contentIdx < 0) contentIdx = 0
       else if (contentIdx >= content.length) contentIdx = content.length -1
       $scope.subsnip = content? content[contentIdx] : null
-      if(!bowser.mobile) $element.ready(createContentHandler)
+      $element.ready(createContentHandler)
     }
 
     // event handlers
@@ -95,10 +111,8 @@
         e.srcEvent.stopPropagation()
       })
       $element.on('touchmove', function(e) {
-        if(!bowser.mobile){
-          e.stopPropagation()
-          e.preventDefault()
-        }
+        e.stopPropagation()
+        e.preventDefault()
       })
       $element.click(function(e) {
         e.stopPropagation()

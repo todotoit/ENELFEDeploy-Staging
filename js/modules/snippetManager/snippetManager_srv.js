@@ -15,18 +15,22 @@
     // tours
     var _availableTours = {
       'eMobility': {
+        key: 'eMobility',
         label: 'E-Mobility',
         snippets: ['fastRecharge', 'efficiency', 'co2', 'regenerativeBraking', 'v2g']
       },
       'smartEnergy': {
+        key: 'smartEnergy',
         label: 'Smart energy',
-        snippets: ['raceMicrogrid', 'smartMetering', 'storage', 'v2g', 'firstSmartCity'],
+        snippets: ['raceMicrogrid', 'smartMetering', 'storage', 'v2g', 'firstSmartCity', 'batteryBrains', 'forgetBlackouts'],
       },
       'cleanEnergy': {
+        key: 'cleanEnergy',
         label: 'Clean energy',
-        snippets: ['raceMicrogrid', 'solarPower', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld'],
+        snippets: ['raceMicrogrid', 'solarPower', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'zeroco2ny'],
       },
       'enelAchievements': {
+        key: 'enelAchievements',
         label: 'Enel achievements',
         snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'formulaE', 'enelWorld'],
       }
@@ -56,28 +60,28 @@
       },
       'pin_2_grid': {
         stage: 2,
-        coords: [-654, 165, 456],
+        coords: [-536, 295, 470],
         snippets: ['raceMicrogrid']
       },
       'pin_2_info': {
         stage: 2,
-        coords: [730, 213, -139],
-        snippets: ['circuitBerlin2017']
+        coords: [-649, 85, -407],
+        snippets: ['circuitNY2017']
       },
       'pin_2_meter': {
         stage: 2,
-        coords: [12, 361, 684],
+        coords: [375, 219, 639],
         snippets: ['smartMetering']
       },
       'pin_2_solar': {
         stage: 2,
-        coords: [117, 660, 298],
+        coords: [-412, 198, -620],
         snippets: ['solarPower']
       },
       'pin_2_storage': {
         stage: 2,
-        coords: [-759, 213, 200],
-        snippets: ['storage']
+        coords: [416, 424, -491],
+        snippets: ['storage', 'batteryBrains']
       },
       'pin_3_v2g': {
         stage: 3,
@@ -120,6 +124,16 @@
         // coords: [-0.91, 0.38, -0.45],
         coords: [756],
         snippets: ['howMuchSunGlobal', 'howMuchSunMexico']
+      },
+      'pin_3_ny': {
+        stage: 3,
+        coords: [462],
+        snippets: ['forgetBlackouts', 'zeroco2ny']
+      },
+      'pin_3_ca': {
+        stage: 3,
+        coords: [583],
+        snippets: ['enelNorthAmerica', 'hybrid']
       }
     }
 
@@ -149,6 +163,23 @@
             desc: '',
             label: 'Enough to charge',
             tpl: self.path + '/subcontents/batteryPower-phones.html'
+          }
+        ]
+      },
+      'batteryBrains': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/batteryBrains.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'At the NYC ePrix',
+            tpl: self.path + '/subcontents/batteryBrains-ePrix.html'
+          },
+          {
+            desc: '',
+            label: 'In NYC and the world',
+            tpl: self.path + '/subcontents/batteryBrains-world.html'
           }
         ]
       },
@@ -227,6 +258,11 @@
         desc: '',
         label: '',
         tpl: self.path + '/circuit-berlin-2017.html'
+      },
+      'circuitNY2017': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/circuit-ny-2017.html'
       },
       'raceMicrogrid': {
         desc: '',
@@ -348,6 +384,26 @@
         desc: '',
         label: '',
         tpl: self.path + '/enelstand.html'
+      },
+      'enelNorthAmerica': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/enelNorthAmerica.html'
+      },
+      'forgetBlackouts': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/forgetBlackouts.html'
+      },
+      'zeroco2ny': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/zeroco2ny.html'
+      },
+      'hybrid': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/hybrid.html'
       }
     }
 
@@ -381,56 +437,51 @@
     // -------
 
     function _getAvailableTours() {
-        var tours = _.map(angular.copy(_availableTours), function(value, key) {
-          value.key = key
-          value.snippets = _.map(value.snippets, function(value) {
-            var snippet = angular.copy(_availableSnippets[value])
-            var hotspot = _.values(_.pickBy(_availableHotspots, function(o, k) {
-              o.key = k
-              return _.includes(o.snippets, value)
-            }))[0]
-            if (!hotspot) return snippet
-            snippet.hotspot = {
-              key: hotspot.key,
-              stage: hotspot.stage,
-              coords: hotspot.coords
-            }
-            return snippet
-          })
-          return value
+      var tours = _.map(angular.copy(_availableTours), function(value, key) {
+        value.key = key
+        value.snippets = _.map(value.snippets, function(value) {
+          var snippet = angular.copy(_availableSnippets[value])
+          var hotspot = _.values(_.pickBy(_availableHotspots, function(o, k) {
+            o.key = k
+            return _.includes(o.snippets, value)
+          }))[0]
+          snippet.key = value
+          if (!hotspot) return snippet
+          snippet.hotspot = {
+            key: hotspot.key,
+            stage: hotspot.stage,
+            coords: hotspot.coords
+          }
+          return snippet
         })
-        if (!_.isEmpty(tours)) return tours
-        else console.error('No available tours are defined!')
+        return value
+      })
+      if (!_.isEmpty(tours)) return tours
+      else console.error('No available tours are defined!')
     }
 
     function _getAvailableSnippets() {
-      return $q(function(resolve, reject) {
-        var snippets = _.map(angular.copy(_availableSnippets), function(value, key) {
-          value.key = key
-          return value
-        })
-        if (!_.isEmpty(snippets)) resolve(snippets)
-        else reject('No available snippets are defined!')
+      var snippets = _.map(angular.copy(_availableSnippets), function(value, key) {
+        value.key = key
+        return value
       })
+      if (!_.isEmpty(snippets)) return snippets
+      else console.error('No available snippets are defined!')
     }
 
     function _getQRCodeSnippets() {
-      return $q(function(resolve, reject) {
-        var snippets = _.map(angular.copy(_qrcodeSnippets), function(value, key) {
-          value.key = key
-          return value
-        })
-        if (!_.isEmpty(snippets)) resolve(snippets)
-        else reject('No available snippets are defined!')
+      var snippets = _.map(angular.copy(_qrcodeSnippets), function(value, key) {
+        value.key = key
+        return value
       })
+      if (!_.isEmpty(snippets)) return snippets
+      else console.error('No available snippets are defined!')
     }
 
     function _getTour(key) {
-      return $q(function(resolve, reject) {
-        var tour = angular.copy(_availableTours[key])
-        if (!_.isEmpty(tour)) resolve(tour)
-        else reject('Tour not found!')
-      })
+      var tour = angular.copy(_availableTours[key])
+      if (!_.isEmpty(tour)) return tour
+      else console.error('Tour not found!')
     }
 
     function _getHotspot(key) {
@@ -443,11 +494,12 @@
     }
 
     function _getSnippet(key) {
-      return $q(function(resolve, reject) {
-        var snippet = angular.copy(_availableSnippets[key])
-        if (!_.isEmpty(snippet)) resolve(snippet)
-        else reject('Snippet not found!')
-      })
+      var snippet = angular.copy(_availableSnippets[key])
+      if (!_.isEmpty(snippet)) {
+        snippet.key = key
+        return snippet
+      }
+      else console.error('Snippet not found!')
     }
   }
 

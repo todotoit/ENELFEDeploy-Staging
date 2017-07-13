@@ -1,0 +1,180 @@
+
+/*here we go*/
+#chart_standing, #chart_standings_wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#chart_standings ul li{
+	display: flex;
+	justify-content: flex-start;
+	margin-bottom: 2rem;
+}
+
+#chart_standings ul li div{
+}
+
+#chart_standings .team_name{
+	width: 20%;
+	font-size: 1.3rem;
+	line-height: 1.4rem;
+	padding-right: 1rem;
+  flex: 0 0 auto;
+}
+
+#chart_standings .bar_container{
+	max-width: 75%;
+	justify-content: flex-start;
+	display: flex;
+  flex: 1 0 auto;
+}
+
+#chart_standings .bar{
+  width: 0;
+  overflow: hidden;
+	background: url(img/bar_bg.png);
+	background-size: cover;
+  	border: none;
+	border-right: 7px solid #FFF;
+	height: 3rem;
+	min-width: 1%;
+	position: relative;
+	transition: width 1.5s;
+	display: flex;
+	justify-content: flex-start;
+}
+
+#chart_standings .bar .bar_points{
+	position: absolute;
+	font-size: 1.4rem;
+	font-weight: bold;
+	right: -5.5rem;
+	display: inline-block;
+	transition: opacity 4s;
+	opacity: 0;
+	line-height: 3rem;
+}
+
+#chart_standings .bar .bar_segment{
+	border-right: 1px solid rgba(255,255,255,.3);
+	height: 3rem;
+}
+
+#chart_standings .bar .bar_segment{
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 2.5rem 2.5rem;
+}
+
+#chart_standings .bar .bar_segment.fastest_lap{
+	background-image: url(svg/icon_team_fastestlap.svg);
+}
+#chart_standings .bar .bar_segment.pole_position{
+	background-image: url(svg/icon_team_poleposition.svg);
+}
+
+#chart_standings .bar .bar_segment.no_bg{
+	background-image: none!important;
+}
+
+
+
+#chart_standings #chart_standings_legend{
+	position: absolute;
+	bottom: 1rem;
+	right: 2rem;
+}
+
+#chart_standings #chart_standings_legend ul li{
+	height: 2.2rem;
+	margin-bottom: 0;
+	background-position: left center;
+	background-size: 2.5rem 2.5rem;
+	background-repeat: no-repeat;
+	padding-left: 3rem;
+	padding-right: 4rem;
+	font-size: 1.4rem;
+	line-height: 2.2rem;
+	position: relative;
+}
+
+#chart_standings #chart_standings_legend ul li.divider{
+	height: 1rem;
+}
+
+#chart_standings #chart_standings_legend ul li strong{
+	padding-left: .5rem;
+	position: absolute;
+	right: 0;
+	display: inline-block;
+	top: 0
+}
+
+.place_1{
+	background-image: url(svg/icon_team_1st.svg)
+}
+
+.place_2{
+	background-image: url(svg/icon_team_2nd.svg)
+}
+.place_3{
+	background-image: url(svg/icon_team_3rd.svg);
+}
+.place_4{
+	background-image: url(svg/icon_team_4th.svg);
+}
+.place_5{
+	background-image: url(svg/icon_team_5th.svg);
+}
+.place_6{
+	background-image: url(svg/icon_team_6th.svg);
+}
+.place_7{
+	background-image: url(svg/icon_team_7th.svg);
+}
+.place_8{
+	background-image: url(svg/icon_team_8th.svg);
+}
+.place_9{
+	background-image: url(svg/icon_team_9th.svg);
+}
+.place_10{
+	background-image: url(svg/icon_team_10th.svg);
+}
+.fastest_lap{
+	background-image: url(svg/icon_team_fastestlap.svg);
+}
+.pole_position{
+	background-image: url(svg/icon_team_poleposition.svg);
+}
+
+#chart_standings #chart_standings_legend ul li.strong{
+  height: 3rem;
+  line-height: 1.5rem;
+  left: -2.5rem;
+}
+#chart_standings #chart_standings_legend ul li.laps{
+  height: 3rem;
+  line-height: 4.5rem;
+  left: -2.5rem;
+}
+#chart_standings #chart_standings_legend ul li.laps .number{
+  margin-right: .5rem;
+}
+#chart_standings #chart_standings_legend .progress {
+  height: 2rem;
+  padding: 0;
+  margin-left: .5rem;
+  margin-bottom: 1rem;
+  background: rgba(255,255,255,0.1);
+}
+#chart_standings #chart_standings_legend .progress .bar{
+  height: 2rem;
+  width: 0%;
+}
+
+
