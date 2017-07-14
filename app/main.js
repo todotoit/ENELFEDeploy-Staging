@@ -3477,8 +3477,10 @@ window.twttr = (function(d, s, id) {
     ])
     .controller('MainCtrl', mainCtrl)
 
-    function mainCtrl($scope, $state, $timeout) {
+    function mainCtrl($rootScope, $scope, $state) {
       $scope.menuOpen = false
+      $scope.loading = $rootScope.loading
+
       $('#app-menu').css({visibility: 'visible'})
 
       $scope.toggleMenu = function() {
@@ -3488,8 +3490,8 @@ window.twttr = (function(d, s, id) {
       }
 
       $scope.goTo = function(stateName) {
+        $state.go(stateName, {reload: true})
         $scope.toggleMenu()
-        $timeout(function() {$state.go(stateName, {reload: true})}, 300)
       }
     }
 
@@ -3507,7 +3509,7 @@ window.twttr = (function(d, s, id) {
     .run(RunWebApp)
 
   /* @ngInject */
-  function RunWebApp(later, ModelSrv) {
+  function RunWebApp($rootScope, later, ModelSrv) {
 
     // var schedule = later.parse.cron('4,9,14,19,24,29,34,39,44,49,54,59 * * * *')
     // var scheduleTime = 30 +' seconds' // test
@@ -3520,6 +3522,18 @@ window.twttr = (function(d, s, id) {
       return ModelSrv.updateAllModels()
     }
     later.setInterval(modelsUpdate, schedule)
+
+    $rootScope.loaded = false
+    $rootScope.forceReload = false
+    $rootScope.showLoader = function() {
+      $rootScope.loaded = false
+    }
+    $rootScope.hideLoader = function() {
+      if ($rootScope.forceReload) return
+      $rootScope.loaded = true
+    }
+
+    $rootScope.$on('$stateChangeStart', $rootScope.showLoader)
   }
 
 }(window.angular));
@@ -3613,7 +3627,11 @@ window.twttr = (function(d, s, id) {
         },
         controller: 'LandingCtrl',
         controllerAs: 'landing',
-        templateUrl: 'templates/landing.html'
+        templateUrl: 'templates/landing.html',
+        onExit: function($rootScope, $window, $timeout) {
+          $rootScope.forceReload = true
+          $timeout(function() { $window.location.reload() }, 300)
+        }
       })
       .state('landingMobile', {
         url: '/landing-mobile/:tourKey/:snippetKey',
@@ -3641,13 +3659,6 @@ window.twttr = (function(d, s, id) {
       })
       .state('dashboard', {
         url: '/dashboard',
-        params: {
-          reload: null
-        },
-        onEnter: function($stateParams, $window, $timeout) {
-          console.log($stateParams)
-          if ($stateParams.reload) $timeout(function() {$window.location.reload()}, 500)
-        },
         resolve: {
           liveData: function(ModelSrv) {
             return ModelSrv.getAllModels()
@@ -3716,7 +3727,7 @@ window.twttr = (function(d, s, id) {
     .controller('LandingCtrl', landingCtrl)
 
   /* @ngInject */
-  function landingCtrl ($scope, $window, $http, $state, $timeout, $interval, _, SnippetSrv, TweenMax, GA, ModelSrv, liveData) {
+  function landingCtrl ($rootScope, $scope, $window, $http, $state, $timeout, $interval, _, SnippetSrv, TweenMax, GA, ModelSrv, liveData) {
     var vm = this
     vm.snippets = []
     vm.tours = SnippetSrv.getAvailableTours();
@@ -3729,11 +3740,8 @@ window.twttr = (function(d, s, id) {
     var idleTOut = 15000 // millis
 
     var FEScene = null
-    var loaderTl = null;
     // Desktop only init
     angular.element(document).ready(render)
-
-    $('header h4').text('')
 
     // races
     vm.races = []
@@ -3745,8 +3753,9 @@ window.twttr = (function(d, s, id) {
     }
 
     function render() {
-      showLoader();
-      $(window).on("AssetsLoaded", hideLoader)
+      $('header h4').text('')
+      $(window).on("AssetsLoaded", $rootScope.hideLoader)
+
       var $container = $('#3dcontainer')
       var container = $container.get(0)
       init()
@@ -3765,8 +3774,8 @@ window.twttr = (function(d, s, id) {
           zoom(stage)
         })
         $(window).on('resize', FEScene.resize)
-        $(window).on('click', stopIdle)
         $container.on('click', function(e){
+          stopIdle()
           selectedHotspot(FEScene.findObjectOnClick(e))
         })
         $(window).on('keydown', function(event) {
@@ -3934,6 +3943,7 @@ window.twttr = (function(d, s, id) {
     }
 
     function setCurrentTour(tour, $index) {
+      stopIdle()
       var carouselCtrl = angular.element($('snippet-carousel')).controller('snippetCarousel')
       carouselCtrl.setTour(true);
       vm.snipCounter = -1;
@@ -3944,25 +3954,6 @@ window.twttr = (function(d, s, id) {
       var el = $('#tour-menu').children().eq($index);
       var pos = -el.position().left + $('#tour-wrapper').width() / 2 - el.width() / 2;
       TweenMax.to($('#tour-menu'), .5, {scrollTo: {x: "#"+el.attr('id')}})
-    }
-
-    function showLoader() {
-      // $('#loader > div').fadeIn();
-      // loaderTl = new TimelineMax({repeat:-1, delay:.5, repeatDelay:.2});
-      // loaderTl.set($('#car > *'), {drawSVG:"0%"})
-      // loaderTl.to($('#car > *'), 1,{drawSVG:"0% 40%", ease:Power4.easeOut})
-      // loaderTl.to($('#car > *'), 1,{drawSVG:"40% 100%", ease:Power4.easeOut})
-      // loaderTl.to($('#car > *'), 1,{drawSVG:"100% 100%", ease:Power4.easeOut})
-    }
-
-    function hideLoader() {
-      // loaderTl.stop();
-      $('#loadercar').fadeOut();
-    }
-
-    $scope.gotoDashboard = function() {
-      $state.go('dashboard', {reload: true})
-      // $timeout(function() { $window.location.reload() }, 500)
     }
 
     // deregister event handlers
@@ -4205,6 +4196,7 @@ window.twttr = (function(d, s, id) {
     var vm = this
 
     $('header h4').text('Discover the energy behind Formula E')
+    angular.element(document).ready($rootScope.hideLoader)
 
     // races
     vm.races = []
@@ -4371,10 +4363,6 @@ window.twttr = (function(d, s, id) {
       $scope.alldata = selectedData
     }
 
-    function hideLoader(){
-      $('#loaderdash').fadeOut();
-    }
-
     function __emptyData(data) {
       var values = data.values
       var emptydata = {
@@ -4385,8 +4373,6 @@ window.twttr = (function(d, s, id) {
       }
       return emptydata
     }
-
-    setTimeout(hideLoader, 3000)
 
     // event handlers
     $scope.getLiveData = function() {
@@ -4427,10 +4413,11 @@ window.twttr = (function(d, s, id) {
     .controller('FormulaeCtrl', formulaeCtrl)
 
   /* @ngInject */
-  function formulaeCtrl ($scope, $timeout, teams, drivetrains) {
+  function formulaeCtrl ($rootScope, $scope, $timeout, teams, drivetrains) {
     var vm = this
 
     $('header h4').text('More about the Formula E season')
+    angular.element(document).ready($rootScope.hideLoader)
 
     var standings = new standingsChart('#chart_standings')
     var drivetrainsChart = new teamSankey('#chart_drivetrains')

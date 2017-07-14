@@ -166,7 +166,7 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
     function resize() {
         var winHeight = window.innerHeight
         var footer = document.getElementsByTagName('footer')
-        var footHeight = 0
+        var footHeight = -20
         if (footer.length > 0) {
             footHeight = footer[0].offsetHeight
         }
