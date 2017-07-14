@@ -402,6 +402,925 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+/*! * * * * * * * * * * * * * * * * * * * *\  
+  CSShake :: Package
+  v1.5.0
+  CSS classes to move your DOM
+  (c) 2015 @elrumordelaluz
+  http://elrumordelaluz.github.io/csshake/
+  Licensed under MIT
+\* * * * * * * * * * * * * * * * * * * * */
+.shake, .shake-little, .shake-slow, .shake-hard, .shake-horizontal, .shake-vertical, .shake-rotate, .shake-opacity, .shake-crazy, .shake-chunk {
+  display: inline-block;
+  transform-origin: center center; }
+
+.shake-freeze,
+.shake-constant.shake-constant--hover:hover,
+.shake-trigger:hover .shake-constant.shake-constant--hover {
+  animation-play-state: paused; }
+
+.shake-freeze:hover,
+.shake-trigger:hover .shake-freeze, .shake:hover,
+.shake-trigger:hover .shake, .shake-little:hover,
+.shake-trigger:hover .shake-little, .shake-slow:hover,
+.shake-trigger:hover .shake-slow, .shake-hard:hover,
+.shake-trigger:hover .shake-hard, .shake-horizontal:hover,
+.shake-trigger:hover .shake-horizontal, .shake-vertical:hover,
+.shake-trigger:hover .shake-vertical, .shake-rotate:hover,
+.shake-trigger:hover .shake-rotate, .shake-opacity:hover,
+.shake-trigger:hover .shake-opacity, .shake-crazy:hover,
+.shake-trigger:hover .shake-crazy, .shake-chunk:hover,
+.shake-trigger:hover .shake-chunk {
+  animation-play-state: running; }
+
+@keyframes shake {
+  2% {
+    transform: translate(-0.5px, -0.5px) rotate(0.5deg); }
+  4% {
+    transform: translate(2.5px, -1.5px) rotate(-0.5deg); }
+  6% {
+    transform: translate(2.5px, 0.5px) rotate(1.5deg); }
+  8% {
+    transform: translate(-0.5px, 2.5px) rotate(-0.5deg); }
+  10% {
+    transform: translate(1.5px, -0.5px) rotate(1.5deg); }
+  12% {
+    transform: translate(0.5px, -1.5px) rotate(-0.5deg); }
+  14% {
+    transform: translate(0.5px, -1.5px) rotate(0.5deg); }
+  16% {
+    transform: translate(-0.5px, 0.5px) rotate(0.5deg); }
+  18% {
+    transform: translate(-1.5px, 1.5px) rotate(0.5deg); }
+  20% {
+    transform: translate(-0.5px, -1.5px) rotate(-0.5deg); }
+  22% {
+    transform: translate(1.5px, 1.5px) rotate(0.5deg); }
+  24% {
+    transform: translate(-1.5px, 2.5px) rotate(1.5deg); }
+  26% {
+    transform: translate(-0.5px, 0.5px) rotate(0.5deg); }
+  28% {
+    transform: translate(-1.5px, 1.5px) rotate(-0.5deg); }
+  30% {
+    transform: translate(1.5px, 0.5px) rotate(0.5deg); }
+  32% {
+    transform: translate(1.5px, -0.5px) rotate(0.5deg); }
+  34% {
+    transform: translate(2.5px, 1.5px) rotate(-0.5deg); }
+  36% {
+    transform: translate(-1.5px, -0.5px) rotate(-0.5deg); }
+  38% {
+    transform: translate(1.5px, 2.5px) rotate(-0.5deg); }
+  40% {
+    transform: translate(-0.5px, -1.5px) rotate(0.5deg); }
+  42% {
+    transform: translate(0.5px, 0.5px) rotate(0.5deg); }
+  44% {
+    transform: translate(1.5px, 1.5px) rotate(-0.5deg); }
+  46% {
+    transform: translate(-1.5px, 0.5px) rotate(-0.5deg); }
+  48% {
+    transform: translate(1.5px, 1.5px) rotate(1.5deg); }
+  50% {
+    transform: translate(0.5px, -0.5px) rotate(0.5deg); }
+  52% {
+    transform: translate(-0.5px, 0.5px) rotate(1.5deg); }
+  54% {
+    transform: translate(1.5px, -1.5px) rotate(0.5deg); }
+  56% {
+    transform: translate(-0.5px, -1.5px) rotate(1.5deg); }
+  58% {
+    transform: translate(2.5px, 1.5px) rotate(0.5deg); }
+  60% {
+    transform: translate(-0.5px, -0.5px) rotate(1.5deg); }
+  62% {
+    transform: translate(1.5px, 2.5px) rotate(-0.5deg); }
+  64% {
+    transform: translate(-1.5px, 0.5px) rotate(-0.5deg); }
+  66% {
+    transform: translate(2.5px, 1.5px) rotate(-0.5deg); }
+  68% {
+    transform: translate(2.5px, 0.5px) rotate(1.5deg); }
+  70% {
+    transform: translate(-1.5px, -1.5px) rotate(0.5deg); }
+  72% {
+    transform: translate(-1.5px, -0.5px) rotate(-0.5deg); }
+  74% {
+    transform: translate(-0.5px, -1.5px) rotate(1.5deg); }
+  76% {
+    transform: translate(1.5px, 1.5px) rotate(0.5deg); }
+  78% {
+    transform: translate(1.5px, -0.5px) rotate(1.5deg); }
+  80% {
+    transform: translate(-0.5px, 1.5px) rotate(1.5deg); }
+  82% {
+    transform: translate(2.5px, 2.5px) rotate(0.5deg); }
+  84% {
+    transform: translate(-0.5px, 0.5px) rotate(1.5deg); }
+  86% {
+    transform: translate(1.5px, -0.5px) rotate(1.5deg); }
+  88% {
+    transform: translate(2.5px, -1.5px) rotate(0.5deg); }
+  90% {
+    transform: translate(0.5px, -1.5px) rotate(-0.5deg); }
+  92% {
+    transform: translate(-0.5px, -1.5px) rotate(1.5deg); }
+  94% {
+    transform: translate(2.5px, 0.5px) rotate(1.5deg); }
+  96% {
+    transform: translate(-0.5px, -1.5px) rotate(-0.5deg); }
+  98% {
+    transform: translate(-0.5px, -1.5px) rotate(0.5deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake:hover,
+.shake-trigger:hover .shake, .shake.shake-freeze, .shake.shake-constant {
+  animation-name: shake;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-little {
+  2% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  4% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  6% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  8% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  10% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  12% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  14% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  16% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  18% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  20% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  22% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  24% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  26% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  28% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  30% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  32% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  34% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  36% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  38% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  40% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  42% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  44% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  46% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  48% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  50% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  52% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  54% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  56% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  58% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  60% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  62% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  64% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  66% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  68% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  70% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  72% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  74% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  76% {
+    transform: translate(0px, 1px) rotate(0.5deg); }
+  78% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  80% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  82% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  84% {
+    transform: translate(0px, 0px) rotate(0.5deg); }
+  86% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  88% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  90% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  92% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  94% {
+    transform: translate(1px, 0px) rotate(0.5deg); }
+  96% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  98% {
+    transform: translate(1px, 1px) rotate(0.5deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-little:hover,
+.shake-trigger:hover .shake-little, .shake-little.shake-freeze, .shake-little.shake-constant {
+  animation-name: shake-little;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-slow {
+  2% {
+    transform: translate(4px, 4px) rotate(1.5deg); }
+  4% {
+    transform: translate(-5px, 10px) rotate(-1.5deg); }
+  6% {
+    transform: translate(7px, 2px) rotate(0.5deg); }
+  8% {
+    transform: translate(5px, -7px) rotate(1.5deg); }
+  10% {
+    transform: translate(-2px, 10px) rotate(2.5deg); }
+  12% {
+    transform: translate(-1px, -9px) rotate(-1.5deg); }
+  14% {
+    transform: translate(-1px, 5px) rotate(2.5deg); }
+  16% {
+    transform: translate(3px, 1px) rotate(2.5deg); }
+  18% {
+    transform: translate(6px, 7px) rotate(-0.5deg); }
+  20% {
+    transform: translate(2px, -7px) rotate(-1.5deg); }
+  22% {
+    transform: translate(-8px, 9px) rotate(-1.5deg); }
+  24% {
+    transform: translate(8px, 3px) rotate(-0.5deg); }
+  26% {
+    transform: translate(6px, 0px) rotate(-1.5deg); }
+  28% {
+    transform: translate(-2px, -3px) rotate(1.5deg); }
+  30% {
+    transform: translate(-5px, -9px) rotate(-1.5deg); }
+  32% {
+    transform: translate(-9px, -8px) rotate(-2.5deg); }
+  34% {
+    transform: translate(7px, 1px) rotate(-0.5deg); }
+  36% {
+    transform: translate(-3px, 10px) rotate(3.5deg); }
+  38% {
+    transform: translate(-4px, 10px) rotate(2.5deg); }
+  40% {
+    transform: translate(5px, 10px) rotate(-0.5deg); }
+  42% {
+    transform: translate(10px, -5px) rotate(0.5deg); }
+  44% {
+    transform: translate(2px, 7px) rotate(-0.5deg); }
+  46% {
+    transform: translate(6px, -5px) rotate(3.5deg); }
+  48% {
+    transform: translate(3px, -1px) rotate(-2.5deg); }
+  50% {
+    transform: translate(0px, -1px) rotate(2.5deg); }
+  52% {
+    transform: translate(-7px, -7px) rotate(3.5deg); }
+  54% {
+    transform: translate(-3px, 10px) rotate(-2.5deg); }
+  56% {
+    transform: translate(1px, 5px) rotate(-0.5deg); }
+  58% {
+    transform: translate(1px, 0px) rotate(-0.5deg); }
+  60% {
+    transform: translate(-9px, -1px) rotate(-0.5deg); }
+  62% {
+    transform: translate(2px, -3px) rotate(0.5deg); }
+  64% {
+    transform: translate(-5px, 8px) rotate(-2.5deg); }
+  66% {
+    transform: translate(-3px, 4px) rotate(2.5deg); }
+  68% {
+    transform: translate(5px, 9px) rotate(-2.5deg); }
+  70% {
+    transform: translate(-6px, 8px) rotate(1.5deg); }
+  72% {
+    transform: translate(-1px, 1px) rotate(2.5deg); }
+  74% {
+    transform: translate(2px, 6px) rotate(3.5deg); }
+  76% {
+    transform: translate(-5px, -7px) rotate(-1.5deg); }
+  78% {
+    transform: translate(-1px, -4px) rotate(-1.5deg); }
+  80% {
+    transform: translate(0px, 3px) rotate(2.5deg); }
+  82% {
+    transform: translate(4px, 10px) rotate(-2.5deg); }
+  84% {
+    transform: translate(1px, 8px) rotate(2.5deg); }
+  86% {
+    transform: translate(-9px, 5px) rotate(3.5deg); }
+  88% {
+    transform: translate(3px, 9px) rotate(1.5deg); }
+  90% {
+    transform: translate(0px, -2px) rotate(-2.5deg); }
+  92% {
+    transform: translate(-5px, 5px) rotate(-0.5deg); }
+  94% {
+    transform: translate(-6px, 0px) rotate(-0.5deg); }
+  96% {
+    transform: translate(5px, -6px) rotate(3.5deg); }
+  98% {
+    transform: translate(5px, 4px) rotate(-0.5deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-slow:hover,
+.shake-trigger:hover .shake-slow, .shake-slow.shake-freeze, .shake-slow.shake-constant {
+  animation-name: shake-slow;
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-hard {
+  2% {
+    transform: translate(-4px, 2px) rotate(-2.5deg); }
+  4% {
+    transform: translate(-7px, 9px) rotate(-1.5deg); }
+  6% {
+    transform: translate(0px, 4px) rotate(-2.5deg); }
+  8% {
+    transform: translate(9px, -4px) rotate(-1.5deg); }
+  10% {
+    transform: translate(6px, 4px) rotate(1.5deg); }
+  12% {
+    transform: translate(-6px, -9px) rotate(-0.5deg); }
+  14% {
+    transform: translate(9px, -9px) rotate(-0.5deg); }
+  16% {
+    transform: translate(-2px, 2px) rotate(-2.5deg); }
+  18% {
+    transform: translate(8px, -2px) rotate(-1.5deg); }
+  20% {
+    transform: translate(-2px, -8px) rotate(1.5deg); }
+  22% {
+    transform: translate(3px, 8px) rotate(-2.5deg); }
+  24% {
+    transform: translate(2px, 10px) rotate(0.5deg); }
+  26% {
+    transform: translate(-3px, 8px) rotate(-0.5deg); }
+  28% {
+    transform: translate(10px, 0px) rotate(-1.5deg); }
+  30% {
+    transform: translate(7px, 5px) rotate(2.5deg); }
+  32% {
+    transform: translate(7px, 6px) rotate(1.5deg); }
+  34% {
+    transform: translate(0px, 9px) rotate(0.5deg); }
+  36% {
+    transform: translate(10px, -8px) rotate(0.5deg); }
+  38% {
+    transform: translate(-1px, 9px) rotate(3.5deg); }
+  40% {
+    transform: translate(-6px, 2px) rotate(2.5deg); }
+  42% {
+    transform: translate(-1px, -8px) rotate(-1.5deg); }
+  44% {
+    transform: translate(-9px, 4px) rotate(1.5deg); }
+  46% {
+    transform: translate(-8px, -6px) rotate(1.5deg); }
+  48% {
+    transform: translate(-2px, 8px) rotate(-2.5deg); }
+  50% {
+    transform: translate(3px, 9px) rotate(-2.5deg); }
+  52% {
+    transform: translate(7px, -9px) rotate(3.5deg); }
+  54% {
+    transform: translate(-6px, 4px) rotate(-2.5deg); }
+  56% {
+    transform: translate(2px, -4px) rotate(-2.5deg); }
+  58% {
+    transform: translate(4px, -9px) rotate(2.5deg); }
+  60% {
+    transform: translate(-1px, 4px) rotate(-1.5deg); }
+  62% {
+    transform: translate(-8px, -5px) rotate(-1.5deg); }
+  64% {
+    transform: translate(-5px, -6px) rotate(-2.5deg); }
+  66% {
+    transform: translate(9px, -7px) rotate(2.5deg); }
+  68% {
+    transform: translate(-6px, -3px) rotate(-0.5deg); }
+  70% {
+    transform: translate(6px, -8px) rotate(1.5deg); }
+  72% {
+    transform: translate(9px, 8px) rotate(0.5deg); }
+  74% {
+    transform: translate(7px, 1px) rotate(2.5deg); }
+  76% {
+    transform: translate(-9px, -4px) rotate(1.5deg); }
+  78% {
+    transform: translate(-8px, 0px) rotate(-0.5deg); }
+  80% {
+    transform: translate(6px, -7px) rotate(1.5deg); }
+  82% {
+    transform: translate(8px, -2px) rotate(2.5deg); }
+  84% {
+    transform: translate(4px, -5px) rotate(1.5deg); }
+  86% {
+    transform: translate(6px, 5px) rotate(-1.5deg); }
+  88% {
+    transform: translate(-2px, -2px) rotate(-1.5deg); }
+  90% {
+    transform: translate(-3px, 4px) rotate(-0.5deg); }
+  92% {
+    transform: translate(-6px, -4px) rotate(-0.5deg); }
+  94% {
+    transform: translate(6px, -7px) rotate(2.5deg); }
+  96% {
+    transform: translate(-5px, -3px) rotate(3.5deg); }
+  98% {
+    transform: translate(5px, 9px) rotate(-2.5deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-hard:hover,
+.shake-trigger:hover .shake-hard, .shake-hard.shake-freeze, .shake-hard.shake-constant {
+  animation-name: shake-hard;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-horizontal {
+  2% {
+    transform: translate(0px, 0) rotate(0); }
+  4% {
+    transform: translate(4px, 0) rotate(0); }
+  6% {
+    transform: translate(-5px, 0) rotate(0); }
+  8% {
+    transform: translate(8px, 0) rotate(0); }
+  10% {
+    transform: translate(3px, 0) rotate(0); }
+  12% {
+    transform: translate(4px, 0) rotate(0); }
+  14% {
+    transform: translate(-6px, 0) rotate(0); }
+  16% {
+    transform: translate(9px, 0) rotate(0); }
+  18% {
+    transform: translate(-6px, 0) rotate(0); }
+  20% {
+    transform: translate(6px, 0) rotate(0); }
+  22% {
+    transform: translate(9px, 0) rotate(0); }
+  24% {
+    transform: translate(-1px, 0) rotate(0); }
+  26% {
+    transform: translate(-2px, 0) rotate(0); }
+  28% {
+    transform: translate(3px, 0) rotate(0); }
+  30% {
+    transform: translate(10px, 0) rotate(0); }
+  32% {
+    transform: translate(3px, 0) rotate(0); }
+  34% {
+    transform: translate(-9px, 0) rotate(0); }
+  36% {
+    transform: translate(8px, 0) rotate(0); }
+  38% {
+    transform: translate(-2px, 0) rotate(0); }
+  40% {
+    transform: translate(1px, 0) rotate(0); }
+  42% {
+    transform: translate(-5px, 0) rotate(0); }
+  44% {
+    transform: translate(-4px, 0) rotate(0); }
+  46% {
+    transform: translate(0px, 0) rotate(0); }
+  48% {
+    transform: translate(3px, 0) rotate(0); }
+  50% {
+    transform: translate(10px, 0) rotate(0); }
+  52% {
+    transform: translate(7px, 0) rotate(0); }
+  54% {
+    transform: translate(-8px, 0) rotate(0); }
+  56% {
+    transform: translate(-5px, 0) rotate(0); }
+  58% {
+    transform: translate(-4px, 0) rotate(0); }
+  60% {
+    transform: translate(7px, 0) rotate(0); }
+  62% {
+    transform: translate(-1px, 0) rotate(0); }
+  64% {
+    transform: translate(9px, 0) rotate(0); }
+  66% {
+    transform: translate(7px, 0) rotate(0); }
+  68% {
+    transform: translate(4px, 0) rotate(0); }
+  70% {
+    transform: translate(9px, 0) rotate(0); }
+  72% {
+    transform: translate(1px, 0) rotate(0); }
+  74% {
+    transform: translate(2px, 0) rotate(0); }
+  76% {
+    transform: translate(-9px, 0) rotate(0); }
+  78% {
+    transform: translate(0px, 0) rotate(0); }
+  80% {
+    transform: translate(0px, 0) rotate(0); }
+  82% {
+    transform: translate(6px, 0) rotate(0); }
+  84% {
+    transform: translate(-4px, 0) rotate(0); }
+  86% {
+    transform: translate(10px, 0) rotate(0); }
+  88% {
+    transform: translate(-5px, 0) rotate(0); }
+  90% {
+    transform: translate(-8px, 0) rotate(0); }
+  92% {
+    transform: translate(0px, 0) rotate(0); }
+  94% {
+    transform: translate(-5px, 0) rotate(0); }
+  96% {
+    transform: translate(-2px, 0) rotate(0); }
+  98% {
+    transform: translate(8px, 0) rotate(0); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-horizontal:hover,
+.shake-trigger:hover .shake-horizontal, .shake-horizontal.shake-freeze, .shake-horizontal.shake-constant {
+  animation-name: shake-horizontal;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-vertical {
+  2% {
+    transform: translate(0, -5px) rotate(0); }
+  4% {
+    transform: translate(0, 3px) rotate(0); }
+  6% {
+    transform: translate(0, 0px) rotate(0); }
+  8% {
+    transform: translate(0, 3px) rotate(0); }
+  10% {
+    transform: translate(0, -1px) rotate(0); }
+  12% {
+    transform: translate(0, -4px) rotate(0); }
+  14% {
+    transform: translate(0, -3px) rotate(0); }
+  16% {
+    transform: translate(0, 0px) rotate(0); }
+  18% {
+    transform: translate(0, 5px) rotate(0); }
+  20% {
+    transform: translate(0, 9px) rotate(0); }
+  22% {
+    transform: translate(0, 7px) rotate(0); }
+  24% {
+    transform: translate(0, -3px) rotate(0); }
+  26% {
+    transform: translate(0, 10px) rotate(0); }
+  28% {
+    transform: translate(0, 1px) rotate(0); }
+  30% {
+    transform: translate(0, 8px) rotate(0); }
+  32% {
+    transform: translate(0, -7px) rotate(0); }
+  34% {
+    transform: translate(0, 5px) rotate(0); }
+  36% {
+    transform: translate(0, 2px) rotate(0); }
+  38% {
+    transform: translate(0, -7px) rotate(0); }
+  40% {
+    transform: translate(0, -2px) rotate(0); }
+  42% {
+    transform: translate(0, 10px) rotate(0); }
+  44% {
+    transform: translate(0, 2px) rotate(0); }
+  46% {
+    transform: translate(0, 0px) rotate(0); }
+  48% {
+    transform: translate(0, -5px) rotate(0); }
+  50% {
+    transform: translate(0, 10px) rotate(0); }
+  52% {
+    transform: translate(0, 1px) rotate(0); }
+  54% {
+    transform: translate(0, -7px) rotate(0); }
+  56% {
+    transform: translate(0, -7px) rotate(0); }
+  58% {
+    transform: translate(0, -9px) rotate(0); }
+  60% {
+    transform: translate(0, 6px) rotate(0); }
+  62% {
+    transform: translate(0, 5px) rotate(0); }
+  64% {
+    transform: translate(0, -9px) rotate(0); }
+  66% {
+    transform: translate(0, 3px) rotate(0); }
+  68% {
+    transform: translate(0, 3px) rotate(0); }
+  70% {
+    transform: translate(0, -5px) rotate(0); }
+  72% {
+    transform: translate(0, 9px) rotate(0); }
+  74% {
+    transform: translate(0, 8px) rotate(0); }
+  76% {
+    transform: translate(0, 1px) rotate(0); }
+  78% {
+    transform: translate(0, 8px) rotate(0); }
+  80% {
+    transform: translate(0, -1px) rotate(0); }
+  82% {
+    transform: translate(0, -6px) rotate(0); }
+  84% {
+    transform: translate(0, -4px) rotate(0); }
+  86% {
+    transform: translate(0, 2px) rotate(0); }
+  88% {
+    transform: translate(0, -5px) rotate(0); }
+  90% {
+    transform: translate(0, 10px) rotate(0); }
+  92% {
+    transform: translate(0, -4px) rotate(0); }
+  94% {
+    transform: translate(0, -1px) rotate(0); }
+  96% {
+    transform: translate(0, 2px) rotate(0); }
+  98% {
+    transform: translate(0, 2px) rotate(0); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-vertical:hover,
+.shake-trigger:hover .shake-vertical, .shake-vertical.shake-freeze, .shake-vertical.shake-constant {
+  animation-name: shake-vertical;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-rotate {
+  2% {
+    transform: translate(0, 0) rotate(3.5deg); }
+  4% {
+    transform: translate(0, 0) rotate(-1.5deg); }
+  6% {
+    transform: translate(0, 0) rotate(-5.5deg); }
+  8% {
+    transform: translate(0, 0) rotate(0.5deg); }
+  10% {
+    transform: translate(0, 0) rotate(4.5deg); }
+  12% {
+    transform: translate(0, 0) rotate(-3.5deg); }
+  14% {
+    transform: translate(0, 0) rotate(5.5deg); }
+  16% {
+    transform: translate(0, 0) rotate(5.5deg); }
+  18% {
+    transform: translate(0, 0) rotate(0.5deg); }
+  20% {
+    transform: translate(0, 0) rotate(7.5deg); }
+  22% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  24% {
+    transform: translate(0, 0) rotate(-0.5deg); }
+  26% {
+    transform: translate(0, 0) rotate(4.5deg); }
+  28% {
+    transform: translate(0, 0) rotate(2.5deg); }
+  30% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  32% {
+    transform: translate(0, 0) rotate(4.5deg); }
+  34% {
+    transform: translate(0, 0) rotate(3.5deg); }
+  36% {
+    transform: translate(0, 0) rotate(-6.5deg); }
+  38% {
+    transform: translate(0, 0) rotate(5.5deg); }
+  40% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  42% {
+    transform: translate(0, 0) rotate(1.5deg); }
+  44% {
+    transform: translate(0, 0) rotate(1.5deg); }
+  46% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  48% {
+    transform: translate(0, 0) rotate(-1.5deg); }
+  50% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  52% {
+    transform: translate(0, 0) rotate(-3.5deg); }
+  54% {
+    transform: translate(0, 0) rotate(-6.5deg); }
+  56% {
+    transform: translate(0, 0) rotate(-3.5deg); }
+  58% {
+    transform: translate(0, 0) rotate(2.5deg); }
+  60% {
+    transform: translate(0, 0) rotate(3.5deg); }
+  62% {
+    transform: translate(0, 0) rotate(-0.5deg); }
+  64% {
+    transform: translate(0, 0) rotate(2.5deg); }
+  66% {
+    transform: translate(0, 0) rotate(0.5deg); }
+  68% {
+    transform: translate(0, 0) rotate(4.5deg); }
+  70% {
+    transform: translate(0, 0) rotate(-6.5deg); }
+  72% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  74% {
+    transform: translate(0, 0) rotate(4.5deg); }
+  76% {
+    transform: translate(0, 0) rotate(7.5deg); }
+  78% {
+    transform: translate(0, 0) rotate(-5.5deg); }
+  80% {
+    transform: translate(0, 0) rotate(1.5deg); }
+  82% {
+    transform: translate(0, 0) rotate(-5.5deg); }
+  84% {
+    transform: translate(0, 0) rotate(-1.5deg); }
+  86% {
+    transform: translate(0, 0) rotate(0.5deg); }
+  88% {
+    transform: translate(0, 0) rotate(-6.5deg); }
+  90% {
+    transform: translate(0, 0) rotate(4.5deg); }
+  92% {
+    transform: translate(0, 0) rotate(-4.5deg); }
+  94% {
+    transform: translate(0, 0) rotate(4.5deg); }
+  96% {
+    transform: translate(0, 0) rotate(-1.5deg); }
+  98% {
+    transform: translate(0, 0) rotate(7.5deg); }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-rotate:hover,
+.shake-trigger:hover .shake-rotate, .shake-rotate.shake-freeze, .shake-rotate.shake-constant {
+  animation-name: shake-rotate;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-opacity {
+  10% {
+    transform: translate(-4px, 2px) rotate(-0.5deg);
+    opacity: 0.87; }
+  20% {
+    transform: translate(-1px, -3px) rotate(0.5deg);
+    opacity: 0.01; }
+  30% {
+    transform: translate(-4px, -2px) rotate(1.5deg);
+    opacity: 0.76; }
+  40% {
+    transform: translate(-1px, 1px) rotate(0.5deg);
+    opacity: 0.4; }
+  50% {
+    transform: translate(-1px, -1px) rotate(2.5deg);
+    opacity: 0.1; }
+  60% {
+    transform: translate(-1px, -1px) rotate(-1.5deg);
+    opacity: 0.09; }
+  70% {
+    transform: translate(-2px, -1px) rotate(-1.5deg);
+    opacity: 0.3; }
+  80% {
+    transform: translate(-1px, -3px) rotate(-0.5deg);
+    opacity: 0.91; }
+  90% {
+    transform: translate(2px, 5px) rotate(-0.5deg);
+    opacity: 0.76; }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-opacity:hover,
+.shake-trigger:hover .shake-opacity, .shake-opacity.shake-freeze, .shake-opacity.shake-constant {
+  animation-name: shake-opacity;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-crazy {
+  10% {
+    transform: translate(16px, 11px) rotate(5deg);
+    opacity: 0.14; }
+  20% {
+    transform: translate(17px, -8px) rotate(8deg);
+    opacity: 0.46; }
+  30% {
+    transform: translate(9px, 8px) rotate(5deg);
+    opacity: 0.22; }
+  40% {
+    transform: translate(16px, 14px) rotate(1deg);
+    opacity: 0.92; }
+  50% {
+    transform: translate(1px, 11px) rotate(4deg);
+    opacity: 0.2; }
+  60% {
+    transform: translate(13px, -10px) rotate(-4deg);
+    opacity: 0.72; }
+  70% {
+    transform: translate(6px, -10px) rotate(-3deg);
+    opacity: 0.2; }
+  80% {
+    transform: translate(11px, -18px) rotate(8deg);
+    opacity: 0.7; }
+  90% {
+    transform: translate(-10px, -18px) rotate(9deg);
+    opacity: 0.34; }
+  0%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-crazy:hover,
+.shake-trigger:hover .shake-crazy, .shake-crazy.shake-freeze, .shake-crazy.shake-constant {
+  animation-name: shake-crazy;
+  animation-duration: 100ms;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
+
+@keyframes shake-chunk {
+  2% {
+    transform: translate(-10px, -2px) rotate(8deg); }
+  4% {
+    transform: translate(5px, 12px) rotate(10deg); }
+  6% {
+    transform: translate(6px, 6px) rotate(0deg); }
+  8% {
+    transform: translate(-13px, -12px) rotate(-6deg); }
+  10% {
+    transform: translate(15px, 11px) rotate(15deg); }
+  12% {
+    transform: translate(-4px, -8px) rotate(2deg); }
+  14% {
+    transform: translate(0px, -11px) rotate(2deg); }
+  16% {
+    transform: translate(10px, 8px) rotate(9deg); }
+  18% {
+    transform: translate(3px, 12px) rotate(15deg); }
+  20% {
+    transform: translate(7px, 1px) rotate(10deg); }
+  22% {
+    transform: translate(10px, 15px) rotate(-13deg); }
+  24% {
+    transform: translate(3px, 5px) rotate(12deg); }
+  26% {
+    transform: translate(-5px, -11px) rotate(-11deg); }
+  28% {
+    transform: translate(11px, 11px) rotate(3deg); }
+  30% {
+    transform: translate(-3px, -1px) rotate(-6deg); }
+  32% {
+    transform: translate(11px, 5px) rotate(14deg); }
+  34% {
+    transform: translate(-11px, -7px) rotate(-2deg); }
+  36% {
+    transform: translate(3px, 6px) rotate(-14deg); }
+  38% {
+    transform: translate(10px, 11px) rotate(-5deg); }
+  0%, 40%, 100% {
+    transform: translate(0, 0) rotate(0); } }
+
+.shake-chunk:hover,
+.shake-trigger:hover .shake-chunk, .shake-chunk.shake-freeze, .shake-chunk.shake-constant {
+  animation-name: shake-chunk;
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; }
 </style><style>
 html,
 body {
@@ -424,6 +1343,7 @@ h2 {
   font-size: 40px;
   font-weight: 100;
   margin: 30px;
+  margin-top: 0;
 }
 h3 {
   font-size: 22px;
@@ -443,14 +1363,13 @@ main {
       justify-content: flex-start;
   -ms-flex-align: center;
       align-items: center;
-  padding: 3vh 50px 5vh 50px;
+  padding: 50px 50px 5vh 50px;
   transition: background 1s ease;
   transition-delay: .2s;
 }
 
 section {
   position: relative;
-  margin-top: 50px;
   z-index: 0;
 }
 article {
@@ -471,11 +1390,15 @@ article:before {
 
 section#monitor {
   width: 100%;
+  margin-top: 50px;
 }
 section#monitor article#monitor-chart {
   position: relative;
   background: white;
   width: 100%;
+}
+article#monitor-chart {
+  padding-top: 30px;
 }
 article#monitor-chart h2 span svg {
   width: 30px;
@@ -497,6 +1420,21 @@ section#grid {
   width: 100%;
 }
 
+section#grid svg #alert,
+section#grid svg #storage {
+  transition: opacity .5s ease;
+}
+section#grid svg #alert {
+  opacity: 0;
+}
+section#grid svg #storage {
+  opacity: .5;
+}
+section#grid svg #alert.visible,
+section#grid svg #storage.visible {
+  opacity: 1;
+}
+
 section#grid svg g[id*="arrow"] path,
 section#grid svg g[id*="arrow"] line,
 section#grid svg g[id*="arrow"] polyline {
@@ -507,11 +1445,25 @@ section#grid svg g[id*="arrow"].animate path,
 section#grid svg g[id*="arrow"].animate line,
 section#grid svg g[id*="arrow"].animate polyline {
   opacity: 1;
-  animation: dasharrow 10s linear infinite;
+  animation: dasharrow 20s linear infinite;
+}
+section#grid svg g[id*="arrow"].animate.fast path,
+section#grid svg g[id*="arrow"].animate.fast line,
+section#grid svg g[id*="arrow"].animate.fast polyline {
+  animation-duration: 10s;
+}
+section#grid svg g[id*="arrow"].animate.reverse path,
+section#grid svg g[id*="arrow"].animate.reverse line,
+section#grid svg g[id*="arrow"].animate.reverse polyline {
+  animation: dasharrow-inv 20s linear infinite;
 }
 section#grid svg g#arrowStoH.animate line,
 section#grid svg g#arrowStoH.animate path {
-  animation: dasharrow-inv 10s linear infinite;
+  animation: dasharrow-inv 20s linear infinite;
+}
+section#grid svg g#arrowStoH.animate.reverse line,
+section#grid svg g#arrowStoH.animate.reverse path {
+  animation: dasharrow 20s linear infinite;
 }
 
 section#ui-panel {
@@ -524,12 +1476,12 @@ section#ui-panel {
       justify-content: space-between;
   -ms-flex-align: center;
       align-items: center;
-  margin-top: 100px;
+  margin-top: 60px;
 }
 section#ui-panel article {
   /*height: 10vh;*/
-  height: 210px;
-  padding: 25px;
+  height: 220px;
+  padding: 44px;
   background: white;
   display: -ms-flexbox;
   display: flex;
@@ -555,34 +1507,43 @@ section#ui-panel article div.active {
       align-items: center;
   text-align: center;
 }
+section#ui-panel article div.inactive {
+  -ms-flex-pack: end;
+      justify-content: flex-end;
+}
+section#ui-panel article div.inactive h3 {
+  margin-bottom: 50px;
+  /*font-size: 22px;*/
+  opacity: .3;
+}
+section#ui-panel article div.inactive label {
+  margin-bottom: 30px;
+}
+
 section#ui-panel article#storage {
-  width: 145px;
+  width: 110px;
 }
 section#ui-panel article#appliances {
-  width: 675px;
+  width: 634px;
 }
 
 article#storage .active #toggle {
-  width: 70%;
+  width: 100%;
 }
 
+article#appliances .demand-lb {
+  text-transform: uppercase;
+  color: #0555f9;
+  margin-bottom: 3px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
 article#appliances #demand {
   position: relative;
   background: lightgrey;
-  height: 3vh;
+  height: 10px;
   width: 100%;
   overflow-x: hidden;
-}
-article#appliances #demand label {
-  display: inline-block;
-  width: 10%;
-  text-transform: uppercase;
-  color: #fff;
-  position: absolute;
-  left: 2.5%;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
 }
 article#appliances #demand span {
   position: absolute;
@@ -637,11 +1598,15 @@ article#appliances #demand span {
   color: #0555f9;
 }
 #appliances nav li span {
-  background: none;
-  height: 6rem;
-  width: 6rem;
-  background-size: cover;
+  background: url("../assets/icon_arrow_down.svg");
   background-repeat: no-repeat;
+  background-position: bottom;
+  height: 10rem;
+  width: 20px;
+}
+#appliances nav li.on span {
+  width: 10rem;
+  background-size: cover;
 }
 #appliances nav li h4 {
   font-weight: bold;
@@ -695,6 +1660,16 @@ article#appliances nav li.on:after {
   opacity: .9;
 }
 
+.arrow {
+  width: 20px;
+  animation: bounce 2s infinite;
+}
+
+section#labels {
+  width: 100%;
+  margin-top: 40px;
+}
+
 @keyframes clock {
   0% { transform: rotate(0deg); }
   25% { transform: rotate(90deg); }
@@ -708,6 +1683,18 @@ article#appliances nav li.on:after {
 }
 @keyframes dasharrow-inv {
   to { stroke-dashoffset: 1000; }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
 }
 
 @font-face{
@@ -840,25 +1827,37 @@ article#appliances nav li.on:after {
   stroke-width: 1;
 }
 #teamAreaChart g.label.toplabel text {
+  text-transform: none;
   stroke: #41b8e5;
   stroke-width: 1;
 }
-#teamAreaChart g.label.storlabel text{
+#teamAreaChart g.label.storlabel text {
+  text-transform: none;
   stroke: #55bd5a;
   stroke-width: 1;
 }
-</style></head><body><main><section id="grid"><?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 980 250" enable-background="new 0 0 980 250" xml:space="preserve"><g id="storage"><path fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round" d="M496.3,21.2l13.1,0v69.9h-39.2V21.1h9.9v-3.2
-		c0-6.5,6.2-6.5,6.2-6.5h10c0,0,3.2-0.1,3.2,3.2"/><text transform="matrix(1 0 0 1 442.5665 131.1957)" fill="#FFFFFF" font-family="'UniversLTStd-Light'" font-size="28">Storage</text></g><g id="yourHome"><polyline fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round" points="729.4,226.5 729.4,206.4 712.2,206.4 
-		712.2,235.1 746.5,235.1 746.5,192.1 755.1,192.1 755.1,189.3 743.7,179.7 743.7,163.5 732.2,163.5 732.2,169.2 720.8,160.6 
-		686.4,189.3 686.4,192.1 695,192.1 695,235.1 703.6,235.1 	"/><text transform="matrix(1 0 0 1 789.7686 216.3129)" fill="#FFFFFF" font-family="'UniversLTStd-Light'" font-size="28">Your Home</text></g><g id="theGrid"><polyline id="icoBolt" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round" points="249.4,181.2 246.4,155.6 
-		267.1,155.6 273.6,207 252.5,207 258.5,240.1 222.5,191.9 251,191.9 	"/><text transform="matrix(1 0 0 1 97.7686 212.3129)" fill="#FFFFFF" font-family="'UniversLTStd-Light'" font-size="28">The grid</text></g><g id="arrowGtoH"><g><polyline id="XMLID_37_" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" points="636.9,204.3 645,212.3 
-			637,220.3 		"/></g><defs><filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="312.6" y="210.3" width="327.7" height="4"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/></filter></defs><mask maskUnits="userSpaceOnUse" x="312.6" y="210.3" width="327.7" height="4" id="SVGID_1_"><g filter="url(#Adobe_OpacityMaskFilter)"><linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="309.8057" y1="212.0729" x2="636.8989" y2="212.0729"><stop offset="0" style="stop-color:#000000"/><stop offset="0.2109" style="stop-color:#FFFFFF"/><stop offset="0.9452" style="stop-color:#FFFFFF"/><stop offset="1" style="stop-color:#000000"/></linearGradient><rect x="309.8" y="197.8" fill="url(#SVGID_2_)" width="327.1" height="28.5"/></g></mask><line mask="url(#SVGID_1_)" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="0,7.712" x1="314.6" y1="212.3" x2="638.3" y2="212.3"/></g><g id="arrowGtoS"><g><polyline id="XMLID_9_" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" points="400.7,43.8 408.8,51.8 
-			400.9,59.8 		"/></g><defs><filter id="Adobe_OpacityMaskFilter_1_" filterUnits="userSpaceOnUse" x="257.9" y="50.3" width="145.1" height="71"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/></filter></defs><mask maskUnits="userSpaceOnUse" x="257.9" y="50.3" width="145.1" height="71" id="SVGID_3_"><g filter="url(#Adobe_OpacityMaskFilter_1_)"><linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="248.8789" y1="82.6259" x2="405.6216" y2="82.6259" gradientTransform="matrix(0.9475 -0.4655 0.4409 0.8975 -19.2533 160.797)"><stop offset="0" style="stop-color:#000000"/><stop offset="0.2109" style="stop-color:#FFFFFF"/><stop offset="0.9452" style="stop-color:#FFFFFF"/><stop offset="1" style="stop-color:#000000"/></linearGradient><polygon fill="url(#SVGID_4_)" points="429.7,103.4 281.1,176.4 224.8,61.8 373.4,-11.1 			"/></g></mask><path mask="url(#SVGID_3_)" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="0,7.712" d="
-		M259.9,119.3c0-37,29.9-67,66.9-67H401"/></g><g id="arrowStoH"><g><polyline id="XMLID_31_" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-miterlimit="10" points="728.9,119.7 720.9,127.8 
-			712.8,119.9 		"/></g><defs><filter id="Adobe_OpacityMaskFilter_2_" filterUnits="userSpaceOnUse" x="578" y="50.3" width="144.9" height="71"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/></filter></defs><mask maskUnits="userSpaceOnUse" x="578" y="50.3" width="144.9" height="71" id="SVGID_5_"><g filter="url(#Adobe_OpacityMaskFilter_2_)"><linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="524.4592" y1="221.5551" x2="681.2019" y2="221.5551" gradientTransform="matrix(0.9642 0.4299 -0.4072 0.9133 161.2365 -380.8891)"><stop offset="0" style="stop-color:#000000"/><stop offset="0.2109" style="stop-color:#FFFFFF"/><stop offset="0.9452" style="stop-color:#FFFFFF"/><stop offset="1" style="stop-color:#000000"/></linearGradient><polygon fill="url(#SVGID_6_)" points="701.8,172.6 550.7,105.2 602.7,-11.4 753.8,56 			"/></g></mask><path mask="url(#SVGID_5_)" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="0,7.712" d="
-		M720.9,119.3c0-37-30.1-67-67.1-67H580"/></g></svg></section><section id="monitor"><article id="monitor-chart"><h2><span id="clock" procesd="assets/icon_clock.svg" procesd-keep><?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30.7 30.7" enable-background="new 0 0 30.7 30.7" xml:space="preserve"><g><circle fill="none" stroke="#666666" stroke-width="2.9587" stroke-miterlimit="10" cx="15.3" cy="15.3" r="13.9"/><line fill="none" stroke="#666666" stroke-width="2.9587" stroke-miterlimit="10" x1="15.3" y1="15.3" x2="15.4" y2="5.8"/></g></svg></span>Energy monitor</h2></article></section><section id="ui-panel"><article id="storage"><div class="inactive"><h3>No storage connected</h3><label>Add storage</label></div><div class="active"><span id="toggle" procesd="assets/toggle.svg" procesd-keep><?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 110 220" enable-background="new 0 0 110 220" xml:space="preserve"><g id="ChargingTxt"><g><text transform="matrix(1 0 0 1 21.7497 212.239)" fill="#55BD5A" font-family="'UniversLTStd-Light'" font-size="14">Energy IN</text></g><g><text transform="matrix(1 0 0 1 7.3264 192.3032)" fill="#55BD5A" font-family="'UniversLTStd-Bold'" font-size="22">Charging</text></g></g><g id="SupplyingTxt"><g><text transform="matrix(1 0 0 1 16.0665 15.8817)" fill="#55BD5A" font-family="'UniversLTStd-Light'" font-size="14">Energy OUT</text></g><g><text transform="matrix(1 0 0 1 1.8262 38.308)" fill="#55BD5A" font-family="'UniversLTStd-Bold'" font-size="22">Supplying</text></g></g><linearGradient id="toggle_1_" gradientUnits="userSpaceOnUse" x1="55" y1="57.5115" x2="55" y2="159.5164"><stop offset="0" style="stop-color:#E6E6E6"/><stop offset="0.2343" style="stop-color:#F4F4F4"/><stop offset="0.5199" style="stop-color:#FCFCFC"/><stop offset="1" style="stop-color:#FFFFFF"/></linearGradient><path id="toggle" fill="url(#toggle_1_)" stroke="#CCCCCC" stroke-width="3" stroke-miterlimit="10" d="M55,160.7L55,160.7
+#teamAreaChart g.label.label-area text {
+  stroke: #ffffff;
+  text-transform: none;
+  stroke-width: 1;
+  opacity: .7;
+}
+</style></head><body><main><section id="grid"><?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 980 316.7" enable-background="new 0 0 980 316.7" xml:space="preserve"><g id="storage"><path fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round" d="M592.9,274l6.9,0v37.1H579v-37.1h5.2v-1.7
+		c0-3.5,3.3-3.5,3.3-3.5h5.3c0,0,1.7-0.1,1.7,1.7"/><text transform="matrix(1 0 0 1 466.2031 302.3683)" fill="#FFFFFF" font-family="'UniversLTStd-Light'" font-size="28">Storage</text></g><g id="yourHome"><polyline fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round" points="688.4,193.7 688.4,173.7 671.2,173.7 
+		671.2,202.3 705.5,202.3 705.5,159.4 714.1,159.4 714.1,156.5 702.7,146.9 702.7,130.7 691.2,130.7 691.2,136.4 679.8,127.9 
+		645.4,156.5 645.4,159.4 654,159.4 654,202.3 662.6,202.3 	"/><text transform="matrix(1 0 0 1 750.3209 179.5876)" fill="#FFFFFF" font-family="'UniversLTStd-Light'" font-size="28">Your Home</text></g><g id="theGrid"><polyline id="icoBolt" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round" points="293.4,148.4 290.4,122.8 
+		311.1,122.8 317.6,174.2 296.5,174.2 302.5,207.4 266.5,159.1 295,159.1 	"/><text transform="matrix(1 0 0 1 121.1714 179.588)" fill="#FFFFFF" font-family="'UniversLTStd-Light'" font-size="28">The grid</text></g><g id="arrowStoH"><defs><filter id="Adobe_OpacityMaskFilter" filterUnits="userSpaceOnUse" x="619" y="232.9" width="64" height="64"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/></filter></defs><mask maskUnits="userSpaceOnUse" x="619" y="232.9" width="64" height="64" id="SVGID_1_"><g filter="url(#Adobe_OpacityMaskFilter)"><linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="587.3245" y1="257.5616" x2="688.4509" y2="257.5616" gradientTransform="matrix(0.7071 -0.7071 2.018 2.018 -318.3276 199.9861)"><stop offset="2.774235e-02" style="stop-color:#000000"/><stop offset="0.1955" style="stop-color:#FFFFFF"/><stop offset="0.7884" style="stop-color:#FFFFFF"/><stop offset="0.9603" style="stop-color:#000000"/></linearGradient><polygon fill="url(#SVGID_2_)" points="713.4,258.1 641.9,329.6 591.5,279.2 663,207.7 			"/></g></mask><path mask="url(#SVGID_1_)" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="0,13" d="
+		M680.7,235.1c0,32.8-26.6,59.5-59.5,59.5"/></g><g id="arrowGtoH"><defs><filter id="Adobe_OpacityMaskFilter_1_" filterUnits="userSpaceOnUse" x="359.5" y="169.5" width="239" height="5"><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/></filter></defs><mask maskUnits="userSpaceOnUse" x="359.5" y="169.5" width="239" height="5" id="SVGID_3_"><g filter="url(#Adobe_OpacityMaskFilter_1_)"><linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="361.5463" y1="170.3138" x2="599.7967" y2="170.3138"><stop offset="0" style="stop-color:#000000"/><stop offset="0.1589" style="stop-color:#FFFFFF"/><stop offset="0.8374" style="stop-color:#FFFFFF"/><stop offset="1" style="stop-color:#000000"/></linearGradient><rect x="361.5" y="157.8" fill="url(#SVGID_4_)" width="238.3" height="25"/></g></mask><line mask="url(#SVGID_3_)" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="0,13" x1="362" y1="172" x2="596" y2="172"/></g><g id="alert"><g><linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="295.9476" y1="51.6667" x2="295.9476" y2="22.8899"><stop offset="0" style="stop-color:#FFFFFF"/><stop offset="1" style="stop-color:#F2F2F2"/></linearGradient><circle fill="url(#SVGID_5_)" cx="295.9" cy="37.3" r="14.4"/><g><rect x="341.4" y="7.5" fill="none" width="391.8" height="86.5"/><text transform="matrix(1 0 0 1 341.3667 17.4962)"><tspan x="0" y="0" fill="#FFFFFF" font-family="'UniversLTStd'" font-size="12">Simultaneous overload of this kind over a whole block of houses</tspan><tspan x="0" y="16.8" fill="#FFFFFF" font-family="'UniversLTStd'" font-size="12">might stress the grid to the point of causing a blackout. Connect to</tspan><tspan x="0" y="33.6" fill="#FFFFFF" font-family="'UniversLTStd'" font-size="12">our intelligent storage to see how we make sure you have all the</tspan><tspan x="0" y="50.4" fill="#FFFFFF" font-family="'UniversLTStd'" font-size="12">energy you need.</tspan></text></g><linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="289.0013" y1="36.2783" x2="302.894" y2="36.2783"><stop offset="0" style="stop-color:#0555F9"/><stop offset="2.981752e-02" style="stop-color:#1252F1"/><stop offset="0.1851" style="stop-color:#4F44CC"/><stop offset="0.3392" style="stop-color:#8438AC"/><stop offset="0.4885" style="stop-color:#AF2E92"/><stop offset="0.632" style="stop-color:#D0267D"/><stop offset="0.7682" style="stop-color:#E8206F"/><stop offset="0.8942" style="stop-color:#F71D66"/><stop offset="1" style="stop-color:#FC1C63"/></linearGradient><path fill="url(#SVGID_6_)" d="M300.9,42.6H291c-0.7,0-1.4-0.4-1.7-1c-0.4-0.6-0.4-1.4,0-2l5-8.6c0.4-0.6,1-1,1.7-1
+			c0.7,0,1.4,0.4,1.7,1l5,8.6c0.4,0.6,0.4,1.4,0,2C302.3,42.2,301.6,42.6,300.9,42.6z M295.9,31.7c-0.1,0-0.2,0-0.3,0.2l-5,8.6
+			c-0.1,0.1,0,0.3,0,0.3c0,0.1,0.1,0.2,0.3,0.2h9.9c0.2,0,0.3-0.1,0.3-0.2c0-0.1,0.1-0.2,0-0.3l-5-8.6
+			C296.2,31.7,296,31.7,295.9,31.7z"/></g></g></svg></section><section id="monitor"><article id="monitor-chart"><h2><span id="clock" procesd="assets/icon_clock.svg" procesd-keep><?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 30.7 30.7" enable-background="new 0 0 30.7 30.7" xml:space="preserve"><g><circle fill="none" stroke="#666666" stroke-width="2.9587" stroke-miterlimit="10" cx="15.3" cy="15.3" r="13.9"/><line fill="none" stroke="#666666" stroke-width="2.9587" stroke-miterlimit="10" x1="15.3" y1="15.3" x2="15.4" y2="5.8"/></g></svg></span>Energy monitor</h2></article></section><section id="ui-panel"><article id="storage"><div class="inactive"><h3>No storage connected</h3><label>Add storage</label><span class="arrow" procesd="assets/icon_arrow_down.svg" procesd-keep><?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22 14" enable-background="new 0 0 22 14" xml:space="preserve"><g><polyline id="XMLID_3_" fill="none" stroke="#666666" stroke-width="2.5923" stroke-miterlimit="10" points="1.6,2.3 10.9,11.7 
+		20.4,2.4 	"/></g></svg></span></div><div class="active"><span id="toggle" procesd="assets/toggle.svg" procesd-keep><?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 110 220" enable-background="new 0 0 110 220" xml:space="preserve"><g id="ChargingTxt"><g><text transform="matrix(1 0 0 1 21.7497 212.239)" fill="#55BD5A" font-family="'UniversLTStd-Light'" font-size="14">Energy IN</text></g><g><text transform="matrix(1 0 0 1 7.3264 192.3032)" fill="#55BD5A" font-family="'UniversLTStd-Bold'" font-size="22">Charging</text></g></g><g id="SupplyingTxt"><g><text transform="matrix(1 0 0 1 16.0665 15.8817)" fill="#55BD5A" font-family="'UniversLTStd-Light'" font-size="14">Energy OUT</text></g><g><text transform="matrix(1 0 0 1 1.8262 38.308)" fill="#55BD5A" font-family="'UniversLTStd-Bold'" font-size="22">Supplying</text></g></g><linearGradient id="toggle_1_" gradientUnits="userSpaceOnUse" x1="55" y1="57.5115" x2="55" y2="159.5164"><stop offset="0" style="stop-color:#E6E6E6"/><stop offset="0.2343" style="stop-color:#F4F4F4"/><stop offset="0.5199" style="stop-color:#FCFCFC"/><stop offset="1" style="stop-color:#FFFFFF"/></linearGradient><path id="toggle" fill="url(#toggle_1_)" stroke="#CCCCCC" stroke-width="3" stroke-miterlimit="10" d="M55,160.7L55,160.7
 	c-16.3,0-29.5-13.2-29.5-29.5V87.7c0-16.3,13.2-29.5,29.5-29.5h0c16.3,0,29.5,13.2,29.5,29.5v43.6C84.5,147.5,71.3,160.7,55,160.7z"/><g id="dot"><ellipse fill="#55BD5A" cx="55" cy="132" rx="22.7" ry="22.2"/><path id="bolt" fill="#008B5A" d="M52.8,124.6l1.1,5.6c0,0.2-0.1,0.5-0.4,0.5h-4l1.6,2.5l5.2,8.1c0.2,0.3,0.7,0.2,0.7-0.2l-0.5-6.6
-		c0-0.2,0.2-0.4,0.4-0.4H60c0.3,0,0.4-0.2,0.4-0.5l-2.3-9.1c0-0.2-0.2-0.3-0.4-0.3l-4.5,0C53,124.1,52.8,124.3,52.8,124.6z"/></g></svg></span></div></article><article id="appliances"><div class="inactive"><h3>No electrical devices in use</h3><label>Try plugging something in!</label></div><div class="active"><div id="demand"><label>Energy demand</label><span></span></div><nav id="readers"><ul></ul></nav></div></article></section></main><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		c0-0.2,0.2-0.4,0.4-0.4H60c0.3,0,0.4-0.2,0.4-0.5l-2.3-9.1c0-0.2-0.2-0.3-0.4-0.3l-4.5,0C53,124.1,52.8,124.3,52.8,124.6z"/></g></svg></span></div></article><article id="appliances"><div class="inactive"><h3>No electrical devices in use</h3><label>Try plugging something in!</label><span class="arrow" procesd="assets/icon_arrow_down.svg" procesd-keep><?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22 14" enable-background="new 0 0 22 14" xml:space="preserve"><g><polyline id="XMLID_3_" fill="none" stroke="#666666" stroke-width="2.5923" stroke-miterlimit="10" points="1.6,2.3 10.9,11.7 
+		20.4,2.4 	"/></g></svg></span></div><div class="active"><label class="demand-lb">Energy demand</label><div id="demand"><span></span></div><nav id="readers"><ul></ul></nav></div></article></section><section id="labels" procesd="assets/label_bottom_card.svg" procesd-keep><?xml version="1.0" encoding="utf-8"?><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1030 40" enable-background="new 0 0 1030 40" xml:space="preserve"><g><path fill="none" stroke="#FFFFFF" stroke-width="1.7563" stroke-linejoin="round" d="M37,9.3l4.6,0v24.6H27.8V9.3h3.5V8.1
+		c0-2.3,2.2-2.3,2.2-2.3H37c0,0,1.1-0.1,1.1,1.1"/><text transform="matrix(1 0 0 1 53.7891 30.3224)" fill="#FFFFFF" font-family="'UniversLTStd-Light'" font-size="28">Storage</text></g><g><polyline fill="none" stroke="#FFFFFF" stroke-width="1.7563" stroke-linejoin="round" points="562.7,29 562.7,21.9 556.7,21.9 
+		556.7,32 568.8,32 568.8,16.9 571.8,16.9 571.8,15.9 567.7,12.5 567.7,6.8 563.7,6.8 563.7,8.9 559.7,5.8 547.6,15.9 547.6,16.9 
+		550.6,16.9 550.6,32 553.7,32 	"/><text transform="matrix(1 0 0 1 582.3887 30.3221)" fill="#FFFFFF" font-family="'UniversLTStd-Light'" font-size="28">Your home</text></g></svg></section></main><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');</script><script type="text/javascript" src="vendors.js?v=1.0.33"></script><script type="text/javascript" src="main.js?v=1.0.33"></script></body></html>

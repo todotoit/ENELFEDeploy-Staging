@@ -8,6 +8,8 @@
   var stored = false
   var totalDemand = 0
   var treshDemand = 0
+  var criticalDemand = 0
+  var criticalOffset = 1000
   // chart
   var stuck = null
   var maxDemand = 0
@@ -16,6 +18,8 @@
   var updateInterval = null
   var updateTime = 0
   var animationOffTime = 75
+  var tOutSteps = 4
+  var tOutPause = null
   // web socket
   var ws = null
   var wssURL = 'ws://7.7.7.7:9000'
@@ -29,7 +33,7 @@
       $reader.data().reader.connectedAppliances.push(app)
       connectedAppliances.push(app)
       // populate reader ui element
-      $reader.find('span').css('background', 'url("assets/'+app.icon+'")')
+      $reader.find('span').css('background-image', 'url("assets/'+app.icon+'")')
       $reader.find('h4').text(app.key)
       $reader.find('label').text(app.maxV+'w')
     } else {
@@ -38,13 +42,13 @@
       if (_.isEmpty($reader.data().reader.connectedAppliances)) {
         // clean reader ui element
         $reader.removeClass('on')
-        $reader.find('span').css('background', 'none')
+        $reader.find('span').css('background-image', 'url("assets/icon_arrow_down.svg")')
         $reader.find('h4').text('')
         $reader.find('label').text('')
       } else {
         // populate reader ui element with last element
         var lastapp = _.last($reader.data().reader.connectedAppliances)
-        $reader.find('span').css('background', 'url("assets/'+lastapp.icon+'")')
+        $reader.find('span').css('background-image', 'url("assets/'+lastapp.icon+'")')
         $reader.find('h4').text(lastapp.key)
         $reader.find('label').text(lastapp.maxV+'w')
       }
@@ -56,6 +60,12 @@
       $('#appliances .inactive').hide()
       $('#appliances .active').show()
     }
+    // invalid timeout
+    if (tOutPause) {
+      clearTimeout(tOutPause)
+      tOutPause = null
+    }
+    tOutPause = setTimeout(stopStorage, tOutSteps*updateTime)
     // updateStorage()
     if (!updateInterval) {
       slide()
@@ -74,7 +84,6 @@
       $('#readers').find('ul').append($readerElem)
     })
     _.each(apps, function(app) {
-      // maxDemand += app.maxV
       // initialize data
       _.times(Simulator.dataset_length, function(i) {
         var vv = 0
@@ -89,6 +98,7 @@
                               .value(),'maxV')
     maxDemand += maxDemandOffset
     treshDemand = maxDemand * Simulator.threshFactor
+    criticalDemand = maxDemand * Simulator.dangerFactor
     $('#appliances .active').hide()
     $('#appliances .inactive').show()
   }
@@ -121,22 +131,29 @@
       $('#storage .active #dot').css('transform', 'translateY(0)')
     }
     // update energy flow grid - storage - home
-    if (!stored && _.isEmpty(connectedAppliances)) {
-      $('g[id*="arrow"]').removeClass('animate')
+    $('g[id*="arrow"]').removeClass('animate reverse fast')
+    $('#grid svg g#theGrid #icoBolt').removeClass('shake-constant')
+    $('#grid svg #alert').removeClass('visible')
+    $('#grid svg #storage').removeClass('visible')
+    if (!stored && !_.isEmpty(connectedAppliances) && totalDemand >= criticalDemand-criticalOffset) {
+      $('#arrowGtoH').addClass('animate fast')
+      $('#grid svg g#theGrid #icoBolt').addClass('shake-constant')
+      $('#grid svg g#theGrid #icoBolt').addClass('shake-opacity')
+      $('#grid svg #alert').addClass('visible')
     } else if (!stored && !_.isEmpty(connectedAppliances)) {
-      $('g[id*="arrow"]').removeClass('animate')
       $('#arrowGtoH').addClass('animate')
     } else if (stored && _.isEmpty(connectedAppliances)) {
-      $('g[id*="arrow"]').removeClass('animate')
-      $('#arrowGtoS').addClass('animate')
+      $('#grid svg #storage').addClass('visible')
+      $('#arrowGtoH').addClass('animate')
+      $('#arrowStoH').addClass('animate reverse')
     } else if (stored && totalDemand > treshDemand) {
-      $('g[id*="arrow"]').removeClass('animate')
+      $('#grid svg #storage').addClass('visible')
       $('#arrowGtoH').addClass('animate')
       $('#arrowStoH').addClass('animate')
-    } else {
-      $('g[id*="arrow"]').removeClass('animate')
+    } else if (stored && !_.isEmpty(connectedAppliances)){
+      $('#grid svg #storage').addClass('visible')
       $('#arrowGtoH').addClass('animate')
-      $('#arrowGtoS').addClass('animate')
+      $('#arrowStoH').addClass('animate reverse')
     }
   }
   function toggleStorage(storageState) {
@@ -173,11 +190,20 @@
   function startStorage() {
     if (updateInterval) stopStorage()
     updateInterval = setInterval(slide, updateTime)
+    if (tOutPause) {
+      clearTimeout(tOutPause)
+      tOutPause = null
+    }
+    tOutPause = setTimeout(stopStorage, tOutSteps*updateTime)
     $('#clock svg line').css('animation-play-state', 'running')
   }
   function stopStorage() {
     clearInterval(updateInterval)
     updateInterval = null
+    if (tOutPause) {
+      clearTimeout(tOutPause)
+      tOutPause = null
+    }
     $('#clock svg line').css('animation-play-state', 'paused')
   }
 
