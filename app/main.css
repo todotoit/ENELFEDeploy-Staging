@@ -810,6 +810,7 @@ body {
 }
 
 #landing > section .idle {
+  pointer-events: none;
   width: 25rem;
   left: 50vw;
   bottom: 10vh;
@@ -921,7 +922,7 @@ body {
 }
 #landing footer .graph svg line[id*=line] {
   transform-origin: center;
-  transition: transform .75s ease-out;
+  transition: transform .3s ease-out;
 }
 
 #landing footer .suggestion {

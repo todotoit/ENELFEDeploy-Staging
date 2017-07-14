@@ -3774,7 +3774,7 @@ window.twttr = (function(d, s, id) {
           zoom(stage)
         })
         $(window).on('resize', FEScene.resize)
-        $container.on('click', function(e){
+        $(window).on('click', function(e){
           stopIdle()
           selectedHotspot(FEScene.findObjectOnClick(e))
         })
@@ -3789,11 +3789,11 @@ window.twttr = (function(d, s, id) {
 
     function startGraphAnimation() {
       var graph = $('#landing footer .graph svg')
-      var graphTime = 2000
+      var graphTime = 1500
       var data = []
       // populate data array
       _.times(7, function() {
-        var d = Math.round((Math.random()+0.1)*10)/10
+        var d = Math.round((Math.random()+0.3)*10)/10
         data.push(d)
       })
       // loop
@@ -3802,7 +3802,7 @@ window.twttr = (function(d, s, id) {
           graph.find('#line'+(i+1)).css({'transform': 'scaleY('+data[i]+')'})
         })
         data.shift()
-        var d = Math.round((Math.random()+0.1)*10)/10
+        var d = Math.round((Math.random()+0.3)*10)/10
         data.push(d)
       }, graphTime)
     }
@@ -3882,6 +3882,18 @@ window.twttr = (function(d, s, id) {
       if (card.hotspot.stage === $scope.currentStage) return pinAnimation(card)
       $scope.currentStage = card.hotspot.stage
       FEScene.startStageAnimation(card.hotspot.stage)
+      switch(card.hotspot.stage) {
+        case 1:
+          $('#landing > section .zoom #navSelected').css({transform: 'translateY(0%)'})
+        break
+        case 2:
+          $('#landing > section .zoom #navSelected').css({transform: 'translateY(120%)'})
+        break
+        case 3:
+          $('#landing > section .zoom #navSelected').css({transform: 'translateY(240%)'})
+        break
+        default: return
+      }
       $(window).on('StageTimeLineEnded', function() {
         pinAnimation(card)
         $(window).off('StageTimeLineEnded')
@@ -3898,6 +3910,7 @@ window.twttr = (function(d, s, id) {
     }
 
     $scope.closeCarousel = function() {
+      $('.zoom').fadeIn()
       var carouselCtrl = angular.element($('snippet-carousel')).controller('snippetCarousel')
       carouselCtrl.exit(true);
       carouselCtrl.setTour(false);
@@ -3944,6 +3957,7 @@ window.twttr = (function(d, s, id) {
 
     function setCurrentTour(tour, $index) {
       stopIdle()
+      $('.zoom').fadeOut()
       var carouselCtrl = angular.element($('snippet-carousel')).controller('snippetCarousel')
       carouselCtrl.setTour(true);
       vm.snipCounter = -1;

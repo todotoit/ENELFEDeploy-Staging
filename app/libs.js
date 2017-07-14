@@ -10004,9 +10004,6 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         var winHeight = window.innerHeight
         var footer = document.getElementsByTagName('footer')
         var footHeight = -20
-        if (footer.length > 0) {
-            footHeight = footer[0].offsetHeight
-        }
         var newHeight = winHeight-footHeight
         self.camera.aspect = self.container.offsetWidth/newHeight;
         self.camera.updateProjectionMatrix();
@@ -10284,7 +10281,7 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         carGroup.add(suspensions);
 
         //Shadow Plane
-        var shadowTexture = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/fe_car/ShadowMap_1024.jpg');
+        var shadowTexture = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/fe_car/ShadowMap_1024_2.jpg');
         var shadowPlaneMat = new THREE.MeshBasicMaterial({map: shadowTexture});
         var shadowPlane = self.TerminUtils.loadObjModel("ShadowPlane", '../libs/terminalia/assets/models/obj/fe_car/ShadowPlane.obj', shadowPlaneMat);
         carGroup.add(shadowPlane);
