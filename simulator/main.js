@@ -89,7 +89,7 @@
   var tpl = '<svg id="teamAreaChart" viewBox="0 0 600 400">' +
             '  <defs id="pattern_wrap">' +
             '    <pattern id="bolt_pattern" patternUnits="userSpaceOnUse" width="37" height="37">' +
-            '      <image xlink:href="../assets/pattern_bolt.svg" x="0" y="0" width="37" height="37"></image>' +
+            '      <image xlink:href="assets/pattern_bolt.svg" x="0" y="0" width="37" height="37"></image>' +
             '    </pattern>' +
             '  </defs>' +
             '</svg>'
