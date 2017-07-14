@@ -71,17 +71,19 @@
     //     if (!$scope.$$phase) $scope.$digest()
     //   } })
     // }
-    //
+
     function prevTab(){
         if (contentIdx <= 0) return prevCallback()
         contentIdx--
         $scope.subsnip = content[contentIdx]
+        if (!$scope.$$phase) $scope.$digest()
     }
 
     function nextTab(){
         if (contentIdx >= content.length -1) return nextCallback()
         contentIdx++
         $scope.subsnip = content[contentIdx]
+        if (!$scope.$$phase) $scope.$digest()
     }
 
     // init after dom loaded

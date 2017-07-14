@@ -86,17 +86,19 @@
     //     if (!$scope.$$phase) $scope.$digest()
     //   } })
     // }
-    //
+
     function prevTab(){
         if (contentIdx <= 0) return prevCallback()
         contentIdx--
         $scope.subsnip = content[contentIdx]
+        if (!$scope.$$phase) $scope.$digest()
     }
 
     function nextTab(){
         if (contentIdx >= content.length -1) return nextCallback()
         contentIdx++
         $scope.subsnip = content[contentIdx]
+        if (!$scope.$$phase) $scope.$digest()
     }
 
     // init after dom loaded
@@ -3537,23 +3539,23 @@ window.twttr = (function(d, s, id) {
   function RouteConfig($stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider, isMobile, $locationProvider) {
 
     // Allow case insensitive urls
-    // $urlMatcherFactoryProvider.caseInsensitive(true)
-    // // Normalize case insensitive urls
-    // $urlRouterProvider.rule(function ($injector, $location) {
-    //   // what this function returns will be set as the $location.url
-    //   var path = $location.path(), normalized = path.toLowerCase()
-    //   if (path !== normalized) {
-    //     // instead of returning a new url string, I'll just change the $location.path directly
-    //     // so I don't have to worry about constructing a new url string and
-    //     // so no state change occurs
-    //     // $location.replace().path(normalized)
-    //   }
-    // })
+    $urlMatcherFactoryProvider.caseInsensitive(true)
+    // Normalize case insensitive urls
+    $urlRouterProvider.rule(function ($injector, $location) {
+      // what this function returns will be set as the $location.url
+      var path = $location.path(), normalized = path.toLowerCase()
+      if (path !== normalized) {
+        // instead of returning a new url string, I'll just change the $location.path directly
+        // so I don't have to worry about constructing a new url string and
+        // so no state change occurs
+        // $location.replace().path(normalized)
+      }
+    })
 
-    // $urlRouterProvider.when('', 'landing')
-    // $urlRouterProvider.when('/', 'landing')
-    // $urlRouterProvider.when('/landing-mobile', 'landing-mobile/')
-    // $urlRouterProvider.otherwise('landing')
+    $urlRouterProvider.when('', 'landing')
+    $urlRouterProvider.when('/', 'landing')
+    $urlRouterProvider.when('/landing-mobile', 'landing-mobile/')
+    $urlRouterProvider.otherwise('landing')
 
     var liveRace = {
       "id": "r8",
@@ -3714,7 +3716,7 @@ window.twttr = (function(d, s, id) {
     .controller('LandingCtrl', landingCtrl)
 
   /* @ngInject */
-  function landingCtrl ($scope, $window, $http, $state, $timeout, _, SnippetSrv, TweenMax, GA, ModelSrv, liveData) {
+  function landingCtrl ($scope, $window, $http, $state, $timeout, $interval, _, SnippetSrv, TweenMax, GA, ModelSrv, liveData) {
     var vm = this
     vm.snippets = []
     vm.tours = SnippetSrv.getAvailableTours();
@@ -3756,6 +3758,7 @@ window.twttr = (function(d, s, id) {
 
         // Idle timeout
         startIdle()
+        startGraphAnimation()
         // Events
         $('#landing > section .zoom g[id*="stage-"]').click(function() {
           var stage = +this.id.split('stage-')[1]
@@ -3773,6 +3776,26 @@ window.twttr = (function(d, s, id) {
           if (event.key === 'o') { FEScene.enableStage3AutoRotateAnimation(true) }
         });
       }
+    }
+
+    function startGraphAnimation() {
+      var graph = $('#landing footer .graph svg')
+      var graphTime = 2000
+      var data = []
+      // populate data array
+      _.times(7, function() {
+        var d = Math.round((Math.random()+0.1)*10)/10
+        data.push(d)
+      })
+      // loop
+      $interval(function() {
+        _.times(7,function(i) {
+          graph.find('#line'+(i+1)).css({'transform': 'scaleY('+data[i]+')'})
+        })
+        data.shift()
+        var d = Math.round((Math.random()+0.1)*10)/10
+        data.push(d)
+      }, graphTime)
     }
 
     function startIdle() {

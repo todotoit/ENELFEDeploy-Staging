@@ -719,13 +719,6 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-header:not(.mobile-header) {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
 #landing {
   background: #0555f9;
 }
@@ -849,6 +842,10 @@ header:not(.mobile-header) {
   width: 8rem;
   margin: 0 2vw;
   margin-right: 6vw;
+}
+#landing footer .graph svg line[id*=line] {
+  transform-origin: center;
+  transition: transform .75s ease-out;
 }
 
 #landing footer .suggestion {
@@ -1807,19 +1804,19 @@ nav.mobile-landing-pagination {
 
 #dashboard #energy_mix .temp .info {
   background: url(/assets/svgs/dash_mix_temporary.svg) no-repeat right center;
-  background-size: 30%;
+  background-size: 20%;
 
 }
 
 #dashboard #energy_mix .clean .info {
   background: url(/assets/svgs/dash_mix_cleanenergy.svg) no-repeat right center;
-  background-size: 30%;
+  background-size: 20%;
 
 }
 
 #dashboard #energy_mix .grid .info {
   background: url(/assets/svgs/dash_mix_urbangrid.svg) no-repeat right center;
-  background-size: 30%;
+  background-size: 20%;
 
 }
 
