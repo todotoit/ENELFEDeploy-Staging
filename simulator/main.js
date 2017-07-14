@@ -354,7 +354,13 @@
            .transition()
            .duration(function() { return storUpdated? duration : duration+100 }).ease(ease)
            .delay(245)
-           .attr('transform', function(d) { return 'translate(' + wright +','+ (p+Y(_.last(totData).v)) +')' })
+           .attr('transform', function(d) {
+            var posy = Y(_.last(totData).v)
+            var posstor = YStor(_.last(totData).v)
+            if (!stored) return 'translate(' + (wright-5) +','+ (p+posy) +')'
+            if (posy != 0 && posstor != 0 && posy <= posstor + 10) posy = posstor-20
+            return 'translate(' + (wright-5) +','+ (p+posy) +')'
+           })
            .select('.tot_value')
            .text(_.last(totData).v + ' w')
     circles.select('.storcircle')
@@ -364,7 +370,7 @@
            .attr('cy', function() { return p + YStor(_.last(totData).v) })
     labels.select('.storlabel')
            .transition().duration(function() { return stored? duration : duration/2}).ease(ease)
-           .attr('transform', function(d) { return 'translate(' + wright +','+ (p+YStor(_.last(totData).v)) +')' })
+           .attr('transform', function(d) { return 'translate(' + (wright-5) +','+ (p+YStor(_.last(totData).v)) +')' })
            .attr('opacity', function() { return stored? 1 : 0 })
            .select('.tot_value')
            .text(Math.round(YStorInv(YStor(_.last(totData).v))) + ' w')

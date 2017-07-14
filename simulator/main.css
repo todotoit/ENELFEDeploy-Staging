@@ -397,6 +397,12 @@ section#labels {
     src:url("../assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix") format("eot"),url("../assets/fonts/1475972/73d8af9e-4b82-4953-81a5-8941aed30297.woff2") format("woff2"),url("../assets/fonts/1475972/19ff06fe-d0c5-4294-a237-a4c9b85312b8.woff") format("woff"),url("../assets/fonts/1475972/ff00799e-9823-48a0-a789-5f2d2e509fd7.ttf") format("truetype");
     font-weight: 500;
 }
+@font-face{
+    font-family:"UniversLTStd-Bold";
+    src:url("../assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix");
+    src:url("../assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix") format("eot"),url("../assets/fonts/1475972/73d8af9e-4b82-4953-81a5-8941aed30297.woff2") format("woff2"),url("../assets/fonts/1475972/19ff06fe-d0c5-4294-a237-a4c9b85312b8.woff") format("woff"),url("../assets/fonts/1475972/ff00799e-9823-48a0-a789-5f2d2e509fd7.ttf") format("truetype");
+    font-weight: 500;
+}
 
 .u100{
   font-family: 'UniversLTStd';
@@ -429,11 +435,11 @@ section#labels {
   font-size: 40px;
 }
 
-#teamAreaChart text{
+ #teamAreaChart text{
   font-family: 'UniversLTStd-Light';
-  stroke: #000;
-  stroke-width: 1;
-  font-size: 7px;
+  fill: #000;
+  stroke-width: 0;
+  font-size: 8px;
   text-transform: uppercase;
 }
 
@@ -494,27 +500,20 @@ section#labels {
   stroke-width: 1;
   stroke-dasharray: 1 3;
 }
-#teamAreaChart g.toplines .danger {
-  stroke: #fc1c63;
-  stroke-width: 0;
-  /*stroke-dasharray: 1 3;*/
-}
 #teamAreaChart g.toplines text.danger {
-  stroke-width: 1;
+  fill: #fc1c63;
+  stroke-width: 0;
 }
 #teamAreaChart g.label.toplabel text {
   text-transform: none;
-  stroke: #41b8e5;
-  stroke-width: 1;
+  fill: #41b8e5;
 }
 #teamAreaChart g.label.storlabel text {
   text-transform: none;
-  stroke: #55bd5a;
-  stroke-width: 1;
+  fill: #55bd5a;
 }
 #teamAreaChart g.label.label-area text {
-  stroke: #ffffff;
+  fill: #ffffff;
   text-transform: none;
-  stroke-width: 1;
   opacity: .7;
 }
