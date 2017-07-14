@@ -36,7 +36,7 @@
 #chart_standings .bar{
   width: 0;
   overflow: hidden;
-	background: url(img/bar_bg.png);
+	background: url(../js/components/standings/img/bar_bg.png);
 	background-size: cover;
   	border: none;
 	border-right: 7px solid #FFF;
@@ -71,10 +71,10 @@
 }
 
 #chart_standings .bar .bar_segment.fastest_lap{
-	background-image: url(svg/icon_team_fastestlap.svg);
+	background-image: url(../js/components/standings/svg/icon_team_fastestlap.svg);
 }
 #chart_standings .bar .bar_segment.pole_position{
-	background-image: url(svg/icon_team_poleposition.svg);
+	background-image: url(../js/components/standings/svg/icon_team_poleposition.svg);
 }
 
 #chart_standings .bar .bar_segment.no_bg{
@@ -115,41 +115,41 @@
 }
 
 .place_1{
-	background-image: url(svg/icon_team_1st.svg)
+	background-image: url(../js/components/standings/svg/icon_team_1st.svg)
 }
 
 .place_2{
-	background-image: url(svg/icon_team_2nd.svg)
+	background-image: url(../js/components/standings/svg/icon_team_2nd.svg)
 }
 .place_3{
-	background-image: url(svg/icon_team_3rd.svg);
+	background-image: url(../js/components/standings/svg/icon_team_3rd.svg);
 }
 .place_4{
-	background-image: url(svg/icon_team_4th.svg);
+	background-image: url(../js/components/standings/svg/icon_team_4th.svg);
 }
 .place_5{
-	background-image: url(svg/icon_team_5th.svg);
+	background-image: url(../js/components/standings/svg/icon_team_5th.svg);
 }
 .place_6{
-	background-image: url(svg/icon_team_6th.svg);
+	background-image: url(../js/components/standings/svg/icon_team_6th.svg);
 }
 .place_7{
-	background-image: url(svg/icon_team_7th.svg);
+	background-image: url(../js/components/standings/svg/icon_team_7th.svg);
 }
 .place_8{
-	background-image: url(svg/icon_team_8th.svg);
+	background-image: url(../js/components/standings/svg/icon_team_8th.svg);
 }
 .place_9{
-	background-image: url(svg/icon_team_9th.svg);
+	background-image: url(../js/components/standings/svg/icon_team_9th.svg);
 }
 .place_10{
-	background-image: url(svg/icon_team_10th.svg);
+	background-image: url(../js/components/standings/svg/icon_team_10th.svg);
 }
 .fastest_lap{
-	background-image: url(svg/icon_team_fastestlap.svg);
+	background-image: url(../js/components/standings/svg/icon_team_fastestlap.svg);
 }
 .pole_position{
-	background-image: url(svg/icon_team_poleposition.svg);
+	background-image: url(../js/components/standings/svg/icon_team_poleposition.svg);
 }
 
 #chart_standings #chart_standings_legend ul li.strong{

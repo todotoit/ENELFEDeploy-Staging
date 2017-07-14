@@ -6,7 +6,7 @@ snippet-carousel snippet-card[size*="full"] {
   color: #ffffff;
 }
 snippet-carousel snippet-card {
-  background: linear-gradient(180deg, #41b9e6, #0555fa);
+  background: linear-gradient(to bottom, #78d3f5 0%,#18a6db 20%);
 }
 snippet-carousel snippet-card > div.content {
   flex: 2 0 0% !important;
@@ -21,7 +21,7 @@ snippet-card .content-parent > .info-block {
 }
 
 snippet-card .sub-snippet > div {
-  background: rgba(255,255,255,.3);
+  background: rgba(0, 85, 176,.3);
 }
 /*snippet-carousel snippet-card:after {
   content: "";
@@ -113,7 +113,7 @@ snippet-card .info_block > label {
 }
 
 snippet-card span.info_note {
-  opacity: .5;
+  opacity: 1;
   font-size: 1.4vh;
   line-height: 2vh;
   display: block;
@@ -140,25 +140,27 @@ snippet-card .sub-snippet {
 snippet-card .sub-snippet > ul {
   overflow: hidden;
   justify-content: flex-start;
+  flex-direction: row;
   padding-left: 0;
   margin-bottom: 0;
 }
 
 snippet-card .sub-snippet > ul .note {
   flex: 1 0 auto;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: bold;
   list-style: none;
   opacity: .5;
   transition: opacity .5s border .5s;
   cursor: pointer;
   text-align: center;
-  padding: 2vh;
+  padding: 1vh 3vh;
   padding-top: 0;
+  display: block;
 }
 snippet-card .sub-snippet > ul .note.active {
   opacity: 1;
-  border-bottom: .65rem solid
+  border-bottom: .5rem solid;
 }
 
 snippet-card .info_comparator {

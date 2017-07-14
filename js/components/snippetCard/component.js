@@ -76,6 +76,7 @@
         if (contentIdx <= 0) return prevCallback()
         contentIdx--
         $scope.subsnip = content[contentIdx]
+        setTimeout(scrollToCurrent, 100)
         if (!$scope.$$phase) $scope.$digest()
     }
 
@@ -83,7 +84,28 @@
         if (contentIdx >= content.length -1) return nextCallback()
         contentIdx++
         $scope.subsnip = content[contentIdx]
+        setTimeout(scrollToCurrent, 100)
         if (!$scope.$$phase) $scope.$digest()
+    }
+
+    function scrollToCurrent(){
+      var current = $element.find('.note.active')
+      var container = $element.find('ul.sub-snip-nav')
+      var offset = getScrollOffset(current, container)
+      var navs = container.find('.note');
+      console.log(offset)
+      TweenMax.to(navs, .5, {x: offset})
+    }
+
+    function getScrollOffset(current, container){
+      var idx = current.index();
+      console.log(current, idx, current.position(), current.outerWidth(), container.outerWidth())
+      if(idx > (container.children().length-1) / 2){
+        var offset = container.outerWidth() - current.position().left - current.outerWidth();
+      } else {
+        var offset = 0;
+      }
+      return offset;
     }
 
     // init after dom loaded
@@ -109,7 +131,6 @@
       })
       hammertime.on('swiperight', prevTab)
       hammertime.on('hammer.input', function (e) {
-        e.preventDefault()
         e.srcEvent.stopPropagation()
       })
       $element.on('touchmove', function(e) {

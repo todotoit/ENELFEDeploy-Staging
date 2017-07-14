@@ -91,6 +91,7 @@
         if (contentIdx <= 0) return prevCallback()
         contentIdx--
         $scope.subsnip = content[contentIdx]
+        setTimeout(scrollToCurrent, 100)
         if (!$scope.$$phase) $scope.$digest()
     }
 
@@ -98,7 +99,28 @@
         if (contentIdx >= content.length -1) return nextCallback()
         contentIdx++
         $scope.subsnip = content[contentIdx]
+        setTimeout(scrollToCurrent, 100)
         if (!$scope.$$phase) $scope.$digest()
+    }
+
+    function scrollToCurrent(){
+      var current = $element.find('.note.active')
+      var container = $element.find('ul.sub-snip-nav')
+      var offset = getScrollOffset(current, container)
+      var navs = container.find('.note');
+      console.log(offset)
+      TweenMax.to(navs, .5, {x: offset})
+    }
+
+    function getScrollOffset(current, container){
+      var idx = current.index();
+      console.log(current, idx, current.position(), current.outerWidth(), container.outerWidth())
+      if(idx > (container.children().length-1) / 2){
+        var offset = container.outerWidth() - current.position().left - current.outerWidth();
+      } else {
+        var offset = 0;
+      }
+      return offset;
     }
 
     // init after dom loaded
@@ -124,7 +146,6 @@
       })
       hammertime.on('swiperight', prevTab)
       hammertime.on('hammer.input', function (e) {
-        e.preventDefault()
         e.srcEvent.stopPropagation()
       })
       $element.on('touchmove', function(e) {
@@ -3758,6 +3779,14 @@ window.twttr = (function(d, s, id) {
 
       var $container = $('#3dcontainer')
       var container = $container.get(0)
+      $timeout(function() {
+        startGraphAnimation()
+        // Events
+        $('#landing > section .zoom g[id*="stage-"]').click(function() {
+          var stage = +this.id.split('stage-')[1]
+          zoom(stage)
+        })
+      }, 500)
       init()
 
       function init() {
@@ -3767,12 +3796,6 @@ window.twttr = (function(d, s, id) {
 
         // Idle timeout
         startIdle()
-        startGraphAnimation()
-        // Events
-        $('#landing > section .zoom g[id*="stage-"]').click(function() {
-          var stage = +this.id.split('stage-')[1]
-          zoom(stage)
-        })
         $(window).on('resize', FEScene.resize)
         $(window).on('click', function(e){
           stopIdle()
@@ -3800,6 +3823,7 @@ window.twttr = (function(d, s, id) {
       $interval(function() {
         _.times(7,function(i) {
           graph.find('#line'+(i+1)).css({'transform': 'scaleY('+data[i]+')'})
+          // TweenMax.to(graph.find('#line'+(i+1)), .5, {scaleY: data[i]})
         })
         data.shift()
         var d = Math.round((Math.random()+0.3)*10)/10
