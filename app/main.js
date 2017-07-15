@@ -3045,7 +3045,7 @@ window.twttr = (function(d, s, id) {
     var _totalConsumptionData   = null
     var _timeSeriesData         = {}
     var _metersData             = {}
-    var enelStandMeter = 'Smart_Kit_FE_001'
+    var enelStandMeter = 'Smart_Kit_BE_001'
 
     var beUrl = 'http://backend.enelformulae.todo.to.it'
     // var beUrl = 'http://192.168.3.10:5001'
@@ -3599,6 +3599,7 @@ window.twttr = (function(d, s, id) {
 
     var liveRace = {
       "id": "r9",
+      "live": "true",
       "name": "Brooklyn circuit",
       "location": "New York City",
       "country": "USA",
@@ -4244,7 +4245,7 @@ window.twttr = (function(d, s, id) {
     vm.streamPaddock = []
     $scope.allData = []
     $scope.paddockData = {}
-    var enelMeterKey = 'Smart_Kit2_FE_038'
+    var enelMeterKey = 'Smart_Kit_BE_001'
     vm.metersData = null
     vm.enelMeterStandData = null
     vm.totalConsumption = {
@@ -4260,6 +4261,8 @@ window.twttr = (function(d, s, id) {
     vm.races = races
     vm.races.push(liveData)
     var currentRace = _.last(vm.races)
+
+    console.log(currentRace)
 
     // -------
 

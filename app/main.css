@@ -1010,7 +1010,6 @@ body {
 }
 #landing footer .number-xlg.live-text:after{
   top: -0.7em;
-  left: 10.3em;
   font-size: 1.1rem;
 }
 
@@ -1029,7 +1028,7 @@ body {
 #landing footer .number-xlg.live-text:before{
   width: 4px;
   height: 4px;
-  left: 3.5em;
+  left: 3em;
 }
 
 #landing footer #tour li{
@@ -1142,6 +1141,12 @@ snippet-card #fastRecharge {
 }
 #landing .tour_info span#exit svg{
   width: 1.5vh;
+}
+
+@media screen and (min-width: 76em) {
+  #landing footer .number-xlg.live-text:after{
+    left: 11.5em;
+  }
 }
 
 @media screen and (max-width: 76em) {
@@ -1430,7 +1435,7 @@ nav.mobile-landing-pagination {
   position: absolute;
   content: 'LIVE';
   bottom: .5em;
-  left: 145%;
+  left: 13em;
   color: #FF0F64;
   font-size: 1.4rem;
   line-height: 1.3em;
@@ -1443,8 +1448,8 @@ nav.mobile-landing-pagination {
   width: .8vw;
   height: .8vw;
   border-radius: 50%;
-  bottom: .4em;
-  left: 125%;
+  bottom: 1em;
+  left: 6.3em;
   background: #FF0F64;
   animation: pulse 2s infinite;
 }
@@ -1552,7 +1557,7 @@ nav.mobile-landing-pagination {
                               rgba(234, 234, 234, 1), 10%,
                               rgba(234, 234, 234, .5) 80%,
                               rgba(234, 234, 234, 0)  100%);
-  z-index: 2;
+  z-index: 1;
 }
 #dashboard .races-list:after {
   right: 0;
