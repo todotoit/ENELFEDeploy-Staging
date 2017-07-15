@@ -3045,6 +3045,7 @@ window.twttr = (function(d, s, id) {
     var _timeSeriesData         = {}
     var _metersData             = {}
     var enelStandMeter = 'Smart_Kit_BE_001'
+    var denStorageMeter = 'Den_Api_FE_001'
 
     var beUrl = 'http://backend.enelformulae.todo.to.it'
     // var beUrl = 'http://192.168.3.10:5001'
@@ -3075,7 +3076,7 @@ window.twttr = (function(d, s, id) {
       return _metersData[meter_name] || _updateMeter(meter_name)
     }
     function _getAll() {
-      return $q.all([_getTotal(), _getTimeSeries(), _getTimeSeries('paddock'), _getMeter(enelStandMeter)])
+      return $q.all([_getTotal(), _getTimeSeries(), _getTimeSeries('paddock'), _getMeter(enelStandMeter), _getMeter(denStorageMeter)])
                .then(
                   function(res) {
                     return {
@@ -3128,7 +3129,7 @@ window.twttr = (function(d, s, id) {
                     })
     }
     function _updateAll() {
-      return $q.all([_updateTotal(), _updateTimeSeries(), _updateTimeSeries('paddock'), _updateMeter(enelStandMeter)])
+      return $q.all([_updateTotal(), _updateTimeSeries(), _updateTimeSeries('paddock'), _updateMeter(enelStandMeter), _updateMeter(denStorageMeter)])
                .then(
                   function(res) {
                     console.info('All models updated: ', res)
@@ -4245,6 +4246,7 @@ window.twttr = (function(d, s, id) {
     $scope.allData = []
     $scope.paddockData = {}
     var enelMeterKey = 'Smart_Kit_BE_001'
+    var denMeterKey = 'Den_Api_FE_001'
     vm.metersData = null
     vm.enelMeterStandData = null
     vm.totalConsumption = {
@@ -4290,6 +4292,7 @@ window.twttr = (function(d, s, id) {
       if (currentRace.metersData) {
         var firstMeterFound = _.keys(vm.metersData)[0]
         vm.enelMeterStandData = !_.isEmpty(vm.metersData[enelMeterKey])? vm.metersData[enelMeterKey] : vm.metersData[firstMeterFound]
+        vm.denMeterData = !_.isEmpty(vm.metersData[denMeterKey])? vm.metersData[denMeterKey] : null
       }
       var newRaceIdx = _.indexOf(vm.races, currentRace)
       var raceList = $('.races-list ul').find('li')
@@ -4431,6 +4434,7 @@ window.twttr = (function(d, s, id) {
                           vm.totalConsumption   = res.totalConsumption
                           vm.metersData         = res.metersData
                           vm.enelMeterStandData = currentRace.metersData[enelMeterKey]
+                          vm.denMeterData       = currentRace.metersData[denMeterKey]
                           $scope.getComparisons()
                           $timeout(selectAll, 1000)
                         }
