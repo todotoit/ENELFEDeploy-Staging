@@ -87,19 +87,21 @@
     //   } })
     // }
 
-    function prevTab(){
+    function prevTab(digest){
         if (contentIdx <= 0) return prevCallback()
         contentIdx--
         $scope.subsnip = content[contentIdx]
         setTimeout(scrollToCurrent, 100)
+        if (!digest) return
         if (!$scope.$$phase) $scope.$digest()
     }
 
-    function nextTab(){
+    function nextTab(digest){
         if (contentIdx >= content.length -1) return nextCallback()
         contentIdx++
         $scope.subsnip = content[contentIdx]
         setTimeout(scrollToCurrent, 100)
+        if (!digest) return
         if (!$scope.$$phase) $scope.$digest()
     }
 
@@ -142,9 +144,11 @@
       if (contentIdx !== 0) TweenMax.set($content.find('li'), { x: '-='+ (swipeOffset * contentIdx) +'%' })
       hammertime = new Hammer($content[0], { domEvents: true, css_hacks:false, touchAction: 'compute' })
       hammertime.on('swipeleft',  function(){
-        nextTab()
+        nextTab(true)
       })
-      hammertime.on('swiperight', prevTab)
+      hammertime.on('swiperight', function() {
+        prevTab(true)
+      })
       hammertime.on('hammer.input', function (e) {
         e.srcEvent.stopPropagation()
       })
@@ -159,8 +163,8 @@
     }
 
     function navigateTo(index){
-      if(contentIdx > index) prevTab()
-      else nextTab();
+      if(contentIdx > index) prevTab(false)
+      else nextTab(false);
     }
 
     // deregister event handlers
@@ -2656,6 +2660,7 @@
       'fastRecharge',
       'v2g',
       'v2gDenmark',
+      'hybrid',
       'enelStand'
     ]
 
@@ -3040,7 +3045,7 @@ window.twttr = (function(d, s, id) {
     var _totalConsumptionData   = null
     var _timeSeriesData         = {}
     var _metersData             = {}
-    var enelStandMeter = 'Smart_Kit2_FE_038'
+    var enelStandMeter = 'Smart_Kit_FE_001'
 
     var beUrl = 'http://backend.enelformulae.todo.to.it'
     // var beUrl = 'http://192.168.3.10:5001'
@@ -3593,14 +3598,14 @@ window.twttr = (function(d, s, id) {
     $urlRouterProvider.otherwise('landing')
 
     var liveRace = {
-      "id": "r8",
-      "name": "Tempelhof Airport",
-      "location": "Berlin",
-      "country": "German",
-      "date": "11 Jun 2017",
+      "id": "r9",
+      "name": "Brooklyn circuit",
+      "location": "New York City",
+      "country": "USA",
+      "date": "15 Jul 2017",
       "videoId": "",
       "circuit": {
-        "map": "circuit_berlin",
+        "map": "circuit_ny",
         "length": "",
         "laps": "",
         "fastestLap": {
@@ -3617,23 +3622,7 @@ window.twttr = (function(d, s, id) {
         }
       },
       "meters": 30,
-      "mix": [
-        {
-          "code": "clean",
-          "name": "Clean energy",
-          "value": 30
-        },
-        {
-          "code": "temp",
-          "name": "Temporary solutions",
-          "value": 15
-        },
-        {
-          "code": "grid",
-          "name": "Urban grid",
-          "value": 55
-        }
-      ],
+      "mix": null,
     }
 
     $stateProvider
@@ -3649,6 +3638,9 @@ window.twttr = (function(d, s, id) {
         controller: 'LandingCtrl',
         controllerAs: 'landing',
         templateUrl: 'templates/landing.html',
+        onEnter: function(isMobile, $state) {
+          if (isMobile) return $state.go('landingMobile', {}, {reload: true})
+        },
         onExit: function($rootScope, $window, $timeout) {
           $rootScope.forceReload = true
           $timeout(function() { $window.location.reload() }, 300)
@@ -3663,6 +3655,14 @@ window.twttr = (function(d, s, id) {
         templateUrl: 'templates/landing-mobile.html',
         controller: 'LandingMobileCtrl',
         controllerAs: 'landing',
+        onEnter: function() {
+          $('header').hide()
+          $('header.mobile-header').show()
+        },
+        onExit: function() {
+          $('header').show()
+          $('header.mobile-header').hide()
+        },
         resolve: {
           tours: function(SnippetSrv) {
             return SnippetSrv.getAvailableTours()
@@ -4009,7 +4009,7 @@ window.twttr = (function(d, s, id) {
     .controller('LandingMobileCtrl', landingMobileCtrl)
 
   /* @ngInject */
-  function landingMobileCtrl($scope, $state, tours, currentTour, currentSnippet) {
+  function landingMobileCtrl($rootScope, $scope, $state, tours, currentTour, currentSnippet) {
     var vm = this
     vm.select = select
     vm.selectSnippet = selectSnippet
@@ -4019,9 +4019,10 @@ window.twttr = (function(d, s, id) {
     vm.allTours = tours
     vm.currentTour = currentTour
 
-    console.log(currentTour)
     vm.currentSnippet = currentSnippet
     vm.allSnippets = [];
+
+    angular.element(document).ready($rootScope.hideLoader)
 
     if (!vm.currentTour) return openMenu()
     else if (!vm.currentSnippet) return select(vm.currentTour)
@@ -4351,6 +4352,7 @@ window.twttr = (function(d, s, id) {
     var hammerMix = null
     function mixHandler() {
       if (!bowser.mobile && !bowser.tablet) return
+      if (_.isEmpty(vm.mixes)) return
       hammerMix = new Hammer($('#energy_mix ul').get(0), {domEvents: true});
       hammerMix.on('swipeleft', function(e){ $scope.selectMix(currentMixIdx+1) });
       hammerMix.on('swiperight', function(e){ $scope.selectMix(currentMixIdx-1) });

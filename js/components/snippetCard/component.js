@@ -72,19 +72,21 @@
     //   } })
     // }
 
-    function prevTab(){
+    function prevTab(digest){
         if (contentIdx <= 0) return prevCallback()
         contentIdx--
         $scope.subsnip = content[contentIdx]
         setTimeout(scrollToCurrent, 100)
+        if (!digest) return
         if (!$scope.$$phase) $scope.$digest()
     }
 
-    function nextTab(){
+    function nextTab(digest){
         if (contentIdx >= content.length -1) return nextCallback()
         contentIdx++
         $scope.subsnip = content[contentIdx]
         setTimeout(scrollToCurrent, 100)
+        if (!digest) return
         if (!$scope.$$phase) $scope.$digest()
     }
 
@@ -127,9 +129,11 @@
       if (contentIdx !== 0) TweenMax.set($content.find('li'), { x: '-='+ (swipeOffset * contentIdx) +'%' })
       hammertime = new Hammer($content[0], { domEvents: true, css_hacks:false, touchAction: 'compute' })
       hammertime.on('swipeleft',  function(){
-        nextTab()
+        nextTab(true)
       })
-      hammertime.on('swiperight', prevTab)
+      hammertime.on('swiperight', function() {
+        prevTab(true)
+      })
       hammertime.on('hammer.input', function (e) {
         e.srcEvent.stopPropagation()
       })
@@ -144,8 +148,8 @@
     }
 
     function navigateTo(index){
-      if(contentIdx > index) prevTab()
-      else nextTab();
+      if(contentIdx > index) prevTab(false)
+      else nextTab(false);
     }
 
     // deregister event handlers

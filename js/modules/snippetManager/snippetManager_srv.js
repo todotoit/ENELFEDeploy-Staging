@@ -415,6 +415,7 @@
       'fastRecharge',
       'v2g',
       'v2gDenmark',
+      'hybrid',
       'enelStand'
     ]
 
