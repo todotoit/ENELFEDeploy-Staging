@@ -4288,7 +4288,10 @@ window.twttr = (function(d, s, id) {
       vm.totalConsumption = angular.copy(currentRace.totalConsumption)
       vm.mixes = currentRace.mix? currentRace.mix : []
       vm.metersData = currentRace.metersData? currentRace.metersData : null
-      if (currentRace.metersData) vm.enelMeterStandData = !_.isEmpty(vm.metersData[enelMeterKey])? vm.metersData[enelMeterKey] : {energy: 0}
+      if (currentRace.metersData) {
+        var firstMeterFound = _.keys(vm.metersData)[0]
+        vm.enelMeterStandData = !_.isEmpty(vm.metersData[enelMeterKey])? vm.metersData[enelMeterKey] : vm.metersData[firstMeterFound]
+      }
       var newRaceIdx = _.indexOf(vm.races, currentRace)
       var raceList = $('.races-list ul').find('li')
       var raceListItem = raceList[newRaceIdx]
