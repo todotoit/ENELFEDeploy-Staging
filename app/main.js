@@ -2782,7 +2782,7 @@
     var comparisons = {
       'households': {
         label: 'Households for 1 day',
-        param: 1/(4190/365),
+        param: 1/(11700/365),
         unit: '',
         tpl: self.path + '/test.html',
         svg: 'dash_comparison_house'
@@ -2801,7 +2801,6 @@
         tpl: self.path + '/test.html',
         svg: 'dash_comparison_car'
       }
-      
     }
 
     self.getComparisons = _getComparisonsForValue
@@ -3601,7 +3600,7 @@ window.twttr = (function(d, s, id) {
       "id": "r9",
       "live": "true",
       "name": "Brooklyn circuit",
-      "location": "New York City",
+      "location": "New York",
       "country": "USA",
       "date": "15 Jul 2017",
       "videoId": "",

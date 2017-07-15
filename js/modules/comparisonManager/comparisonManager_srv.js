@@ -15,7 +15,7 @@
     var comparisons = {
       'households': {
         label: 'Households for 1 day',
-        param: 1/(4190/365),
+        param: 1/(11700/365),
         unit: '',
         tpl: self.path + '/test.html',
         svg: 'dash_comparison_house'
@@ -34,7 +34,6 @@
         tpl: self.path + '/test.html',
         svg: 'dash_comparison_car'
       }
-      
     }
 
     self.getComparisons = _getComparisonsForValue
