@@ -2311,14 +2311,8 @@ window.twttr = (function(d, s, id) {
     vm.races = []
     vm.upcomings = [
       {
-        id: 'r9',
-        live: true,
-        date: '15 july 2017',
-        location: 'New York City',
-        circuit: 'Brooklyn Circuit'
-      },
-      {
         id: 'r10',
+        live: true,
         date: '16 july 2017',
         location: 'New York City',
         circuit: 'Brooklyn Circuit'
@@ -2347,7 +2341,7 @@ window.twttr = (function(d, s, id) {
 
     // initialize object for countdown
     $scope.countDown = {
-      date: '2017-07-15 00:00',
+      date: '2017-07-16 00:00',
       timezone: 'America/New_York'
     }
     $scope.compatibilityMsg = ''
