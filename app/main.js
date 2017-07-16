@@ -3598,12 +3598,12 @@ window.twttr = (function(d, s, id) {
     $urlRouterProvider.otherwise('landing')
 
     var liveRace = {
-      "id": "r9",
+      "id": "r10",
       "live": "true",
       "name": "Brooklyn circuit",
       "location": "New York",
       "country": "USA",
-      "date": "15 Jul 2017",
+      "date": "16 Jul 2017",
       "videoId": "",
       "circuit": {
         "map": "circuit_ny",
