@@ -46,8 +46,18 @@
       if (!meter_name) return console.error('Error::Meter name could not be empty')
       return _metersData[meter_name] || _updateMeter(meter_name)
     }
+    function _getMeterTimeSeries(meter_name) {
+      if (!meter_name) return console.error('Error::Meter name could not be empty')
+      return _timeSeriesData[meter_name] || _updateMeterTimeSeries(meter_name)
+    }
     function _getAll() {
-      return $q.all([_getTotal(), _getTimeSeries(), _getTimeSeries('paddock'), _getMeter(enelStandMeter), _getMeter(denStorageMeter)])
+      return $q.all([_getTotal(),
+                     _getTimeSeries(),
+                     _getTimeSeries('paddock'),
+                     _getMeter(enelStandMeter),
+                     _getMeter(denStorageMeter),
+                     _getMeterTimeSeries(denStorageMeter)
+                    ])
                .then(
                   function(res) {
                     return {
@@ -99,8 +109,26 @@
                       return null
                     })
     }
+    function _updateMeterTimeSeries(meter_name) {
+      return $http.get(beUrl + '/meter_time_series/' + (meter_name || ''))
+                  .then(
+                    function(res) {
+                      console.info(res)
+                      _timeSeriesData[meter_name] = res.data
+                      return _timeSeriesData[meter_name]
+                    }, function(err) {
+                      console.error(err)
+                      return null
+                    })
+    }
     function _updateAll() {
-      return $q.all([_updateTotal(), _updateTimeSeries(), _updateTimeSeries('paddock'), _updateMeter(enelStandMeter), _updateMeter(denStorageMeter)])
+      return $q.all([_updateTotal(),
+                     _updateTimeSeries(),
+                     _updateTimeSeries('paddock'),
+                     _updateMeter(enelStandMeter),
+                     _updateMeter(denStorageMeter),
+                     _updateMeterTimeSeries(denStorageMeter)
+                    ])
                .then(
                   function(res) {
                     console.info('All models updated: ', res)

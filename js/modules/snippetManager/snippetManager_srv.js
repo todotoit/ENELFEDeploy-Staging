@@ -22,12 +22,12 @@
       'smartEnergy': {
         key: 'smartEnergy',
         label: 'Smart energy',
-        snippets: ['raceMicrogrid', 'smartMetering', 'storage', 'v2g', 'firstSmartCity', 'batteryBrains', 'forgetBlackouts'],
+        snippets: ['raceMicrogrid', 'smartMetering', 'v2g', 'firstSmartCity', 'forgetBlackouts'],
       },
       'cleanEnergy': {
         key: 'cleanEnergy',
         label: 'Clean energy',
-        snippets: ['raceMicrogrid', 'solarPower', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'zeroco2ny'],
+        snippets: ['raceMicrogrid', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'zeroco2ny'],
       },
       'enelAchievements': {
         key: 'enelAchievements',
@@ -60,29 +60,29 @@
       },
       'pin_2_grid': {
         stage: 2,
-        coords: [-536, 295, 470],
+        coords: [626, 260, -364],
         snippets: ['raceMicrogrid']
       },
       'pin_2_info': {
         stage: 2,
-        coords: [-649, 85, -407],
-        snippets: ['circuitNY2017']
+        coords: [623, 313, 327],
+        snippets: ['circuitMontreal2017']
       },
       'pin_2_meter': {
         stage: 2,
-        coords: [375, 219, 639],
+        coords: [-715, 145, 245],
         snippets: ['smartMetering']
       },
-      'pin_2_solar': {
-        stage: 2,
-        coords: [-412, 198, -620],
-        snippets: ['solarPower']
-      },
-      'pin_2_storage': {
-        stage: 2,
-        coords: [416, 424, -491],
-        snippets: ['storage', 'batteryBrains']
-      },
+      // 'pin_2_solar': {
+      //   stage: 2,
+      //   coords: [-412, 198, -620],
+      //   snippets: ['solarPower']
+      // },
+      // 'pin_2_storage': {
+      //   stage: 2,
+      //   coords: [416, 424, -491],
+      //   snippets: ['storage', 'batteryBrains']
+      // },
       'pin_3_v2g': {
         stage: 3,
         // coords: [-0.039, 0.90, 0.61],
@@ -263,6 +263,11 @@
         desc: '',
         label: '',
         tpl: self.path + '/circuit-ny-2017.html'
+      },
+      'circuitMontreal2017': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/circuit-montreal-2017.html'
       },
       'raceMicrogrid': {
         desc: '',

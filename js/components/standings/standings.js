@@ -3,67 +3,67 @@
     'use strict'
 
   /* THIS ARRAY SHOULD BE UPDATED AFTER EACH GP */
-  var seasonCurrentRace = 8
+  var seasonCurrentRace = 10
   var seasonTotalRaces = 12
   var team_standings = [
   	{
   		name: "RENAULT E.DAMS",
-  		total_points: 229,
-  		point_detail: ['place_1','place_4','place_1','place_4','place_1','place_4','fastest_lap','place_5','place_1','pole_position','place_9','place_1','pole_position','place_5','place_5','place_1','place_8']
+  		total_points: 259,
+  		point_detail: ['place_1','place_4','place_1','place_4','place_1','place_4','fastest_lap','place_5','place_1','pole_position','place_9','place_1','pole_position','place_5','place_5','place_1','place_8','place_8','place_7','place_6','place_4']
   	},
 
   	{
   		name: "ABT SCHAEFFLER AUDI SPORT",
-  		total_points: 171,
-  		point_detail: ['place_2','place_5','place_6','place_3','pole_position','place_7','place_1','place_7','place_2','place_7','place_2','pole_position','place_6','place_3','place_4']
+  		total_points: 194,
+  		point_detail: ['place_2','place_5','place_6','place_3','pole_position','place_7','place_1','place_7','place_2','place_7','place_2','pole_position','place_6','place_3','place_4','place_4','place_5','fastest_lap']
   	},
 
   	{
   		name: "MAHINDRA RACING",
-  		total_points: 149,
-  		point_detail: ['fastest_lap','place_3','place_3','pole_position','place_9','fastest_lap','place_3','place_6','place_3','place_4','place_1','place_3','place_2','pole_position','place_10']
+  		total_points: 182,
+  		point_detail: ['fastest_lap','place_3','place_3','pole_position','place_9','fastest_lap','place_3','place_6','place_3','place_4','place_1','place_3','place_2','pole_position','place_10','place_3','place_2']
   	},
 
   	{
   		name: "DS VIRGIN RACING",
-  		total_points: 97,
-  		point_detail: ['place_2','place_10','place_10','place_3','place_6','fastest_lap','place_2','fastest_lap','place_4','place_7','place_5','place_7']
+  		total_points: 153,
+  		point_detail: ['place_2','place_10','place_10','place_3','place_6','fastest_lap','place_2','fastest_lap','place_4','place_7','place_5','place_7','place_1','pole_position','place_1','pole_position']
   	},
 
-  	{
-  		name: "ANDRETTI FORMULA E",
-  		total_points: 26,
-  		point_detail: ['place_5','place_6','place_6']
-  	},
-
-  	{
-  		name: "NEXTEV NIO",
-  		total_points: 51,
-  		point_detail: ['pole_position','place_8','place_7','place_5','place_9','pole_position','place_9','place_4','place_7','place_10','place_9']
-  	},
-
-  	{
-  		name: "FARADAY FUTURE DRAGON RACING",
-  		total_points: 19,
-  		point_detail: ['place_7','fastest_lap','place_8','place_6']
-  	},
-
-  	{
+    {
   		name: "TECHEETAH",
-  		total_points: 57,
-  		point_detail: ['place_8','place_2','place_10','place_2','place_8','place_8','place_6']
+  		total_points: 94,
+  		point_detail: ['place_8','place_2','place_10','place_2','place_8','place_8','place_6','place_2','place_3','place_8']
   	},
+
+    {
+      name: "NEXTEV NIO",
+      total_points: 59,
+      point_detail: ['pole_position','place_8','place_7','place_5','place_9','pole_position','place_9','place_4','place_7','place_10','place_9','place_6']
+    },
+
+    {
+      name: "ANDRETTI FORMULA E",
+      total_points: 30,
+      point_detail: ['place_5','place_6','place_6','place_9','place_9']
+    },
+
+    {
+      name: "FARADAY FUTURE DRAGON RACING",
+      total_points: 30,
+      point_detail: ['place_7','fastest_lap','place_8','place_6','place_5','place_10']
+    },
 
   	{
   		name: "VENTURI FORMULA E",
-  		total_points: 21,
-  		point_detail: ['place_9','place_10','place_5','place_8','place_10','place_9','fastest_lap']
+  		total_points: 28,
+  		point_detail: ['place_9','place_10','place_5','place_8','place_10','place_9','fastest_lap','fastest_lap','place_7']
   	},
 
   	{
   		name: "PANASONIC JAGUAR RACING",
-  		total_points: 20,
-  		point_detail: ['place_8','place_4','place_10','place_9','fastest_lap']
+  		total_points: 21,
+  		point_detail: ['place_8','place_4','place_10','place_9','fastest_lap','place_10']
   	}
   ]
 

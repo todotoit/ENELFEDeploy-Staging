@@ -1128,7 +1128,8 @@
       controller: AreaChartCtrl,
       controllerAs: 'areaChart',
       bindings: {
-        datasource: '<'
+        datasource: '<',
+        model: '@'
       }
     })
 
@@ -1159,7 +1160,9 @@
                     .tickSize(0)
                     .tickFormat(function(d,i) {
                       if(i === 0) return
-                      return formatY(d)+'kW'
+                      var unit = 'kW'
+                      if (ctrl.model === 'storage') unit = '%'
+                      return formatY(d)+unit
                     })
 
     var formatX = d3.time.format('%H:%M')
@@ -1207,6 +1210,7 @@
 
       // -------- INITIALIZE CHART ---------
       svg = d3.select($element.find('svg').get(0))
+      if (ctrl.model === 'storage') svg.attr('viewBox', '0 0 600 350')
       box = svg.attr('viewBox').split(' ')
       w   = +box[2] // width
       h   = +box[3] // height
@@ -1272,6 +1276,7 @@
       var values  = _(data).groupBy('key').mapValues(function(d){ return d[0].values.slice(0, lastIdx) }).merge().values().flatten().value()
       var totData = _(values).groupBy('h').map(function(d){ return { h:d[0].h, v:_.sumBy(d,'v') } }).value()
       var max     = _.maxBy(totData, 'v').v
+      if (ctrl.model === 'storage') max = 100
       // update scales domain and range
       var xDomain = d3.extent(data[0].values, function(d) { return moment(d.h) })
       X.domain(xDomain)
@@ -1310,67 +1315,67 @@
     'use strict'
 
   /* THIS ARRAY SHOULD BE UPDATED AFTER EACH GP */
-  var seasonCurrentRace = 8
+  var seasonCurrentRace = 10
   var seasonTotalRaces = 12
   var team_standings = [
   	{
   		name: "RENAULT E.DAMS",
-  		total_points: 229,
-  		point_detail: ['place_1','place_4','place_1','place_4','place_1','place_4','fastest_lap','place_5','place_1','pole_position','place_9','place_1','pole_position','place_5','place_5','place_1','place_8']
+  		total_points: 259,
+  		point_detail: ['place_1','place_4','place_1','place_4','place_1','place_4','fastest_lap','place_5','place_1','pole_position','place_9','place_1','pole_position','place_5','place_5','place_1','place_8','place_8','place_7','place_6','place_4']
   	},
 
   	{
   		name: "ABT SCHAEFFLER AUDI SPORT",
-  		total_points: 171,
-  		point_detail: ['place_2','place_5','place_6','place_3','pole_position','place_7','place_1','place_7','place_2','place_7','place_2','pole_position','place_6','place_3','place_4']
+  		total_points: 194,
+  		point_detail: ['place_2','place_5','place_6','place_3','pole_position','place_7','place_1','place_7','place_2','place_7','place_2','pole_position','place_6','place_3','place_4','place_4','place_5','fastest_lap']
   	},
 
   	{
   		name: "MAHINDRA RACING",
-  		total_points: 149,
-  		point_detail: ['fastest_lap','place_3','place_3','pole_position','place_9','fastest_lap','place_3','place_6','place_3','place_4','place_1','place_3','place_2','pole_position','place_10']
+  		total_points: 182,
+  		point_detail: ['fastest_lap','place_3','place_3','pole_position','place_9','fastest_lap','place_3','place_6','place_3','place_4','place_1','place_3','place_2','pole_position','place_10','place_3','place_2']
   	},
 
   	{
   		name: "DS VIRGIN RACING",
-  		total_points: 97,
-  		point_detail: ['place_2','place_10','place_10','place_3','place_6','fastest_lap','place_2','fastest_lap','place_4','place_7','place_5','place_7']
+  		total_points: 153,
+  		point_detail: ['place_2','place_10','place_10','place_3','place_6','fastest_lap','place_2','fastest_lap','place_4','place_7','place_5','place_7','place_1','pole_position','place_1','pole_position']
   	},
 
-  	{
-  		name: "ANDRETTI FORMULA E",
-  		total_points: 26,
-  		point_detail: ['place_5','place_6','place_6']
-  	},
-
-  	{
-  		name: "NEXTEV NIO",
-  		total_points: 51,
-  		point_detail: ['pole_position','place_8','place_7','place_5','place_9','pole_position','place_9','place_4','place_7','place_10','place_9']
-  	},
-
-  	{
-  		name: "FARADAY FUTURE DRAGON RACING",
-  		total_points: 19,
-  		point_detail: ['place_7','fastest_lap','place_8','place_6']
-  	},
-
-  	{
+    {
   		name: "TECHEETAH",
-  		total_points: 57,
-  		point_detail: ['place_8','place_2','place_10','place_2','place_8','place_8','place_6']
+  		total_points: 94,
+  		point_detail: ['place_8','place_2','place_10','place_2','place_8','place_8','place_6','place_2','place_3','place_8']
   	},
+
+    {
+      name: "NEXTEV NIO",
+      total_points: 59,
+      point_detail: ['pole_position','place_8','place_7','place_5','place_9','pole_position','place_9','place_4','place_7','place_10','place_9','place_6']
+    },
+
+    {
+      name: "ANDRETTI FORMULA E",
+      total_points: 30,
+      point_detail: ['place_5','place_6','place_6','place_9','place_9']
+    },
+
+    {
+      name: "FARADAY FUTURE DRAGON RACING",
+      total_points: 30,
+      point_detail: ['place_7','fastest_lap','place_8','place_6','place_5','place_10']
+    },
 
   	{
   		name: "VENTURI FORMULA E",
-  		total_points: 21,
-  		point_detail: ['place_9','place_10','place_5','place_8','place_10','place_9','fastest_lap']
+  		total_points: 28,
+  		point_detail: ['place_9','place_10','place_5','place_8','place_10','place_9','fastest_lap','fastest_lap','place_7']
   	},
 
   	{
   		name: "PANASONIC JAGUAR RACING",
-  		total_points: 20,
-  		point_detail: ['place_8','place_4','place_10','place_9','fastest_lap']
+  		total_points: 21,
+  		point_detail: ['place_8','place_4','place_10','place_9','fastest_lap','place_10']
   	}
   ]
 
@@ -2267,12 +2272,12 @@
       'smartEnergy': {
         key: 'smartEnergy',
         label: 'Smart energy',
-        snippets: ['raceMicrogrid', 'smartMetering', 'storage', 'v2g', 'firstSmartCity', 'batteryBrains', 'forgetBlackouts'],
+        snippets: ['raceMicrogrid', 'smartMetering', 'v2g', 'firstSmartCity', 'forgetBlackouts'],
       },
       'cleanEnergy': {
         key: 'cleanEnergy',
         label: 'Clean energy',
-        snippets: ['raceMicrogrid', 'solarPower', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'zeroco2ny'],
+        snippets: ['raceMicrogrid', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'zeroco2ny'],
       },
       'enelAchievements': {
         key: 'enelAchievements',
@@ -2305,29 +2310,29 @@
       },
       'pin_2_grid': {
         stage: 2,
-        coords: [-536, 295, 470],
+        coords: [626, 260, -364],
         snippets: ['raceMicrogrid']
       },
       'pin_2_info': {
         stage: 2,
-        coords: [-649, 85, -407],
-        snippets: ['circuitNY2017']
+        coords: [623, 313, 327],
+        snippets: ['circuitMontreal2017']
       },
       'pin_2_meter': {
         stage: 2,
-        coords: [375, 219, 639],
+        coords: [-715, 145, 245],
         snippets: ['smartMetering']
       },
-      'pin_2_solar': {
-        stage: 2,
-        coords: [-412, 198, -620],
-        snippets: ['solarPower']
-      },
-      'pin_2_storage': {
-        stage: 2,
-        coords: [416, 424, -491],
-        snippets: ['storage', 'batteryBrains']
-      },
+      // 'pin_2_solar': {
+      //   stage: 2,
+      //   coords: [-412, 198, -620],
+      //   snippets: ['solarPower']
+      // },
+      // 'pin_2_storage': {
+      //   stage: 2,
+      //   coords: [416, 424, -491],
+      //   snippets: ['storage', 'batteryBrains']
+      // },
       'pin_3_v2g': {
         stage: 3,
         // coords: [-0.039, 0.90, 0.61],
@@ -2508,6 +2513,11 @@
         desc: '',
         label: '',
         tpl: self.path + '/circuit-ny-2017.html'
+      },
+      'circuitMontreal2017': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/circuit-montreal-2017.html'
       },
       'raceMicrogrid': {
         desc: '',
@@ -3075,8 +3085,18 @@ window.twttr = (function(d, s, id) {
       if (!meter_name) return console.error('Error::Meter name could not be empty')
       return _metersData[meter_name] || _updateMeter(meter_name)
     }
+    function _getMeterTimeSeries(meter_name) {
+      if (!meter_name) return console.error('Error::Meter name could not be empty')
+      return _timeSeriesData[meter_name] || _updateMeterTimeSeries(meter_name)
+    }
     function _getAll() {
-      return $q.all([_getTotal(), _getTimeSeries(), _getTimeSeries('paddock'), _getMeter(enelStandMeter), _getMeter(denStorageMeter)])
+      return $q.all([_getTotal(),
+                     _getTimeSeries(),
+                     _getTimeSeries('paddock'),
+                     _getMeter(enelStandMeter),
+                     _getMeter(denStorageMeter),
+                     _getMeterTimeSeries(denStorageMeter)
+                    ])
                .then(
                   function(res) {
                     return {
@@ -3128,8 +3148,26 @@ window.twttr = (function(d, s, id) {
                       return null
                     })
     }
+    function _updateMeterTimeSeries(meter_name) {
+      return $http.get(beUrl + '/meter_time_series/' + (meter_name || ''))
+                  .then(
+                    function(res) {
+                      console.info(res)
+                      _timeSeriesData[meter_name] = res.data
+                      return _timeSeriesData[meter_name]
+                    }, function(err) {
+                      console.error(err)
+                      return null
+                    })
+    }
     function _updateAll() {
-      return $q.all([_updateTotal(), _updateTimeSeries(), _updateTimeSeries('paddock'), _updateMeter(enelStandMeter), _updateMeter(denStorageMeter)])
+      return $q.all([_updateTotal(),
+                     _updateTimeSeries(),
+                     _updateTimeSeries('paddock'),
+                     _updateMeter(enelStandMeter),
+                     _updateMeter(denStorageMeter),
+                     _updateMeterTimeSeries(denStorageMeter)
+                    ])
                .then(
                   function(res) {
                     console.info('All models updated: ', res)
@@ -3599,7 +3637,7 @@ window.twttr = (function(d, s, id) {
 
     var liveRace = {
       "id": "r10",
-      "live": "true",
+      "live": false,
       "name": "Brooklyn circuit",
       "location": "New York",
       "country": "USA",
@@ -3625,6 +3663,7 @@ window.twttr = (function(d, s, id) {
       "meters": 30,
       "mix": null,
     }
+    var liveRace = null
 
     $stateProvider
       // .state('404', {
@@ -3683,11 +3722,13 @@ window.twttr = (function(d, s, id) {
         url: '/dashboard',
         resolve: {
           liveData: function(ModelSrv) {
+            if (!liveRace) return null
             return ModelSrv.getAllModels()
                            .then(function(res) {
                               console.info(res)
                               liveRace.streamData       = res.timeSeries.circuit
                               liveRace.streamPaddock    = res.timeSeries.paddock
+                              liveRace.streamDen        = res.timeSeries['Den_Api_FE_001']
                               liveRace.totalConsumption = res.totalConsumption
                               liveRace.metersData       = res.meters
                               return liveRace
@@ -4081,11 +4122,12 @@ window.twttr = (function(d, s, id) {
     .controller('3dCtrl', tredCtrl)
 
   /* @ngInject */
-  function tredCtrl ($scope) {
+  function tredCtrl ($scope, $rootScope) {
     var vm = this
     var container = $('#3dcontainer')[0]
     var FEScene = new TERMINALIA.FEScene(container, TERMINALIA.CustomShaders);
     FEScene.render();
+    angular.element(document).ready($rootScope.hideLoader)
 
     //Call by ng-click
     $scope.goToStage1 = function() {
@@ -4128,28 +4170,28 @@ window.twttr = (function(d, s, id) {
 
         if (event.key === 'a') {
           //FEScene.startCameraAnimation([3, 3, 0.8], 2);
-		      FEScene.movePins(-0.01, 0, 0);
+		      FEScene.movePins(-1, 0, 0);
         }
 
         if (event.key === 'd') {
-          FEScene.movePins(0.01, 0, 0);
+          FEScene.movePins(1, 0, 0);
         }
 
         if (event.key === 'w') {
-          FEScene.movePins(0, 0.01, 0);
+          FEScene.movePins(0, 1, 0);
         }
 
         if (event.key === 's') {
-          FEScene.movePins(0, -0.01, 0);
+          FEScene.movePins(0, -1, 0);
         }
 
         if (event.key === 'e') {
           //FEScene.startCameraAnimation([2, 3, -3], 2)
-		      FEScene.movePins(0, 0, 0.01);
+		      FEScene.movePins(0, 0, 1);
         }
 
         if (event.key === 'q') {
-          FEScene.movePins(0, 0, -0.01);
+          FEScene.movePins(0, 0, -1);
         }
 
         if (event.key === 't') {
@@ -4243,7 +4285,9 @@ window.twttr = (function(d, s, id) {
     vm.currentRace = {}
     vm.streamData = []
     vm.streamPaddock = []
+    vm.streamDen = []
     $scope.allData = []
+    $scope.allDendata = []
     $scope.paddockData = {}
     var enelMeterKey = 'Smart_Kit_BE_001'
     var denMeterKey = 'Den_Api_FE_001'
@@ -4260,7 +4304,7 @@ window.twttr = (function(d, s, id) {
     $scope.currentAreaShown = 'all'
 
     vm.races = races
-    vm.races.push(liveData)
+    if (liveData) vm.races.push(liveData)
     var currentRace = _.last(vm.races)
 
     console.log(currentRace)
@@ -4293,6 +4337,7 @@ window.twttr = (function(d, s, id) {
         var firstMeterFound = _.keys(vm.metersData)[0]
         vm.enelMeterStandData = !_.isEmpty(vm.metersData[enelMeterKey])? vm.metersData[enelMeterKey] : vm.metersData[firstMeterFound]
         vm.denMeterData = !_.isEmpty(vm.metersData[denMeterKey])? vm.metersData[denMeterKey] : null
+        vm.streamDen = vm.denMeterData && currentRace.streamDen? angular.copy(currentRace.streamDen.zones) : []
       }
       var newRaceIdx = _.indexOf(vm.races, currentRace)
       var raceList = $('.races-list ul').find('li')
@@ -4386,15 +4431,22 @@ window.twttr = (function(d, s, id) {
       $scope.currentAreaShown = 'all'
       $scope.paddockData = _.find(vm.totalConsumption.zones, {name: 'Paddock'})
       $scope.alldata = vm.streamPaddock
+      $scope.allDendata = vm.streamDen
     }
 
     function emptyAll() {
       var selectedData = []
+      var selectedDenData = []
       $scope.currentAreaShown = 'all'
       vm.streamPaddock.forEach(function(d){
         return selectedData.push(__emptyData(d))
       })
+      vm.streamDen.forEach(function(d){
+        return selectedDenData.push(__emptyData(d))
+      })
+      console.log(selectedDenData)
       $scope.alldata = selectedData
+      $scope.allDendata = selectedDenData
     }
 
     function select(key){
@@ -4435,6 +4487,7 @@ window.twttr = (function(d, s, id) {
                           vm.metersData         = res.metersData
                           vm.enelMeterStandData = currentRace.metersData[enelMeterKey]
                           vm.denMeterData       = currentRace.metersData[denMeterKey]
+                          vm.streamDen          = res.timeSeries[denMeterKey].zones
                           $scope.getComparisons()
                           $timeout(selectAll, 1000)
                         }

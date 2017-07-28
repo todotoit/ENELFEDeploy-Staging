@@ -59,13 +59,13 @@
         {
           "name": "J. Lopez",
           "number": "37",
-          "pic": "DS VIRGIN_37_JOSE MARIA LOPEZ.png",
-          "inactive": "true"
+          "pic": "DS VIRGIN_37_JOSE MARIA LOPEZ.png"
         },
         {
           "name": "A. Lynn",
           "number": "37",
-          "pic": ""
+          "pic": "DS VIRGIN_37_ALEX LYNN.png",
+          "inactive": "true"
         }
       ]
     },
@@ -170,13 +170,13 @@
         {
           "name": "S. Buemi",
           "number": "9",
-          "pic": "RENAULT E DAMS_9_SEBASTIEN BUEMI.png",
-          "inactive": "true"
+          "pic": "RENAULT E DAMS_9_SEBASTIEN BUEMI.png"
         },
         {
           "name": "P. Gasly",
           "number": "9",
-          "pic": ""
+          "pic": "RENAULT E DAMS_9_PIERRE GASLY.png",
+          "inactive": "true"
         }
       ]
     },
@@ -197,7 +197,7 @@
         {
           "name": "S. Sarrazin",
           "number": "33",
-          "pic": ""
+          "pic": "TECHEETAH_33_STEPHANE SARRAZIN.png"
         }
       ]
     },

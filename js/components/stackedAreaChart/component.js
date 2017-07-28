@@ -11,7 +11,8 @@
       controller: AreaChartCtrl,
       controllerAs: 'areaChart',
       bindings: {
-        datasource: '<'
+        datasource: '<',
+        model: '@'
       }
     })
 
@@ -42,7 +43,9 @@
                     .tickSize(0)
                     .tickFormat(function(d,i) {
                       if(i === 0) return
-                      return formatY(d)+'kW'
+                      var unit = 'kW'
+                      if (ctrl.model === 'storage') unit = '%'
+                      return formatY(d)+unit
                     })
 
     var formatX = d3.time.format('%H:%M')
@@ -90,6 +93,7 @@
 
       // -------- INITIALIZE CHART ---------
       svg = d3.select($element.find('svg').get(0))
+      if (ctrl.model === 'storage') svg.attr('viewBox', '0 0 600 350')
       box = svg.attr('viewBox').split(' ')
       w   = +box[2] // width
       h   = +box[3] // height
@@ -155,6 +159,7 @@
       var values  = _(data).groupBy('key').mapValues(function(d){ return d[0].values.slice(0, lastIdx) }).merge().values().flatten().value()
       var totData = _(values).groupBy('h').map(function(d){ return { h:d[0].h, v:_.sumBy(d,'v') } }).value()
       var max     = _.maxBy(totData, 'v').v
+      if (ctrl.model === 'storage') max = 100
       // update scales domain and range
       var xDomain = d3.extent(data[0].values, function(d) { return moment(d.h) })
       X.domain(xDomain)
