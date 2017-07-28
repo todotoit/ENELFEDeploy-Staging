@@ -1568,7 +1568,7 @@ nav.mobile-landing-pagination {
 }
 #dashboard .races-list ul {
   max-width: none;
-  transform: translateX(-65%);
+  transform: translateX(-70%);
 }
 #dashboard .races-list ul li {
   min-width: 20vw;
@@ -2069,7 +2069,7 @@ nav.mobile-landing-pagination {
   }
 
   #dashboard .races-list ul {
-    transform: translateX(-75%);
+    transform: translateX(-82.5%);
   }
   #dashboard .races-list ul li {
     min-width: 40vw;

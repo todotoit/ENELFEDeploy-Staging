@@ -15,8 +15,8 @@
     var _totalConsumptionData   = null
     var _timeSeriesData         = {}
     var _metersData             = {}
-    var enelStandMeter = 'Smart_Kit_BE_001'
-    var denStorageMeter = 'Den_Api_FE_001'
+    // var enelStandMeter = 'Smart_Kit_BE_001'
+    // var denStorageMeter = 'Den_Api_FE_001'
 
     var beUrl = 'http://backend.enelformulae.todo.to.it'
     // var beUrl = 'http://192.168.3.10:5001'
@@ -54,9 +54,9 @@
       return $q.all([_getTotal(),
                      _getTimeSeries(),
                      _getTimeSeries('paddock'),
-                     _getMeter(enelStandMeter),
-                     _getMeter(denStorageMeter),
-                     _getMeterTimeSeries(denStorageMeter)
+                     // _getMeter(enelStandMeter),
+                     // _getMeter(denStorageMeter),
+                     // _getMeterTimeSeries(denStorageMeter)
                     ])
                .then(
                   function(res) {
@@ -125,9 +125,9 @@
       return $q.all([_updateTotal(),
                      _updateTimeSeries(),
                      _updateTimeSeries('paddock'),
-                     _updateMeter(enelStandMeter),
-                     _updateMeter(denStorageMeter),
-                     _updateMeterTimeSeries(denStorageMeter)
+                     // _updateMeter(enelStandMeter),
+                     // _updateMeter(denStorageMeter),
+                     // _updateMeterTimeSeries(denStorageMeter)
                     ])
                .then(
                   function(res) {

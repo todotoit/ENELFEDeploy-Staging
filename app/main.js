@@ -3054,8 +3054,8 @@ window.twttr = (function(d, s, id) {
     var _totalConsumptionData   = null
     var _timeSeriesData         = {}
     var _metersData             = {}
-    var enelStandMeter = 'Smart_Kit_BE_001'
-    var denStorageMeter = 'Den_Api_FE_001'
+    // var enelStandMeter = 'Smart_Kit_BE_001'
+    // var denStorageMeter = 'Den_Api_FE_001'
 
     var beUrl = 'http://backend.enelformulae.todo.to.it'
     // var beUrl = 'http://192.168.3.10:5001'
@@ -3093,9 +3093,9 @@ window.twttr = (function(d, s, id) {
       return $q.all([_getTotal(),
                      _getTimeSeries(),
                      _getTimeSeries('paddock'),
-                     _getMeter(enelStandMeter),
-                     _getMeter(denStorageMeter),
-                     _getMeterTimeSeries(denStorageMeter)
+                     // _getMeter(enelStandMeter),
+                     // _getMeter(denStorageMeter),
+                     // _getMeterTimeSeries(denStorageMeter)
                     ])
                .then(
                   function(res) {
@@ -3164,9 +3164,9 @@ window.twttr = (function(d, s, id) {
       return $q.all([_updateTotal(),
                      _updateTimeSeries(),
                      _updateTimeSeries('paddock'),
-                     _updateMeter(enelStandMeter),
-                     _updateMeter(denStorageMeter),
-                     _updateMeterTimeSeries(denStorageMeter)
+                     // _updateMeter(enelStandMeter),
+                     // _updateMeter(denStorageMeter),
+                     // _updateMeterTimeSeries(denStorageMeter)
                     ])
                .then(
                   function(res) {
@@ -3636,15 +3636,15 @@ window.twttr = (function(d, s, id) {
     $urlRouterProvider.otherwise('landing')
 
     var liveRace = {
-      "id": "r10",
-      "live": false,
-      "name": "Brooklyn circuit",
-      "location": "New York",
-      "country": "USA",
-      "date": "16 Jul 2017",
+      "id": "r11",
+      "live": true,
+      "name": "Hydro-Québec Circuit",
+      "location": "Montreal",
+      "country": "Canada",
+      "date": "29 Jul 2017",
       "videoId": "",
       "circuit": {
-        "map": "circuit_ny",
+        "map": "circuit_montreal",
         "length": "",
         "laps": "",
         "fastestLap": {
@@ -3661,9 +3661,26 @@ window.twttr = (function(d, s, id) {
         }
       },
       "meters": 30,
-      "mix": null,
+      "mix": null
+      // "mix": [
+      //   // {
+      //   //   "code": "clean",
+      //   //   "name": "Clean energy",
+      //   //   "value": 0
+      //   // },
+      //   {
+      //     "code": "temp",
+      //     "name": "Temporary solutions",
+      //     "value": 2
+      //   },
+      //   {
+      //     "code": "grid",
+      //     "name": "Urban grid",
+      //     "value": 98
+      //   }
+      // ]
     }
-    var liveRace = null
+    // var liveRace = null
 
     $stateProvider
       // .state('404', {
@@ -3726,11 +3743,11 @@ window.twttr = (function(d, s, id) {
             return ModelSrv.getAllModels()
                            .then(function(res) {
                               console.info(res)
+                              liveRace.totalConsumption = res.totalConsumption
                               liveRace.streamData       = res.timeSeries.circuit
                               liveRace.streamPaddock    = res.timeSeries.paddock
-                              liveRace.streamDen        = res.timeSeries['Den_Api_FE_001']
-                              liveRace.totalConsumption = res.totalConsumption
-                              liveRace.metersData       = res.meters
+                              // liveRace.streamDen        = res.timeSeries['Den_Api_FE_001']
+                              // liveRace.metersData       = res.meters
                               return liveRace
                            }, function(err) {
                               console.error(err)
@@ -4338,6 +4355,8 @@ window.twttr = (function(d, s, id) {
         vm.enelMeterStandData = !_.isEmpty(vm.metersData[enelMeterKey])? vm.metersData[enelMeterKey] : vm.metersData[firstMeterFound]
         vm.denMeterData = !_.isEmpty(vm.metersData[denMeterKey])? vm.metersData[denMeterKey] : null
         vm.streamDen = vm.denMeterData && currentRace.streamDen? angular.copy(currentRace.streamDen.zones) : []
+      } else {
+        vm.denMeterData = null
       }
       var newRaceIdx = _.indexOf(vm.races, currentRace)
       var raceList = $('.races-list ul').find('li')
@@ -4424,7 +4443,7 @@ window.twttr = (function(d, s, id) {
     }
 
     balanceHandler()
-    mixHandler()
+    angular.element(document).ready(mixHandler)
 
     function selectAll() {
       vm.selectedKey = null
@@ -4484,10 +4503,10 @@ window.twttr = (function(d, s, id) {
                           vm.streamData         = res.timeSeries.circuit.zones
                           vm.streamPaddock      = res.timeSeries.paddock.zones
                           vm.totalConsumption   = res.totalConsumption
-                          vm.metersData         = res.metersData
-                          vm.enelMeterStandData = currentRace.metersData[enelMeterKey]
-                          vm.denMeterData       = currentRace.metersData[denMeterKey]
-                          vm.streamDen          = res.timeSeries[denMeterKey].zones
+                          // vm.metersData         = res.metersData
+                          // vm.enelMeterStandData = currentRace.metersData[enelMeterKey]
+                          // vm.denMeterData       = currentRace.metersData[denMeterKey]
+                          // vm.streamDen          = res.timeSeries[denMeterKey].zones
                           $scope.getComparisons()
                           $timeout(selectAll, 1000)
                         }
