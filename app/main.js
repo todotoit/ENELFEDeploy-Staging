@@ -3808,7 +3808,7 @@ window.twttr = (function(d, s, id) {
 
     // races
     vm.races = []
-    vm.currentRace = liveData
+    vm.currentRace = liveData || {}
     vm.totalConsumption = {}
     getLiveData()
     if (vm.currentRace.live) {
