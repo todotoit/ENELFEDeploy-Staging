@@ -3638,7 +3638,7 @@ window.twttr = (function(d, s, id) {
     var liveRace = {
       "id": "r11",
       "live": true,
-      "name": "Hydro-Québec Circuit",
+      "name": "Montreal Street Circuit",
       "location": "Montreal",
       "country": "Canada",
       "date": "29 Jul 2017",
