@@ -2320,13 +2320,13 @@ window.twttr = (function(d, s, id) {
         id: 'r11',
         date: '29 july 2017',
         location: 'Montreal',
-        circuit: 'Hydro-Québec'
+        circuit: 'Montreal Street Circuit'
       },
       {
         id: 'r12',
         date: '30 july 2017',
         location: 'Montreal',
-        circuit: 'Hydro-Québec'
+        circuit: 'Montreal Street Circuit'
       }
     ]
     vm.streamData = []
