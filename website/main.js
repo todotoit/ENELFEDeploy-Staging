@@ -2316,14 +2316,8 @@ window.twttr = (function(d, s, id) {
     vm.races = []
     vm.upcomings = [
       {
-        live: true,
-        id: 'r11',
-        date: '29 july 2017',
-        location: 'Montreal',
-        circuit: 'Montreal Street Circuit'
-      },
-      {
         id: 'r12',
+        live: true,
         date: '30 july 2017',
         location: 'Montreal',
         circuit: 'Montreal Street Circuit'
