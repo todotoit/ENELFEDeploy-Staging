@@ -1315,37 +1315,37 @@
     'use strict'
 
   /* THIS ARRAY SHOULD BE UPDATED AFTER EACH GP */
-  var seasonCurrentRace = 10
+  var seasonCurrentRace = 11
   var seasonTotalRaces = 12
   var team_standings = [
   	{
   		name: "RENAULT E.DAMS",
-  		total_points: 259,
-  		point_detail: ['place_1','place_4','place_1','place_4','place_1','place_4','fastest_lap','place_5','place_1','pole_position','place_9','place_1','pole_position','place_5','place_5','place_1','place_8','place_8','place_7','place_6','place_4']
+  		total_points: 277,
+  		point_detail: ['place_1','place_4','place_1','place_4','place_1','place_4','fastest_lap','place_5','place_1','pole_position','place_9','place_1','pole_position','place_5','place_5','place_1','place_8','place_8','place_7','place_6','place_4','place_7','place_4']
   	},
 
   	{
   		name: "ABT SCHAEFFLER AUDI SPORT",
-  		total_points: 194,
-  		point_detail: ['place_2','place_5','place_6','place_3','pole_position','place_7','place_1','place_7','place_2','place_7','place_2','pole_position','place_6','place_3','place_4','place_4','place_5','fastest_lap']
+  		total_points: 232,
+  		point_detail: ['place_2','place_5','place_6','place_3','pole_position','place_7','place_1','place_7','place_2','place_7','place_2','pole_position','place_6','place_3','place_4','place_4','place_5','fastest_lap','place_5','place_1','pole_position']
   	},
 
   	{
   		name: "MAHINDRA RACING",
-  		total_points: 182,
-  		point_detail: ['fastest_lap','place_3','place_3','pole_position','place_9','fastest_lap','place_3','place_6','place_3','place_4','place_1','place_3','place_2','pole_position','place_10','place_3','place_2']
+  		total_points: 183,
+  		point_detail: ['fastest_lap','place_3','place_3','pole_position','place_9','fastest_lap','place_3','place_6','place_3','place_4','place_1','place_3','place_2','pole_position','place_10','place_3','place_2','place_10']
   	},
 
   	{
   		name: "DS VIRGIN RACING",
-  		total_points: 153,
-  		point_detail: ['place_2','place_10','place_10','place_3','place_6','fastest_lap','place_2','fastest_lap','place_4','place_7','place_5','place_7','place_1','pole_position','place_1','pole_position']
+  		total_points: 161,
+  		point_detail: ['place_2','place_10','place_10','place_3','place_6','fastest_lap','place_2','fastest_lap','place_4','place_7','place_5','place_7','place_1','pole_position','place_1','pole_position','place_6']
   	},
 
     {
   		name: "TECHEETAH",
-  		total_points: 94,
-  		point_detail: ['place_8','place_2','place_10','place_2','place_8','place_8','place_6','place_2','place_3','place_8']
+  		total_points: 127,
+  		point_detail: ['place_8','place_2','place_10','place_2','place_8','place_8','place_6','place_2','place_3','place_8','place_2','place_3']
   	},
 
     {
@@ -1356,14 +1356,14 @@
 
     {
       name: "ANDRETTI FORMULA E",
-      total_points: 30,
-      point_detail: ['place_5','place_6','place_6','place_9','place_9']
+      total_points: 32,
+      point_detail: ['place_5','place_6','place_6','place_9','place_9','place_9']
     },
 
     {
       name: "FARADAY FUTURE DRAGON RACING",
-      total_points: 30,
-      point_detail: ['place_7','fastest_lap','place_8','place_6','place_5','place_10']
+      total_points: 31,
+      point_detail: ['place_7','fastest_lap','place_8','place_6','place_5','place_10','fastest_lap']
     },
 
   	{
@@ -1374,8 +1374,8 @@
 
   	{
   		name: "PANASONIC JAGUAR RACING",
-  		total_points: 21,
-  		point_detail: ['place_8','place_4','place_10','place_9','fastest_lap','place_10']
+  		total_points: 25,
+  		point_detail: ['place_8','place_4','place_10','place_9','fastest_lap','place_10','place_8']
   	}
   ]
 
@@ -3636,12 +3636,12 @@ window.twttr = (function(d, s, id) {
     $urlRouterProvider.otherwise('landing')
 
     var liveRace = {
-      "id": "r11",
+      "id": "r12",
       "live": true,
       "name": "Montreal Street Circuit",
       "location": "Montreal",
       "country": "Canada",
-      "date": "29 Jul 2017",
+      "date": "30 Jul 2017",
       "videoId": "",
       "circuit": {
         "map": "circuit_montreal",
