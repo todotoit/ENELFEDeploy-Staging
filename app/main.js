@@ -3672,7 +3672,15 @@ window.twttr = (function(d, s, id) {
       .state('landing', {
         url: '/landing',
         resolve: {
-          liveData: function() { return liveRace }
+          liveData: function($http, _) {
+            if (liveRace) return liveRace
+            return $http.get('../assets/jsonData/races.json')
+                        .then(function(res) {
+                          return _.last(res.data.races)
+                        }, function(err) {
+                          console.error(err)
+                        })
+          }
         },
         controller: 'LandingCtrl',
         controllerAs: 'landing',
@@ -3814,7 +3822,7 @@ window.twttr = (function(d, s, id) {
       "country": "Canada",
       "date": "30 Jul 2017",
     }
-    vm.totalConsumption = {}
+    vm.totalConsumption = vm.currentRace.totalConsumption || {}
     getLiveData()
     if (vm.currentRace.live) {
       $scope.$on('ModelSrv::ALL-MODELS-UPDATED', getLiveData)
@@ -3932,6 +3940,7 @@ window.twttr = (function(d, s, id) {
       return ModelSrv.getAllModels()
                      .then(function(res) {
                         console.info(res)
+                        if (!res.totalConsumption) return
                         vm.totalConsumption = res.totalConsumption
                         return res
                      }, function(err) {
