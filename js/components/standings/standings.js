@@ -3,37 +3,37 @@
     'use strict'
 
   /* THIS ARRAY SHOULD BE UPDATED AFTER EACH GP */
-  var seasonCurrentRace = 11
+  var seasonCurrentRace = 12
   var seasonTotalRaces = 12
   var team_standings = [
   	{
   		name: "RENAULT E.DAMS",
-  		total_points: 277,
-  		point_detail: ['place_1','place_4','place_1','place_4','place_1','place_4','fastest_lap','place_5','place_1','pole_position','place_9','place_1','pole_position','place_5','place_5','place_1','place_8','place_8','place_7','place_6','place_4','place_7','place_4']
+  		total_points: 268,
+  		point_detail: ['place_1','place_4','place_1','place_4','place_1','place_4','fastest_lap','place_5','place_1','pole_position','place_9','place_1','pole_position','place_5','place_5','place_1','place_8','place_8','place_7','place_6','place_4','place_6','fastest_lap']
   	},
 
   	{
   		name: "ABT SCHAEFFLER AUDI SPORT",
-  		total_points: 232,
-  		point_detail: ['place_2','place_5','place_6','place_3','pole_position','place_7','place_1','place_7','place_2','place_7','place_2','pole_position','place_6','place_3','place_4','place_4','place_5','fastest_lap','place_5','place_1','pole_position']
+  		total_points: 248,
+  		point_detail: ['place_2','place_5','place_6','place_3','pole_position','place_7','place_1','place_7','place_2','place_7','place_2','pole_position','place_6','place_3','place_4','place_4','place_5','fastest_lap','place_4','place_1','pole_position','place_7','place_6']
   	},
 
   	{
   		name: "MAHINDRA RACING",
-  		total_points: 183,
-  		point_detail: ['fastest_lap','place_3','place_3','pole_position','place_9','fastest_lap','place_3','place_6','place_3','place_4','place_1','place_3','place_2','pole_position','place_10','place_3','place_2','place_10']
+  		total_points: 215,
+  		point_detail: ['fastest_lap','place_3','place_3','pole_position','place_9','fastest_lap','place_3','place_6','place_3','place_4','place_1','place_3','place_2','pole_position','place_10','place_3','place_2','place_9','place_2','pole_position','place_5']
   	},
 
   	{
   		name: "DS VIRGIN RACING",
-  		total_points: 161,
-  		point_detail: ['place_2','place_10','place_10','place_3','place_6','fastest_lap','place_2','fastest_lap','place_4','place_7','place_5','place_7','place_1','pole_position','place_1','pole_position','place_6']
+  		total_points: 190,
+  		point_detail: ['place_2','place_10','place_10','place_3','place_6','fastest_lap','place_2','fastest_lap','place_4','place_7','place_5','place_7','place_1','pole_position','place_1','pole_position','place_5','place_4','place_3']
   	},
 
     {
   		name: "TECHEETAH",
-  		total_points: 127,
-  		point_detail: ['place_8','place_2','place_10','place_2','place_8','place_8','place_6','place_2','place_3','place_8','place_2','place_3']
+  		total_points: 155,
+  		point_detail: ['place_8','place_2','place_10','place_2','place_8','place_8','place_6','place_2','place_3','place_8','place_2','place_3','place_1','place_8']
   	},
 
     {
@@ -44,26 +44,26 @@
 
     {
       name: "ANDRETTI FORMULA E",
-      total_points: 32,
-      point_detail: ['place_5','place_6','place_6','place_9','place_9','place_9']
+      total_points: 34,
+      point_detail: ['place_5','place_6','place_6','place_9','place_9','place_8']
     },
 
     {
       name: "FARADAY FUTURE DRAGON RACING",
-      total_points: 31,
-      point_detail: ['place_7','fastest_lap','place_8','place_6','place_5','place_10','fastest_lap']
+      total_points: 33,
+      point_detail: ['place_7','fastest_lap','place_8','place_6','place_5','place_10','fastest_lap','place_9']
     },
 
   	{
   		name: "VENTURI FORMULA E",
-  		total_points: 28,
-  		point_detail: ['place_9','place_10','place_5','place_8','place_10','place_9','fastest_lap','fastest_lap','place_7']
+  		total_points: 30,
+  		point_detail: ['place_9','place_10','place_5','place_8','place_10','place_9','fastest_lap','fastest_lap','place_7','place_10','place_10']
   	},
 
   	{
   		name: "PANASONIC JAGUAR RACING",
-  		total_points: 25,
-  		point_detail: ['place_8','place_4','place_10','place_9','fastest_lap','place_10','place_8']
+  		total_points: 27,
+  		point_detail: ['place_8','place_4','place_10','place_9','fastest_lap','place_10','place_7']
   	}
   ]
 

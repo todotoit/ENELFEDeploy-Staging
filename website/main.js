@@ -2314,15 +2314,7 @@ window.twttr = (function(d, s, id) {
   function landingCtrl ($scope, snippets, $timeout, $http, _) {
     var vm = this
     vm.races = []
-    vm.upcomings = [
-      {
-        id: 'r12',
-        live: true,
-        date: '30 july 2017',
-        location: 'Montreal',
-        circuit: 'Montreal Street Circuit'
-      }
-    ]
+    vm.upcomings = []
     vm.streamData = []
     vm.totalConsumption = {
       total_energy: 0,
