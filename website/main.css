@@ -676,6 +676,7 @@ footer{
   background-size: contain;
   background-position-x: right;
   background-repeat-x: no-repeat;
+  background-repeat: repeat-y;
 }
 #landing #cover hgroup h1 {
   margin-bottom: 4rem;
