@@ -519,7 +519,8 @@ svg g::selection, svg path::selection, svg text::selection,
 }
 
 .logo-lg {
-  width: 28rem;
+  /*width: 28rem;*/
+  width: 17rem;
 }
 
 .number-lg {
@@ -747,6 +748,53 @@ header h4.visible {
 .loaderpanel .loader_logo svg{
   width: 15vw;
 }
+.loaderpanel .loader_logo span{
+  background-color: #ffffff;
+  background-position: center;
+  background-size: cover;
+  display: inline-block;
+  width: 7.5vw;
+  height: 7.5vw;
+  animation: fold-thecube 2.75s infinite linear both;
+  animation-timing-function: cubic-bezier(0.1, 0.2, 0.4, 1.0);
+}
+.loaderpanel .loader_logo span:first-of-type {
+  background-image: url(../assets/images/ENEL_lockup_left.png);
+  animation-name: fold-thecube_inv;
+}
+.loaderpanel .loader_logo span:last-of-type {
+  background-image: url(../assets/images/ENEL_lockup_right.png);
+  animation-delay: .25s;
+}
+@keyframes fold-thecube {
+  0%, 10% {
+    transform: perspective(15rem) rotateX(-180deg) ;
+    opacity: 0;
+  }
+  25%, 75% {
+    transform: perspective(15rem) rotateX(0deg) rotateZ(0);
+    opacity: 1;
+  }
+  85%, 100% {
+    transform: perspective(15rem) rotateX(180deg) rotateZ(0);
+    opacity: 0;
+  }
+}
+@keyframes fold-thecube_inv {
+  0%, 10% {
+    transform: perspective(15rem) rotateX(180deg) rotateZ(0);
+    opacity: 0;
+  }
+  25%, 75% {
+    transform: perspective(15rem) rotateX(0deg) rotateZ(0);
+    opacity: 1;
+  }
+  85%, 100% {
+    transform: perspective(15rem) rotateX(-180deg) rotateZ(0);
+    opacity: 0;
+  }
+}
+
 .loaderpanel > div p {
   font-size: 3vh;
   line-height: 120%;
@@ -2381,6 +2429,12 @@ nav.mobile-landing-pagination {
 #formulae #drivetrains #ill_powertrain_traverse_element line {
   transform-origin: center;
   animation: rotate .3s linear infinite;
+}
+
+#formulae footer.lockup_footer {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  background: #e2e2e2;
 }
 
 @keyframes step {
