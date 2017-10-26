@@ -2314,7 +2314,14 @@ window.twttr = (function(d, s, id) {
   function landingCtrl ($scope, snippets, $timeout, $http, _) {
     var vm = this
     vm.races = []
-    vm.upcomings = []
+    vm.upcomings = [
+      { id: 'R4', date: '03 FEB 2018', location: 'SANTIAGO', country: 'CL', circuit: 'Santiago de Chile' },
+      { id: 'R6', date: '17 MAR 2018', location: 'SAO PAULO', country: 'BR', circuit: 'São Paulo' },
+      { id: 'R7', date: '14 APR 2018', location: 'ROME', country: 'IT', circuit: 'Roma' },
+      { id: 'R11', date: '14 JUL 2018', location: 'NEW YORK CITY', country: 'US', circuit: 'Brooklyn' },
+      { id: 'R12', date: '15 JUL 2018', location: 'NEW YORK CITY', country: 'US', circuit: 'Brooklyn' }
+    ]
+
     vm.streamData = []
     vm.totalConsumption = {
       total_energy: 0,

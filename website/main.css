@@ -519,7 +519,8 @@ svg g::selection, svg path::selection, svg text::selection,
 }
 
 .logo-lg {
-  width: 28rem;
+  /*width: 28rem;*/
+  width: 17rem;
 }
 
 .number-lg {
@@ -1000,7 +1001,8 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
 }
 
 #landing #upcoming {
-  background: #f5f5f5;
+  /*background: #f5f5f5;*/
+  background: #ffffff;
   padding-top: 3.5rem;
 }
 
@@ -1056,6 +1058,11 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
 
 #landing #feed {
   background: #f5f5f5;
+}
+
+#landing footer.lockup_footer {
+  background: #e2e2e2;
+  padding: 2.5rem;
 }
 
 @media screen and (max-width: 64em) {
