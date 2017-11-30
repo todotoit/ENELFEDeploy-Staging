@@ -520,7 +520,7 @@ svg g::selection, svg path::selection, svg text::selection,
 
 .logo-lg {
   /*width: 28rem;*/
-  width: 17rem;
+  width: 12rem;
 }
 
 .number-lg {
@@ -661,6 +661,25 @@ footer{
 
 #landing #logo_container {
   margin-bottom: 6rem;
+}
+
+#landing ul.langs {
+  margin: 0;
+  margin-bottom: 6rem;
+  padding: 0;
+}
+#landing ul.langs li {
+  display: inline-block;
+  margin: 0;
+  cursor: pointer;
+}
+#landing ul.langs li:not(:last-of-type) {
+  margin-right: 2rem;
+}
+#landing ul.langs li:not(:last-of-type):after {
+  content: '|';
+  margin-left: 2rem;
+  pointer-events: none;
 }
 
 #landing #cover {
@@ -954,9 +973,13 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
   overflow: hidden;
 }
 #landing #feed twitterwidget {
-  display: inline-table !important;
+  /*display: inline-table !important;*/
   width: 27.65vw !important;
-  margin-right: 2.5%;
+  margin-right: 2.4%;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -ms-flex: 1 0 auto;
+      flex: 1 0 auto;
 }
 #landing #feed iframe {
   display: inline-table !important;
@@ -1036,6 +1059,9 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
 }
 #landing #upcoming > nav {
   overflow: scroll;
+  scroll-behavior: smooth;
+  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
 }
 #landing #upcoming nav ul {
   min-width: 145vw;
@@ -1366,8 +1392,13 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
     width: 2vw;
   }
   #landing #upcoming nav ul li {
-    min-width: 42.55vw;
+    min-width: 50vw;
   }
+
+  ul.langs li {
+    font-size: 2.5rem;
+  }
+
 }
 @media screen and (max-width: 28em) {
   #landing #eprix-history .overlay-top {

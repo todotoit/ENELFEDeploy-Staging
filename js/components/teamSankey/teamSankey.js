@@ -3,7 +3,7 @@
     'use strict'
 
 
-    var init = function(el){
+    var init = function(el, season){
 
       var svg
       var defs
@@ -11,7 +11,9 @@
       var w
       var h
 
-    	d3.xml('../js/components/teamSankey/teamSankey.svg', function(xml){
+      var xmlPath = '../js/components/teamSankey/teamSankey_s'+season.id+'.svg'
+
+    	d3.xml(xmlPath, function(xml){
 
     		var node = d3.select(el).node()
         $(node).append(xml.documentElement);

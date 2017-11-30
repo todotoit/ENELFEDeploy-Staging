@@ -1,0 +1,55 @@
+{
+  "drivetrains": {
+    "idle": {
+      "idle": true,
+      "translateLabel": "formulae_drive_",
+      "title": "Boosting technology",
+      "desc": "This is the second season in which teams have been allowed to develop their own drivetrain, innovating and testing different technologies to improve the way energy is delivered to the road.",
+      "tabs": [
+        {
+          "translateLabel": "formulae_drive_battery_",
+          "title": "Battery",
+          "desc": ["All teams make use of a traction battery provided by Williams Advanced Engineering, which they are not allowed to modify or maintain in any way."]
+        },
+        {
+          "translateLabel": "formulae_drive_inverter_",
+          "title": "Inverter",
+          "desc": ["By switching the current delivered to the motor at +10,000 p/sec, the inverter sets in motion the rotor inside the stator."]
+        },
+        {
+          "translateLabel": "formulae_drive_motor_",
+          "title": "Motor",
+          "desc": ["Inside the motor, the magnets of the rotor are alternatively attracted and repelled by the magnetic fields of the stator, therefore generating the motor’s spin."]
+        },
+        {
+          "translateLabel": "formulae_drive_trans_",
+          "title": "Transmission",
+          "desc": ["The transmission transfers the power from the motor to the wheels.","Depending on the type, size and spinning speed of the motor, different gearboxes are required to transform the motor spinning into torque."]
+        }
+      ]
+    },
+    "drives": [
+      {
+        "translateLabel": "formulae_drive_long_",
+        "title": "1 Longitudinal motor",
+        "icon": "icon_motor_1long",
+        "desc": "Longitudinal motors are oriented along the long axis of the vehicle, front to back, and typically can be placed lower than transverse motors, improving weight distribution. In this season, 4 teams have opted for this solution.",
+        "tabs": []
+      },
+      {
+        "translateLabel": "formulae_drive_tranv_",
+        "title": "1 Transverse motor",
+        "icon": "icon_motor_1traverse",
+        "desc": "Transverse motors make for a more compact – and usually lighter – layout because they are mounted perpendicularly to the direction of travel. In this season, 6 teams have opted for this solution.",
+        "tabs": []
+      },
+      {
+        "translateLabel": "formulae_drive_2tranv_",
+        "title": "2 Transverse motors",
+        "icon": "icon_motor_2traverse",
+        "desc": "Having two motors provides the most torque – so the car can accelerate to top speed without needing a multi-speed gearbox. The downside is that the two motors are heavy. In this season, only one team has opted for this solution.",
+        "tabs": []
+      }
+    ]
+  }
+}

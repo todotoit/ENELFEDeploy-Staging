@@ -7,6 +7,7 @@
 
   angular
     .module('MainApp', [
+      'pascalprecht.translate'
     ])
 
 }(window.angular));

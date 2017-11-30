@@ -15,6 +15,7 @@
     var comparisons = {
       'households': {
         label: 'Households for 1 day',
+        translateLabel: 'ctrlroom_comparison_house',
         param: 1/(11700/365),
         unit: '',
         tpl: self.path + '/test.html',
@@ -22,6 +23,7 @@
       },
       'TV': {
         label: 'Watching TV 24/7',
+        translateLabel: 'ctrlroom_comparison_tv',
         param: 1/0.07/24/30/12,
         unit: 'years',
         tpl: self.path + '/test.html',
@@ -29,6 +31,7 @@
       },
       'eVehicle': {
         label: 'E-vehicle autonomy',
+        translateLabel: 'ctrlroom_comparison_evehicle',
         param: 6.25,
         unit: 'km',
         tpl: self.path + '/test.html',

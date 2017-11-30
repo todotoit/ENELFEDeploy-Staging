@@ -1,147 +1,51 @@
 ;(function(window, undefined){
-
-    'use strict'
+  'use strict'
 
   /* THIS ARRAY SHOULD BE UPDATED AFTER EACH GP */
-  var seasonCurrentRace = 12
-  var seasonTotalRaces = 12
-  var team_standings = [
-  	{
-  		name: "RENAULT E.DAMS",
-  		total_points: 268,
-  		point_detail: ['place_1','place_4','place_1','place_4','place_1','place_4','fastest_lap','place_5','place_1','pole_position','place_9','place_1','pole_position','place_5','place_5','place_1','place_8','place_8','place_7','place_6','place_4','place_6','fastest_lap']
-  	},
-
-  	{
-  		name: "ABT SCHAEFFLER AUDI SPORT",
-  		total_points: 248,
-  		point_detail: ['place_2','place_5','place_6','place_3','pole_position','place_7','place_1','place_7','place_2','place_7','place_2','pole_position','place_6','place_3','place_4','place_4','place_5','fastest_lap','place_4','place_1','pole_position','place_7','place_6']
-  	},
-
-  	{
-  		name: "MAHINDRA RACING",
-  		total_points: 215,
-  		point_detail: ['fastest_lap','place_3','place_3','pole_position','place_9','fastest_lap','place_3','place_6','place_3','place_4','place_1','place_3','place_2','pole_position','place_10','place_3','place_2','place_9','place_2','pole_position','place_5']
-  	},
-
-  	{
-  		name: "DS VIRGIN RACING",
-  		total_points: 190,
-  		point_detail: ['place_2','place_10','place_10','place_3','place_6','fastest_lap','place_2','fastest_lap','place_4','place_7','place_5','place_7','place_1','pole_position','place_1','pole_position','place_5','place_4','place_3']
-  	},
-
-    {
-  		name: "TECHEETAH",
-  		total_points: 155,
-  		point_detail: ['place_8','place_2','place_10','place_2','place_8','place_8','place_6','place_2','place_3','place_8','place_2','place_3','place_1','place_8']
-  	},
-
-    {
-      name: "NEXTEV NIO",
-      total_points: 59,
-      point_detail: ['pole_position','place_8','place_7','place_5','place_9','pole_position','place_9','place_4','place_7','place_10','place_9','place_6']
-    },
-
-    {
-      name: "ANDRETTI FORMULA E",
-      total_points: 34,
-      point_detail: ['place_5','place_6','place_6','place_9','place_9','place_8']
-    },
-
-    {
-      name: "FARADAY FUTURE DRAGON RACING",
-      total_points: 33,
-      point_detail: ['place_7','fastest_lap','place_8','place_6','place_5','place_10','fastest_lap','place_9']
-    },
-
-  	{
-  		name: "VENTURI FORMULA E",
-  		total_points: 30,
-  		point_detail: ['place_9','place_10','place_5','place_8','place_10','place_9','fastest_lap','fastest_lap','place_7','place_10','place_10']
-  	},
-
-  	{
-  		name: "PANASONIC JAGUAR RACING",
-  		total_points: 27,
-  		point_detail: ['place_8','place_4','place_10','place_9','fastest_lap','place_10','place_7']
-  	}
-  ]
-
-  var init = function(el) {
+  var init = function(el, team_standings, season) {
+    var seasonTotalRaces = season.races
+    var seasonCurrentRace = season.current
 
     var $el = $(el)
-    var team_standings_desc = team_standings.sort(function(a, b) { return Number(b.total_points) - Number(a.total_points) });
+    var team_standings_desc = team_standings.sort(function(a, b) { return Number(b.totalPoints) - Number(a.totalPoints) });
 
     var bar_width = $(el).find('.bar_container').width()
-    var point_width = 100 / team_standings[0].total_points //percent
-    var point_px_width = bar_width/team_standings[0].total_points //pixels
+    var point_width = 100 / team_standings[0].totalPoints //percent
+    var point_px_width = bar_width/team_standings[0].totalPoints //pixels
     var icon_width = 20;
 
+    var pointClasses = { 25:'place_1', 18:'place_2', 15:'place_3', 12:'place_4', 10:'place_5', 8:'place_6', 6:'place_7', 4:'place_8', 2:'place_9', 1:'place_10' }
+
     $el.find('ul#chart_standings_wrap').html('');
-    for(var i = 0; i < team_standings.length; i++ ){
+    team_standings.forEach(function(team) {
     	var $list = '<li class="team_standing">';
-    	$list +=	'<div class="team_name">'+team_standings[i].name+'</div>';
+    	$list +=	'<div class="team_name">'+team.teamName+'</div>';
     	$list +=	'<div class="bar_container">';
     	$list +=	'<div class="bar" style="width:0%">';
-    	$list +=		'<div class="bar_points">'+team_standings[i].total_points+'pt</div>';
-    	var team_points = 0;
-    	for (var k = 0; k < team_standings[i].point_detail.length; k++) {
-    		var pt = 0;
-    		switch(team_standings[i].point_detail[k]){
-    			case 'place_1':
-    				pt = 25;
-    				break;
-    			case 'place_2':
-    				pt = 18;
-    				break;
-    			case 'place_3':
-    				pt = 15;
-    				break;
-    			case 'place_4':
-    				pt = 12;
-    				break;
-    			case 'place_5':
-    				pt = 10;
-    				break;
-    			case 'place_6':
-    				pt = 8;
-    				break;
-    			case 'place_7':
-    				pt = 6;
-    				break;
-    			case 'place_8':
-    				pt = 4;
-    				break;
-    			case 'place_9':
-    				pt = 2;
-    				break;
-    			case 'place_10':
-    				pt = 1;
-    				break;
-    			case 'pole_position':
-    				pt = 3;
-    				break;
-    			case 'fastest_lap':
-    				pt = 1;
-    				break;
-    		}
+    	$list +=		'<div class="bar_points">'+team.totalPoints+'pt</div>';
 
-    		team_points += pt;
-    		var icon_class = team_standings[i].point_detail[k];
-    		if(pt*point_px_width < icon_width){
-    			icon_class += ' no_bg';
-    		}
-    		$list += '<div class="bar_segment '+icon_class+'" style="width:'+pt*point_px_width+'px"></div>';
-    	};
+      team.races.forEach(function(race) {
+        var pt = +race.RacePoints
+        var extraBar = ''
+        if (race.PolePosition) {
+          extraBar = '<div class="bar_segment pole_position" style="width:'+3*point_px_width+'px"></div>'
+          pt -= 3
+        }
+        if (race.FastestLap) {
+          extraBar = '<div class="bar_segment pole_position" style="width:'+1*point_px_width+'px"></div>'
+          pt -= 1
+        }
+
+        if (pt > 0) {
+          var icon_class = pointClasses[pt]
+      		if (pt*point_px_width < icon_width) { icon_class += ' no_bg' }
+          $list += '<div class="bar_segment '+icon_class+'" style="width:'+pt*point_px_width+'px"></div>';
+        }
+    		$list += extraBar
+    	})
     	$list +=	'</div></div></li>';
-
-    	if(team_standings[i].name && team_points != team_standings[i].total_points){
-    		console.error('!!! warning: ', team_standings[i].name, 'total_points was:'+ team_standings[i].total_points +', team_points is:'+ team_points)
-    	}
-
     	$el.find('ul#chart_standings_wrap').append($list);
-
-    }
+    })
 
     this.animate = function() {
       var duration = 250
@@ -154,7 +58,7 @@
         $(e).find('.bar_points').css('opacity', 0)
         setTimeout(function(){
           $(e).css('overflow', 'visible')
-          $(e).css('width', team_standings[i].total_points*point_width + '%')
+          $(e).css('width', team_standings[i].totalPoints*point_width + '%')
           $(e).find('.bar_points').css('opacity', 1)
         }, (i+1)*duration)
       })

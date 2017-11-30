@@ -10,12 +10,13 @@
     .run(RunMainApp)
 
   /* @ngInject */
-  function RunMainApp($rootScope, $state, fastclick, isMobile) {
+  function RunMainApp($rootScope, $state, fastclick, isMobile, $translate) {
     fastclick.attach(document.body)
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
       console.log('$stateChangeStart to ' + toState.name + ' - fired when the transition begins')
       console.debug('toState, toParams:', toState, toParams)
+      if (toParams.lang && toParams.lang != '') $translate.use(toParams.lang)
     })
 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams) {
