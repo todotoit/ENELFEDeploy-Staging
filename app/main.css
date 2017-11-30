@@ -520,7 +520,7 @@ svg g::selection, svg path::selection, svg text::selection,
 
 .logo-lg {
   /*width: 28rem;*/
-  width: 17rem;
+  width: 12rem;
 }
 
 .number-lg {
@@ -638,6 +638,10 @@ footer .footer-copyright, .footer-legal-links{
 }
 
 
+body.loading {
+  overflow: hidden;
+}
+
 header {
   position: absolute;
   left: 0;
@@ -691,6 +695,25 @@ header h4.visible {
   width: 5rem;
   margin-right: 2rem;
 }
+#app-menu ul.langs {
+  margin-top: 5rem;
+}
+#app-menu ul.langs li {
+  margin: 0;
+  margin-left: 2.5rem;
+}
+#app-menu ul.langs li:after {
+  content: '|';
+  -ms-touch-action: none;
+      touch-action: none;
+  margin-left: 2.5rem;
+}
+#app-menu ul.langs li:first-of-type {
+  margin-left: 0;
+}
+#app-menu ul.langs li:last-of-type:after {
+  content: '';
+}
 .ham-wrapper {
 
   width: 5rem;
@@ -704,7 +727,7 @@ header h4.visible {
 }
 
 .loaderpanel {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -984,6 +1007,7 @@ body {
 }
 #landing footer .graph svg line[id*=line] {
   transform-origin: center;
+  transform-box: fill-box;
   transition: transform .3s ease-out;
 }
 
@@ -1589,6 +1613,17 @@ nav.mobile-landing-pagination {
   margin-right: 3rem;
 }
 
+#dashboard .seasons-list ul li {
+  min-width: 10vw;
+  opacity: .5;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#dashboard .seasons-list ul li.active {
+  opacity: 1;
+}
+
 #dashboard .races-list {
   overflow: hidden;
   position: relative;
@@ -1614,9 +1649,16 @@ nav.mobile-landing-pagination {
                               rgba(234, 234, 234, .5) 80%,
                               rgba(234, 234, 234, 0)  100%);
 }
+#dashboard .races-list .races-list-wrap {
+  overflow: scroll;
+  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
+}
+
 #dashboard .races-list ul {
   max-width: none;
-  transform: translateX(-70%);
+  padding-left: 5vw;
+  /*transform: translateX(-70%);*/
 }
 #dashboard .races-list ul li {
   min-width: 20vw;
@@ -2078,7 +2120,7 @@ nav.mobile-landing-pagination {
     transform: translateX(-10vw);
   }
   #dashboard #energy_mix ul {
-    transform: translateX(-25vw);
+    /*transform: translateX(-25vw);*/
   }
   #dashboard #balance ul li {
     min-width: 40vw;
@@ -2115,10 +2157,10 @@ nav.mobile-landing-pagination {
     bottom: .75em;
     box-shadow: .5em 0.5em 2.5rem rgba(0, 0, 0, 0.85), .5em .5em 2.5em rgba(0, 0, 0, 0.5);
   }
-
+/*
   #dashboard .races-list ul {
     transform: translateX(-82.5%);
-  }
+  }*/
   #dashboard .races-list ul li {
     min-width: 40vw;
   }
@@ -2131,7 +2173,7 @@ nav.mobile-landing-pagination {
     transform: translateX(-40vw);
   }
   #dashboard #energy_mix ul {
-    transform: translateX(-50vw);
+    /*transform: translateX(-50vw);*/
   }
   #dashboard #balance ul li {
     min-width: 60vw;
@@ -2238,6 +2280,17 @@ nav.mobile-landing-pagination {
 #formulae select.active {
   color: #fff;
   background-color: #666;
+}
+
+#formulae .seasons-list ul li {
+  min-width: 10vw;
+  opacity: .5;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#formulae .seasons-list ul li.active {
+  opacity: 1;
 }
 
 #formulae #teams #specs_teams,
@@ -2388,6 +2441,7 @@ nav.mobile-landing-pagination {
 }
 #formulae ul li span.toggle svg line {
   transition: transform .3s ease;
+  transform-box: fill-box;
 }
 #formulae ul li span.toggle.close {
   background-color: #0555FA;
@@ -2424,11 +2478,17 @@ nav.mobile-landing-pagination {
 }
 #formulae #drivetrains #ill_powertrain_wheel {
   transform-origin: center;
+  transform-box: fill-box;
   animation: rotate .6s linear infinite;
 }
 #formulae #drivetrains #ill_powertrain_traverse_element line {
   transform-origin: center;
+  transform-box: fill-box;
   animation: rotate .3s linear infinite;
+}
+
+#formulae #drive_sankey p {
+  font-size: 1.4rem;
 }
 
 #formulae footer.lockup_footer {

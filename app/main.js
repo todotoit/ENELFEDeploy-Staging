@@ -1311,149 +1311,53 @@
 }(window.angular, window.angular.element));
 
 ;(function(window, undefined){
-
-    'use strict'
+  'use strict'
 
   /* THIS ARRAY SHOULD BE UPDATED AFTER EACH GP */
-  var seasonCurrentRace = 12
-  var seasonTotalRaces = 12
-  var team_standings = [
-  	{
-  		name: "RENAULT E.DAMS",
-  		total_points: 268,
-  		point_detail: ['place_1','place_4','place_1','place_4','place_1','place_4','fastest_lap','place_5','place_1','pole_position','place_9','place_1','pole_position','place_5','place_5','place_1','place_8','place_8','place_7','place_6','place_4','place_6','fastest_lap']
-  	},
-
-  	{
-  		name: "ABT SCHAEFFLER AUDI SPORT",
-  		total_points: 248,
-  		point_detail: ['place_2','place_5','place_6','place_3','pole_position','place_7','place_1','place_7','place_2','place_7','place_2','pole_position','place_6','place_3','place_4','place_4','place_5','fastest_lap','place_4','place_1','pole_position','place_7','place_6']
-  	},
-
-  	{
-  		name: "MAHINDRA RACING",
-  		total_points: 215,
-  		point_detail: ['fastest_lap','place_3','place_3','pole_position','place_9','fastest_lap','place_3','place_6','place_3','place_4','place_1','place_3','place_2','pole_position','place_10','place_3','place_2','place_9','place_2','pole_position','place_5']
-  	},
-
-  	{
-  		name: "DS VIRGIN RACING",
-  		total_points: 190,
-  		point_detail: ['place_2','place_10','place_10','place_3','place_6','fastest_lap','place_2','fastest_lap','place_4','place_7','place_5','place_7','place_1','pole_position','place_1','pole_position','place_5','place_4','place_3']
-  	},
-
-    {
-  		name: "TECHEETAH",
-  		total_points: 155,
-  		point_detail: ['place_8','place_2','place_10','place_2','place_8','place_8','place_6','place_2','place_3','place_8','place_2','place_3','place_1','place_8']
-  	},
-
-    {
-      name: "NEXTEV NIO",
-      total_points: 59,
-      point_detail: ['pole_position','place_8','place_7','place_5','place_9','pole_position','place_9','place_4','place_7','place_10','place_9','place_6']
-    },
-
-    {
-      name: "ANDRETTI FORMULA E",
-      total_points: 34,
-      point_detail: ['place_5','place_6','place_6','place_9','place_9','place_8']
-    },
-
-    {
-      name: "FARADAY FUTURE DRAGON RACING",
-      total_points: 33,
-      point_detail: ['place_7','fastest_lap','place_8','place_6','place_5','place_10','fastest_lap','place_9']
-    },
-
-  	{
-  		name: "VENTURI FORMULA E",
-  		total_points: 30,
-  		point_detail: ['place_9','place_10','place_5','place_8','place_10','place_9','fastest_lap','fastest_lap','place_7','place_10','place_10']
-  	},
-
-  	{
-  		name: "PANASONIC JAGUAR RACING",
-  		total_points: 27,
-  		point_detail: ['place_8','place_4','place_10','place_9','fastest_lap','place_10','place_7']
-  	}
-  ]
-
-  var init = function(el) {
+  var init = function(el, team_standings, season) {
+    var seasonTotalRaces = season.races
+    var seasonCurrentRace = season.current
 
     var $el = $(el)
-    var team_standings_desc = team_standings.sort(function(a, b) { return Number(b.total_points) - Number(a.total_points) });
+    var team_standings_desc = team_standings.sort(function(a, b) { return Number(b.totalPoints) - Number(a.totalPoints) });
 
     var bar_width = $(el).find('.bar_container').width()
-    var point_width = 100 / team_standings[0].total_points //percent
-    var point_px_width = bar_width/team_standings[0].total_points //pixels
+    var point_width = 100 / team_standings[0].totalPoints //percent
+    var point_px_width = bar_width/team_standings[0].totalPoints //pixels
     var icon_width = 20;
 
+    var pointClasses = { 25:'place_1', 18:'place_2', 15:'place_3', 12:'place_4', 10:'place_5', 8:'place_6', 6:'place_7', 4:'place_8', 2:'place_9', 1:'place_10' }
+
     $el.find('ul#chart_standings_wrap').html('');
-    for(var i = 0; i < team_standings.length; i++ ){
+    team_standings.forEach(function(team) {
     	var $list = '<li class="team_standing">';
-    	$list +=	'<div class="team_name">'+team_standings[i].name+'</div>';
+    	$list +=	'<div class="team_name">'+team.teamName+'</div>';
     	$list +=	'<div class="bar_container">';
     	$list +=	'<div class="bar" style="width:0%">';
-    	$list +=		'<div class="bar_points">'+team_standings[i].total_points+'pt</div>';
-    	var team_points = 0;
-    	for (var k = 0; k < team_standings[i].point_detail.length; k++) {
-    		var pt = 0;
-    		switch(team_standings[i].point_detail[k]){
-    			case 'place_1':
-    				pt = 25;
-    				break;
-    			case 'place_2':
-    				pt = 18;
-    				break;
-    			case 'place_3':
-    				pt = 15;
-    				break;
-    			case 'place_4':
-    				pt = 12;
-    				break;
-    			case 'place_5':
-    				pt = 10;
-    				break;
-    			case 'place_6':
-    				pt = 8;
-    				break;
-    			case 'place_7':
-    				pt = 6;
-    				break;
-    			case 'place_8':
-    				pt = 4;
-    				break;
-    			case 'place_9':
-    				pt = 2;
-    				break;
-    			case 'place_10':
-    				pt = 1;
-    				break;
-    			case 'pole_position':
-    				pt = 3;
-    				break;
-    			case 'fastest_lap':
-    				pt = 1;
-    				break;
-    		}
+    	$list +=		'<div class="bar_points">'+team.totalPoints+'pt</div>';
 
-    		team_points += pt;
-    		var icon_class = team_standings[i].point_detail[k];
-    		if(pt*point_px_width < icon_width){
-    			icon_class += ' no_bg';
-    		}
-    		$list += '<div class="bar_segment '+icon_class+'" style="width:'+pt*point_px_width+'px"></div>';
-    	};
+      team.races.forEach(function(race) {
+        var pt = +race.RacePoints
+        var extraBar = ''
+        if (race.PolePosition) {
+          extraBar = '<div class="bar_segment pole_position" style="width:'+3*point_px_width+'px"></div>'
+          pt -= 3
+        }
+        if (race.FastestLap) {
+          extraBar = '<div class="bar_segment pole_position" style="width:'+1*point_px_width+'px"></div>'
+          pt -= 1
+        }
+
+        if (pt > 0) {
+          var icon_class = pointClasses[pt]
+      		if (pt*point_px_width < icon_width) { icon_class += ' no_bg' }
+          $list += '<div class="bar_segment '+icon_class+'" style="width:'+pt*point_px_width+'px"></div>';
+        }
+    		$list += extraBar
+    	})
     	$list +=	'</div></div></li>';
-
-    	if(team_standings[i].name && team_points != team_standings[i].total_points){
-    		console.error('!!! warning: ', team_standings[i].name, 'total_points was:'+ team_standings[i].total_points +', team_points is:'+ team_points)
-    	}
-
     	$el.find('ul#chart_standings_wrap').append($list);
-
-    }
+    })
 
     this.animate = function() {
       var duration = 250
@@ -1466,7 +1370,7 @@
         $(e).find('.bar_points').css('opacity', 0)
         setTimeout(function(){
           $(e).css('overflow', 'visible')
-          $(e).css('width', team_standings[i].total_points*point_width + '%')
+          $(e).css('width', team_standings[i].totalPoints*point_width + '%')
           $(e).find('.bar_points').css('opacity', 1)
         }, (i+1)*duration)
       })
@@ -1494,7 +1398,7 @@
     'use strict'
 
 
-    var init = function(el){
+    var init = function(el, season){
 
       var svg
       var defs
@@ -1502,7 +1406,9 @@
       var w
       var h
 
-    	d3.xml('../js/components/teamSankey/teamSankey.svg', function(xml){
+      var xmlPath = '../js/components/teamSankey/teamSankey_s'+season.id+'.svg'
+
+    	d3.xml(xmlPath, function(xml){
 
     		var node = d3.select(el).node()
         $(node).append(xml.documentElement);
@@ -2267,21 +2173,25 @@
       'eMobility': {
         key: 'eMobility',
         label: 'E-Mobility',
+        translateLabel: 'energy_tour_mobility_label',
         snippets: ['fastRecharge', 'efficiency', 'co2', 'regenerativeBraking', 'v2g']
       },
       'smartEnergy': {
         key: 'smartEnergy',
         label: 'Smart energy',
+        translateLabel: 'energy_tour_smart_label',
         snippets: ['raceMicrogrid', 'smartMetering', 'v2g', 'firstSmartCity', 'forgetBlackouts'],
       },
       'cleanEnergy': {
         key: 'cleanEnergy',
         label: 'Clean energy',
+        translateLabel: 'energy_tour_clean_label',
         snippets: ['raceMicrogrid', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'zeroco2ny'],
       },
       'enelAchievements': {
         key: 'enelAchievements',
         label: 'Enel achievements',
+        translateLabel: 'energy_tour_enel_label',
         snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'formulaE', 'enelWorld'],
       }
     }
@@ -2316,7 +2226,7 @@
       'pin_2_info': {
         stage: 2,
         coords: [623, 313, 327],
-        snippets: ['circuitMontreal2017']
+        snippets: ['circuitHongKong2017']
       },
       'pin_2_meter': {
         stage: 2,
@@ -2407,32 +2317,34 @@
           {
             desc: '',
             label: 'Provides energy for',
+            translateLabel: 'snip_car_battery_tab1',
             tpl: self.path + '/subcontents/batteryPower-minutes.html'
           },
           {
             desc: '',
             label: 'Enough to charge',
+            translateLabel: 'snip_car_battery_tab2',
             tpl: self.path + '/subcontents/batteryPower-phones.html'
           }
         ]
       },
-      'batteryBrains': {
-        desc: '',
-        label: '',
-        tpl: self.path + '/batteryBrains.html',
-        subContent: [
-          {
-            desc: '',
-            label: 'At the NYC ePrix',
-            tpl: self.path + '/subcontents/batteryBrains-ePrix.html'
-          },
-          {
-            desc: '',
-            label: 'In NYC and the world',
-            tpl: self.path + '/subcontents/batteryBrains-world.html'
-          }
-        ]
-      },
+      // 'batteryBrains': {
+      //   desc: '',
+      //   label: '',
+      //   tpl: self.path + '/batteryBrains.html',
+      //   subContent: [
+      //     {
+      //       desc: '',
+      //       label: 'At the NYC ePrix',
+      //       tpl: self.path + '/subcontents/batteryBrains-ePrix.html'
+      //     },
+      //     {
+      //       desc: '',
+      //       label: 'In NYC and the world',
+      //       tpl: self.path + '/subcontents/batteryBrains-world.html'
+      //     }
+      //   ]
+      // },
       'fanBoost': {
         desc: '',
         label: '',
@@ -2446,11 +2358,13 @@
           {
             desc: '',
             label: 'Today\'s achievement',
+            translateLabel: 'snip_car_sound_tab1',
             tpl: self.path + '/subcontents/sound-noise.html'
           },
           {
             desc: '',
             label: 'Tomorrow\'s cities',
+            translateLabel: 'snip_car_sound_tab2',
             tpl: self.path + '/subcontents/sound-future.html'
           }
         ]
@@ -2468,11 +2382,13 @@
           {
             desc: '',
             label: 'Traditional engines',
+            translateLabel: 'snip_car_co2_tab1',
             tpl: self.path + '/subcontents/co2-kg.html'
           },
           {
             desc: '',
             label: 'Innovative thinking',
+            translateLabel: 'snip_car_co2_tab2',
             tpl: self.path + '/subcontents/co2-future.html'
           }
         ]
@@ -2495,11 +2411,13 @@
           {
             desc: '',
             label: 'During the race',
+            translateLabel: 'snip_car_brake_tab1',
             tpl: self.path + '/subcontents/regenerativeBraking-formulaE.html'
           },
           {
             desc: '',
             label: 'On our streets',
+            translateLabel: 'snip_car_brake_tab2',
             tpl: self.path + '/subcontents/regenerativeBraking-eCar.html'
           }
         ]
@@ -2519,6 +2437,11 @@
         label: '',
         tpl: self.path + '/circuit-montreal-2017.html'
       },
+      'circuitHongKong2017': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/circuit-hongkong-2017.html'
+      },
       'raceMicrogrid': {
         desc: '',
         label: '',
@@ -2527,11 +2450,13 @@
           {
             desc: '',
             label: 'Small scale',
+            translateLabel: 'snip_circuit_grid_tab1',
             tpl: self.path + '/subcontents/raceMicrogrid-racetrack.html'
           },
           {
             desc: '',
             label: 'Large scale',
+            translateLabel: 'snip_circuit_grid_tab2',
             tpl: self.path + '/subcontents/raceMicrogrid-city.html'
           }
         ]
@@ -2544,11 +2469,13 @@
           {
             desc: '',
             label: 'Smart kit',
+            translateLabel: 'snip_circuit_smart_tab1',
             tpl: self.path + '/subcontents/smartMetering-kit.html'
           },
           {
             desc: '',
             label: 'Smart meter',
+            translateLabel: 'snip_circuit_smart_tab2',
             tpl: self.path + '/subcontents/smartMetering-meter.html'
           }
         ]
@@ -2600,11 +2527,11 @@
         label: '',
         tpl: self.path + '/cleanEnergyGlobal.html'
       },
-      'cleanEnergySpain': {
-        desc: '',
-        label: '',
-        tpl: self.path + '/cleanEnergySpain.html'
-      },
+      // 'cleanEnergySpain': {
+      //   desc: '',
+      //   label: '',
+      //   tpl: self.path + '/cleanEnergySpain.html'
+      // },
       'cleanEnergyChile': {
         desc: '',
         label: '',
@@ -2792,6 +2719,7 @@
     var comparisons = {
       'households': {
         label: 'Households for 1 day',
+        translateLabel: 'ctrlroom_comparison_house',
         param: 1/(11700/365),
         unit: '',
         tpl: self.path + '/test.html',
@@ -2799,6 +2727,7 @@
       },
       'TV': {
         label: 'Watching TV 24/7',
+        translateLabel: 'ctrlroom_comparison_tv',
         param: 1/0.07/24/30/12,
         unit: 'years',
         tpl: self.path + '/test.html',
@@ -2806,6 +2735,7 @@
       },
       'eVehicle': {
         label: 'E-vehicle autonomy',
+        translateLabel: 'ctrlroom_comparison_evehicle',
         param: 6.25,
         unit: 'km',
         tpl: self.path + '/test.html',
@@ -2913,6 +2843,7 @@ window.twttr = (function(d, s, id) {
 
   angular
     .module('MainApp', [
+      'pascalprecht.translate'
     ])
 
 }(window.angular));
@@ -2929,12 +2860,13 @@ window.twttr = (function(d, s, id) {
     .run(RunMainApp)
 
   /* @ngInject */
-  function RunMainApp($rootScope, $state, fastclick, isMobile) {
+  function RunMainApp($rootScope, $state, fastclick, isMobile, $translate) {
     fastclick.attach(document.body)
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
       console.log('$stateChangeStart to ' + toState.name + ' - fired when the transition begins')
       console.debug('toState, toParams:', toState, toParams)
+      if (toParams.lang && toParams.lang != '') $translate.use(toParams.lang)
     })
 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams) {
@@ -3522,6 +3454,31 @@ window.twttr = (function(d, s, id) {
   'use strict'
 
   /**
+    MainApp
+    translateProvider configurations for MainApp
+  **/
+
+  angular
+    .module('MainApp')
+    .config(AppConfig)
+
+  /* @ngInject */
+  function AppConfig($translateProvider) {
+    $translateProvider.useStaticFilesLoader({
+      prefix: './locales/',
+      suffix: '.json'
+    })
+    // var availableLanguages = ['en', 'it', 'fr', 'de', 'es']
+    var availableLanguages = ['en']
+    $translateProvider.registerAvailableLanguageKeys(availableLanguages)
+    $translateProvider.preferredLanguage(availableLanguages[0])
+  }
+}(window.angular));
+
+(function (angular) {
+  'use strict'
+
+  /**
     Module configuration for WebApp
   **/
 
@@ -3541,11 +3498,18 @@ window.twttr = (function(d, s, id) {
     ])
     .controller('MainCtrl', mainCtrl)
 
-    function mainCtrl($rootScope, $scope, $state) {
+    function mainCtrl($rootScope, $scope, $state, $stateParams, $translate) {
       $scope.menuOpen = false
       $scope.loading = $rootScope.loading
+      $scope.languages = $translate.getAvailableLanguageKeys() || []
+      if ($scope.languages.length <= 1) $scope.languages = []
 
       $('#app-menu').css({visibility: 'visible'})
+
+      $scope.current_page_translate_label = 'menu_ctrlroom_title'
+      $scope.setActiveHeader = function(label) {
+        $scope.current_page_translate_label = label
+      }
 
       $scope.toggleMenu = function() {
         $scope.menuOpen = !$scope.menuOpen
@@ -3553,9 +3517,16 @@ window.twttr = (function(d, s, id) {
         $('header h4').toggleClass('visible')
       }
 
-      $scope.goTo = function(stateName) {
-        $state.go(stateName, {reload: true})
+      $scope.goTo = function(stateName, params) {
+        params = params || {}
+        if (!params.lang) params.lang = $translate.use()
+        $state.go(stateName, params, {reload: true, notify: true})
         $scope.toggleMenu()
+      }
+
+      $scope.changeLanguage = function(key){
+        var params = angular.extend($stateParams, {lang: key})
+        $translate.use(key).then(function() { $scope.goTo($state.current.name, params) })
       }
     }
 
@@ -3614,7 +3585,7 @@ window.twttr = (function(d, s, id) {
     .config(RouteConfig)
 
   /* @ngInject */
-  function RouteConfig($stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider, isMobile, $locationProvider) {
+  function RouteConfig($stateProvider, $urlRouterProvider, $urlMatcherFactoryProvider, isMobile, $locationProvider, $translateProvider) {
 
     // Allow case insensitive urls
     $urlMatcherFactoryProvider.caseInsensitive(true)
@@ -3630,10 +3601,29 @@ window.twttr = (function(d, s, id) {
       }
     })
 
-    $urlRouterProvider.when('', 'landing')
-    $urlRouterProvider.when('/', 'landing')
-    $urlRouterProvider.when('/landing-mobile', 'landing-mobile/')
-    $urlRouterProvider.otherwise('landing')
+    var defaultLang = $translateProvider.preferredLanguage()
+    $urlRouterProvider.when('', '/'+defaultLang+'/landing')
+    $urlRouterProvider.when('/', '/'+defaultLang+'/landing')
+    $urlRouterProvider.when('/landing', '/'+defaultLang+'/landing/')
+    $urlRouterProvider.when('/landing-mobile', '/'+defaultLang+'/landing-mobile/')
+    $urlRouterProvider.when('/dashboard', '/'+defaultLang+'/dashboard')
+    $urlRouterProvider.when('/formulae', '/'+defaultLang+'/formulae')
+    $urlRouterProvider.otherwise('/'+defaultLang+'/landing')
+
+    var seasons = [{
+              id: 3,
+              year: '2016/2017',
+              name: 'Season 3',
+              races: 12,
+              current: 12
+            },
+            {
+              id: 4,
+              year: '2017/2018',
+              name: 'Season 4',
+              races: 14,
+              current: 0
+            }]
 
     // var liveRace = {
     //   "id": "r12",
@@ -3670,7 +3660,7 @@ window.twttr = (function(d, s, id) {
       //   templateUrl: 'templates/404.html'
       // })
       .state('landing', {
-        url: '/landing',
+        url: '/:lang/landing',
         resolve: {
           liveData: function($http, _) {
             if (liveRace) return liveRace
@@ -3685,8 +3675,8 @@ window.twttr = (function(d, s, id) {
         controller: 'LandingCtrl',
         controllerAs: 'landing',
         templateUrl: 'templates/landing.html',
-        onEnter: function(isMobile, $state) {
-          if (isMobile) return $state.go('landingMobile', {}, {reload: true})
+        onEnter: function(isMobile, $state, $stateParams) {
+          if (isMobile) return $state.go('landingMobile', {lang: $stateParams.lang}, {reload: true})
         },
         onExit: function($rootScope, $window, $timeout) {
           $rootScope.forceReload = true
@@ -3694,8 +3684,9 @@ window.twttr = (function(d, s, id) {
         }
       })
       .state('landingMobile', {
-        url: '/landing-mobile/:tourKey/:snippetKey',
+        url: '/:lang/landing-mobile/:tourKey/:snippetKey',
         params: {
+          lang: {squash: true},
           tourKey: {squash: true, value: null},
           snippetKey: {squash: true, value: null}
         },
@@ -3726,8 +3717,11 @@ window.twttr = (function(d, s, id) {
         }
       })
       .state('dashboard', {
-        url: '/dashboard',
+        url: '/:lang/dashboard',
         resolve: {
+          seasons: function() {
+            return seasons
+          },
           liveData: function(ModelSrv) {
             if (!liveRace) return null
             return ModelSrv.getAllModels()
@@ -3743,8 +3737,9 @@ window.twttr = (function(d, s, id) {
                               console.error(err)
                            })
           },
-          races: function($http) {
-            return $http.get('../assets/jsonData/races.json')
+          races: function($http, seasons) {
+            var currentSeason = _.last(seasons)
+            return $http.get('../assets/jsonData/season'+currentSeason.id+'/races.json')
                         .then(function(res) {
                           return res.data.races
                         }, function(err) {
@@ -3757,34 +3752,65 @@ window.twttr = (function(d, s, id) {
         templateUrl: 'templates/dashboard.html'
       })
       .state('formulae', {
-        url: '/formulae',
+        url: '/:lang/formulae',
+        params: {
+          lang: {squash: true},
+          season: {squash: true, value: null}
+        },
         resolve: {
-          teams: function($http) {
-            return $http.get('../assets/jsonData/teams.json')
+          seasons: function() {
+            return seasons
+          },
+          teams: function($http, seasons, $stateParams) {
+            var currentSeason = $stateParams.season? $stateParams.season : _.last(seasons)
+            return $http.get('../assets/jsonData/season'+currentSeason.id+'/teams.json')
                         .then(function(res) {
                           return res.data.teams
                         }, function(err) {
                           console.error(err)
                         })
           },
-          drivetrains: function($http) {
-            return $http.get('../assets/jsonData/drivetrains.json')
+          drivetrains: function($http, seasons, $stateParams) {
+            var currentSeason = $stateParams.season? $stateParams.season : _.last(seasons)
+            return $http.get('../assets/jsonData/season'+currentSeason.id+'/drivetrains.json')
                         .then(function(res) {
                           return res.data.drivetrains
                         }, function(err) {
                           console.error(err)
+                        })
+          },
+          standings: function($http, seasons, $stateParams, _, teams) {
+            var currentSeason = $stateParams.season? $stateParams.season : _.last(seasons)
+            return $http.get('../assets/jsonData/season'+currentSeason.id+'/teams_standings.json')
+                        .then(function(res) {
+                          if (_.isEmpty(res.data)) {
+                            return _.map(teams,function(t) {
+                              return {teamName:t.name, totalPoints:0, races:[] }
+                            })
+                          }
+                          var standings = res.data.SerieData.ChampionshipStanding.ChampionshipData.Standings
+                          return _(standings)
+                                  .groupBy('TeamName')
+                                  .map(function(o, k) {
+                                    var obj = { teamName: k, totalPoints: 0, races: [] }
+                                    _.each(o, function(oo) {
+                                      obj.totalPoints += _.sumBy(oo.Races.Race, function(o) {return +o.RacePoints})
+                                      obj.races = _.sortBy(obj.races.concat(oo.Races.Race),'RaceId')
+                                    })
+                                    return obj
+                                  }).values()
+                                  .orderBy('totalPoints','desc').value()
+                        }, function(err) {
+                          console.error(err)
+                          return _.map(teams,function(t) {
+                            return {teamName:t.name, totalPoints:0, pos:0, races:[] }
+                          })
                         })
           }
         },
         controller: 'FormulaeCtrl',
         controllerAs: 'formulae',
         templateUrl: 'templates/formulae.html'
-      })
-      .state('3dtest', {
-        url: '/3dtest',
-        controller: '3dCtrl',
-        controllerAs: 'ctrl',
-        templateUrl: 'templates/3dtest.html'
       })
   }
 }(window.angular));
@@ -4288,12 +4314,14 @@ window.twttr = (function(d, s, id) {
     .controller('DashboardCtrl', dashboardCtrl)
 
   /* @ngInject */
-  function dashboardCtrl ($rootScope, $scope, $window, $http, $timeout, races, liveData, _, ComparisonSrv, ModelSrv) {
+  function dashboardCtrl ($rootScope, $scope, $window, $http, $timeout, seasons, races, liveData, _, ComparisonSrv, ModelSrv) {
     var vm = this
 
-    $('header h4').text('Discover the energy behind Formula E')
+    // $('header h4').text('Discover the energy behind Formula E')
+    $scope.setActiveHeader('menu_ctrlroom_header')
     angular.element(document).ready($rootScope.hideLoader)
 
+    vm.seasons = []
     // races
     vm.races = []
     vm.currentRace = {}
@@ -4317,11 +4345,11 @@ window.twttr = (function(d, s, id) {
     $scope.select = select
     $scope.currentAreaShown = 'all'
 
+    vm.seasons = seasons
     vm.races = races
+    vm.currentSeason = _.last(vm.seasons)
     if (liveData) vm.races.push(liveData)
     var currentRace = _.last(vm.races)
-
-    console.log(currentRace)
 
     // -------
 
@@ -4336,6 +4364,40 @@ window.twttr = (function(d, s, id) {
                           })
     }
 
+    $scope.selectSeason = function(id) {
+      var seasonIdx = _.findIndex(vm.seasons, {id: id})
+      if (seasonIdx < 0) return
+      vm.currentSeason = vm.seasons[seasonIdx]
+      return $http.get('../assets/jsonData/season'+id+'/races.json')
+                  .then(function(res) {
+                    vm.races = res.data.races
+                    if (liveData && vm.currentSeason == _.last(vm.seasons)) vm.races.push(liveData)
+                    var currentRace = _.last(vm.races)
+                    if (currentRace) $scope.selectRace(currentRace.id)
+                  }, function(err) {
+                    vm.races = []
+                    emptyAll()
+                    vm.currentRace = {}
+                    vm.streamData = []
+                    vm.streamPaddock = []
+                    vm.streamDen = []
+                    $scope.allData = []
+                    $scope.allDendata = []
+                    $scope.paddockData = {}
+                    $scope.snippets = []
+                    vm.metersData = null
+                    vm.denMeterData = null
+                    vm.enelMeterStandData = null
+                    vm.totalConsumption = {
+                      total_energy: 0,
+                      zones: []
+                    }
+                    vm.mixes = []
+                    vm.selectedKey = null
+                    console.error(err)
+                  })
+    }
+
     var currentRaceIdx = null
     $scope.selectRace = function(id) {
       if (!_.isEmpty(vm.streamPaddock)) emptyAll()
@@ -4346,6 +4408,11 @@ window.twttr = (function(d, s, id) {
       vm.streamPaddock = currentRace.streamPaddock? angular.copy(currentRace.streamPaddock.zones) : []
       vm.totalConsumption = angular.copy(currentRace.totalConsumption)
       vm.mixes = currentRace.mix? currentRace.mix : []
+      if (!_.isEmpty(vm.mixes)) {
+        vm.mixes[0].translateLabel = 'ctrlroom_mix_clean'
+        vm.mixes[1].translateLabel = 'ctrlroom_mix_temp'
+        vm.mixes[2].translateLabel = 'ctrlroom_mix_grid'
+      }
       vm.metersData = currentRace.metersData? currentRace.metersData : null
       if (currentRace.metersData) {
         var firstMeterFound = _.keys(vm.metersData)[0]
@@ -4356,34 +4423,46 @@ window.twttr = (function(d, s, id) {
         vm.denMeterData = null
       }
       var newRaceIdx = _.indexOf(vm.races, currentRace)
-      var raceList = $('.races-list ul').find('li')
-      var raceListItem = raceList[newRaceIdx]
-      if (raceListItem) TweenMax.to(raceList, .5, {x: '+=' + (currentRaceIdx-newRaceIdx)*100 + '%'})
+      // var raceList = $('.races-list ul').find('li')
+      var raceList = $('.races-list > .races-list-wrap')
+      // var raceListItem = raceList[newRaceIdx]
+      // if (raceListItem) TweenMax.to(raceList, .5, {x: '+=' + (currentRaceIdx-newRaceIdx)*100 + '%'})
+      var offRX = newRaceIdx >= vm.races.length-3? '0' : '225'
+      if (bowser.mobile) offRX = newRaceIdx == vm.races.length-1? '0' : '50'
+      TweenMax.to(raceList, .5, {scrollTo:{x:"#"+currentRace.id, offsetX: offRX}})
       if (!$scope.$$phase) $scope.$digest()
       currentRaceIdx = newRaceIdx
       $scope.getComparisons()
       $timeout(selectAll, 1000)
+      $timeout(function() {
+        cleanMixHandler()
+        mixHandler()
+      }, 1000)
+      $timeout(function() {
+        cleanBalanceHandler()
+        balanceHandler()
+      }, 1000)
     }
-    $scope.selectRace(currentRace.id)
-    raceHandler()
+    if (currentRace) $scope.selectRace(currentRace.id)
+    // raceHandler()
 
 
     function checkMQ() {
       return $window.matchMedia("(max-width: 52em)").matches
     }
 
-    var hammerRace = null
-    function raceHandler() {
-      if (!bowser.mobile && !bowser.tablet) return
-      hammerRace = new Hammer($('.races-list').get(0), {domEvents: true});
-      hammerRace.on('swipeleft', function(e){ $scope.selectRace('r'+(currentRaceIdx+2)) });
-      hammerRace.on('swiperight', function(e){ $scope.selectRace('r'+(currentRaceIdx)) });
-    }
-    function cleanRaceHandler() {
-      if (!hammerRace) return
-      hammerRace.off('swipeleft')
-      hammerRace.off('swiperight')
-    }
+    // var hammerRace = null
+    // function raceHandler() {
+    //   if (!bowser.mobile && !bowser.tablet) return
+    //   hammerRace = new Hammer($('.races-list > .races-list-wrap').get(0), {domEvents: true});
+    //   hammerRace.on('swipeleft', function(e){ $scope.selectRace('r'+(currentRaceIdx+2)) });
+    //   hammerRace.on('swiperight', function(e){ $scope.selectRace('r'+(currentRaceIdx)) });
+    // }
+    // function cleanRaceHandler() {
+    //   if (!hammerRace) return
+    //   hammerRace.off('swipeleft')
+    //   hammerRace.off('swiperight')
+    // }
 
     var currentBalanceIdx = 1
     $scope.selectBalance = function(id) {
@@ -4406,13 +4485,15 @@ window.twttr = (function(d, s, id) {
       if (!hammerBalance) return
       hammerBalance.off('swipeleft')
       hammerBalance.off('swiperight')
+      hammerBalance = null
+      currentBalanceIdx = 1
     }
 
     var currentMixIdx = 1
     $scope.selectMix = function(id) {
       if (!bowser.mobile && !bowser.tablet) return
       if (!checkMQ()) return
-      var mixList = $('#energy_mix ul').find('li')
+      var mixList = $('#energy_mix > ul').find('li')
       if (id >= mixList.length || id < 0) return
       TweenMax.to(mixList, .5, {x: '+=' + (currentMixIdx-id)*100 + '%'})
       if (!$scope.$$phase) $scope.$digest()
@@ -4422,7 +4503,7 @@ window.twttr = (function(d, s, id) {
     function mixHandler() {
       if (!bowser.mobile && !bowser.tablet) return
       if (_.isEmpty(vm.mixes)) return
-      hammerMix = new Hammer($('#energy_mix ul').get(0), {domEvents: true});
+      hammerMix = new Hammer($('#energy_mix > ul').get(0), {domEvents: true});
       hammerMix.on('swipeleft', function(e){ $scope.selectMix(currentMixIdx+1) });
       hammerMix.on('swiperight', function(e){ $scope.selectMix(currentMixIdx-1) });
     }
@@ -4430,6 +4511,8 @@ window.twttr = (function(d, s, id) {
       if (!hammerMix) return
       hammerMix.off('swipeleft')
       hammerMix.off('swiperight')
+      hammerMix = null
+      currentMixIdx = 1
     }
 
     $scope.loadPercentage = function(zone, label, idx) {
@@ -4460,7 +4543,6 @@ window.twttr = (function(d, s, id) {
       vm.streamDen.forEach(function(d){
         return selectedDenData.push(__emptyData(d))
       })
-      console.log(selectedDenData)
       $scope.alldata = selectedData
       $scope.allDendata = selectedDenData
     }
@@ -4516,7 +4598,7 @@ window.twttr = (function(d, s, id) {
 
     // deregister event handlers
     $scope.$on('$destroy', function () {
-      cleanRaceHandler()
+      // cleanRaceHandler()
       cleanBalanceHandler()
       cleanMixHandler()
     })
@@ -4531,21 +4613,38 @@ window.twttr = (function(d, s, id) {
     .controller('FormulaeCtrl', formulaeCtrl)
 
   /* @ngInject */
-  function formulaeCtrl ($rootScope, $scope, $timeout, teams, drivetrains) {
+  function formulaeCtrl ($rootScope, $scope, $timeout, $state, $stateParams, seasons, teams, drivetrains, standings) {
     var vm = this
 
-    $('header h4').text('More about the Formula E season')
+    // $('header h4').text('More about the Formula E season')
+    $scope.setActiveHeader('menu_formulae_title')
     angular.element(document).ready($rootScope.hideLoader)
 
-    var standings = new standingsChart('#chart_standings')
-    var drivetrainsChart = new teamSankey('#chart_drivetrains')
+    vm.seasons = seasons
+    vm.currentSeason = $stateParams.season || _.last(vm.seasons)
+    $scope.selectSeason = function(id) {
+      var seasonIdx = _.findIndex(vm.seasons, {id: id})
+      if (seasonIdx < 0) return
+      vm.currentSeason = vm.seasons[seasonIdx]
+      var params = angular.extend($stateParams, {season: vm.currentSeason})
+      $state.go($state.current.name, params, {reload: true, notify: true})
+    }
 
+    if (_.isEmpty(teams)) return
     $scope.teams = teams
     $scope.currentTeam = null
     $scope.teamSelected = false
 
+    if (_.isEmpty(drivetrains)) return
     $scope.drivetrains = drivetrains
     $scope.currentDrive = drivetrains.idle
+
+    if (_.isEmpty(standings)) return
+    $scope.standings = standings
+    console.log(standings)
+
+    var standings = new standingsChart('#chart_standings', $scope.standings, vm.currentSeason)
+    var drivetrainsChart = new teamSankey('#chart_drivetrains', vm.currentSeason)
 
     $scope.selectTeam = function (team, $event) {
       var toggle = !team || team === $scope.currentTeam
@@ -4563,10 +4662,18 @@ window.twttr = (function(d, s, id) {
       else $('#teams_list select').addClass('active')
       $timeout(function() {
         $scope.currentTeam = team
-        TweenMax.to($('#car_profile svg g#traccia > *'), 1.5, {drawSVG:"0%", delay:0, ease:Power2.easeOut, onStart: function() {
-          $('#specs_teams #car_profile img').addClass('active')
+        // TODO: THIS SHOULD CHANGE SHORTLY!!!!
+        if (vm.currentSeason.id !== 4) {
+          TweenMax.to($('#car_profile svg g#traccia > *'), 1.5, {drawSVG:"0%", delay:0, ease:Power2.easeOut, onStart: function() {
+            $('#specs_teams #car_profile img').addClass('active')
+            $('#car_specs #car_cursor').addClass('active')
+          }});
+        } else {
+          TweenMax.set($('#car_profile svg g#traccia > *'), {drawSVG:"0%"})
+          TweenMax.to($('#car_profile svg g#traccia > *'), 1.5, {drawSVG:"100%", delay:0, ease:Power2.easeOut})
           $('#car_specs #car_cursor').addClass('active')
-        }});
+        }
+        // // // // // // // // // // // // //
         $scope.teamSelected = true
         if (!$scope.$$phase) $scope.$digest()
       }, 300)
