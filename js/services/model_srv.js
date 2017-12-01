@@ -18,8 +18,8 @@
     // var enelStandMeter = 'Smart_Kit_BE_001'
     // var denStorageMeter = 'Den_Api_FE_001'
 
-    var beUrl = 'http://backend.enelformulae.todo.to.it'
-    // var beUrl = 'http://192.168.3.10:5001'
+    // var beUrl = 'http://backend.enelformulae.todo.to.it'
+    var beUrl = 'http://192.168.3.10:5001'
 
     self.getTotal               = _getTotal
     self.getTimeSeries          = _getTimeSeries

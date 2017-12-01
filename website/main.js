@@ -2375,7 +2375,7 @@ window.twttr = (function(d, s, id) {
     vm.races = []
     vm.upcomings = [
       { id: 'R4', date: '03 FEB 2018', location: 'SANTIAGO', country: 'CL', circuit: 'Santiago de Chile' },
-      { id: 'R6', date: '17 MAR 2018', location: 'SAO PAULO', country: 'BR', circuit: 'São Paulo' },
+      // { id: 'R6', date: '17 MAR 2018', location: 'SAO PAULO', country: 'BR', circuit: 'São Paulo' },
       { id: 'R7', date: '14 APR 2018', location: 'ROME', country: 'IT', circuit: 'Roma' },
       { id: 'R11', date: '14 JUL 2018', location: 'NEW YORK CITY', country: 'US', circuit: 'Brooklyn' },
       { id: 'R12', date: '15 JUL 2018', location: 'NEW YORK CITY', country: 'US', circuit: 'Brooklyn' }
@@ -2423,8 +2423,14 @@ window.twttr = (function(d, s, id) {
       if (!$scope.$$phase) $scope.$digest()
     }
 
+    // season
+    vm.currentSeason = {
+      id: 's04',
+      live: true
+    }
     // races
-    vm.currentRace = vm.upcomings[0]
+    // vm.currentRace = vm.upcomings[0]
+    vm.currentRace = { id: 'R1', date: '02 DEC 2017', location: 'HONG KONG', country: 'HK', circuit: 'Central Harbourfront', live: true }
     // delay streamgraph load data
     // $timeout(function(){ retrieveRacesFeed() }, 1000)
 
