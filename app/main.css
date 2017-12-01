@@ -1507,7 +1507,7 @@ nav.mobile-landing-pagination {
   position: absolute;
   content: 'LIVE';
   bottom: .5em;
-  left: 10em;
+  left: 10.5em;
   color: #FF0F64;
   font-size: 1.4rem;
   line-height: 1.3em;
@@ -1521,7 +1521,7 @@ nav.mobile-landing-pagination {
   height: .8vw;
   border-radius: 50%;
   bottom: 1em;
-  left: 4.7em;
+  left: 5em;
   background: #FF0F64;
   animation: pulse 2s infinite;
 }
@@ -1548,6 +1548,11 @@ nav.mobile-landing-pagination {
   top: .2em;
   right: -1rem;
   animation: pulse 2s infinite;
+}
+
+#dashboard .zone_balance .live-value-r:before {
+  top: 0;
+  right: -0.4em;
 }
 .live-value-w:before {
   background: #ffffff;

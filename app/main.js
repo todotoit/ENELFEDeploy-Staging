@@ -2989,8 +2989,8 @@ window.twttr = (function(d, s, id) {
     // var enelStandMeter = 'Smart_Kit_BE_001'
     // var denStorageMeter = 'Den_Api_FE_001'
 
-    var beUrl = 'http://backend.enelformulae.todo.to.it'
-    // var beUrl = 'http://192.168.3.10:5001'
+    // var beUrl = 'http://backend.enelformulae.todo.to.it'
+    var beUrl = 'http://192.168.3.10:5001'
 
     self.getTotal               = _getTotal
     self.getTimeSeries          = _getTimeSeries
@@ -3625,34 +3625,20 @@ window.twttr = (function(d, s, id) {
               current: 0
             }]
 
-    // var liveRace = {
-    //   "id": "r12",
-    //   "name": "Montreal Street Circuit",
-    //   "location": "Montreal",
-    //   "country": "Canada",
-    //   "date": "30 Jul 2017",
-    //   "videoId": "",
-    //   "circuit": {
-    //     "map": "circuit_montreal",
-    //     "length": "",
-    //     "laps": "",
-    //     "fastestLap": {
-    //       "race": {
-    //         "firstName": "",
-    //         "lastName": "",
-    //         "time": ""
-    //       },
-    //       "outright": {
-    //         "firstName": "",
-    //         "lastName": "",
-    //         "time": ""
-    //       }
-    //     }
-    //   },
-    //   "meters": 30,
-    //   "mix": null
-    // }
-    var liveRace = null
+    var liveRace = {
+      "id": "r1",
+      "live": true,
+      "name": "Central Harbourfront",
+      "location": "Hong Kong",
+      "country": "Hong Kong",
+      "date": "02 Dec 2017",
+      "circuit": {
+        "map": "circuit_hongkong",
+      },
+      "meters": 30,
+      "mix": null
+    }
+    // var liveRace = null
 
     $stateProvider
       // .state('404', {
@@ -3662,9 +3648,13 @@ window.twttr = (function(d, s, id) {
       .state('landing', {
         url: '/:lang/landing',
         resolve: {
+          seasons: function() {
+            return seasons
+          },
           liveData: function($http, _) {
             if (liveRace) return liveRace
-            return $http.get('../assets/jsonData/races.json')
+            var currentSeason = _.last(seasons)
+            return $http.get('../assets/jsonData/season'+currentSeason.id+'/races.json')
                         .then(function(res) {
                           return _.last(res.data.races)
                         }, function(err) {
@@ -4347,6 +4337,7 @@ window.twttr = (function(d, s, id) {
 
     vm.seasons = seasons
     vm.races = races
+    if (vm.races.length <= 3) $('div.races-list-wrap > ul').css('justify-content','left')
     vm.currentSeason = _.last(vm.seasons)
     if (liveData) vm.races.push(liveData)
     var currentRace = _.last(vm.races)
