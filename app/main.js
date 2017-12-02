@@ -3626,12 +3626,12 @@ window.twttr = (function(d, s, id) {
             }]
 
     var liveRace = {
-      "id": "r1",
+      "id": "r2",
       "live": true,
       "name": "Central Harbourfront",
       "location": "Hong Kong",
       "country": "Hong Kong",
-      "date": "02 Dec 2017",
+      "date": "03 Dec 2017",
       "circuit": {
         "map": "circuit_hongkong",
       },
