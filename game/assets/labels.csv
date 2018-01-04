@@ -1,32 +1,33 @@
-Label_id,Text
-splash_label,Let’s play!
-splash_title,The Grid Game
-splash_panel_label,"Hey, let’s find"
-splash_panel_button,PLAY!
-splash_sub,Find all the hidden targets in the smart city
-splash_play,Play!
-nexttarget_label,"Great, you found"
-nexttarget_panel_label,"Now, let’s find"
-next_target_panel_button,GO!
-gameover_label,Oh no! You missed
-gameover_panel_label,Game over
-gameover_panel_title,Time’s up! You found XX targets
-gameover_panel_button,PLAY AGAIN
-gameover_mainlabel,Time’s up!
-win_title,Congratulations! <br />You completed the smart grid
-win_panel_label,Well done!
-win_panel_title,You found all your targets
-win_panel_button,PLAY AGAIN
-win_mainlabel,Well done!
-dialogbox,Are you sure you want to restart the game?
-turn_label,Please rotate the tablet to play the game
-bonus_pre_title,Bonus Level
-bonus_description,Formula E cars charge their batteries <BR>7 times faster than an average e-car
-bonus_title,Can you beat them?
-bonus_start_btn,Start
-bonus_push_btn,Press
-submit_level_label,Bonus Level
-submit_title_won,Can you beat them?
-submit_title_over,Time’s up! <BR>Targets found: XX
-submit_enter_nick,Enter a nickname and check your ranking
-board_play_again_btn,Play again
+Label_id,Text_eng,Text_ita,Text_esp,Text_por
+shrink,"To play the game, please shrink your browser window",aaaa,,
+splash_label,Let’s play!,aaaa,,
+splash_title,The Grid Game,aaaa,,
+splash_panel_label,"Hey, let’s find",aaaa,,
+splash_panel_button,PLAY!,aaaa,,
+splash_sub,Find all the hidden targets in the smart city,aaaa,,
+splash_play,Play!,aaaa,,
+nexttarget_label,"Great, you found",aaaa,,
+nexttarget_panel_label,"Now, let’s find",aaaa,,
+next_target_panel_button,GO!,aaaa,,
+gameover_label,Oh no! You missed,aaaa,,
+gameover_panel_label,Game over,aaaa,,
+gameover_panel_title,Time’s up! You found XX targets,aaaa,,
+gameover_panel_button,PLAY AGAIN,aaaa,,
+gameover_mainlabel,Time’s up!,aaaa,,
+win_title,Congratulations! <br />You completed the smart grid,aaaa,,
+win_panel_label,Well done!,aaaa,,
+win_panel_title,You found all your targets,aaaa,,
+win_panel_button,PLAY AGAIN,aaaa,,
+win_mainlabel,Well done!,aaaa,,
+dialogbox,Are you sure you want to restart the game?,aaaa,,
+turn_label,Please rotate the tablet to play the game,aaaa,,
+bonus_pre_title,Bonus Level,aaaa,,
+bonus_description,Formula E cars charge their batteries 7 times faster than an average e-car,aaaa,,
+bonus_title,Can you beat them?,aaaa,,
+bonus_start_btn,Start,aaaa,,
+bonus_push_btn,Press,aaaa,,
+submit_level_label,Bonus Level,aaaa,,
+submit_title_won,Can you beat them?,aaaa,,
+submit_title_over,Time’s up! <BR>Targets found: XX,aaaa,,
+submit_enter_nick,Enter a nickname and check your ranking,aaaa,,
+board_play_again_btn,Play again,aaaa,,
