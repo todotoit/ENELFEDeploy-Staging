@@ -18,6 +18,7 @@
         translateLabel: 'ctrlroom_comparison_house',
         param: 1/(11700/365),
         unit: '',
+        translateUnitLabel: '',
         tpl: self.path + '/test.html',
         svg: 'dash_comparison_house'
       },
@@ -26,6 +27,7 @@
         translateLabel: 'ctrlroom_comparison_tv',
         param: 1/0.07/24/30/12,
         unit: 'years',
+        translateUnitLabel: 'ctrlroom_comparison_unit',
         tpl: self.path + '/test.html',
         svg: 'dash_comparison_tv'
       },
@@ -34,6 +36,7 @@
         translateLabel: 'ctrlroom_comparison_evehicle',
         param: 6.25,
         unit: 'km',
+        translateUnitLabel: '',
         tpl: self.path + '/test.html',
         svg: 'dash_comparison_car'
       }

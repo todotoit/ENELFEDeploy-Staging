@@ -105,6 +105,9 @@
 #chart_standings #chart_standings_legend ul li.divider{
 	height: 1rem;
 }
+#chart_standings #chart_standings_legend ul li > span{
+  margin-left: .5rem;
+}
 
 #chart_standings #chart_standings_legend ul li strong{
 	padding-left: .5rem;

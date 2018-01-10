@@ -1306,7 +1306,7 @@
       'pin_2_info': {
         stage: 2,
         coords: [623, 313, 327],
-        snippets: ['circuitHongKong2017']
+        snippets: ['circuitTemplate']
       },
       'pin_2_meter': {
         stage: 2,
@@ -1521,6 +1521,11 @@
         desc: '',
         label: '',
         tpl: self.path + '/circuit-hongkong-2017.html'
+      },
+      'circuitTemplate': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/circuit-info-template.html'
       },
       'raceMicrogrid': {
         desc: '',
@@ -2247,7 +2252,7 @@ window.twttr = (function(d, s, id) {
       suffix: '.json'
     })
     // var availableLanguages = ['en', 'it', 'fr', 'de', 'es']
-    var availableLanguages = ['en']
+    var availableLanguages = ['en', 'es']
     $translateProvider.registerAvailableLanguageKeys(availableLanguages)
     $translateProvider.preferredLanguage(availableLanguages[0])
   }
@@ -2371,14 +2376,42 @@ window.twttr = (function(d, s, id) {
       $state.go($state.current, params, {reload: false, notify: true})
     }
 
+    $scope.webgl = true
+    function detectWebGLContext () {
+      // Create canvas element. The canvas is not added to the
+      // document itself, so it is never displayed in the
+      // browser window.
+      var canvas = document.createElement("canvas");
+      // Get WebGLRenderingContext from canvas element.
+      var gl = canvas.getContext("webgl")
+        || canvas.getContext("experimental-webgl");
+      // Report the result.
+      if (gl && gl instanceof WebGLRenderingContext) {
+        $scope.webgl = true
+      } else {
+        $scope.webgl = false
+      }
+    }
+    detectWebGLContext()
+
     var vm = this
     vm.races = []
     vm.upcomings = [
-      { id: 'R4', date: '03 FEB 2018', location: 'SANTIAGO', country: 'CL', circuit: 'Santiago de Chile' },
-      // { id: 'R6', date: '17 MAR 2018', location: 'SAO PAULO', country: 'BR', circuit: 'São Paulo' },
-      { id: 'R7', date: '14 APR 2018', location: 'ROME', country: 'IT', circuit: 'Roma' },
-      { id: 'R11', date: '14 JUL 2018', location: 'NEW YORK CITY', country: 'US', circuit: 'Brooklyn' },
-      { id: 'R12', date: '15 JUL 2018', location: 'NEW YORK CITY', country: 'US', circuit: 'Brooklyn' }
+      { id: 'R1', date: '02 DEC 2017', location: 'HONG KONG', country: 'HK', circuit: 'Central Harbourfront', enelStand: false, past: true },
+      { id: 'R2', date: '03 DEC 2017', location: 'HONG KONG', country: 'HK', circuit: 'Central Harbourfront', enelStand: false, past: true },
+      { id: 'R3', date: '13 GEN 2018', location: 'MARRAKESH', country: 'MA', circuit: 'Moulay El Hassan', enelStand: false, past: false },
+      { id: 'R4', date: '03 FEB 2018', location: 'SANTIAGO', country: 'CL', circuit: 'Parque Forestal Ciudad De Santiago', enelStand: true, past: false },
+      { id: 'R5', date: '03 MAR 2018', location: 'MEXICO CITY', country: 'MX', circuit: 'Hermanos Rodriguez', enelStand: false, past: false },
+      // { id: 'R6', date: '17 MAR 2018', location: 'SAO PAULO', country: 'BR', circuit: 'São Paulo', enelStand: false, past: false },
+      { id: 'R6', date: '17 MAR 2018', location: 'PUNTA DEL ESTE', country: 'UY', circuit: 'Punta Del Este', enelStand: false, past: false },
+      { id: 'R7', date: '14 APR 2018', location: 'ROME', country: 'IT', circuit: 'Circuto Cittadino Dell’EUR', enelStand: true, past: false },
+      { id: 'R8', date: '28 APR 2018', location: 'PARIS', country: 'FR', circuit: 'Circuit Des Invalides', enelStand: false, past: false },
+      { id: 'R9', date: '19 MAY 2018', location: 'BERLIN', country: 'DE', circuit: 'Flughafen Tempelhof', enelStand: false, past: false },
+      { id: 'R10', date: '10 JUN 2018', location: 'ZURICH', country: 'CH', circuit: 'TBA', enelStand: false, past: false },
+      { id: 'R11', date: '14 JUL 2018', location: 'NEW YORK CITY', country: 'US', circuit: 'Brooklyn', enelStand: true, past: false },
+      { id: 'R12', date: '15 JUL 2018', location: 'NEW YORK CITY', country: 'US', circuit: 'Brooklyn', enelStand: true, past: false },
+      { id: 'R13', date: '28 JUL 2018', location: 'TBA', country: '', circuit: 'TBA', enelStand: false, past: false },
+      { id: 'R14', date: '29 JUL 2018', location: 'TBA', country: '', circuit: 'TBA', enelStand: false, past: false }
     ]
 
     vm.streamData = []
@@ -2429,8 +2462,10 @@ window.twttr = (function(d, s, id) {
       live: true
     }
     // races
-    // vm.currentRace = vm.upcomings[0]
-    vm.currentRace = { id: 'R1', date: '02 DEC 2017', location: 'HONG KONG', country: 'HK', circuit: 'Central Harbourfront', live: true }
+    vm.currentRace = vm.upcomings[2]
+    vm.currentRace.live = true
+    var offX = $(window).width() * 10 / 100
+    $timeout(function(){ $('#landing #upcoming nav').scrollLeft($('#'+vm.currentRace.id).offset().left + - offX) }, 1000)
     // delay streamgraph load data
     // $timeout(function(){ retrieveRacesFeed() }, 1000)
 
@@ -2465,7 +2500,7 @@ window.twttr = (function(d, s, id) {
     retrieveTweetFeed()
 
     function retrieveTweetFeed() {
-      return $http.get('https://enelfetweetfeed-j7ra6s353sul.runkit.sh/')
+      return $http.get('https://enelfetweetfeed-lp334li2mpxe.runkit.sh/')
                   .then(function(res) {
                     console.log(res.data)
                     vm.tweets = res.data.items

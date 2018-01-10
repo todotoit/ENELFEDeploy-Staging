@@ -70,7 +70,7 @@
       'pin_2_info': {
         stage: 2,
         coords: [623, 313, 327],
-        snippets: ['circuitHongKong2017']
+        snippets: ['circuitTemplate']
       },
       'pin_2_meter': {
         stage: 2,
@@ -285,6 +285,11 @@
         desc: '',
         label: '',
         tpl: self.path + '/circuit-hongkong-2017.html'
+      },
+      'circuitTemplate': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/circuit-info-template.html'
       },
       'raceMicrogrid': {
         desc: '',

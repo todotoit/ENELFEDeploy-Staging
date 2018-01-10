@@ -1452,7 +1452,8 @@ svg g::selection, svg path::selection, svg text::selection,
   }
 
   .logo-lg {
-    width: 22rem;
+    /*width: 22rem;*/
+    width: 15rem;
   }
 }
 
@@ -1526,8 +1527,7 @@ body {
 }
 
 footer{
-    background: #0a0a0a;
-
+  background: #0a0a0a;
 }
 
 #landing header {
@@ -1579,12 +1579,28 @@ footer{
   margin-bottom: 4rem;
 }
 #landing #cover hgroup h3 {
+  font-weight: 900;
   font-size: 1.8rem;
 }
 
 #landing #cover hgroup h3 strong{
   /*font-weight: 400;*/
   font-weight: bold;
+}
+
+#landing #cover_desc img {
+  width: 80%;
+  border-radius: 50%;
+  box-shadow: 0 0 .8em rgba(0,0,0,.25);
+}
+#landing #cover_desc h4 {
+  font-weight: 900;
+}
+#landing #cover_desc .info_block {
+  font-size: 1.6rem;
+  line-height: 1.3em;
+  margin-top: 1rem;
+  margin-right: 1rem;
 }
 
 .powering_change{
@@ -1909,10 +1925,15 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
   padding-right: 0;
 }
 
-#landing #upcoming > h2 {
+#landing #upcoming .races_title_idle,
+#landing #upcoming .races_title_live {
   color: #FF0F64;
   line-height: 0.9em;
   margin:0;
+  margin-bottom: 1.5rem;
+}
+#landing #upcoming .enel_pin {
+  margin-right: .5rem;
 }
 
 #landing #upcoming li h2 {
@@ -1941,11 +1962,14 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
   -webkit-overflow-scrolling: touch;
 }
 #landing #upcoming nav ul {
-  min-width: 145vw;
+  min-width: 360vw;
   padding-left: 6.5vw;
 }
 #landing #upcoming nav ul li {
   position: relative;
+}
+#landing #upcoming nav ul li.past {
+  opacity: .25;
 }
 #landing #upcoming nav ul li.new-york:after {
   position: absolute;
@@ -2189,6 +2213,10 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
     right: -30vw;
   }
 
+  #landing #upcoming nav ul li {
+    min-width: 40vw;
+  }
+
   #landing .gif-link {
     top: -30%;
   }
@@ -2268,9 +2296,6 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
     height: 2vw;
     width: 2vw;
   }
-  #landing #upcoming nav ul li {
-    min-width: 50vw;
-  }
 
   ul.langs li {
     font-size: 2.5rem;
@@ -2293,6 +2318,10 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
     background: none;
     margin: 0;
     padding: 0;
+  }
+
+  #landing #upcoming nav ul li {
+    min-width: 70vw;
   }
 
   #landing .gif-link {

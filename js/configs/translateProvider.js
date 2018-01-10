@@ -17,7 +17,7 @@
       suffix: '.json'
     })
     // var availableLanguages = ['en', 'it', 'fr', 'de', 'es']
-    var availableLanguages = ['en']
+    var availableLanguages = ['en', 'es']
     $translateProvider.registerAvailableLanguageKeys(availableLanguages)
     $translateProvider.preferredLanguage(availableLanguages[0])
   }

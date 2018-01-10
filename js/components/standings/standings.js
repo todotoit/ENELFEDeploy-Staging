@@ -28,11 +28,11 @@
         var pt = +race.RacePoints
         var extraBar = ''
         if (race.PolePosition) {
-          extraBar = '<div class="bar_segment pole_position" style="width:'+3*point_px_width+'px"></div>'
+          extraBar += '<div class="bar_segment pole_position" style="width:'+3*point_px_width+'px"></div>'
           pt -= 3
         }
         if (race.FastestLap) {
-          extraBar = '<div class="bar_segment pole_position" style="width:'+1*point_px_width+'px"></div>'
+          extraBar += '<div class="bar_segment fastest_lap" style="width:'+1*point_px_width+'px"></div>'
           pt -= 1
         }
 

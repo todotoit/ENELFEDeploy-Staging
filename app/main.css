@@ -575,7 +575,8 @@ svg g::selection, svg path::selection, svg text::selection,
   }
 
   .logo-lg {
-    width: 22rem;
+    /*width: 22rem;*/
+    width: 15rem;
   }
 }
 
@@ -1159,7 +1160,7 @@ body {
 snippet-card #fastRecharge {
   transform: translateY(-5vh);
 }
-#landing snippet-card .card-img-90, #landing snippet-card .card-img-80 {
+#landing snippet-card .card-img-90, #landing snippet-card .card-img-80, #landing snippet-card .card-img-75 {
   text-align: center;
 }
 
@@ -1169,6 +1170,9 @@ snippet-card #fastRecharge {
 
 #landing snippet-card .card-img-80 img, #landing snippet-card .card-img-80 svg{
   width: 80%;
+}
+#landing snippet-card .card-img-75 img, #landing snippet-card .card-img-75 svg{
+  width: 75%;
 }
 
 #landing snippet-card .card-img-description {
@@ -2039,6 +2043,7 @@ nav.mobile-landing-pagination {
 
 .zone_balance_equivalent.houses{
   background: url(/assets/svgs/dash_comparison_small_house.svg) no-repeat left center;
+  background-size: 3.3rem;
 }
 
 .zone_balance_equivalent.phones{
@@ -3215,6 +3220,9 @@ snippet-carousel .carousel_controls .dots_container span.active {
 
 #chart_standings #chart_standings_legend ul li.divider{
 	height: 1rem;
+}
+#chart_standings #chart_standings_legend ul li > span{
+  margin-left: .5rem;
 }
 
 #chart_standings #chart_standings_legend ul li strong{
