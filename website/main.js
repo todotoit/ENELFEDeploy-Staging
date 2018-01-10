@@ -2500,7 +2500,7 @@ window.twttr = (function(d, s, id) {
     retrieveTweetFeed()
 
     function retrieveTweetFeed() {
-      return $http.get('https://enelfetweetfeed-lp334li2mpxe.runkit.sh/')
+      return $http.get('https://runkit.io/marcoaimo/enelfetweetfeed/4.0.0')
                   .then(function(res) {
                     console.log(res.data)
                     vm.tweets = res.data.items
