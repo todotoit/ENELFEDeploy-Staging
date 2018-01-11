@@ -9,12 +9,14 @@ splash_play,Play!,Play!,¡Jueguen!
 nexttarget_label,"Great, you found","Perfetto, hai trovato","Bien, usted encontró"
 nexttarget_panel_label,"Now, let’s find","Ora, cerchiamo","Ahora, encontremos"
 next_target_panel_button,GO!,VIA!,¡PARTA!
+next_target_points,points,punti,puntos
 gameover_label,Oh no! You missed,"Peccato, non hai trovato",¡O no! Erraste
 gameover_panel_label,Game over,Game over,Fin del juego
 gameover_panel_title,Time’s up! You found XX targets,Tempo scaduto! Hai trovato XX obiettivi,¡Tiempo cumplido! Encontró XX objetivos
 gameover_panel_button,PLAY AGAIN,GIOCA ANCORA,JUEGUE NUEVAMENTE
 gameover_mainlabel,Time’s up!,Tempo scaduto!,¡Tiempo cumplido!
-win_title,Congratulations! <br />You completed the smart grid,Congratulazioni! <br />Hai completato la smart grid,¡Felicitaciones! <br/>Usted ha completado la red inteligente
+win_pre_title,Congratulations!,Congratulazioni!,¡Felicitaciones!
+win_title,You completed <br />the smart grid,Hai completato <br />la smart grid,Usted ha completado <br />la red inteligente
 win_panel_label,Well done!,Ottimo!,¡Muy bien hecho!
 win_panel_title,You found all your targets,Hai trovato tutti gli obiettivi,Encontró todos los objetivos
 win_panel_button,PLAY AGAIN,GIOCA ANCORA,¡JUEGUE NUEVAMENTE!
@@ -28,6 +30,10 @@ bonus_start_btn,Start,Start,Inicio
 bonus_push_btn,Press,Press,Prensa
 submit_level_label,Bonus Level,Livello Bonus,Nivel de bonificación
 submit_title_won,Can you beat them?,Riesci a superarle?,¿Puede ganarles?
-submit_title_over,Time’s up! <BR>Targets found: XX,Tempo scaduto! <BR>Obiettivi trovati: XX,¡Tiempo cumplido! Objetivos <BR>encontrados: XX
+submit_pre_title_over,Time’s up!,Tempo scaduto!,¡Tiempo cumplido!
+submit_title_over,Targets found: XX,Obiettivi trovati: XX,Objetivos encontrados: XX
 submit_enter_nick,Enter a nickname and check your ranking,Inserisci il tuo nickname e vedi la classifica,Ingrese un apodo y verifique su clasificación
 board_play_again_btn,Play again,Gioca ancora,Juegue nuevamente
+submit_tap_here,Tap here to input your name,Fai tap qui per inserire il tuo nome,
+board_head_1,Had fun?,Ti sei divertito?,
+board_head_2,Play the game online at,Gioca di nuovo su,
