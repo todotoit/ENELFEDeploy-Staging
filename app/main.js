@@ -3653,6 +3653,11 @@ window.twttr = (function(d, s, id) {
       //   url: '/404',
       //   templateUrl: 'templates/404.html'
       // })
+      .state('3dtest', {
+        url: '/:lang/3dtest',
+        templateUrl: 'templates/3dtest.html',
+        controller: '3dCtrl'
+      })
       .state('landing', {
         url: '/:lang/landing',
         resolve: {
@@ -3846,7 +3851,7 @@ window.twttr = (function(d, s, id) {
       "country": "Canada",
       "date": "30 Jul 2017",
     }
-    vm.totalConsumption = vm.currentRace.totalConsumption || {}
+    vm.totalConsumption = vm.currentRace.totalConsumption || { total_power: 0, total_energy: 0 }
     getLiveData()
     if (vm.currentRace.live) {
       $scope.$on('ModelSrv::ALL-MODELS-UPDATED', getLiveData)
@@ -3985,7 +3990,7 @@ window.twttr = (function(d, s, id) {
                      .then(function(res) {
                         console.info(res)
                         if (!res.totalConsumption) return
-                        vm.totalConsumption = res.totalConsumption
+                        vm.totalConsumption = res.totalConsumption || { total_power: 0, total_energy: 0 }
                         return res
                      }, function(err) {
                         console.error(err)
@@ -4693,16 +4698,16 @@ window.twttr = (function(d, s, id) {
       $timeout(function() {
         $scope.currentTeam = team
         // TODO: THIS SHOULD CHANGE SHORTLY!!!!
-        if (vm.currentSeason.id !== 4) {
+        // if (vm.currentSeason.id !== 4) {
           TweenMax.to($('#car_profile svg g#traccia > *'), 1.5, {drawSVG:"0%", delay:0, ease:Power2.easeOut, onStart: function() {
             $('#specs_teams #car_profile img').addClass('active')
             $('#car_specs #car_cursor').addClass('active')
           }});
-        } else {
-          TweenMax.set($('#car_profile svg g#traccia > *'), {drawSVG:"0%"})
-          TweenMax.to($('#car_profile svg g#traccia > *'), 1.5, {drawSVG:"100%", delay:0, ease:Power2.easeOut})
-          $('#car_specs #car_cursor').addClass('active')
-        }
+        // } else {
+        //   TweenMax.set($('#car_profile svg g#traccia > *'), {drawSVG:"0%"})
+        //   TweenMax.to($('#car_profile svg g#traccia > *'), 1.5, {drawSVG:"100%", delay:0, ease:Power2.easeOut})
+        //   $('#car_specs #car_cursor').addClass('active')
+        // }
         // // // // // // // // // // // // //
         $scope.teamSelected = true
         if (!$scope.$$phase) $scope.$digest()

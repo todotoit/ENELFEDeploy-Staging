@@ -25,7 +25,8 @@
       controller: AreaChartCtrl,
       controllerAs: 'areaChart',
       bindings: {
-        datasource: '<'
+        datasource: '<',
+        model: '@'
       }
     })
 
@@ -56,7 +57,9 @@
                     .tickSize(0)
                     .tickFormat(function(d,i) {
                       if(i === 0) return
-                      return formatY(d)+'kW'
+                      var unit = 'kW'
+                      if (ctrl.model === 'storage') unit = '%'
+                      return formatY(d)+unit
                     })
 
     var formatX = d3.time.format('%H:%M')
@@ -104,6 +107,7 @@
 
       // -------- INITIALIZE CHART ---------
       svg = d3.select($element.find('svg').get(0))
+      if (ctrl.model === 'storage') svg.attr('viewBox', '0 0 600 350')
       box = svg.attr('viewBox').split(' ')
       w   = +box[2] // width
       h   = +box[3] // height
@@ -169,6 +173,7 @@
       var values  = _(data).groupBy('key').mapValues(function(d){ return d[0].values.slice(0, lastIdx) }).merge().values().flatten().value()
       var totData = _(values).groupBy('h').map(function(d){ return { h:d[0].h, v:_.sumBy(d,'v') } }).value()
       var max     = _.maxBy(totData, 'v').v
+      if (ctrl.model === 'storage') max = 100
       // update scales domain and range
       var xDomain = d3.extent(data[0].values, function(d) { return moment(d.h) })
       X.domain(xDomain)
@@ -893,21 +898,25 @@
       'eMobility': {
         key: 'eMobility',
         label: 'E-Mobility',
+        translateLabel: 'energy_tour_mobility_label',
         snippets: ['fastRecharge', 'efficiency', 'co2', 'regenerativeBraking', 'v2g']
       },
       'smartEnergy': {
         key: 'smartEnergy',
         label: 'Smart energy',
-        snippets: ['raceMicrogrid', 'smartMetering', 'storage', 'v2g', 'firstSmartCity', 'batteryBrains', 'forgetBlackouts'],
+        translateLabel: 'energy_tour_smart_label',
+        snippets: ['raceMicrogrid', 'smartMetering', 'v2g', 'firstSmartCity', 'forgetBlackouts'],
       },
       'cleanEnergy': {
         key: 'cleanEnergy',
         label: 'Clean energy',
-        snippets: ['raceMicrogrid', 'solarPower', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'zeroco2ny'],
+        translateLabel: 'energy_tour_clean_label',
+        snippets: ['raceMicrogrid', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'zeroco2ny'],
       },
       'enelAchievements': {
         key: 'enelAchievements',
         label: 'Enel achievements',
+        translateLabel: 'energy_tour_enel_label',
         snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'formulaE', 'enelWorld'],
       }
     }
@@ -936,29 +945,29 @@
       },
       'pin_2_grid': {
         stage: 2,
-        coords: [-536, 295, 470],
+        coords: [626, 260, -364],
         snippets: ['raceMicrogrid']
       },
       'pin_2_info': {
         stage: 2,
-        coords: [-649, 85, -407],
-        snippets: ['circuitNY2017']
+        coords: [623, 313, 327],
+        snippets: ['circuitTemplate']
       },
       'pin_2_meter': {
         stage: 2,
-        coords: [375, 219, 639],
+        coords: [-715, 145, 245],
         snippets: ['smartMetering']
       },
-      'pin_2_solar': {
-        stage: 2,
-        coords: [-412, 198, -620],
-        snippets: ['solarPower']
-      },
-      'pin_2_storage': {
-        stage: 2,
-        coords: [416, 424, -491],
-        snippets: ['storage', 'batteryBrains']
-      },
+      // 'pin_2_solar': {
+      //   stage: 2,
+      //   coords: [-412, 198, -620],
+      //   snippets: ['solarPower']
+      // },
+      // 'pin_2_storage': {
+      //   stage: 2,
+      //   coords: [416, 424, -491],
+      //   snippets: ['storage', 'batteryBrains']
+      // },
       'pin_3_v2g': {
         stage: 3,
         // coords: [-0.039, 0.90, 0.61],
@@ -1033,32 +1042,34 @@
           {
             desc: '',
             label: 'Provides energy for',
+            translateLabel: 'snip_car_battery_tab1',
             tpl: self.path + '/subcontents/batteryPower-minutes.html'
           },
           {
             desc: '',
             label: 'Enough to charge',
+            translateLabel: 'snip_car_battery_tab2',
             tpl: self.path + '/subcontents/batteryPower-phones.html'
           }
         ]
       },
-      'batteryBrains': {
-        desc: '',
-        label: '',
-        tpl: self.path + '/batteryBrains.html',
-        subContent: [
-          {
-            desc: '',
-            label: 'At the NYC ePrix',
-            tpl: self.path + '/subcontents/batteryBrains-ePrix.html'
-          },
-          {
-            desc: '',
-            label: 'In NYC and the world',
-            tpl: self.path + '/subcontents/batteryBrains-world.html'
-          }
-        ]
-      },
+      // 'batteryBrains': {
+      //   desc: '',
+      //   label: '',
+      //   tpl: self.path + '/batteryBrains.html',
+      //   subContent: [
+      //     {
+      //       desc: '',
+      //       label: 'At the NYC ePrix',
+      //       tpl: self.path + '/subcontents/batteryBrains-ePrix.html'
+      //     },
+      //     {
+      //       desc: '',
+      //       label: 'In NYC and the world',
+      //       tpl: self.path + '/subcontents/batteryBrains-world.html'
+      //     }
+      //   ]
+      // },
       'fanBoost': {
         desc: '',
         label: '',
@@ -1072,11 +1083,13 @@
           {
             desc: '',
             label: 'Today\'s achievement',
+            translateLabel: 'snip_car_sound_tab1',
             tpl: self.path + '/subcontents/sound-noise.html'
           },
           {
             desc: '',
             label: 'Tomorrow\'s cities',
+            translateLabel: 'snip_car_sound_tab2',
             tpl: self.path + '/subcontents/sound-future.html'
           }
         ]
@@ -1094,11 +1107,13 @@
           {
             desc: '',
             label: 'Traditional engines',
+            translateLabel: 'snip_car_co2_tab1',
             tpl: self.path + '/subcontents/co2-kg.html'
           },
           {
             desc: '',
             label: 'Innovative thinking',
+            translateLabel: 'snip_car_co2_tab2',
             tpl: self.path + '/subcontents/co2-future.html'
           }
         ]
@@ -1121,11 +1136,13 @@
           {
             desc: '',
             label: 'During the race',
+            translateLabel: 'snip_car_brake_tab1',
             tpl: self.path + '/subcontents/regenerativeBraking-formulaE.html'
           },
           {
             desc: '',
             label: 'On our streets',
+            translateLabel: 'snip_car_brake_tab2',
             tpl: self.path + '/subcontents/regenerativeBraking-eCar.html'
           }
         ]
@@ -1140,6 +1157,21 @@
         label: '',
         tpl: self.path + '/circuit-ny-2017.html'
       },
+      'circuitMontreal2017': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/circuit-montreal-2017.html'
+      },
+      'circuitHongKong2017': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/circuit-hongkong-2017.html'
+      },
+      'circuitTemplate': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/circuit-info-template.html'
+      },
       'raceMicrogrid': {
         desc: '',
         label: '',
@@ -1148,11 +1180,13 @@
           {
             desc: '',
             label: 'Small scale',
+            translateLabel: 'snip_circuit_grid_tab1',
             tpl: self.path + '/subcontents/raceMicrogrid-racetrack.html'
           },
           {
             desc: '',
             label: 'Large scale',
+            translateLabel: 'snip_circuit_grid_tab2',
             tpl: self.path + '/subcontents/raceMicrogrid-city.html'
           }
         ]
@@ -1165,11 +1199,13 @@
           {
             desc: '',
             label: 'Smart kit',
+            translateLabel: 'snip_circuit_smart_tab1',
             tpl: self.path + '/subcontents/smartMetering-kit.html'
           },
           {
             desc: '',
             label: 'Smart meter',
+            translateLabel: 'snip_circuit_smart_tab2',
             tpl: self.path + '/subcontents/smartMetering-meter.html'
           }
         ]
@@ -1221,11 +1257,11 @@
         label: '',
         tpl: self.path + '/cleanEnergyGlobal.html'
       },
-      'cleanEnergySpain': {
-        desc: '',
-        label: '',
-        tpl: self.path + '/cleanEnergySpain.html'
-      },
+      // 'cleanEnergySpain': {
+      //   desc: '',
+      //   label: '',
+      //   tpl: self.path + '/cleanEnergySpain.html'
+      // },
       'cleanEnergyChile': {
         desc: '',
         label: '',
@@ -1291,6 +1327,7 @@
       'fastRecharge',
       'v2g',
       'v2gDenmark',
+      'hybrid',
       'enelStand'
     ]
 
@@ -1390,6 +1427,7 @@
 
   angular
     .module('MainApp', [
+      'pascalprecht.translate'
     ])
 
 }(window.angular));
@@ -1406,12 +1444,13 @@
     .run(RunMainApp)
 
   /* @ngInject */
-  function RunMainApp($rootScope, $state, fastclick, isMobile) {
+  function RunMainApp($rootScope, $state, fastclick, isMobile, $translate) {
     fastclick.attach(document.body)
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
       console.log('$stateChangeStart to ' + toState.name + ' - fired when the transition begins')
       console.debug('toState, toParams:', toState, toParams)
+      if (toParams.lang && toParams.lang != '') $translate.use(toParams.lang)
     })
 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams) {
@@ -1784,11 +1823,6 @@
         resolve: {
           snippets: function(SnippetSrv) {
             return SnippetSrv.getQRCodeSnippets()
-                             .then(function(res) {
-                                return res
-                             }, function(err) {
-                                console.error(err)
-                             })
           },
           currentSnippet: function(snippets, $stateParams, _) {
             var snippetKey = $stateParams.snippetKey

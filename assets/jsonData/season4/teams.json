@@ -4,15 +4,15 @@
       "name": "Audi Sport ABT Schaeffler",
       "country": "Germany",
       "car_model": {
-        "name": "ABT Schaeffler FE02",
+        "name": "Audi e-tron FE04",
         "pic": "teams_car_profile_audi.png"
       },
       "drivetrain_spec": ["1 motor", "1 Gear"],
       "pilots": [
         {
           "name": "L. di Grassi",
-          "number": "11",
-          "pic": "ABT SCHAEFFLER_11_LUCAS DI GRASSI.png"
+          "number": "1",
+          "pic": "ABT SCHAEFFLER_1_LUCAS DI GRASSI.png"
         },
         {
           "name": "D. Abt",
@@ -25,7 +25,7 @@
       "name": "MS & AD Andretti Formula E",
       "country": "USA",
       "car_model": {
-        "name": "Andretti ATEC-02",
+        "name": "Andretti ATEC-03",
         "pic": "teams_car_profile_andretti.png"
       },
       "drivetrain_spec": ["1 motor", "2 Gears"],
@@ -36,17 +36,23 @@
           "pic": "ANDRETTI_28_ANTONIO FELIX DA COSTA.png"
         },
         {
+          "name": "T. Blomqvist",
+          "number": "27",
+          "pic": "ANDRETTI_27_TOM BLOMQVIST.png"
+        },
+        {
           "name": "K. Kobayashi",
           "number": "27",
-          "pic": "ANDRETTI_27_KAMUI KOBAYASHI.png"
+          "pic": "ANDRETTI_27_KAMUI KOBAYASHI.png",
+          "inactive": "true"
         }
       ]
     },
     {
-      "name": "DS Virgin Racing",
+      "name": "Virgin DS Racing",
       "country": "UK",
       "car_model": {
-        "name": "DS-Virgin DSV-02",
+        "name": "DS Virgin DSV-03",
         "pic": "teams_car_profile_virgin.png"
       },
       "drivetrain_spec": ["1 motor", "3 Gears"],
@@ -58,8 +64,8 @@
         },
         {
           "name": "A. Lynn",
-          "number": "37",
-          "pic": "DS VIRGIN_37_ALEX LYNN.png"
+          "number": "36",
+          "pic": "DS VIRGIN_36_ALEX LYNN.png"
         }
       ]
     },
@@ -67,7 +73,7 @@
       "name": "Dragon Racing",
       "country": "USA",
       "car_model": {
-        "name": "Penske 701-EV",
+        "name": "Penske EV-2",
         "pic": "teams_car_profile_faraday.png"
       },
       "drivetrain_spec": ["1 motor", "1 Gear"],
@@ -78,9 +84,15 @@
           "pic": "FARADAY FUTURE_7_JEROME D'AMBROSIO.png"
         },
         {
+          "name": "J. Lopez",
+          "number": "6",
+          "pic": "FARADAY FUTURE_6_JOSE MARIA LOPEZ.png"
+        },
+        {
           "name": "N. JANI",
           "number": "6",
-          "pic": "FARADAY FUTURE_6_NEEL JANI.jpg"
+          "pic": "FARADAY FUTURE_6_NEEL JANI.jpg",
+          "inactive": "true"
         }
       ]
     },
@@ -88,15 +100,15 @@
       "name": "Panasonic Jaguar Racing",
       "country": "UK",
       "car_model": {
-        "name": "Jaguar I-Type 1",
+        "name": "Jaguar I-Type II",
         "pic": "teams_car_profile_jaguar.png"
       },
       "drivetrain_spec": ["1 motor", "1 Gear"],
       "pilots": [
         {
           "name": "N. Piquet Jr",
-          "number": "47",
-          "pic": "PANASONIC JAGUAR_47_NELSON PIQUET JR.jpg"
+          "number": "3",
+          "pic": "PANASONIC JAGUAR_3_NELSON PIQUET JR.jpg"
         },
         {
           "name": "M. Evans",
@@ -109,7 +121,7 @@
       "name": "Mahindra Racing",
       "country": "India",
       "car_model": {
-        "name": "Mahindra M3 ELECTRO",
+        "name": "Mahindra M4Electro",
         "pic": "teams_car_profile_mahindra.png"
       },
       "drivetrain_spec": ["1 motor", "1 Gear"],
@@ -117,7 +129,7 @@
         {
           "name": "N. Heidfeld",
           "number": "23",
-          "pic": "MAHINDRA_23_HEIDFELD.png"
+          "pic": "MAHINDRA_23_NICK HEIDFELD.png"
         },
         {
           "name": "F. Rosenqvist",
@@ -130,15 +142,15 @@
       "name": "NIO Formula E",
       "country": "UK",
       "car_model": {
-        "name": "NEXTEV TCR Formula 002",
+        "name": "NextEVNIO Sport 003",
         "pic": "teams_car_profile_nextev.png"
       },
       "drivetrain_spec": ["2 motors", "1 Gear"],
       "pilots": [
         {
           "name": "O. Turvey",
-          "number": "88",
-          "pic": "NIO_88_OLIVER TURVEY.png"
+          "number": "16",
+          "pic": "NIO_16_OLIVER TURVEY.png"
         },
         {
           "name": "L. Filippi",
@@ -151,7 +163,7 @@
       "name": "Renault e.dams",
       "country": "France",
       "car_model": {
-        "name": "Renault Z.E.16",
+        "name": "Renault Z.E 17",
         "pic": "teams_car_profile_renault.png"
       },
       "drivetrain_spec": ["1 motor", "1 Gear"],
@@ -172,7 +184,7 @@
       "name": "TECHEETAH",
       "country": "China",
       "car_model": {
-        "name": "Renault Z.E.16",
+        "name": "Renault Z.E 17",
         "pic": "teams_car_profile_techeetah.png"
       },
       "drivetrain_spec": ["1 motor", "1 Gear"],
@@ -184,8 +196,8 @@
         },
         {
           "name": "A. Lotterer",
-          "number": "33",
-          "pic": "TECHEETAH_33_ANDRE LOTTERER.png"
+          "number": "18",
+          "pic": "TECHEETAH_18_ANDRE LOTTERER.png"
         }
       ]
     },
@@ -193,7 +205,7 @@
       "name": "Venturi Formula E",
       "country": "Principality of Monaco",
       "car_model": {
-        "name": "Venturi VM200-FE-02",
+        "name": "Venturi VM200-FE-03",
         "pic": "teams_car_profile_venturi.png"
       },
       "drivetrain_spec": ["1 motor", "2 Gears"],
