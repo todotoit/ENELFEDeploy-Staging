@@ -80,6 +80,7 @@
 
     function _emptyData(data) {
       var values = data.values
+      if (!values) return
       var emptydata = {
         key: data.key,
         values: values.map(function(d){ return { h: d.h, v: 0 } })
@@ -100,6 +101,7 @@
       p   = 30      // padding
       // create path for each area
       areas = svg.append('g')
+      if (!data) return
       _.times(data.length, function(i) {
         areas.append('path').attr('class', 'area area'+(i+1))
       })
@@ -114,9 +116,9 @@
                .attr('class', 'axis')
 
       // Initialize chart with emptyData
-      var emptydata = _.map(data, function(d) {
-        return _emptyData(d)
-      })
+      var emptydata = _.map(data, function(d) { return _emptyData(d) })
+      var lastIdx = d3.min(emptydata, function(d) {return d.values.length})
+      emptydata = _.map(_(emptydata).groupBy('key').mapValues(function(d){ return d[0].values.slice(0, lastIdx) }).value(), function(v,k) { return { key:k, values:v } })
       emptydata = stack(emptydata)
 
       // -------- DATA MAP ---------
@@ -152,11 +154,13 @@
       // so we assume that if we don't have prevData the components is never being initialized
       if (_.isEmpty(prevData)) init()
       console.log('update areaChart')
+      console.log(data)
+      var lastIdx = d3.min(data, function(d) {return d.values.length})
+      data = _.map(_(data).groupBy('key').mapValues(function(d){ return d[0].values.slice(0, lastIdx) }).value(), function(v,k) { return { key:k, values:v } })
       data = stack(data)
 
       // -------- DATA MAP ---------
-      var lastIdx = d3.min(data, function(d) {return d.values.length})
-      var values  = _(data).groupBy('key').mapValues(function(d){ return d[0].values.slice(0, lastIdx) }).merge().values().flatten().value()
+      var values  = _(data).groupBy('key').mapValues(function(d){ return d[0].values }).merge().values().flatten().value()
       var totData = _(values).groupBy('h').map(function(d){ return { h:d[0].h, v:_.sumBy(d,'v') } }).value()
       var max     = _.maxBy(totData, 'v').v
       if (ctrl.model === 'storage') max = 100
