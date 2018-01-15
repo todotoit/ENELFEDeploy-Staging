@@ -299,16 +299,17 @@
       if (vleft <= 0) vleft = 0
       if (vleft >= elemBBox.width-1) vleft = elemBBox.width-1
       // if desktop remap coordinates based on viewport dimensions
+      var tleft = left - (tooltipBBox.width/2)
       if (isDesktop) {
         var top   = d3.mouse(this)[1]
-        left = ((left * $('streamgraph svg').width()) / w)
-        vleft = (vleft * $('streamgraph svg').width()) / w
+        vleft = d3.mouse($('streamgraph').get(0))[0]
         top = (top * $('streamgraph svg').height()) / h
         top -= (tooltipBBox.height/2 +20) // offset
         tooltip.style('top', top - (tooltipBBox.height/2) + 'px' )
+        tleft = _.clamp(vleft - (tooltipBBox.width/2), tooltipBBox.width/4, elemBBox.width - tooltipBBox.width/2)
       }
       vertical.style('left', vleft + 'px' )
-      tooltip.style('left',  left - (tooltipBBox.width/2) + 'px' )
+      tooltip.style('left',  tleft + 'px' )
     }
     function _streamgraphTouch() {
       var elemBBox    = this.getBoundingClientRect()

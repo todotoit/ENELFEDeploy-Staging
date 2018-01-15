@@ -852,16 +852,17 @@
       if (vleft <= 0) vleft = 0
       if (vleft >= elemBBox.width-1) vleft = elemBBox.width-1
       // if desktop remap coordinates based on viewport dimensions
+      var tleft = left - (tooltipBBox.width/2)
       if (isDesktop) {
         var top   = d3.mouse(this)[1]
-        left = ((left * $('streamgraph svg').width()) / w)
-        vleft = (vleft * $('streamgraph svg').width()) / w
+        vleft = d3.mouse($('streamgraph').get(0))[0]
         top = (top * $('streamgraph svg').height()) / h
         top -= (tooltipBBox.height/2 +20) // offset
         tooltip.style('top', top - (tooltipBBox.height/2) + 'px' )
+        tleft = _.clamp(vleft - (tooltipBBox.width/2), tooltipBBox.width/4, elemBBox.width - tooltipBBox.width/2)
       }
       vertical.style('left', vleft + 'px' )
-      tooltip.style('left',  left - (tooltipBBox.width/2) + 'px' )
+      tooltip.style('left',  tleft + 'px' )
     }
     function _streamgraphTouch() {
       var elemBBox    = this.getBoundingClientRect()
@@ -3634,7 +3635,7 @@ window.twttr = (function(d, s, id) {
               year: '2017/2018',
               name: 'Season 4',
               races: 14,
-              current: 2
+              current: 3
             }]
 
     var liveRace = {
@@ -3650,7 +3651,7 @@ window.twttr = (function(d, s, id) {
       "meters": 30,
       "mix": null
     }
-    // var liveRace = null
+    var liveRace = null
 
     $stateProvider
       // .state('404', {

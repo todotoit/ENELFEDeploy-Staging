@@ -313,16 +313,17 @@
       if (vleft <= 0) vleft = 0
       if (vleft >= elemBBox.width-1) vleft = elemBBox.width-1
       // if desktop remap coordinates based on viewport dimensions
+      var tleft = left - (tooltipBBox.width/2)
       if (isDesktop) {
         var top   = d3.mouse(this)[1]
-        left = ((left * $('streamgraph svg').width()) / w)
-        vleft = (vleft * $('streamgraph svg').width()) / w
+        vleft = d3.mouse($('streamgraph').get(0))[0]
         top = (top * $('streamgraph svg').height()) / h
         top -= (tooltipBBox.height/2 +20) // offset
         tooltip.style('top', top - (tooltipBBox.height/2) + 'px' )
+        tleft = _.clamp(vleft - (tooltipBBox.width/2), tooltipBBox.width/4, elemBBox.width - tooltipBBox.width/2)
       }
       vertical.style('left', vleft + 'px' )
-      tooltip.style('left',  left - (tooltipBBox.width/2) + 'px' )
+      tooltip.style('left',  tleft + 'px' )
     }
     function _streamgraphTouch() {
       var elemBBox    = this.getBoundingClientRect()
@@ -2399,7 +2400,7 @@ window.twttr = (function(d, s, id) {
     vm.upcomings = [
       { id: 'R1', date: '02 DEC 2017', location: 'HONG KONG', country: 'HK', circuit: 'Central Harbourfront', enelStand: false, past: true },
       { id: 'R2', date: '03 DEC 2017', location: 'HONG KONG', country: 'HK', circuit: 'Central Harbourfront', enelStand: false, past: true },
-      { id: 'R3', date: '13 GEN 2018', location: 'MARRAKESH', country: 'MA', circuit: 'Moulay El Hassan', enelStand: false, past: false },
+      { id: 'R3', date: '13 GEN 2018', location: 'MARRAKESH', country: 'MA', circuit: 'Moulay El Hassan', enelStand: false, past: true },
       { id: 'R4', date: '03 FEB 2018', location: 'SANTIAGO', country: 'CL', circuit: 'Parque Forestal Ciudad De Santiago', enelStand: true, past: false },
       { id: 'R5', date: '03 MAR 2018', location: 'MEXICO CITY', country: 'MX', circuit: 'Hermanos Rodriguez', enelStand: false, past: false },
       // { id: 'R6', date: '17 MAR 2018', location: 'SAO PAULO', country: 'BR', circuit: 'São Paulo', enelStand: false, past: false },
@@ -2462,8 +2463,8 @@ window.twttr = (function(d, s, id) {
       live: true
     }
     // races
-    vm.currentRace = vm.upcomings[2]
-    vm.currentRace.live = true
+    vm.currentRace = vm.upcomings[3]
+    // vm.currentRace.live = true
     var offX = $(window).width() * 10 / 100
     $timeout(function(){ $('#landing #upcoming nav').scrollLeft($('#'+vm.currentRace.id).offset().left + - offX) }, 1000)
     // delay streamgraph load data
