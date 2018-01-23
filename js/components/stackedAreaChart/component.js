@@ -162,6 +162,7 @@
       // -------- DATA MAP ---------
       var values  = _(data).groupBy('key').mapValues(function(d){ return d[0].values }).merge().values().flatten().value()
       var totData = _(values).groupBy('h').map(function(d){ return { h:d[0].h, v:_.sumBy(d,'v') } }).value()
+      if (_.isEmpty(totData)) return
       var max     = _.maxBy(totData, 'v').v
       if (ctrl.model === 'storage') max = 100
       // update scales domain and range
