@@ -1424,6 +1424,10 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
     font-size: 2.5rem;
   }
 
+  #landing #cover_desc {
+    margin-top: 3rem;
+  }
+
 }
 @media screen and (max-width: 28em) {
   #landing #eprix-history .overlay-top {

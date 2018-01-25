@@ -1407,6 +1407,9 @@ header.mobile-header {
   position: relative;
   padding-top: 1.5rem;
 }
+header.mobile-header .logo-lg {
+  width: 100%;
+}
 nav.mobile-landing-pagination {
   position: fixed;
   z-index: 100;
