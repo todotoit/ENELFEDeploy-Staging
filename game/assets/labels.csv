@@ -7,7 +7,7 @@ splash_panel_button,PLAY!,PLAY!,¡JUEGUEN!
 splash_sub,Find all the hidden targets in the smart city,Trova gli obiettivi nascosti nella smart city,Encuentren todos los objetivos escondidos en la ciudad inteligente
 splash_play,Play!,Play!,¡Jueguen!
 nexttarget_label,"Great, you found","Perfetto, hai trovato","Bien, usted encontró"
-nexttarget_panel_label,"Now, let’s find","Ora, cerchiamo","Ahora, encontremos"
+nexttarget_panel_label,"Now, let’s find",Ora cerchiamo,"Ahora, encontremos"
 next_target_panel_button,GO!,VIA!,¡PARTA!
 next_target_points,points,punti,puntos
 gameover_label,Oh no! You missed,"Peccato, non hai trovato",¡O no! Erraste
@@ -34,6 +34,7 @@ submit_pre_title_over,Time’s up!,Tempo scaduto!,¡Tiempo cumplido!
 submit_title_over,Targets found: XX,Obiettivi trovati: XX,Objetivos encontrados: XX
 submit_enter_nick,Enter a nickname and check your ranking,Inserisci il tuo nickname e vedi la classifica,Ingrese un apodo y verifique su clasificación
 board_play_again_btn,Play again,Gioca ancora,Juegue nuevamente
-submit_tap_here,Tap here to input your name,Fai tap qui per inserire il tuo nome,
-board_head_1,Had fun?,Ti sei divertito?,
-board_head_2,Play the game online at,Gioca di nuovo su,
+submit_tap_here,Tap here to input your name,Fai tap qui per inserire il tuo nome,Pulsa aquí para ingresar tu nombre
+board_head_1,Had fun?,Ti sei divertito?,Te divertiste?
+board_head_2,Play the game online at,Gioca di nuovo su,Juega en linea en
+change_lang,Change Language,Cambia Lingua,Cambiar Idioma
