@@ -2226,24 +2226,29 @@
       },
       'pin_2_grid': {
         stage: 2,
-        coords: [626, 260, -364],
+        coords: [-459, 437, 433],
         snippets: ['raceMicrogrid']
       },
       'pin_2_info': {
         stage: 2,
-        coords: [623, 313, 327],
+        coords: [-525, 333, -453],
         snippets: ['circuitTemplate']
       },
       'pin_2_meter': {
         stage: 2,
-        coords: [-715, 145, 245],
+        coords: [348, 514, -452],
         snippets: ['smartMetering']
       },
-      // 'pin_2_solar': {
-      //   stage: 2,
-      //   coords: [-412, 198, -620],
-      //   snippets: ['solarPower']
-      // },
+      'pin_2_santiago': {
+        stage: 2,
+        coords: [638, 193, -392],
+        snippets: ['santiago']
+      },
+      'pin_2_solar': {
+         stage: 2,
+         coords: [714, 276, -69],
+         snippets: ['solarPower']
+      },
       // 'pin_2_storage': {
       //   stage: 2,
       //   coords: [416, 424, -491],
