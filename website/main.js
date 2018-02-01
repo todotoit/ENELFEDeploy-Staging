@@ -2438,10 +2438,28 @@ window.twttr = (function(d, s, id) {
 
     $scope.languages = $translate.getAvailableLanguageKeys() || []
     if ($scope.languages.length <= 1) $scope.languages = []
+    $scope.currentLang = $translate.use()
+    $scope.gameLang = checkGameLang()
+    function checkGameLang() {
+      switch ($scope.currentLang) {
+        case 'en':
+          return 'eng'
+        case 'it':
+          return 'ita'
+        case 'es':
+          return 'esp'
+        default:
+          return 'eng'
+      }
+    }
     $scope.changeLanguage = function(key){
       var params = angular.extend($stateParams, {lang: key})
       $translate.use(key)
       $state.go($state.current, params, {reload: false, notify: true})
+      $scope.currentLang = key
+      $scope.gameLang = checkGameLang()
+      console.log($scope.currentLang, $scope.gameLang)
+      if (!$scope.$$phase) $scope.$digest()
     }
 
     $scope.webgl = true
