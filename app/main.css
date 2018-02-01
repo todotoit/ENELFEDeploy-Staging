@@ -2822,7 +2822,7 @@ snippet-carousel snippet-card[size*="full"] {
 snippet-carousel snippet-card {
   background: linear-gradient(to bottom, #78d3f5 0%,#18a6db 20%);
 }
-snippet-carousel snippet-card.enelx {
+snippet-card.enelx {
   background: linear-gradient(to bottom, #5e3596 10%,#522989 50%);
 }
 snippet-carousel snippet-card > div.content {
