@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 139.95 104.24">
+  <title>enelx-b2b</title>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="copy">
+      <g>
+        <line x1="69.98" y1="51.9" x2="69.98" y2="42.6" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 2.410585105419159px"/>
+        <g>
+          <circle cx="69.93" cy="38.79" r="3.31" transform="translate(-0.15 0.26) rotate(-0.22)" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 2.410585105419159px"/>
+          <path d="M78.17,52v-.54a19.39,19.39,0,0,1,3.9-10.92A15,15,0,1,0,55,31.63c0,2.61,1.72,5.75,3.43,8.23a18.72,18.72,0,0,1,3.39,10.67V52Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 2.410585105419159px"/>
+          <path d="M78.17,52v7a3.71,3.71,0,0,1-3.7,3.71l-9,0A3.71,3.71,0,0,1,61.79,59V52" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 2.410585105419159px"/>
+          <path d="M126,74.29H13.94V3.5a2.29,2.29,0,0,1,2.3-2.29H123.72A2.29,2.29,0,0,1,126,3.5Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 2.410585105419159px"/>
+          <path d="M138.24,92.29,126,74.29H13.94l-12.22,18A2.9,2.9,0,0,0,1.21,94v6.12a3,3,0,0,0,3,3H135.78a3,3,0,0,0,3-3V94A3,3,0,0,0,138.24,92.29Z" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 2.410585105419159px"/>
+        </g>
+        <line x1="12.34" y1="93.91" x2="126.82" y2="93.91" style="fill: none;stroke: #fff;stroke-linejoin: round;stroke-width: 2.410585105419159px"/>
+      </g>
+    </g>
+  </g>
+</svg>

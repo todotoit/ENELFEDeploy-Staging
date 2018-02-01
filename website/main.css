@@ -737,22 +737,35 @@ footer{
   position: relative;
   color: #ffffff;
 }
-#landing #app-info .btn-outline {
+#landing #game-info {
+  background: #ffffff;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+  position: relative;
+}
+#landing #app-info .btn-outline,
+#landing #game-info .btn-outline {
   margin-bottom: 1.5rem;
   border: 3px solid;
   padding: 1.5rem 4rem;
   transition: all .35s ease-out;
 }
-#landing #app-info .bestviewed{
-  font-size: 1.3rem;
+#landing #game-info .btn-outline {
+  color: #FF0F64;
 }
-#landing #app-info .bestviewed img{
-  width: 16px;
-  vertical-align: text-top;
-}
-
 #landing #app-info .btn-outline:hover {
   background: rgba(255,255,255,.3);
+}
+#landing #game-info .btn-outline:hover {
+  background: rgba(255,15,10,.1);
+}
+
+#landing .bestviewed {
+  font-size: 1.3rem;
+}
+#landing .bestviewed img{
+  width: 16px;
+  vertical-align: text-top;
 }
 
 #landing #app-info p.small{

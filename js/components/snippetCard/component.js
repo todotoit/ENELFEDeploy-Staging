@@ -102,10 +102,19 @@
     function getScrollOffset(current, container){
       var idx = current.index();
       console.log(current, idx, current.position(), current.outerWidth(), container.outerWidth())
-      if(idx > (container.children().length-1) / 2){
+      if (idx > (container.children().length-1) / 2){
         var offset = container.outerWidth() - current.position().left - current.outerWidth();
       } else {
         var offset = 0;
+      }
+      if ($scope.snip.extraClass == 'enelx') {
+        if (idx > (container.children().length-1) / 2){
+          var offset = container.outerWidth() - current.position().left - current.outerWidth() -80;
+        } else if (idx == (container.children().length-1) / 2) {
+          var offset = -80
+        } else {
+          var offset = 0;
+        }
       }
       return offset;
     }

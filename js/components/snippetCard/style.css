@@ -8,6 +8,9 @@ snippet-carousel snippet-card[size*="full"] {
 snippet-carousel snippet-card {
   background: linear-gradient(to bottom, #78d3f5 0%,#18a6db 20%);
 }
+snippet-carousel snippet-card.enelx {
+  background: linear-gradient(to bottom, #5e3596 10%,#522989 50%);
+}
 snippet-carousel snippet-card > div.content {
   flex: 2 0 0% !important;
 }
@@ -22,6 +25,9 @@ snippet-card .content-parent > .info-block {
 
 snippet-card .sub-snippet > div {
   background: rgba(0, 85, 176,.3);
+}
+snippet-card.enelx .sub-snippet > div {
+  background: rgba(70, 30, 125,.9);
 }
 /*snippet-carousel snippet-card:after {
   content: "";
@@ -43,6 +49,12 @@ snippet-card p {
   font-size: 1.8vh;
   line-height: 2.4vh;
   margin-bottom: .65em;
+}
+
+snippet-card ul {
+  font-size: 1.8vh;
+  line-height: 2.4vh;
+  margin: 0;
 }
 
 snippet-card .label-sm{
@@ -173,4 +185,31 @@ snippet-card .info_comparator .comparator_icon{
 snippet-card .info_comparator .comparator_value label{
   display: block;
   opacity: .5;
+}
+
+snippet-card .santiago-svg-wrap svg {
+  bottom: 2.2em;
+  position: relative;
+}
+
+snippet-card .enelx-svg-wrap svg {
+  width: 50%;
+  position: relative;
+}
+
+snippet-card .zone_balance_equivalent.houses {
+  background-image: url(/assets/svgs/dash_comparison_small_house-wh.svg);
+  background-size: 4rem;
+}
+snippet-card .info_block.zone_balance_equivalent.houses label {
+  border: 0;
+  margin: 0;
+  padding-bottom: 0;
+  padding-left: 1rem;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5)
+}
+snippet-card .info_block.zone_balance_equivalent.houses label.label-sm {
+  text-transform: none;
+  color: #fff;
 }

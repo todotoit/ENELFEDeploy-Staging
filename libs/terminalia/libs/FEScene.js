@@ -255,7 +255,7 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
                         startCameraAnimation([714, 276, -69], 2);
                     break;
 
-                    case "pin_2-santiago":
+                    case "pin_2_santiago":
                     self.pinsStage2.children[4].material.map = self.pinsStage2.children[4].material.active_map;
                     //startCameraAnimation([-759, 213, 200], 2);
                     startCameraAnimation([638, 193, -392], 2);
@@ -361,7 +361,7 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         var carGroup = new THREE.Group();
 
         //Body
-        var bodyMat = self.TerminUtils.createTextureReflectiveMaterial('../libs/terminalia/assets/textures/fe_car/Body_2048_update1.jpg', self.reflectionMap, .5);
+        var bodyMat = self.TerminUtils.createTextureReflectiveMaterial('../libs/terminalia/assets/textures/fe_car/Body_2048_update2.jpg', self.reflectionMap, .5);
         var body = self.TerminUtils.loadObjModel("Body", '../libs/terminalia/assets/models/obj/fe_car/Body2.obj', bodyMat);
         carGroup.add(body);
 
@@ -531,8 +531,8 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         pin_2_storage.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-storage_on.png');
         self.pinsStage2.add(pin_2_storage);
         */
-        
-        var pin_2_santiago = self.TerminUtils.createSprite('pin_2-santiago', '../libs/terminalia/assets/textures/pins/pin_2-santiago.png');
+
+        var pin_2_santiago = self.TerminUtils.createSprite('pin_2_santiago', '../libs/terminalia/assets/textures/pins/pin_2-santiago.png');
 		pin_2_santiago.scale.set(pinSize, pinSize, pinSize);
 		pin_2_santiago.position.set(313, 49, -121);
         pin_2_santiago.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-santiago.png');

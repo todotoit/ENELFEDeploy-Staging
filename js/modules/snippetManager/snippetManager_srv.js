@@ -18,13 +18,13 @@
         key: 'eMobility',
         label: 'E-Mobility',
         translateLabel: 'energy_tour_mobility_label',
-        snippets: ['fastRecharge', 'efficiency', 'co2', 'regenerativeBraking', 'v2g']
+        snippets: ['fastRecharge', 'efficiency', 'co2', 'regenerativeBraking', 'v2g', 'santiagoTransport']
       },
       'smartEnergy': {
         key: 'smartEnergy',
         label: 'Smart energy',
         translateLabel: 'energy_tour_smart_label',
-        snippets: ['raceMicrogrid', 'smartMetering', 'v2g', 'firstSmartCity', 'forgetBlackouts'],
+        snippets: ['raceMicrogrid', 'smartMetering', 'v2g', 'firstSmartCity', 'forgetBlackouts', 'santiagoGreen'],
       },
       'cleanEnergy': {
         key: 'cleanEnergy',
@@ -36,12 +36,17 @@
         key: 'enelAchievements',
         label: 'Enel achievements',
         translateLabel: 'energy_tour_enel_label',
-        snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'formulaE', 'enelWorld'],
+        snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'chileCommunity', 'formulaE', 'enelWorld', 'enelX'],
       }
     }
 
 
     var _availableHotspots = {
+      'test': {
+        stage: null,
+        coords: null,
+        snippets: ['santiagoGreen', 'santiagoTransport', 'chileCommunity', 'cleanEnergyChile', 'solarPower', 'enelX']
+      },
       'pin_1_info': {
         stage: 1,
         coords: [0.97, 4.74, 6.46],
@@ -80,7 +85,7 @@
       'pin_2_santiago': {
         stage: 2,
         coords: [638, 193, -392],
-        snippets: ['santiago']
+        snippets: ['santiagoGreen', 'santiagoTransport']
       },
       'pin_2_solar': {
          stage: 2,
@@ -102,13 +107,13 @@
         stage: 3,
         // coords: [-1.04, -0.25, 0.17],
         coords: [566],
-        snippets: ['cleanEnergyGlobal', 'cleanEnergyChile']
+        snippets: ['cleanEnergyGlobal', 'cleanEnergyChile', 'chileCommunity']
       },
       'pin_3_rome': {
         stage: 3,
         // coords: [0.091, 0.64, 0.86],
         coords: [206],
-        snippets: ['enelWorld']
+        snippets: ['enelWorld', 'enelX']
       },
       'pin_3_milan': {
         stage: 3,
@@ -148,6 +153,61 @@
 
     // snippets
     var _availableSnippets = {
+      'santiagoGreen': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/santiagoGreen.html'
+      },
+      'santiagoTransport': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/santiagoTransport.html'
+      },
+      'chileCommunity': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/chileCommunity.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Impact',
+            translateLabel: 'snip_world_chile_community_tab1',
+            tpl: self.path + '/subcontents/chileCommunity-impact.html'
+          },
+          {
+            desc: '',
+            label: 'Data',
+            translateLabel: 'snip_world_chile_community_tab2',
+            tpl: self.path + '/subcontents/chileCommunity-data.html'
+          }
+        ]
+      },
+      'enelX': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/enelX.html',
+        extraClass: 'enelx',
+        subContent: [
+          {
+            desc: '',
+            label: 'For businesses',
+            translateLabel: 'snip_world_enelx_tab1',
+            tpl: self.path + '/subcontents/enelX-business.html'
+          },
+          {
+            desc: '',
+            label: 'For cities',
+            translateLabel: 'snip_world_enelx_tab2',
+            tpl: self.path + '/subcontents/enelX-cities.html'
+          },
+          {
+            desc: '',
+            label: 'For individuals',
+            translateLabel: 'snip_world_enelx_tab3',
+            tpl: self.path + '/subcontents/enelX-people.html'
+          }
+        ]
+      },
       'carSpecs': {
         desc: '',
         label: '',
@@ -341,12 +401,14 @@
         subContent: [
           {
             desc: '',
-            label: 'Can generate',
+            label: 'Generation',
+            translateLabel: 'snip_circuit_solar_tab1',
             tpl: self.path + '/subcontents/solarPower-generate.html'
           },
           {
             desc: '',
-            label: 'Can meet the needs of',
+            label: 'Equivalent to',
+            translateLabel: 'snip_circuit_solar_tab2',
             tpl: self.path + '/subcontents/solarPower-needs.html'
           }
         ]

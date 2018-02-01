@@ -16,7 +16,7 @@
       'households': {
         label: 'Households for 1 day',
         translateLabel: 'ctrlroom_comparison_house',
-        param: 1/(11700/365),
+        param: 1/(2100/365),
         unit: '',
         translateUnitLabel: '',
         tpl: self.path + '/test.html',
