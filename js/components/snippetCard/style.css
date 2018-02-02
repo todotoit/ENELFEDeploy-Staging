@@ -42,7 +42,8 @@ snippet-carousel snippet-card {
 }
 
 snippet-card h2 {
-  font-size: 3.5vh;
+  /*font-size: 3.5vh;*/
+  font-size: 3.2vh;
   line-height: 120%;
 }
 snippet-card p {

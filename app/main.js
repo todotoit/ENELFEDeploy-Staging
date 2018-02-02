@@ -615,7 +615,7 @@
     // -------- SVG ELEMENTS ---------
     var svg, chart, box, w, h, vp,                                        // svg config
         axX, lnX,                                                         // axis and scales config
-        cursor, areas, clipMask,
+        cursor, areas, clipMask, overlays,
         lyOrder = '', lyOffset = 'silhouette', lyInterpolation = 'basis', // chart paths config
         delay = 1000, duration = 3000, ease = 'exp-out',                  // animation config
         enelCursor = {                                                    // brand cursor
@@ -623,6 +623,8 @@
           height: 52.5
         },
         vertical, tooltip
+    // tooltip data object
+    ctrl.tooltipv = {}
 
     // -------- COLORS ---------
     var colorrange = ['#077249','#008C5A','#11965A', '#22A05A', '#33AA5A','#44B45A']
@@ -660,6 +662,17 @@
                  .x(function(d) { return X(d.date) })
                  .y0(function(d) { return Y(d.y0) })
                  .y1(function(d) { return Y(d.y0 + d.y) })
+
+    // overlays should contaign a percentage of availability
+    // this percentage should be grouped by overlay area interval
+    var overlayArea = d3.svg.area()
+                       .interpolate('step')
+                       .x(function(d) { return X(d.date) })
+                       .y0(function(d) { return Y(0) })
+                       .y1(function(d) {
+                        if (d.dap < 1) return 0 // 50
+                        return Y(0)
+                       })
 
     function _interpolateInitialData(data) {
       var groups   = _.groupBy(data, 'key')
@@ -706,6 +719,10 @@
                 '    <stop offset="0%" stop-color="#258069"></stop>' +
                 '    <stop offset="100%" stop-color="#298725"></stop>' +
                 '  </linearGradient>' +
+                '  <linearGradient id="overlay_gr" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="0" y2="300">' +
+                '    <stop offset="0%" stop-color="rgba(111, 217, 194, .35)"></stop>' +
+                '    <stop offset="100%" stop-color="rgba(120, 217, 124, .35)"></stop>' +
+                '  </linearGradient>' +
                 '</defs'
 
     function init() {
@@ -733,9 +750,15 @@
       chart = svg.append('g')
                  .attr('id', 'streamBox')
                  .attr('transform', 'translate(' + enelCursor.width + ',' + 0 + ')')
+
+      // create wrap for overlays with retrieving data infos
+      overlays = chart.append('g')
+                      .attr('class', 'overlays')
+
       // create path for each area
       areas = chart.append('g')
                    .attr('class', 'chart')
+
       // Add 'curtain' rectangle to hide entire graph
       clipMask = chart.append('defs').append('clipPath')
                       .attr('id', 'clipMask')
@@ -789,6 +812,10 @@
       data = _interpolateInitialData(data)
       // create data layers
       var dataLayers = stack(nest.entries(data))
+
+      console.log('Streamgraph data', data)
+      console.log('Streamgraph data', dataLayers)
+
       // update scales domain and range
       var xDomain = d3.extent(data, function(d) { return d.date })
       var yDomain = [0, d3.max(data, function(d) { return d.y0 + d.y })]
@@ -803,6 +830,17 @@
            .attr('class', function(d,i) { return 'layer layer-'+(i+1) })
            .attr('d', function(d,i) { return area(d.values) })
            .attr('fill', function(d, i) { return 'url(#stream_gr'+(i+1)+')' })
+
+      // update overlays
+      overlays.selectAll('.overlay')
+           .data(dataLayers).enter()
+           .append('path')
+           .attr('clip-path', 'url(#clipMask)')
+           .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
+           .attr('d', function(d,i) { return overlayArea(d.values) })
+           .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
+           .attr('opacity', .6)
+
       if (touchEnabled) _attachToolipEvents()
 
       // update axis data
@@ -898,6 +936,10 @@
          .transition()
          .duration(250)
          .attr('opacity', function(d, j) { return j == i ? 1 : .3 })
+      svg.selectAll('.overlay')
+         .transition()
+         .duration(250)
+         .attr('opacity', function(d, j) { return j == i ? 1 : 0 })
       vertical.style('visibility', 'visible')
       tooltip.style('visibility', 'visible')
     }
@@ -906,6 +948,10 @@
          .transition()
          .duration(250)
          .attr('opacity', '1')
+      svg.selectAll('.overlay')
+         .transition()
+         .duration(250)
+         .attr('opacity', .6)
       vertical.style('visibility', 'hidden')
       tooltip.style('visibility', 'hidden')
     }
@@ -919,11 +965,13 @@
       var selected = _.first(_.filter(d.values, function (e) { return e.date.getTime() === selectedDate.getTime() }))
       if (!selected) return
       var time = moment(selected.date).format('h:mm A')
-      // angular two way databinding seems not work here...
-      // use d3 instead
-      tooltip.select('.key').text(d.key)
-      tooltip.select('.time').text(time)
-      tooltip.select('.number-lg').text(selected.value)
+      ctrl.tooltipv = {
+        key: d.key,
+        time: time,
+        value: selected.value,
+        dap: selected.dap * 100
+      }
+      if (!$scope.$$phase) $scope.$digest()
       var data = {
         name: d.key,
         time: time,
@@ -4460,6 +4508,7 @@ window.twttr = (function(d, s, id) {
     vm.races = []
     vm.currentRace = {}
     vm.streamData = []
+    vm.streamDap = 0
     vm.streamPaddock = []
     vm.streamDen = []
     $scope.allData = []
@@ -4518,6 +4567,7 @@ window.twttr = (function(d, s, id) {
                     emptyAll()
                     vm.currentRace = {}
                     vm.streamData = []
+                    vm.streamDap = 0
                     vm.streamPaddock = []
                     vm.streamDen = []
                     $scope.allData = []
@@ -4544,6 +4594,7 @@ window.twttr = (function(d, s, id) {
       vm.currentRace = angular.copy(currentRace)
       if (_.isEmpty(currentRace)) return
       vm.streamData = currentRace.streamData? angular.copy(currentRace.streamData.zones) : []
+      vm.streamDap = currentRace.streamData? angular.copy(currentRace.streamData.total_availability) : 0
       vm.streamPaddock = currentRace.streamPaddock? angular.copy(currentRace.streamPaddock.zones) : []
       $scope.paddockData = _.find(vm.totalConsumption.zones, {name: 'Paddock'}) || { power: 0 }
       vm.totalConsumption = angular.copy(currentRace.totalConsumption) || { total_energy: 0, total_power: 0, zones: [] }
@@ -4726,6 +4777,7 @@ window.twttr = (function(d, s, id) {
                         if (vm.currentRace.live) {
                           if (!_.isEmpty(vm.streamPaddock)) emptyAll()
                           vm.streamData         = res.timeSeries.circuit.zones
+                          vm.streamDap          = res.timeSeries.circuit.total_availability
                           vm.streamPaddock      = res.timeSeries.paddock.zones
                           vm.totalConsumption   = res.totalConsumption
                           // vm.metersData         = res.metersData

@@ -1829,6 +1829,10 @@ nav.mobile-landing-pagination {
   right: 4vw;
   top: 40%;
 }
+#dashboard .component-bg .overlay-top-left.label-dap {
+  top: 6vw;
+  left: 3.3vw;
+}
 
 #dashboard streamgraph {
   padding: 0 3vw;
@@ -1985,6 +1989,21 @@ nav.mobile-landing-pagination {
 #dashboard #balance ul li div:last-child {
   padding-left: 4rem;
 }
+#dashboard #balance h2 {
+  margin-bottom: 0;
+}
+.label-dap,
+.label-dap-bk {
+  font-size: 1rem;
+  margin-bottom: .5rem;
+  padding-left: 2rem;
+  background: url(/assets/svgs/av-data.svg) no-repeat left center;
+  background-size: 1.5rem;
+}
+.label-dap-bk {
+  background: url(/assets/svgs/av-data-bk.svg) no-repeat left center;
+}
+
 #dashboard #balance .zone_balance .percentage {
   margin-top: 1.5rem;
   width: 100%;
@@ -2646,12 +2665,19 @@ streamgraph .tooltip {
   position: absolute;
   z-index: 10;
   width: 19rem;
-  height: 8rem;
+  height: 10.5rem;
   padding: .8rem;
   background: #fff;
   color: #008C5A;
   font-size: 1.4rem;
   pointer-events: none;
+}
+streamgraph .tooltip .label-dap {
+  font-size: .8rem;
+  margin-bottom: .5rem;
+  padding-left: 2rem;
+  background: url(/assets/svgs/av-data-gr.svg) no-repeat left center;
+  background-size: 1.5rem;
 }
 
 streamgraph .tooltip h4 {
@@ -2859,7 +2885,8 @@ snippet-carousel snippet-card {
 }
 
 snippet-card h2 {
-  font-size: 3.5vh;
+  /*font-size: 3.5vh;*/
+  font-size: 3.2vh;
   line-height: 120%;
 }
 snippet-card p {
