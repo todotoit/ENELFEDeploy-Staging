@@ -3833,6 +3833,7 @@ window.twttr = (function(d, s, id) {
     var liveRace = {
          "id": "r4",
          "live": false,
+         "future": false,
          "name": "Parque Forestal Ciudad De Santiago",
          "location": "Santiago",
          "country": "Chile",
@@ -3848,6 +3849,9 @@ window.twttr = (function(d, s, id) {
 
     if(raceTime.isSame(currentTime, "day")) {
       liveRace.live = true
+    }
+    if(raceTime.isAfter(currentTime, "day")) {
+      liveRace.future = true
     }
     // var liveRace = null
 
@@ -4609,8 +4613,9 @@ window.twttr = (function(d, s, id) {
     vm.races = races
     if (vm.races.length <= 3) $('div.races-list-wrap > ul').css('justify-content','left')
     vm.currentSeason = _.last(vm.seasons)
-    if (liveData) vm.races.push(liveData)
     var currentRace = _.last(vm.races)
+    if (liveData) vm.races.push(liveData)
+    if (liveData && !liveData.future) currentRace = _.last(vm.races)
 
     // -------
 
