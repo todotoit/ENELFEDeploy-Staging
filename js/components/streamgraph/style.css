@@ -46,6 +46,11 @@ streamgraph .tooltip .label-dap {
   background: url(/assets/svgs/av-data-gr.svg) no-repeat left center;
   background-size: 1.5rem;
 }
+streamgraph .label-dap-sm {
+  font-size: .8rem;
+  fill: #ffffff;
+  text-anchor: middle;
+}
 
 streamgraph .tooltip h4 {
   text-transform: uppercase;

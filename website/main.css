@@ -1691,12 +1691,24 @@ streamgraph .tooltip {
   position: absolute;
   z-index: 10;
   width: 19rem;
-  height: 8rem;
+  height: 10.5rem;
   padding: .8rem;
   background: #fff;
   color: #008C5A;
   font-size: 1.4rem;
   pointer-events: none;
+}
+streamgraph .tooltip .label-dap {
+  font-size: .8rem;
+  margin-bottom: .5rem;
+  padding-left: 2rem;
+  background: url(/assets/svgs/av-data-gr.svg) no-repeat left center;
+  background-size: 1.5rem;
+}
+streamgraph .label-dap-sm {
+  font-size: .8rem;
+  fill: #ffffff;
+  text-anchor: middle;
 }
 
 streamgraph .tooltip h4 {

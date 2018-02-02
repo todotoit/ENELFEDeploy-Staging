@@ -15,7 +15,7 @@
     var _totalConsumptionData   = null
     var _timeSeriesData         = {}
     var _metersData             = {}
-    // var enelStandMeter = 'Smart_Kit_BE_001'
+    // var enelStandMeter = 'Smart_Kit2_FE_043'
     // var denStorageMeter = 'Den_Api_FE_001'
 
     var beUrl = 'http://backend.enelformulae.todo.to.it'

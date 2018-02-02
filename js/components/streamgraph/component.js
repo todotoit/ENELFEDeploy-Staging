@@ -13,12 +13,13 @@
       bindings: {
         datasource: '<',
         onSelect: '&',
-        touchEnabled: '<?'
+        touchEnabled: '<?',
+        live: '<?'
       }
     })
 
   /* @ngInject */
-  function StreamgraphCtrl($scope, $element, $attrs, d3, _, everpolate, isMobile) {
+  function StreamgraphCtrl($scope, $element, $translate, $attrs, d3, _, everpolate, isMobile) {
     var ctrl = this
 
     // TODO: move in main config
@@ -269,15 +270,73 @@
            .attr('d', function(d,i) { return area(d.values) })
            .attr('fill', function(d, i) { return 'url(#stream_gr'+(i+1)+')' })
 
+      dataLayers = _.map(dataLayers, function(data) {
+        var values = []
+        for (var i = 0; i < data.values.length; i++) {
+          var corrupted = []
+          while (data.values[i] && data.values[i].dap < 1) {
+            corrupted.push(data.values[i++])
+          }
+          if (!_.isEmpty(corrupted)) {
+            var dapMean = Math.round(_.meanBy(corrupted, 'dap') * 100) / 100
+            var middle = corrupted[Math.floor(corrupted.length / 2)]
+            middle.timespan = moment(_.last(corrupted).h).diff(moment(_.first(corrupted).h),'hours',true)
+            middle.dap = dapMean
+            if (middle.timespan >= 1) values.push(middle)
+          }
+        }
+        data.corrupted = values
+        return data
+      })
+
       // update overlays
-      overlays.selectAll('.overlay')
+      var layerOverlay = overlays.selectAll('.overlay')
            .data(dataLayers).enter()
-           .append('path')
-           .attr('clip-path', 'url(#clipMask)')
-           .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
-           .attr('d', function(d,i) { return overlayArea(d.values) })
-           .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
-           .attr('opacity', .6)
+           .append('g')
+           .attr('class', function(d,i) { return 'overlay-wrap-'+(d.key) })
+
+      layerOverlay.append('path')
+        .attr('clip-path', 'url(#clipMask)')
+        .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
+        .attr('d', function(d,i) { return overlayArea(d.values) })
+        .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
+        .attr('opacity', .6)
+
+      layerOverlay.each(function(d) {
+        var textGroup = d3.select(this)
+          .selectAll('.label-dap-sm')
+          .data(d.corrupted).enter()
+          .append('g')
+          .attr('class', function(d,i) { return 'label-dap-sm label-'+(d.key) })
+          .attr('opacity', 0)
+
+        textGroup.append('image')
+          .attr('href', '../assets/svgs/av-data.svg')
+          .attr('width', 11)
+          .attr('height', 11)
+          .attr('x', function(d,i) { return X(d.date) -5 })
+          .attr('y', Y(70))
+
+        var textWrap = textGroup.append('text')
+          .attr('y', Y(50))
+
+        textWrap.append('tspan')
+          .attr('x', function(d,i) { return X(d.date) })
+          .attr('dy', '1.2em')
+          .text(function(d,i) {
+            var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
+            var tspan = text[0]+' '+text[1]
+            return tspan
+          })
+        textWrap.append('tspan')
+          .attr('x', function(d,i) { return X(d.date) })
+          .attr('dy', '1.2em')
+          .text(function(d,i) {
+            var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
+            var tspan = text[2]+' '+text[3]
+            return tspan
+          })
+        })
 
       if (touchEnabled) _attachToolipEvents()
 
@@ -378,6 +437,10 @@
          .transition()
          .duration(250)
          .attr('opacity', function(d, j) { return j == i ? 1 : 0 })
+      svg.selectAll('.label-dap-sm')
+         .transition()
+         .duration(250)
+         .attr('opacity', function(c, j) { return (d.key == c.key) ? 1 : 0 })
       vertical.style('visibility', 'visible')
       tooltip.style('visibility', 'visible')
     }
@@ -390,6 +453,10 @@
          .transition()
          .duration(250)
          .attr('opacity', .6)
+      svg.selectAll('.label-dap-sm')
+         .transition()
+         .duration(250)
+         .attr('opacity', 0)
       vertical.style('visibility', 'hidden')
       tooltip.style('visibility', 'hidden')
     }

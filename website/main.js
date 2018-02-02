@@ -27,12 +27,13 @@
       bindings: {
         datasource: '<',
         onSelect: '&',
-        touchEnabled: '<?'
+        touchEnabled: '<?',
+        live: '<?'
       }
     })
 
   /* @ngInject */
-  function StreamgraphCtrl($scope, $element, $attrs, d3, _, everpolate, isMobile) {
+  function StreamgraphCtrl($scope, $element, $translate, $attrs, d3, _, everpolate, isMobile) {
     var ctrl = this
 
     // TODO: move in main config
@@ -67,7 +68,7 @@
     // -------- SVG ELEMENTS ---------
     var svg, chart, box, w, h, vp,                                        // svg config
         axX, lnX,                                                         // axis and scales config
-        cursor, areas, clipMask,
+        cursor, areas, clipMask, overlays,
         lyOrder = '', lyOffset = 'silhouette', lyInterpolation = 'basis', // chart paths config
         delay = 1000, duration = 3000, ease = 'exp-out',                  // animation config
         enelCursor = {                                                    // brand cursor
@@ -75,6 +76,8 @@
           height: 52.5
         },
         vertical, tooltip
+    // tooltip data object
+    ctrl.tooltipv = {}
 
     // -------- COLORS ---------
     var colorrange = ['#077249','#008C5A','#11965A', '#22A05A', '#33AA5A','#44B45A']
@@ -112,6 +115,17 @@
                  .x(function(d) { return X(d.date) })
                  .y0(function(d) { return Y(d.y0) })
                  .y1(function(d) { return Y(d.y0 + d.y) })
+
+    // overlays should contaign a percentage of availability
+    // this percentage should be grouped by overlay area interval
+    var overlayArea = d3.svg.area()
+                       .interpolate('step')
+                       .x(function(d) { return X(d.date) })
+                       .y0(function(d) { return Y(0) })
+                       .y1(function(d) {
+                        if (d.dap < 1) return 0 // 50
+                        return Y(0)
+                       })
 
     function _interpolateInitialData(data) {
       var groups   = _.groupBy(data, 'key')
@@ -158,6 +172,10 @@
                 '    <stop offset="0%" stop-color="#258069"></stop>' +
                 '    <stop offset="100%" stop-color="#298725"></stop>' +
                 '  </linearGradient>' +
+                '  <linearGradient id="overlay_gr" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="0" y2="300">' +
+                '    <stop offset="0%" stop-color="rgba(111, 217, 194, .35)"></stop>' +
+                '    <stop offset="100%" stop-color="rgba(120, 217, 124, .35)"></stop>' +
+                '  </linearGradient>' +
                 '</defs'
 
     function init() {
@@ -185,9 +203,15 @@
       chart = svg.append('g')
                  .attr('id', 'streamBox')
                  .attr('transform', 'translate(' + enelCursor.width + ',' + 0 + ')')
+
+      // create wrap for overlays with retrieving data infos
+      overlays = chart.append('g')
+                      .attr('class', 'overlays')
+
       // create path for each area
       areas = chart.append('g')
                    .attr('class', 'chart')
+
       // Add 'curtain' rectangle to hide entire graph
       clipMask = chart.append('defs').append('clipPath')
                       .attr('id', 'clipMask')
@@ -241,6 +265,10 @@
       data = _interpolateInitialData(data)
       // create data layers
       var dataLayers = stack(nest.entries(data))
+
+      console.log('Streamgraph data', data)
+      console.log('Streamgraph data', dataLayers)
+
       // update scales domain and range
       var xDomain = d3.extent(data, function(d) { return d.date })
       var yDomain = [0, d3.max(data, function(d) { return d.y0 + d.y })]
@@ -255,6 +283,75 @@
            .attr('class', function(d,i) { return 'layer layer-'+(i+1) })
            .attr('d', function(d,i) { return area(d.values) })
            .attr('fill', function(d, i) { return 'url(#stream_gr'+(i+1)+')' })
+
+      dataLayers = _.map(dataLayers, function(data) {
+        var values = []
+        for (var i = 0; i < data.values.length; i++) {
+          var corrupted = []
+          while (data.values[i] && data.values[i].dap < 1) {
+            corrupted.push(data.values[i++])
+          }
+          if (!_.isEmpty(corrupted)) {
+            var dapMean = Math.round(_.meanBy(corrupted, 'dap') * 100) / 100
+            var middle = corrupted[Math.floor(corrupted.length / 2)]
+            middle.timespan = moment(_.last(corrupted).h).diff(moment(_.first(corrupted).h),'hours',true)
+            middle.dap = dapMean
+            if (middle.timespan >= 1) values.push(middle)
+          }
+        }
+        data.corrupted = values
+        return data
+      })
+
+      // update overlays
+      var layerOverlay = overlays.selectAll('.overlay')
+           .data(dataLayers).enter()
+           .append('g')
+           .attr('class', function(d,i) { return 'overlay-wrap-'+(d.key) })
+
+      layerOverlay.append('path')
+        .attr('clip-path', 'url(#clipMask)')
+        .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
+        .attr('d', function(d,i) { return overlayArea(d.values) })
+        .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
+        .attr('opacity', .6)
+
+      layerOverlay.each(function(d) {
+        var textGroup = d3.select(this)
+          .selectAll('.label-dap-sm')
+          .data(d.corrupted).enter()
+          .append('g')
+          .attr('class', function(d,i) { return 'label-dap-sm label-'+(d.key) })
+          .attr('opacity', 0)
+
+        textGroup.append('image')
+          .attr('href', '../assets/svgs/av-data.svg')
+          .attr('width', 11)
+          .attr('height', 11)
+          .attr('x', function(d,i) { return X(d.date) -5 })
+          .attr('y', Y(70))
+
+        var textWrap = textGroup.append('text')
+          .attr('y', Y(50))
+
+        textWrap.append('tspan')
+          .attr('x', function(d,i) { return X(d.date) })
+          .attr('dy', '1.2em')
+          .text(function(d,i) {
+            var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
+            var tspan = text[0]+' '+text[1]
+            return tspan
+          })
+        textWrap.append('tspan')
+          .attr('x', function(d,i) { return X(d.date) })
+          .attr('dy', '1.2em')
+          .text(function(d,i) {
+            var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
+            var tspan = text[2]+' '+text[3]
+            return tspan
+          })
+        })
+
       if (touchEnabled) _attachToolipEvents()
 
       // update axis data
@@ -350,6 +447,14 @@
          .transition()
          .duration(250)
          .attr('opacity', function(d, j) { return j == i ? 1 : .3 })
+      svg.selectAll('.overlay')
+         .transition()
+         .duration(250)
+         .attr('opacity', function(d, j) { return j == i ? 1 : 0 })
+      svg.selectAll('.label-dap-sm')
+         .transition()
+         .duration(250)
+         .attr('opacity', function(c, j) { return (d.key == c.key) ? 1 : 0 })
       vertical.style('visibility', 'visible')
       tooltip.style('visibility', 'visible')
     }
@@ -358,6 +463,14 @@
          .transition()
          .duration(250)
          .attr('opacity', '1')
+      svg.selectAll('.overlay')
+         .transition()
+         .duration(250)
+         .attr('opacity', .6)
+      svg.selectAll('.label-dap-sm')
+         .transition()
+         .duration(250)
+         .attr('opacity', 0)
       vertical.style('visibility', 'hidden')
       tooltip.style('visibility', 'hidden')
     }
@@ -371,11 +484,13 @@
       var selected = _.first(_.filter(d.values, function (e) { return e.date.getTime() === selectedDate.getTime() }))
       if (!selected) return
       var time = moment(selected.date).format('h:mm A')
-      // angular two way databinding seems not work here...
-      // use d3 instead
-      tooltip.select('.key').text(d.key)
-      tooltip.select('.time').text(time)
-      tooltip.select('.number-lg').text(selected.value)
+      ctrl.tooltipv = {
+        key: d.key,
+        time: time,
+        value: selected.value,
+        dap: selected.dap * 100
+      }
+      if (!$scope.$$phase) $scope.$digest()
       var data = {
         name: d.key,
         time: time,
@@ -2483,21 +2598,21 @@ window.twttr = (function(d, s, id) {
     var vm = this
     vm.races = []
     vm.upcomings = [
-      { id: 'R1', date: '02 DEC 2017', location: 'HONG KONG', country: 'HK', circuit: 'Central Harbourfront', enelStand: false, past: true },
-      { id: 'R2', date: '03 DEC 2017', location: 'HONG KONG', country: 'HK', circuit: 'Central Harbourfront', enelStand: false, past: true },
-      { id: 'R3', date: '13 GEN 2018', location: 'MARRAKESH', country: 'MA', circuit: 'Moulay El Hassan', enelStand: false, past: true },
-      { id: 'R4', date: '03 FEB 2018', location: 'SANTIAGO', country: 'CL', circuit: 'Parque Forestal Ciudad De Santiago', enelStand: true, past: false },
-      { id: 'R5', date: '03 MAR 2018', location: 'MEXICO CITY', country: 'MX', circuit: 'Hermanos Rodriguez', enelStand: false, past: false },
-      // { id: 'R6', date: '17 MAR 2018', location: 'SAO PAULO', country: 'BR', circuit: 'São Paulo', enelStand: false, past: false },
-      { id: 'R6', date: '17 MAR 2018', location: 'PUNTA DEL ESTE', country: 'UY', circuit: 'Punta Del Este', enelStand: false, past: false },
-      { id: 'R7', date: '14 APR 2018', location: 'ROME', country: 'IT', circuit: 'Circuto Cittadino Dell’EUR', enelStand: true, past: false },
-      { id: 'R8', date: '28 APR 2018', location: 'PARIS', country: 'FR', circuit: 'Circuit Des Invalides', enelStand: false, past: false },
-      { id: 'R9', date: '19 MAY 2018', location: 'BERLIN', country: 'DE', circuit: 'Flughafen Tempelhof', enelStand: false, past: false },
-      { id: 'R10', date: '10 JUN 2018', location: 'ZURICH', country: 'CH', circuit: 'TBA', enelStand: false, past: false },
-      { id: 'R11', date: '14 JUL 2018', location: 'NEW YORK CITY', country: 'US', circuit: 'Brooklyn', enelStand: true, past: false },
-      { id: 'R12', date: '15 JUL 2018', location: 'NEW YORK CITY', country: 'US', circuit: 'Brooklyn', enelStand: true, past: false },
-      { id: 'R13', date: '28 JUL 2018', location: 'TBA', country: '', circuit: 'TBA', enelStand: false, past: false },
-      { id: 'R14', date: '29 JUL 2018', location: 'TBA', country: '', circuit: 'TBA', enelStand: false, past: false }
+      { id: 'R1', date: '02 DEC 2017', location: 'HONG KONG', country: 'HK', timezone: "Asia/Hong_Kong", circuit: 'Central Harbourfront', enelStand: false},
+      { id: 'R2', date: '03 DEC 2017', location: 'HONG KONG', country: 'HK', timezone: "Asia/Hong_Kong", circuit: 'Central Harbourfront', enelStand: false},
+      { id: 'R3', date: '13 JAN 2018', location: 'MARRAKESH', country: 'MA', timezone: "Etc/UTC", circuit: 'Moulay El Hassan', enelStand: false},
+      { id: 'R4', date: '03 FEB 2018', location: 'SANTIAGO', country: 'CL', timezone: "America/Santiago", circuit: 'Parque Forestal Ciudad De Santiago', enelStand: true},
+      { id: 'R5', date: '03 MAR 2018', location: 'MEXICO CITY', country: 'MX', timezone: "America/Mexico_City", circuit: 'Hermanos Rodriguez', enelStand: false},
+      // { id: 'R6', date: '17 MAR 2018', location: 'SAO PAULO', country: 'BR', timezone: "", circuit: 'São Paulo', enelStand: false},
+      { id: 'R6', date: '17 MAR 2018', location: 'PUNTA DEL ESTE', country: 'UY', timezone: "America/Montevideo", circuit: 'Punta Del Este', enelStand: false},
+      { id: 'R7', date: '14 APR 2018', location: 'ROME', country: 'IT', timezone: "Europe/Rome", circuit: 'Circuto Cittadino Dell’EUR', enelStand: true},
+      { id: 'R8', date: '28 APR 2018', location: 'PARIS', country: 'FR', timezone: "Europe/Paris", circuit: 'Circuit Des Invalides', enelStand: false},
+      { id: 'R9', date: '19 MAY 2018', location: 'BERLIN', country: 'DE', timezone: "Europe/Berlin", circuit: 'Flughafen Tempelhof', enelStand: false},
+      { id: 'R10', date: '10 JUN 2018', location: 'ZURICH', country: 'CH', timezone: "Europe/Zurich", circuit: 'TBA', enelStand: false},
+      { id: 'R11', date: '14 JUL 2018', location: 'NEW YORK CITY', country: 'US', timezone: "America/New_York", circuit: 'Brooklyn', enelStand: true},
+      { id: 'R12', date: '15 JUL 2018', location: 'NEW YORK CITY', country: 'US', timezone: "America/New_York", circuit: 'Brooklyn', enelStand: true}
+      // { id: 'R13', date: '28 JUL 2018', location: 'TBA', country: '', timezone: "", circuit: 'TBA', enelStand: false},
+      // { id: 'R14', date: '29 JUL 2018', location: 'TBA', country: '', timezone: "", circuit: 'TBA', enelStand: false}
     ]
 
     vm.streamData = []
@@ -2547,9 +2662,25 @@ window.twttr = (function(d, s, id) {
       id: 's04',
       live: true
     }
-    // races
-    vm.currentRace = vm.upcomings[3]
-    // vm.currentRace.live = true
+    var today = moment()
+    var id = 0
+    vm.currentRace = _.minBy(vm.upcomings, function (r) {
+      var today_tz = today.clone().tz(r.timezone)
+      if (moment(r.date).tz(r.timezone).diff(today_tz, "hours", true) <= -24){
+        vm.upcomings[id].past = true
+        return NaN
+      }
+      id++
+      return moment(r.date).tz(r.timezone).diff(today_tz, "hours", true)
+    })
+
+    var currentTime = today.clone().tz(vm.currentRace.timezone)
+    var raceTime = moment(vm.currentRace.date)
+
+    if(raceTime.isSame(currentTime, "day")) {
+      vm.currentRace.live = true
+    }
+
     var offX = $(window).width() * 10 / 100
     $timeout(function(){ $('#landing #upcoming nav').scrollLeft($('#'+vm.currentRace.id).offset().left + - offX) }, 1000)
     // delay streamgraph load data
