@@ -36,11 +36,11 @@
 
     // instance methods
     function _getTotal() {
-      return _totalConsumptionData || _updateTotal()
+      return _totalConsumptionData ? $q.resolve(_totalConsumptionData) : _updateTotal()
     }
     function _getTimeSeries(zone_name) {
       var zone = zone_name || 'circuit'
-      return _timeSeriesData[zone] || _updateTimeSeries(zone_name)
+      return _timeSeriesData[zone] ? $q.resolve(_timeSeriesData[zone]) : _updateTimeSeries(zone_name)
     }
     function _getMeter(meter_name) {
       if (!meter_name) return console.error('Error::Meter name could not be empty')
@@ -62,8 +62,9 @@
                   function(res) {
                     return {
                       totalConsumption: _totalConsumptionData,
-                      timeSeries:       _timeSeriesData,
-                      meters:           _metersData
+                      streamData:       _timeSeriesData['circuit'],
+                      streamPaddock:    _timeSeriesData['paddock'],
+                      // meters:           _metersData
                     }
                   }, function(err) {
                     console.error(err)

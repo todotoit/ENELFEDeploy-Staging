@@ -189,9 +189,9 @@
       // -------- INITIALIZE CHART ---------
       svg = d3.select($element.find('svg').get(0))
       box = svg.attr('viewBox').split(' ')
-      w   = +box[2] -enelCursor.width // width
-      h   = +box[3]                   // height
-      vp  = 15                        // vertical padding
+      w   = +box[2] -enelCursor.width -15 // width
+      h   = +box[3]                       // height
+      vp  = 15                            // vertical padding
 
       // tooltip elements
       tooltip = d3.select($element.find('.tooltip').get(0))
@@ -253,7 +253,7 @@
       console.log('update streamgraph')
 
       // -------- DATA MAP ---------
-      var lastIdx = d3.min(data, function(d) {return d.values.length})
+      var lastIdx = !_.isEmpty(data) ? d3.min(data, function(d) {return d.values.length}) : 0
       var values = _(data).groupBy('key').mapValues(function(d){return d[0].values.slice(0, lastIdx) }).merge().values().flatten().value()
       data = _.map(values, function(d) {
         d.date = format.parse(d.h)
@@ -304,53 +304,55 @@
       })
 
       // update overlays
-      var layerOverlay = overlays.selectAll('.overlay')
-           .data(dataLayers).enter()
-           .append('g')
-           .attr('class', function(d,i) { return 'overlay-wrap-'+(d.key) })
+      if (ctrl.live) {
+        var layerOverlay = overlays.selectAll('.overlay')
+             .data(dataLayers).enter()
+             .append('g')
+             .attr('class', function(d,i) { return 'overlay-wrap-'+(d.key) })
 
-      layerOverlay.append('path')
-        .attr('clip-path', 'url(#clipMask)')
-        .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
-        .attr('d', function(d,i) { return overlayArea(d.values) })
-        .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
-        .attr('opacity', .6)
+        layerOverlay.append('path')
+          .attr('clip-path', 'url(#clipMask)')
+          .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
+          .attr('d', function(d,i) { return overlayArea(d.values) })
+          .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
+          .attr('opacity', .6)
 
-      layerOverlay.each(function(d) {
-        var textGroup = d3.select(this)
-          .selectAll('.label-dap-sm')
-          .data(d.corrupted).enter()
-          .append('g')
-          .attr('class', function(d,i) { return 'label-dap-sm label-'+(d.key) })
-          .attr('opacity', 0)
+        layerOverlay.each(function(d) {
+          var textGroup = d3.select(this)
+            .selectAll('.label-dap-sm')
+            .data(d.corrupted).enter()
+            .append('g')
+            .attr('class', function(d,i) { return 'label-dap-sm label-'+(d.key) })
+            .attr('opacity', 0)
 
-        textGroup.append('image')
-          .attr('href', '../assets/svgs/av-data.svg')
-          .attr('width', 11)
-          .attr('height', 11)
-          .attr('x', function(d,i) { return X(d.date) -5 })
-          .attr('y', Y(70))
+          textGroup.append('image')
+            .attr('href', '../assets/svgs/av-data.svg')
+            .attr('width', 11)
+            .attr('height', 11)
+            .attr('x', function(d,i) { return X(d.date) -5 })
+            .attr('y', h-52.5)
 
-        var textWrap = textGroup.append('text')
-          .attr('y', Y(50))
+          var textWrap = textGroup.append('text')
+            .attr('y', h-41.5)
 
-        textWrap.append('tspan')
-          .attr('x', function(d,i) { return X(d.date) })
-          .attr('dy', '1.2em')
-          .text(function(d,i) {
-            var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
-            var tspan = text[0]+' '+text[1]
-            return tspan
+          textWrap.append('tspan')
+            .attr('x', function(d,i) { return X(d.date) })
+            .attr('dy', '1.2em')
+            .text(function(d,i) {
+              var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
+              var tspan = text[0]+' '+text[1]
+              return tspan
+            })
+          textWrap.append('tspan')
+            .attr('x', function(d,i) { return X(d.date) })
+            .attr('dy', '1.2em')
+            .text(function(d,i) {
+              var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
+              var tspan = text[2]+' '+text[3]
+              return tspan
+            })
           })
-        textWrap.append('tspan')
-          .attr('x', function(d,i) { return X(d.date) })
-          .attr('dy', '1.2em')
-          .text(function(d,i) {
-            var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
-            var tspan = text[2]+' '+text[3]
-            return tspan
-          })
-        })
+      }
 
       if (touchEnabled) _attachToolipEvents()
 
@@ -2396,6 +2398,16 @@ window.twttr = (function(d, s, id) {
 (function (angular) {
   'use strict'
 
+  angular
+    .module('MainApp')
+    .value('currentSeason', {id: 's4'})
+    .value('showcaseRace', {id: 'r4'})
+
+}(window.angular));
+
+(function (angular) {
+  'use strict'
+
   /**
     MainApp
     httpProvider configurations for MainApp
@@ -2439,6 +2451,135 @@ window.twttr = (function(d, s, id) {
     $translateProvider.registerAvailableLanguageKeys(availableLanguages)
     $translateProvider.preferredLanguage(availableLanguages[0])
   }
+}(window.angular));
+
+(function (angular) {
+  'use strict'
+
+  /**
+  **/
+
+  angular
+    .module('MainApp')
+    .service('RacesSrv', ContructorForRacesSrv)
+
+  /* @ngInject */
+  function ContructorForRacesSrv($rootScope, $http, $q, currentSeason) {
+    var self = this
+
+    var seasonsUrl = '../assets/jsonData/seasons.json'
+    var seasons = null
+    var races = {}
+    var racesData = {}
+
+    self.getSeasons = _getSeasons
+    self.getRaces = _getRaces
+    self.getRace = _getRace
+    self.getRaceData = _getRaceData
+    self.getCurrentRace = _getCurrentRace
+    self.getRaceWithData = _getRaceWithData
+    self.getCurrentSeason = _getCurrentSeason
+
+    // instance methods
+    function _getSeasons() {
+      return seasons ? $q.resolve(seasons) : _initializeSeasons()
+    }
+    function _getCurrentSeason() {
+      return  $q.resolve(_getRaces())
+                .then(function(res) {
+                  var races = res
+                  var firstRace = _.first(races)
+                  var seasonStartDay = moment(firstRace.date, "DD MMM YYYY").subtract(1, "days")
+                  var checkTime = moment().tz(firstRace.timezone)
+                  if (checkTime.diff(seasonStartDay, "days") > 0) currentSeason.live = true
+                  return currentSeason
+                }, function(err) {
+                  console.error(err)
+                  return {}
+                })
+    }
+    function _getRaces(season) {
+      var season = season || currentSeason
+      return races[season.id] ? $q.resolve(races[season.id]) : _initializeRaces(season)
+    }
+    function _getRace(season, race) {
+      return  $q.resolve(_getRaces(season))
+                .then(function(res) {
+                  var races = res
+                  return _.find(races, race)
+                }, function(err) {
+                  console.error(err)
+                  return {}
+                })
+    }
+    function _getCurrentRace(closest) {
+      return  $q.resolve(_getRaces())
+                .then(function(res) {
+                  var races = res
+                  var currentRace = _.find(races, { live: true })
+                  if (!currentRace && closest.future) currentRace = _.find(races, closest)
+                  if (!currentRace && closest.past) currentRace = _.findLast(races, closest)
+                  return currentRace
+                }, function(err) {
+                  console.error(err)
+                  return {}
+                })
+    }
+    function _getRaceData(season, race) {
+      var dataKey = season.id+race.id
+      return racesData[dataKey] ? $q.resolve(racesData[dataKey]) : _initializeRaceData(season, race)
+    }
+    function _initializeRaceData(season, race) {
+      return $http.get('../assets/jsonData/'+season.id+'/history/'+season.id+race.id+'.json')
+                  .then(function(res){
+                    var dataKey = season.id+race.id
+                    racesData[dataKey] = res.data
+                    return racesData[dataKey]
+                  }, function (err) {
+                    return {}
+                    console.error(err)
+                  })
+    }
+    function _getRaceWithData(season, race) {
+      return $q.all([_getRace(season, race),
+                     _getRaceData(season, race)])
+                .then(function (res) {
+                  return _.assign(res[0], res[1])
+                }, function (err) {
+                  console.error(err)
+                })
+    }
+
+    function _initializeSeasons() {
+      return $http.get(seasonsUrl)
+                  .then(function(res){
+                    seasons = res.data.seasons
+                    return seasons
+                  }, function (err) {
+                    console.error(err)
+                  })
+    }
+    function _initializeRaces(season) {
+      return $http.get('../assets/jsonData/'+season.id+'/races.json')
+                  .then(function(res) {
+                    races[season.id] = res.data.races
+                    _.forEach(races[season.id], function (r, i) {
+                      var today_tz = moment().tz(r.timezone)
+                      var r_day = moment(r.date, "DD MMM YYYY").utcOffset('+00:00', true)
+                      var diff = r_day.diff(today_tz.clone().utcOffset('+00:00', true), "hours", true)
+                      // console.log(r_day.format(), today_tz.format())
+                      // console.log(diff, today_tz.clone().add(diff,'hours').format())
+                      if (diff <= -24) r.past = true
+                      else if (diff >= 0) r.future = true
+                      else r.live = true
+                    })
+                    return races[season.id]
+                  }, function(err) {
+                    console.error(err)
+                  })
+    }
+  }
+
 }(window.angular));
 
 (function (angular) {
@@ -2526,17 +2667,20 @@ window.twttr = (function(d, s, id) {
       .state('landing', {
         url: '/:lang/landing',
         resolve: {
-          snippets: function() { return [] }
+          upcomings: function (RacesSrv) {
+            return RacesSrv.getRaces()
+          },
+          currentRace: function (RacesSrv) {
+            return RacesSrv.getCurrentRace({ future: true })
+          },
+          currentSeason: function (RacesSrv) {
+            return RacesSrv.getCurrentSeason()
+          }
+
         },
         controller: 'LandingCtrl',
         controllerAs: 'landing',
         templateUrl: 'templates/landing.html'
-      })
-      .state('history', {
-        url: '/:lang/race-history',
-        controller: 'HistoryCtrl',
-        controllerAs: 'history',
-        templateUrl: 'templates/race-history.html'
       })
   }
 }(window.angular));
@@ -2549,8 +2693,8 @@ window.twttr = (function(d, s, id) {
     .controller('LandingCtrl', landingCtrl)
 
   /* @ngInject */
-  function landingCtrl ($scope, snippets, $timeout, $http, _, $translate, $state, $stateParams) {
-
+  function landingCtrl ($scope, $timeout, $http, $translate, $state, $stateParams, _, currentSeason, upcomings, currentRace) {
+    var vm = this
     $scope.languages = $translate.getAvailableLanguageKeys() || []
     if ($scope.languages.length <= 1) $scope.languages = []
     $scope.currentLang = $translate.use()
@@ -2595,127 +2739,20 @@ window.twttr = (function(d, s, id) {
     }
     detectWebGLContext()
 
-    var vm = this
-    vm.races = []
-    vm.upcomings = [
-      { id: 'R1', date: '02 DEC 2017', location: 'HONG KONG', country: 'HK', timezone: "Asia/Hong_Kong", circuit: 'Central Harbourfront', enelStand: false},
-      { id: 'R2', date: '03 DEC 2017', location: 'HONG KONG', country: 'HK', timezone: "Asia/Hong_Kong", circuit: 'Central Harbourfront', enelStand: false},
-      { id: 'R3', date: '13 JAN 2018', location: 'MARRAKESH', country: 'MA', timezone: "Etc/UTC", circuit: 'Moulay El Hassan', enelStand: false},
-      { id: 'R4', date: '03 FEB 2018', location: 'SANTIAGO', country: 'CL', timezone: "America/Santiago", circuit: 'Parque Forestal Ciudad De Santiago', enelStand: true},
-      { id: 'R5', date: '03 MAR 2018', location: 'MEXICO CITY', country: 'MX', timezone: "America/Mexico_City", circuit: 'Hermanos Rodriguez', enelStand: false},
-      // { id: 'R6', date: '17 MAR 2018', location: 'SAO PAULO', country: 'BR', timezone: "", circuit: 'São Paulo', enelStand: false},
-      { id: 'R6', date: '17 MAR 2018', location: 'PUNTA DEL ESTE', country: 'UY', timezone: "America/Montevideo", circuit: 'Punta Del Este', enelStand: false},
-      { id: 'R7', date: '14 APR 2018', location: 'ROME', country: 'IT', timezone: "Europe/Rome", circuit: 'Circuto Cittadino Dell’EUR', enelStand: true},
-      { id: 'R8', date: '28 APR 2018', location: 'PARIS', country: 'FR', timezone: "Europe/Paris", circuit: 'Circuit Des Invalides', enelStand: false},
-      { id: 'R9', date: '19 MAY 2018', location: 'BERLIN', country: 'DE', timezone: "Europe/Berlin", circuit: 'Flughafen Tempelhof', enelStand: false},
-      { id: 'R10', date: '10 JUN 2018', location: 'ZURICH', country: 'CH', timezone: "Europe/Zurich", circuit: 'TBA', enelStand: false},
-      { id: 'R11', date: '14 JUL 2018', location: 'NEW YORK CITY', country: 'US', timezone: "America/New_York", circuit: 'Brooklyn', enelStand: true},
-      { id: 'R12', date: '15 JUL 2018', location: 'NEW YORK CITY', country: 'US', timezone: "America/New_York", circuit: 'Brooklyn', enelStand: true}
-      // { id: 'R13', date: '28 JUL 2018', location: 'TBA', country: '', timezone: "", circuit: 'TBA', enelStand: false},
-      // { id: 'R14', date: '29 JUL 2018', location: 'TBA', country: '', timezone: "", circuit: 'TBA', enelStand: false}
-    ]
-
-    vm.streamData = []
-    vm.totalConsumption = {
-      total_energy: 0,
-      zones: []
-    }
-    vm.snippets = angular.copy(_.initial(snippets))
-    vm.tweets = []
-    vm.boots = []
-
-    // initialize object for countdown
-    $scope.countDown = {
-      date: '2017-07-16 00:00',
-      timezone: 'America/New_York'
-    }
     $scope.compatibilityMsg = ''
     if (bowser.msie) $scope.compatibilityMsg = 'Please use Chrome to enjoy the experience.'
     if (!bowser.chrome) $scope.compatibilityMsg = 'Experience optimised for Chrome.'
 
-    // donut
-    $scope.donutSelectedKey = 'Paddock'
-    vm.donutSelection = {
-      energy: 0,
-      percentage: 0,
-      name: 'Paddock'
-    }
-    $scope.stream_select = function(area) {
-      $scope.$broadcast('donut:select',_.capitalize(area.name))
-    }
-    $scope.donut_select = function(area) {
-      if (!area) return console.error('No area selected')
-      var areasel = _.find(vm.totalConsumption.zones, function(a) { return a.name.toLowerCase() === area.name.toLowerCase() })
-      var percentage = (+areasel.energy/+vm.totalConsumption.total_energy)*100
-      vm.donutSelection = {
-        energy: Math.round(areasel.energy),
-        name: areasel.name,
-        percentage: Math.round(percentage*100)/100
-      }
-      $scope.donutSelectedKey = _.capitalize(areasel.name)
-      // $scope.$broadcast('streamgraph:select',areasel.name.toLowerCase())
-      if (!$scope.$$phase) $scope.$digest()
-    }
-
-    // season
-    vm.currentSeason = {
-      id: 's04',
-      live: true
-    }
-    var today = moment()
-    var id = 0
-    vm.currentRace = _.minBy(vm.upcomings, function (r) {
-      var today_tz = today.clone().tz(r.timezone)
-      if (moment(r.date).tz(r.timezone).diff(today_tz, "hours", true) <= -24){
-        vm.upcomings[id].past = true
-        return NaN
-      }
-      id++
-      return moment(r.date).tz(r.timezone).diff(today_tz, "hours", true)
-    })
-
-    var currentTime = today.clone().tz(vm.currentRace.timezone)
-    var raceTime = moment(vm.currentRace.date)
-
-    if(raceTime.isSame(currentTime, "day")) {
-      vm.currentRace.live = true
-    }
+    vm.currentSeason = currentSeason
+    vm.upcomings = upcomings
+    vm.currentRace = currentRace
 
     var offX = $(window).width() * 10 / 100
     $timeout(function(){ $('#landing #upcoming nav').scrollLeft($('#'+vm.currentRace.id).offset().left + - offX) }, 1000)
-    // delay streamgraph load data
-    // $timeout(function(){ retrieveRacesFeed() }, 1000)
-
-    function retrieveRacesFeed() {
-      return $http.get('../assets/jsonData/races.json')
-                  .then(function(res) {
-                    vm.races = res.data.races
-                    var currentRace = _.last(res.data.races)
-                    $scope.selectRace(currentRace.id)
-                  }, function(err) {
-                    console.error(err)
-                  })
-    }
-    $scope.selectRace = function(id) {
-      var currentRace = _.find(vm.races, {id: id})
-      vm.currentRace = angular.copy(currentRace)
-      vm.streamData = angular.copy(currentRace.streamData.zones)
-      vm.totalConsumption = angular.copy(currentRace.totalConsumption)
-
-      var ytvideo = '<iframe class="race-video" width="100" src="https://www.youtube.com/embed/'+currentRace.videoId+'?rel=0" frameborder="0" allowfullscreen></iframe>'
-      var ytvideoTitl = '<figure-caption>'+currentRace.videoTitle+'</figure-caption>'
-      $('#eprix-history .video-wrapper').html(ytvideo)
-      $('#eprix-history-sidebar .video-wrapper').html(ytvideo)
-      if (!currentRace.videoId) {
-        $('#eprix-history .video-wrapper .race-video').remove()
-        $('#eprix-history-sidebar .video-wrapper .race-video').remove()
-      }
-      if (!$scope.$$phase) $scope.$digest()
-    }
 
     // twit feed
+    vm.tweets = []
     retrieveTweetFeed()
-
     function retrieveTweetFeed() {
       return $http.get('https://runkit.io/marcoaimo/enelfetweetfeed/4.0.0')
                   .then(function(res) {
@@ -2735,33 +2772,6 @@ window.twttr = (function(d, s, id) {
                     //        })
                     // })
                     $scope.twitDisplayNum = _getTwitDisplayNum()
-                  }, function(err) {
-                    console.error(err)
-                  })
-    }
-
-    retrieveBootInstFeed()
-    retrieveBootTweetFeed()
-
-    function retrieveBootInstFeed() {
-      return $http.get('https://instagram-hashtag-scraper-yhhwg0exbkj5.runkit.sh/')
-                  .then(function(res) {
-                    console.log(res.data)
-                    vm.boots = vm.boots.concat(res.data.items)
-
-                    $scope.bootDisplayNum = _getTwitDisplayNum()
-                  }, function(err) {
-                    console.error(err)
-                  })
-    }
-
-    function retrieveBootTweetFeed() {
-      return $http.get('https://twitter-hashtag-scraper-1d5rh9l89tep.runkit.sh/')
-                  .then(function(res) {
-                    console.log(res.data)
-                    vm.boots = vm.boots.concat(res.data.items)
-
-                    $scope.bootDisplayNum = _getTwitDisplayNum()
                   }, function(err) {
                     console.error(err)
                   })
@@ -2802,54 +2812,6 @@ window.twttr = (function(d, s, id) {
       TweenMax.to('.twitter-tweet', .5, { x: '-='+(wrapw+span-0.5) })
     }
 
-    // snippet carousel
-    var duration = 0.6
-    var lastId = vm.snippets.length-1
-    var idPreOut = vm.snippets.length-2
-    // alert(JSON.stringify(bowser))
-    $timeout(_setCarouselSize, 1500)
-    function _setCarouselSize(){
-      if(window.isMobile) {
-      var snip_width = Math.min($(window).width()*0.8, 350);
-      var snip_height = Math.min($(window).height()*0.8, 548);
-      $('.snip-wrapper .snip').width(snip_width)
-      $('.snip-wrapper .snip').height(snip_height)
-      $('.snip-wrapper').height(snip_height)
-      $('#snippet-info, #snippet-carousel').css('height', 'auto')
-      } else {
-        var snip_width = 350
-        var snip_height = 548
-      }
-      if(bowser.safari || (bowser.chrome && (bowser.iphone || bowser.ipad)) || (bowser.firefox && +bowser.version < 52 || bowser.msie)){
-        $('#snippet-carousel').css({
-          width: snip_width*2
-        })
-        $('#snippet-carousel .snip-wrapper').css({
-          transform: 'translateX('+(-snip_width/2)+'px)'
-        })
-      }
-      //
-      var $elPre = $('#snip-'+lastId)
-      var $elNext = $('#snip-1')
-      $elPre.click($scope.snip_previous)
-      if (idPreOut > 0) {
-        $elNext.click($scope.snip_next)
-      }
-    }
-    function _shiftLeft() {
-      $timeout(function(){
-        var el = _.last(vm.snippets)
-        _.pull(vm.snippets, el)
-        vm.snippets.unshift(el)
-      }, (duration*1000)-500)
-    }
-    function _shiftRight() {
-      $timeout(function(){
-        var el = vm.snippets.shift()
-        vm.snippets.push(el)
-      }, (duration*1000)-500)
-    }
-
     // fix ie svg
     if (bowser.msie) {
       $timeout(_setSvgSize, 1000)
@@ -2872,136 +2834,6 @@ window.twttr = (function(d, s, id) {
         // $svg.css({ width: wstyle/10 +'rem' })
       })
     }
-
-
-    // -------
-
-    // deregister event handlers
-    // $scope.$on('$destroy', function () {})
-  }
-}(window.angular));
-
-(function (angular) {
-  'use strict'
-
-  angular
-    .module('WebApp')
-    .controller('HistoryCtrl', historyCtrl)
-
-  /* @ngInject */
-  function historyCtrl ($scope, $timeout, $interval, $http, _, moment) {
-    var vm = this
-    vm.races = []
-    vm.streamData = []
-    vm.totalConsumption = {
-      total_energy: 0,
-      zones: []
-    }
-
-    // initialize object for countdown
-    $scope.countDown = {
-      date: '2017-06-10 00:00',
-      timezone: 'Europe/Berlin'
-    }
-    $scope.compatibilityMsg = ''
-    // if (bowser.msie) $scope.compatibilityMsg = 'Please use Chrome to enjoy the experience.'
-    // if (!bowser.chrome) $scope.compatibilityMsg = 'Experience optimised for Chrome.'
-
-    // donut
-    $scope.donutSelectedKey = 'Paddock'
-    vm.donutSelection = {
-      energy: 0,
-      percentage: 0,
-      name: 'Paddock'
-    }
-    $scope.stream_select = function(area) {
-      $scope.$broadcast('donut:select',_.capitalize(area.name))
-    }
-    $scope.donut_select = function(area) {
-      if (!area) return console.error('No area selected')
-      var areasel = _.find(vm.totalConsumption.zones, function(a) { return a.name.toLowerCase() === area.name.toLowerCase() })
-      var percentage = (+areasel.energy/+vm.totalConsumption.total_energy)*100
-      vm.donutSelection = {
-        energy: Math.round(areasel.energy),
-        name: areasel.name,
-        percentage: Math.round(percentage*100)/100
-      }
-      $scope.donutSelectedKey = _.capitalize(areasel.name)
-      // $scope.$broadcast('streamgraph:select',areasel.name.toLowerCase())
-      if (!$scope.$$phase) $scope.$digest()
-    }
-
-    // races
-    vm.currentRace = {}
-    // delay streamgraph load data
-    $timeout(function(){ retrieveRacesFeed() }, 1000)
-
-    function retrieveRacesFeed() {
-      return $http.get('../assets/jsonData/races.json')
-                  .then(function(res) {
-                    vm.races = res.data.races
-                    var currentRace = _.last(res.data.races)
-                    $scope.selectRace(currentRace.id)
-                  }, function(err) {
-                    console.error(err)
-                  })
-    }
-    $scope.selectRace = function(id) {
-      var currentRace = _.find(vm.races, {id: id})
-      vm.currentRace = angular.copy(currentRace)
-      vm.streamData = angular.copy(currentRace.streamData.zones)
-      vm.totalConsumption = angular.copy(currentRace.totalConsumption)
-
-      var ytvideo = '<iframe class="race-video" width="100" src="https://www.youtube.com/embed/'+currentRace.videoId+'?rel=0" frameborder="0" allowfullscreen></iframe>'
-      var ytvideoTitl = '<figure-caption>'+currentRace.videoTitle+'</figure-caption>'
-      $('#eprix-history .video-wrapper').html(ytvideo)
-      $('#eprix-history-sidebar .video-wrapper').html(ytvideo)
-      if (!currentRace.videoId) {
-        $('#eprix-history .video-wrapper .race-video').remove()
-        $('#eprix-history-sidebar .video-wrapper .race-video').remove()
-      }
-      if (!$scope.$$phase) $scope.$digest()
-    }
-
-    // fix ie svg
-    if (bowser.msie) {
-      $timeout(_setSvgSize, 1000)
-      angular.element(window).bind('resize', _setSvgSize)
-    }
-    function _setSvgSize() {
-      var svgs = $('svg')
-      _.each(svgs, function(svg) {
-        console.log(svg)
-        var $svg = $(svg)
-        var w = $svg.width(),
-            h = $svg.height(),
-            vw = $svg.attr('viewBox').split(' ')[2],
-            vh = $svg.attr('viewBox').split(' ')[3]
-        var hstyle = Math.round((w*vh)/vw)
-        var wstyle = Math.round((h*vw)/vh)
-        console.log(w, h, vw, vh, hstyle, wstyle)
-        if (hstyle === wstyle) return
-        $svg.css({ height: hstyle/10 +'rem' })
-        // $svg.css({ width: wstyle/10 +'rem' })
-      })
-    }
-
-    //DISABLE SCROLL
-    var firstMove
-    window.addEventListener('touchstart', function (e) {
-      firstMove = true
-    }, { passive: false })
-
-    window.addEventListener('touchend', function (e) {
-      firstMove = true
-    }, { passive: false })
-
-    window.addEventListener('touchmove', function (e) {
-      if (firstMove) {
-        e.preventDefault()
-        firstMove = false
-      }
-    }, { passive: false })
 
     // -------
 

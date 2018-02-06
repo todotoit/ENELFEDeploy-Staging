@@ -175,9 +175,9 @@
       // -------- INITIALIZE CHART ---------
       svg = d3.select($element.find('svg').get(0))
       box = svg.attr('viewBox').split(' ')
-      w   = +box[2] -enelCursor.width // width
-      h   = +box[3]                   // height
-      vp  = 15                        // vertical padding
+      w   = +box[2] -enelCursor.width -15 // width
+      h   = +box[3]                       // height
+      vp  = 15                            // vertical padding
 
       // tooltip elements
       tooltip = d3.select($element.find('.tooltip').get(0))
@@ -239,7 +239,7 @@
       console.log('update streamgraph')
 
       // -------- DATA MAP ---------
-      var lastIdx = d3.min(data, function(d) {return d.values.length})
+      var lastIdx = !_.isEmpty(data) ? d3.min(data, function(d) {return d.values.length}) : 0
       var values = _(data).groupBy('key').mapValues(function(d){return d[0].values.slice(0, lastIdx) }).merge().values().flatten().value()
       data = _.map(values, function(d) {
         d.date = format.parse(d.h)
@@ -290,53 +290,55 @@
       })
 
       // update overlays
-      var layerOverlay = overlays.selectAll('.overlay')
-           .data(dataLayers).enter()
-           .append('g')
-           .attr('class', function(d,i) { return 'overlay-wrap-'+(d.key) })
+      if (ctrl.live) {
+        var layerOverlay = overlays.selectAll('.overlay')
+             .data(dataLayers).enter()
+             .append('g')
+             .attr('class', function(d,i) { return 'overlay-wrap-'+(d.key) })
 
-      layerOverlay.append('path')
-        .attr('clip-path', 'url(#clipMask)')
-        .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
-        .attr('d', function(d,i) { return overlayArea(d.values) })
-        .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
-        .attr('opacity', .6)
+        layerOverlay.append('path')
+          .attr('clip-path', 'url(#clipMask)')
+          .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
+          .attr('d', function(d,i) { return overlayArea(d.values) })
+          .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
+          .attr('opacity', .6)
 
-      layerOverlay.each(function(d) {
-        var textGroup = d3.select(this)
-          .selectAll('.label-dap-sm')
-          .data(d.corrupted).enter()
-          .append('g')
-          .attr('class', function(d,i) { return 'label-dap-sm label-'+(d.key) })
-          .attr('opacity', 0)
+        layerOverlay.each(function(d) {
+          var textGroup = d3.select(this)
+            .selectAll('.label-dap-sm')
+            .data(d.corrupted).enter()
+            .append('g')
+            .attr('class', function(d,i) { return 'label-dap-sm label-'+(d.key) })
+            .attr('opacity', 0)
 
-        textGroup.append('image')
-          .attr('href', '../assets/svgs/av-data.svg')
-          .attr('width', 11)
-          .attr('height', 11)
-          .attr('x', function(d,i) { return X(d.date) -5 })
-          .attr('y', Y(70))
+          textGroup.append('image')
+            .attr('href', '../assets/svgs/av-data.svg')
+            .attr('width', 11)
+            .attr('height', 11)
+            .attr('x', function(d,i) { return X(d.date) -5 })
+            .attr('y', h-52.5)
 
-        var textWrap = textGroup.append('text')
-          .attr('y', Y(50))
+          var textWrap = textGroup.append('text')
+            .attr('y', h-41.5)
 
-        textWrap.append('tspan')
-          .attr('x', function(d,i) { return X(d.date) })
-          .attr('dy', '1.2em')
-          .text(function(d,i) {
-            var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
-            var tspan = text[0]+' '+text[1]
-            return tspan
+          textWrap.append('tspan')
+            .attr('x', function(d,i) { return X(d.date) })
+            .attr('dy', '1.2em')
+            .text(function(d,i) {
+              var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
+              var tspan = text[0]+' '+text[1]
+              return tspan
+            })
+          textWrap.append('tspan')
+            .attr('x', function(d,i) { return X(d.date) })
+            .attr('dy', '1.2em')
+            .text(function(d,i) {
+              var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
+              var tspan = text[2]+' '+text[3]
+              return tspan
+            })
           })
-        textWrap.append('tspan')
-          .attr('x', function(d,i) { return X(d.date) })
-          .attr('dy', '1.2em')
-          .text(function(d,i) {
-            var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
-            var tspan = text[2]+' '+text[3]
-            return tspan
-          })
-        })
+      }
 
       if (touchEnabled) _attachToolipEvents()
 

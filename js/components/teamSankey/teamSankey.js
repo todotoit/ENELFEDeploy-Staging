@@ -11,7 +11,7 @@
       var w
       var h
 
-      var xmlPath = '../js/components/teamSankey/teamSankey_s'+season.id+'.svg'
+      var xmlPath = '../js/components/teamSankey/teamSankey_'+season.id+'.svg'
 
     	d3.xml(xmlPath, function(xml){
 

@@ -126,6 +126,7 @@
       var emptyTotData = _(emptyValues).groupBy('h').map(function(d){ return { h:d[0].h, v:_.sumBy(d,'v') } }).value()
       var max = 0
       // update scales domain and range
+      if (_.isEmpty(data)) return
       var xDomain = d3.extent(data[0].values, function(d) { return moment(d.h) })
       X.domain(xDomain)
        .range([0, w-(p*2)])
@@ -154,8 +155,8 @@
       // so we assume that if we don't have prevData the components is never being initialized
       if (_.isEmpty(prevData)) init()
       console.log('update areaChart')
-      console.log(data)
-      var lastIdx = d3.min(data, function(d) {return d.values.length})
+      data = _.orderBy(data, 'key')
+      var lastIdx = data? d3.min(data, function(d) {return d.values.length}) : 0
       data = _.map(_(data).groupBy('key').mapValues(function(d){ return d[0].values.slice(0, lastIdx) }).value(), function(v,k) { return { key:k, values:v } })
       data = stack(data)
 

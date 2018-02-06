@@ -1,0 +1,453 @@
+{
+  "races": [
+    {
+      "id": "r1",
+      "disabled": "true",
+      "name": "Central Harbourfront",
+      "location": "Hong Kong",
+      "country": "Hong Kong",
+      "date": "09 Oct 2016",
+      "timezone": "Asia/Hong_Kong",
+      "videoId": "circuit_hongkong",
+      "circuit": {
+        "map": "",
+        "length": "1.86 km",
+        "laps": "37",
+        "fastestLap": {
+          "race": {
+            "firstName": "Felix",
+            "lastName": "Rosenqvist",
+            "time": "1:02.947"
+          },
+          "outright": {
+            "firstName": "Nelson",
+            "lastName": "Piquet Jr",
+            "time": "1:03.099"
+          }
+        }
+      }
+    },
+    {
+      "id": "r2",
+      "name": "Moulay El Hassan",
+      "location": "Marrakech",
+      "country": "Morocco",
+      "date": "12 Nov 2016",
+      "timezone": "Etc/UTC",
+      "videoId": "m0VwMGgJkDo",
+      "videoTitle": "Formula E gains momentum under the Marrakech sun",
+      "circuit": {
+        "map": "circuit_marrakech",
+        "length": "2.97 km",
+        "laps": "33",
+        "fastestLap": {
+          "race": {
+            "firstName": "Loïc",
+            "lastName": "Duval",
+            "time": "1:24.382"
+          },
+          "outright": {
+            "firstName": "Sébastien",
+            "lastName": "Buemi",
+            "time": "1:23.663"
+          }
+        }
+      },
+      "meters": 18,
+      "mix": [
+        {
+          "code": "clean",
+          "name": "Clean energy",
+          "value": 30
+        },
+        {
+          "code": "temp",
+          "name": "Temporary solutions",
+          "value": 25
+        },
+        {
+          "code": "grid",
+          "name": "Urban grid",
+          "value": 45
+        }
+      ]
+    },
+    {
+      "id": "r3",
+      "name": "Puerto Madero",
+      "location": "Buenos Aires",
+      "country": "Argentina",
+      "date": "18 Feb 2017",
+      "videoId": "zKgf8PxO1QI",
+      "timezone": "America/Buenos_Aires",
+      "videoTitle": "Formula E, Gone With The Wind",
+      "circuit": {
+        "map": "circuit_buenosaires",
+        "length": "2.48 km",
+        "laps": "37",
+        "fastestLap": {
+          "race": {
+            "firstName": "Jerome",
+            "lastName": "D’Ambrosio",
+            "time": "1:10.285"
+          },
+          "outright": {
+            "firstName": "Sébastien",
+            "lastName": "Buemi",
+            "time": "1:08.771"
+          }
+        }
+      },
+      "meters": 40,
+      "mix": [
+        {
+          "code": "clean",
+          "name": "Clean energy",
+          "value": 27
+        },
+        {
+          "code": "temp",
+          "name": "Temporary solutions",
+          "value": 73
+        },
+        {
+          "code": "grid",
+          "name": "Urban grid",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "r4",
+      "name": "Autódromo H.Rodríguez",
+      "location": "Mexico City",
+      "country": "Mexico",
+      "date": "01 Apr 2017",
+      "timezone": "America/Mexico_City",
+      "videoId": "xQbynIjjiX8",
+      "circuit": {
+        "map": "circuit_mexicocity",
+        "length": "2.09 km",
+        "laps": "43",
+        "fastestLap": {
+          "race": {
+            "firstName": "Nicolas",
+            "lastName": "Prost",
+            "time": "1:04.569"
+          },
+          "outright": {
+            "firstName": "Sébastien",
+            "lastName": "Buemi",
+            "time": "1:03.341"
+          }
+        }
+      },
+      "meters": 30,
+      "mix": [
+        {
+          "code": "clean",
+          "name": "Clean energy",
+          "value": 7
+        },
+        {
+          "code": "temp",
+          "name": "Temporary solutions",
+          "value": 51
+        },
+        {
+          "code": "grid",
+          "name": "Urban grid",
+          "value": 42
+        }
+      ]
+    },
+    {
+      "id": "r5",
+      "name": "Monaco street circuit",
+      "location": "Monaco",
+      "country": "Monaco",
+      "date": "13 May 2017",
+      "timezone": "Europe/Monaco",
+      "videoId": "",
+      "circuit": {
+        "map": "circuit_monaco",
+        "length": "1.76 km",
+        "laps": "51",
+        "fastestLap": {
+          "race": {
+            "firstName": "Sébastien",
+            "lastName": "Buemi",
+            "time": "0:57.249"
+          },
+          "outright": {
+            "firstName": "Sébastien",
+            "lastName": "Buemi",
+            "time": "0:53.478"
+          }
+        }
+      },
+      "meters": 20,
+      "mix": [
+        {
+          "code": "clean",
+          "name": "Clean energy",
+          "value": 30
+        },
+        {
+          "code": "temp",
+          "name": "Temporary solutions",
+          "value": 10
+        },
+        {
+          "code": "grid",
+          "name": "Urban grid",
+          "value": 60
+        }
+      ]
+    },
+    {
+      "id": "r6",
+      "name": "Circuit des Invalides",
+      "location": "Paris",
+      "country": "France",
+      "date": "20 May 2017",
+      "timezone": "Europe/Paris",
+      "videoId": "",
+      "circuit": {
+        "map": "circuit_paris",
+        "length": "1.93 km",
+        "laps": "",
+        "fastestLap": {
+          "race": {
+            "firstName": "Nick",
+            "lastName": "Heidefeld",
+            "time": ""
+          },
+          "outright": {
+            "firstName": "Lucas",
+            "lastName": "Di Grassi",
+            "time": ""
+          }
+        }
+      },
+      "meters": 20,
+      "mix": [
+        {
+          "code": "clean",
+          "name": "Clean energy",
+          "value": 30
+        },
+        {
+          "code": "temp",
+          "name": "Temporary solutions",
+          "value": 10
+        },
+        {
+          "code": "grid",
+          "name": "Urban grid",
+          "value": 60
+        }
+      ]
+    },
+    {
+      "id": "r7",
+      "name": "Tempelhof Airport",
+      "location": "Berlin",
+      "country": "German",
+      "date": "10 Jun 2017",
+      "timezone": "Europe/Berlin",
+      "videoId": "",
+      "circuit": {
+        "map": "circuit_berlin",
+        "length": "",
+        "laps": "",
+        "fastestLap": {
+          "race": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          },
+          "outright": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          }
+        }
+      },
+      "meters": 30,
+      "mix": [
+        {
+          "code": "clean",
+          "name": "Clean energy",
+          "value": 30
+        },
+        {
+          "code": "temp",
+          "name": "Temporary solutions",
+          "value": 15
+        },
+        {
+          "code": "grid",
+          "name": "Urban grid",
+          "value": 55
+        }
+      ]
+    },
+    {
+      "id": "r8",
+      "name": "Tempelhof Airport",
+      "location": "Berlin",
+      "country": "German",
+      "date": "11 Jun 2017",
+      "timezone": "Europe/Berlin",
+      "videoId": "",
+      "circuit": {
+        "map": "circuit_berlin",
+        "length": "",
+        "laps": "",
+        "fastestLap": {
+          "race": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          },
+          "outright": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          }
+        }
+      },
+      "meters": 30,
+      "mix": [
+        {
+          "code": "clean",
+          "name": "Clean energy",
+          "value": 30
+        },
+        {
+          "code": "temp",
+          "name": "Temporary solutions",
+          "value": 15
+        },
+        {
+          "code": "grid",
+          "name": "Urban grid",
+          "value": 55
+        }
+      ]
+    },
+    {
+      "id": "r9",
+      "name": "Brooklyn circuit",
+      "location": "New York",
+      "country": "USA",
+      "date": "15 Jul 2017",
+      "timezone": "America/New_York",
+      "videoId": "",
+      "circuit": {
+        "map": "circuit_ny",
+        "length": "",
+        "laps": "",
+        "fastestLap": {
+          "race": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          },
+          "outright": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          }
+        }
+      },
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r10",
+      "name": "Brooklyn circuit",
+      "location": "New York",
+      "country": "USA",
+      "date": "16 Jul 2017",
+      "timezone": "America/New_York",
+      "videoId": "",
+      "circuit": {
+        "map": "circuit_ny",
+        "length": "",
+        "laps": "",
+        "fastestLap": {
+          "race": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          },
+          "outright": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          }
+        }
+      },
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r11",
+      "name": "Montreal Street Circuit",
+      "location": "Montreal",
+      "country": "Canada",
+      "date": "29 Jul 2017",
+      "timezone": "America/Montreal",
+      "videoId": "",
+      "circuit": {
+        "map": "circuit_montreal",
+        "length": "",
+        "laps": "",
+        "fastestLap": {
+          "race": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          },
+          "outright": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          }
+        }
+      },
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r12",
+      "name": "Montreal Street Circuit",
+      "location": "Montreal",
+      "country": "Canada",
+      "date": "30 Jul 2017",
+      "timezone": "America/Montreal",
+      "videoId": "",
+      "circuit": {
+        "map": "circuit_montreal",
+        "length": "",
+        "laps": "",
+        "fastestLap": {
+          "race": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          },
+          "outright": {
+            "firstName": "",
+            "lastName": "",
+            "time": ""
+          }
+        }
+      },
+      "meters": 30,
+      "mix": null
+    }
+  ]
+}

@@ -1675,10 +1675,14 @@ nav.mobile-landing-pagination {
 #dashboard .races-list ul li {
   min-width: 20vw;
   opacity: .5;
+  cursor: pointer;
 }
 #dashboard .races-list ul li.active {
   opacity: 1;
   color: #000000;
+}
+#dashboard .races-list ul li[disabled] {
+  cursor: not-allowed;
 }
 
 #dashboard .races-list ul li h4 {
@@ -1836,6 +1840,7 @@ nav.mobile-landing-pagination {
 
 #dashboard streamgraph {
   padding: 0 3vw;
+  padding-right: 1.1vw;
   background: linear-gradient(180deg, rgb(75, 187, 163), 60%, rgb(85, 190, 90));
   /*background-position-y: 10vw;*/
   background-repeat: no-repeat;
@@ -2656,6 +2661,10 @@ streamgraph {
 }
 #streamgraph .x.axis.line line {
   stroke-dasharray: 1, 5;
+}
+#streamgraph .x.axis .tick {
+  fill: #fff;
+  font-size: 1rem;
 }
 /*#streamgraph g.chart path.layer.layer-1 {
   fill: url(#stream_gr1);

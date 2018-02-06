@@ -1,0 +1,172 @@
+{
+  "races": [
+    {
+      "id": "r1",
+      "name": "Central Harbourfront",
+      "location": "Hong Kong",
+      "country": "Hong Kong",
+      "date": "02 Dec 2017",
+      "timezone": "Asia/Hong_Kong",
+      "circuit": {
+        "map": "circuit_hongkong"
+      },
+      "enelStand": false,
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r2",
+      "name": "Central Harbourfront",
+      "location": "Hong Kong",
+      "country": "Hong Kong",
+      "date": "03 Dec 2017",
+      "timezone": "Asia/Hong_Kong",
+      "circuit": {
+        "map": "circuit_hongkong"
+      },
+      "enelStand": false,
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r3",
+      "name": "Moulay El Hassan",
+      "location": "Marrakesh",
+      "country": "Marrakesh",
+      "date": "13 Jan 2018",
+      "timezone": "Etc/UTC",
+      "circuit": {
+        "map": "circuit_marrakech"
+      },
+      "enelStand": false,
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r4",
+      "name": "Parque Forestal Ciudad De Santiago",
+      "date": "03 FEB 2018",
+      "location": "Santiago",
+      "country": "CL",
+      "timezone": "America/Santiago",
+      "circuit": {
+        "map": "circuit_santiago"
+      },
+      "enelStand": true,
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r5",
+      "name": "Hermanos Rodriguez",
+      "date": "03 MAR 2018",
+      "location": "Mexico City",
+      "country": "MX",
+      "timezone": "America/Mexico_City",
+      "circuit": {
+        "map": ""
+      },
+      "enelStand": false,
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r6",
+      "name": "Punta Del Este",
+      "date": "17 MAR 2018",
+      "location": "Punta Del Este",
+      "country": "UY",
+      "timezone": "America/Montevideo",
+      "circuit": {
+        "map": ""
+      },
+      "enelStand": false,
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r7",
+      "name": "Circuto Cittadino Dell’EUR",
+      "date": "14 APR 2018",
+      "location": "Rome",
+      "country": "IT",
+      "timezone": "Europe/Rome",
+      "circuit": {
+        "map": ""
+      },
+      "enelStand": true,
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r8",
+      "name": "Circuit Des Invalides",
+      "date": "28 APR 2018",
+      "location": "Paris",
+      "country": "FR",
+      "timezone": "Europe/Paris",
+      "circuit": {
+        "map": ""
+      },
+      "enelStand": false,
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r9",
+      "name": "Flughafen Tempelhof",
+      "date": "19 MAY 2018",
+      "location": "Berlin",
+      "country": "DE",
+      "timezone": "Europe/Berlin",
+      "circuit": {
+        "map": ""
+      },
+      "enelStand": false,
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r10",
+      "name": "TBA",
+      "date": "10 JUN 2018",
+      "location": "Zurich",
+      "country": "CH",
+      "timezone": "Europe/Zurich",
+      "circuit": {
+        "map": ""
+      },
+      "enelStand": false,
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r11",
+      "name": "Brooklyn",
+      "date": "14 JUL 2018",
+      "location": "New York City",
+      "country": "US",
+      "timezone": "America/New_York",
+      "circuit": {
+        "map": ""
+      },
+      "enelStand": true,
+      "meters": 30,
+      "mix": null
+    },
+    {
+      "id": "r12",
+      "name": "Brooklyn",
+      "date": "15 JUL 2018",
+      "location": "New York City",
+      "country": "US",
+      "timezone": "America/New_York",
+      "circuit": {
+        "map": ""
+      },
+      "enelStand": true,
+      "meters": 30,
+      "mix": null
+    }
+  ]
+}

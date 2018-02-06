@@ -737,9 +737,9 @@
       // -------- INITIALIZE CHART ---------
       svg = d3.select($element.find('svg').get(0))
       box = svg.attr('viewBox').split(' ')
-      w   = +box[2] -enelCursor.width // width
-      h   = +box[3]                   // height
-      vp  = 15                        // vertical padding
+      w   = +box[2] -enelCursor.width -15 // width
+      h   = +box[3]                       // height
+      vp  = 15                            // vertical padding
 
       // tooltip elements
       tooltip = d3.select($element.find('.tooltip').get(0))
@@ -801,7 +801,7 @@
       console.log('update streamgraph')
 
       // -------- DATA MAP ---------
-      var lastIdx = d3.min(data, function(d) {return d.values.length})
+      var lastIdx = !_.isEmpty(data) ? d3.min(data, function(d) {return d.values.length}) : 0
       var values = _(data).groupBy('key').mapValues(function(d){return d[0].values.slice(0, lastIdx) }).merge().values().flatten().value()
       data = _.map(values, function(d) {
         d.date = format.parse(d.h)
@@ -852,53 +852,55 @@
       })
 
       // update overlays
-      var layerOverlay = overlays.selectAll('.overlay')
-           .data(dataLayers).enter()
-           .append('g')
-           .attr('class', function(d,i) { return 'overlay-wrap-'+(d.key) })
+      if (ctrl.live) {
+        var layerOverlay = overlays.selectAll('.overlay')
+             .data(dataLayers).enter()
+             .append('g')
+             .attr('class', function(d,i) { return 'overlay-wrap-'+(d.key) })
 
-      layerOverlay.append('path')
-        .attr('clip-path', 'url(#clipMask)')
-        .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
-        .attr('d', function(d,i) { return overlayArea(d.values) })
-        .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
-        .attr('opacity', .6)
+        layerOverlay.append('path')
+          .attr('clip-path', 'url(#clipMask)')
+          .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
+          .attr('d', function(d,i) { return overlayArea(d.values) })
+          .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
+          .attr('opacity', .6)
 
-      layerOverlay.each(function(d) {
-        var textGroup = d3.select(this)
-          .selectAll('.label-dap-sm')
-          .data(d.corrupted).enter()
-          .append('g')
-          .attr('class', function(d,i) { return 'label-dap-sm label-'+(d.key) })
-          .attr('opacity', 0)
+        layerOverlay.each(function(d) {
+          var textGroup = d3.select(this)
+            .selectAll('.label-dap-sm')
+            .data(d.corrupted).enter()
+            .append('g')
+            .attr('class', function(d,i) { return 'label-dap-sm label-'+(d.key) })
+            .attr('opacity', 0)
 
-        textGroup.append('image')
-          .attr('href', '../assets/svgs/av-data.svg')
-          .attr('width', 11)
-          .attr('height', 11)
-          .attr('x', function(d,i) { return X(d.date) -5 })
-          .attr('y', Y(70))
+          textGroup.append('image')
+            .attr('href', '../assets/svgs/av-data.svg')
+            .attr('width', 11)
+            .attr('height', 11)
+            .attr('x', function(d,i) { return X(d.date) -5 })
+            .attr('y', h-52.5)
 
-        var textWrap = textGroup.append('text')
-          .attr('y', Y(50))
+          var textWrap = textGroup.append('text')
+            .attr('y', h-41.5)
 
-        textWrap.append('tspan')
-          .attr('x', function(d,i) { return X(d.date) })
-          .attr('dy', '1.2em')
-          .text(function(d,i) {
-            var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
-            var tspan = text[0]+' '+text[1]
-            return tspan
+          textWrap.append('tspan')
+            .attr('x', function(d,i) { return X(d.date) })
+            .attr('dy', '1.2em')
+            .text(function(d,i) {
+              var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
+              var tspan = text[0]+' '+text[1]
+              return tspan
+            })
+          textWrap.append('tspan')
+            .attr('x', function(d,i) { return X(d.date) })
+            .attr('dy', '1.2em')
+            .text(function(d,i) {
+              var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
+              var tspan = text[2]+' '+text[3]
+              return tspan
+            })
           })
-        textWrap.append('tspan')
-          .attr('x', function(d,i) { return X(d.date) })
-          .attr('dy', '1.2em')
-          .text(function(d,i) {
-            var text = $translate.instant('dap_label', {'dap': d.dap*100}).split(' ')
-            var tspan = text[2]+' '+text[3]
-            return tspan
-          })
-        })
+      }
 
       if (touchEnabled) _attachToolipEvents()
 
@@ -1368,6 +1370,7 @@
       var emptyTotData = _(emptyValues).groupBy('h').map(function(d){ return { h:d[0].h, v:_.sumBy(d,'v') } }).value()
       var max = 0
       // update scales domain and range
+      if (_.isEmpty(data)) return
       var xDomain = d3.extent(data[0].values, function(d) { return moment(d.h) })
       X.domain(xDomain)
        .range([0, w-(p*2)])
@@ -1396,8 +1399,8 @@
       // so we assume that if we don't have prevData the components is never being initialized
       if (_.isEmpty(prevData)) init()
       console.log('update areaChart')
-      console.log(data)
-      var lastIdx = d3.min(data, function(d) {return d.values.length})
+      data = _.orderBy(data, 'key')
+      var lastIdx = data? d3.min(data, function(d) {return d.values.length}) : 0
       data = _.map(_(data).groupBy('key').mapValues(function(d){ return d[0].values.slice(0, lastIdx) }).value(), function(v,k) { return { key:k, values:v } })
       data = stack(data)
 
@@ -1536,7 +1539,7 @@
       var w
       var h
 
-      var xmlPath = '../js/components/teamSankey/teamSankey_s'+season.id+'.svg'
+      var xmlPath = '../js/components/teamSankey/teamSankey_'+season.id+'.svg'
 
     	d3.xml(xmlPath, function(xml){
 
@@ -3212,11 +3215,11 @@ window.twttr = (function(d, s, id) {
 
     // instance methods
     function _getTotal() {
-      return _totalConsumptionData || _updateTotal()
+      return _totalConsumptionData ? $q.resolve(_totalConsumptionData) : _updateTotal()
     }
     function _getTimeSeries(zone_name) {
       var zone = zone_name || 'circuit'
-      return _timeSeriesData[zone] || _updateTimeSeries(zone_name)
+      return _timeSeriesData[zone] ? $q.resolve(_timeSeriesData[zone]) : _updateTimeSeries(zone_name)
     }
     function _getMeter(meter_name) {
       if (!meter_name) return console.error('Error::Meter name could not be empty')
@@ -3238,8 +3241,9 @@ window.twttr = (function(d, s, id) {
                   function(res) {
                     return {
                       totalConsumption: _totalConsumptionData,
-                      timeSeries:       _timeSeriesData,
-                      meters:           _metersData
+                      streamData:       _timeSeriesData['circuit'],
+                      streamPaddock:    _timeSeriesData['paddock'],
+                      // meters:           _metersData
                     }
                   }, function(err) {
                     console.error(err)
@@ -3312,6 +3316,135 @@ window.twttr = (function(d, s, id) {
                   }, function(err) {
                     console.error(err)
                     return null
+                  })
+    }
+  }
+
+}(window.angular));
+
+(function (angular) {
+  'use strict'
+
+  /**
+  **/
+
+  angular
+    .module('MainApp')
+    .service('RacesSrv', ContructorForRacesSrv)
+
+  /* @ngInject */
+  function ContructorForRacesSrv($rootScope, $http, $q, currentSeason) {
+    var self = this
+
+    var seasonsUrl = '../assets/jsonData/seasons.json'
+    var seasons = null
+    var races = {}
+    var racesData = {}
+
+    self.getSeasons = _getSeasons
+    self.getRaces = _getRaces
+    self.getRace = _getRace
+    self.getRaceData = _getRaceData
+    self.getCurrentRace = _getCurrentRace
+    self.getRaceWithData = _getRaceWithData
+    self.getCurrentSeason = _getCurrentSeason
+
+    // instance methods
+    function _getSeasons() {
+      return seasons ? $q.resolve(seasons) : _initializeSeasons()
+    }
+    function _getCurrentSeason() {
+      return  $q.resolve(_getRaces())
+                .then(function(res) {
+                  var races = res
+                  var firstRace = _.first(races)
+                  var seasonStartDay = moment(firstRace.date, "DD MMM YYYY").subtract(1, "days")
+                  var checkTime = moment().tz(firstRace.timezone)
+                  if (checkTime.diff(seasonStartDay, "days") > 0) currentSeason.live = true
+                  return currentSeason
+                }, function(err) {
+                  console.error(err)
+                  return {}
+                })
+    }
+    function _getRaces(season) {
+      var season = season || currentSeason
+      return races[season.id] ? $q.resolve(races[season.id]) : _initializeRaces(season)
+    }
+    function _getRace(season, race) {
+      return  $q.resolve(_getRaces(season))
+                .then(function(res) {
+                  var races = res
+                  return _.find(races, race)
+                }, function(err) {
+                  console.error(err)
+                  return {}
+                })
+    }
+    function _getCurrentRace(closest) {
+      return  $q.resolve(_getRaces())
+                .then(function(res) {
+                  var races = res
+                  var currentRace = _.find(races, { live: true })
+                  if (!currentRace && closest.future) currentRace = _.find(races, closest)
+                  if (!currentRace && closest.past) currentRace = _.findLast(races, closest)
+                  return currentRace
+                }, function(err) {
+                  console.error(err)
+                  return {}
+                })
+    }
+    function _getRaceData(season, race) {
+      var dataKey = season.id+race.id
+      return racesData[dataKey] ? $q.resolve(racesData[dataKey]) : _initializeRaceData(season, race)
+    }
+    function _initializeRaceData(season, race) {
+      return $http.get('../assets/jsonData/'+season.id+'/history/'+season.id+race.id+'.json')
+                  .then(function(res){
+                    var dataKey = season.id+race.id
+                    racesData[dataKey] = res.data
+                    return racesData[dataKey]
+                  }, function (err) {
+                    return {}
+                    console.error(err)
+                  })
+    }
+    function _getRaceWithData(season, race) {
+      return $q.all([_getRace(season, race),
+                     _getRaceData(season, race)])
+                .then(function (res) {
+                  return _.assign(res[0], res[1])
+                }, function (err) {
+                  console.error(err)
+                })
+    }
+
+    function _initializeSeasons() {
+      return $http.get(seasonsUrl)
+                  .then(function(res){
+                    seasons = res.data.seasons
+                    return seasons
+                  }, function (err) {
+                    console.error(err)
+                  })
+    }
+    function _initializeRaces(season) {
+      return $http.get('../assets/jsonData/'+season.id+'/races.json')
+                  .then(function(res) {
+                    races[season.id] = res.data.races
+                    _.forEach(races[season.id], function (r, i) {
+                      var today_tz = moment().tz(r.timezone)
+                      var r_day = moment(r.date, "DD MMM YYYY").utcOffset('+00:00', true)
+                      var diff = r_day.diff(today_tz.clone().utcOffset('+00:00', true), "hours", true)
+                      // console.log(r_day.format(), today_tz.format())
+                      // console.log(diff, today_tz.clone().add(diff,'hours').format())
+                      if (diff <= -24) r.past = true
+                      else if (diff >= 0) r.future = true
+                      else r.live = true
+                    })
+                    return races[season.id]
+                  }, function(err) {
+                    console.error(err)
                   })
     }
   }
@@ -3635,6 +3768,16 @@ window.twttr = (function(d, s, id) {
 (function (angular) {
   'use strict'
 
+  angular
+    .module('MainApp')
+    .value('currentSeason', {id: 's4'})
+    .value('showcaseRace', {id: 'r4'})
+
+}(window.angular));
+
+(function (angular) {
+  'use strict'
+
   /**
     MainApp
     httpProvider configurations for MainApp
@@ -3815,45 +3958,8 @@ window.twttr = (function(d, s, id) {
     $urlRouterProvider.when('/formulae', '/'+defaultLang+'/formulae')
     $urlRouterProvider.otherwise('/'+defaultLang+'/landing')
 
-    var seasons = [{
-              id: 3,
-              year: '2016/2017',
-              name: 'Season 3',
-              races: 12,
-              current: 12
-            },
-            {
-              id: 4,
-              year: '2017/2018',
-              name: 'Season 4',
-              races: 14,
-              current: 3
-            }]
-
-    var liveRace = {
-         "id": "r4",
-         "live": false,
-         "future": false,
-         "name": "Parque Forestal Ciudad De Santiago",
-         "location": "Santiago",
-         "country": "Chile",
-         "date": "03 Feb 2018",
-         "circuit": {
-           "map": "circuit_santiago",
-         },
-         "meters": 30,
-         "mix": null
-       }
-    var currentTime = moment().tz(liveRace.timezone)
-    var raceTime = moment(liveRace.date)
-
-    if(raceTime.isSame(currentTime, "day")) {
-      liveRace.live = true
-    }
-    if(raceTime.isAfter(currentTime, "day")) {
-      liveRace.future = true
-    }
-    // var liveRace = null
+    // refactor wip
+    var liveRace = null
 
     $stateProvider
       // .state('404', {
@@ -3874,18 +3980,8 @@ window.twttr = (function(d, s, id) {
       .state('landing', {
         url: '/:lang/landing',
         resolve: {
-          seasons: function() {
-            return seasons
-          },
-          liveData: function($http, _) {
-            if (liveRace) return liveRace
-            var currentSeason = _.last(seasons)
-            return $http.get('../assets/jsonData/season'+currentSeason.id+'/races.json')
-                        .then(function(res) {
-                          return _.last(res.data.races)
-                        }, function(err) {
-                          console.error(err)
-                        })
+          showcaseRace: function(RacesSrv, currentSeason, showcaseRace) {
+            return RacesSrv.getRaceWithData(currentSeason, showcaseRace)
           }
         },
         controller: 'LandingCtrl',
@@ -3935,32 +4031,36 @@ window.twttr = (function(d, s, id) {
       .state('dashboard', {
         url: '/:lang/dashboard',
         resolve: {
-          seasons: function() {
-            return seasons
+          seasons: function(RacesSrv) {
+            return RacesSrv.getSeasons()
           },
-          liveData: function(ModelSrv) {
-            if (!liveRace) return null
-            return ModelSrv.getAllModels()
+          currentSeason: function(RacesSrv) {
+            return RacesSrv.getCurrentSeason()
+          },
+          showcaseRace: function(RacesSrv, currentSeason, showcaseRace) {
+            return RacesSrv.getRace(currentSeason, showcaseRace)
+          },
+          races: function(RacesSrv, showcaseRace) {
+            return RacesSrv.getRaces()
                            .then(function(res) {
-                              console.info(res)
-                              liveRace.totalConsumption = res.totalConsumption
-                              liveRace.streamData       = res.timeSeries.circuit
-                              liveRace.streamPaddock    = res.timeSeries.paddock
-                              // liveRace.streamDen        = res.timeSeries['Den_Api_FE_001']
-                              // liveRace.metersData       = res.meters
-                              return liveRace
+                             var history = _.reject(res, 'future')
+                             return _.unionBy(history, [showcaseRace], 'id')
                            }, function(err) {
-                              console.error(err)
+                            console.error(err)
+                            return []
                            })
           },
-          races: function($http, seasons) {
-            var currentSeason = _.last(seasons)
-            return $http.get('../assets/jsonData/season'+currentSeason.id+'/races.json')
-                        .then(function(res) {
-                          return res.data.races
-                        }, function(err) {
-                          console.error(err)
-                        })
+          liveData: function(RacesSrv, ModelSrv, races, currentSeason) {
+            var selectedRace = _.findLast(races, function(r) { return !r.future })
+            return RacesSrv.getRaceData(currentSeason, selectedRace)
+                           .then(function (res) {
+                              if (!_.isEmpty(res)) return _.assign(selectedRace, res)
+                              return ModelSrv.getAllModels()
+                                      .then(function(res) {
+                                        console.log(res)
+                                        return _.assign(selectedRace, res)
+                                      }, function (err) { console.error(err) })
+                           }, function (err) { console.error(err) })
           }
         },
         controller: 'DashboardCtrl',
@@ -3974,30 +4074,38 @@ window.twttr = (function(d, s, id) {
           season: {squash: true, value: null}
         },
         resolve: {
-          seasons: function() {
-            return seasons
+          seasons: function(RacesSrv) {
+            return RacesSrv.getSeasons()
           },
-          teams: function($http, seasons, $stateParams) {
-            var currentSeason = $stateParams.season? $stateParams.season : _.last(seasons)
-            return $http.get('../assets/jsonData/season'+currentSeason.id+'/teams.json')
+          currentSeason: function(currentSeason, $stateParams) {
+            return $stateParams.season? $stateParams.season : currentSeason
+          },
+          races: function(RacesSrv, currentSeason) {
+            return RacesSrv.getRaces(currentSeason)
+                           .then(function(res) {
+                             currentSeason.races = res.length
+                             currentSeason.current = _.findLastIndex(res, { past: true }) +1
+                             return
+                           })
+          },
+          teams: function($http, currentSeason) {
+            return $http.get('../assets/jsonData/'+currentSeason.id+'/teams.json')
                         .then(function(res) {
                           return res.data.teams
                         }, function(err) {
                           console.error(err)
                         })
           },
-          drivetrains: function($http, seasons, $stateParams) {
-            var currentSeason = $stateParams.season? $stateParams.season : _.last(seasons)
-            return $http.get('../assets/jsonData/season'+currentSeason.id+'/drivetrains.json')
+          drivetrains: function($http, currentSeason) {
+            return $http.get('../assets/jsonData/'+currentSeason.id+'/drivetrains.json')
                         .then(function(res) {
                           return res.data.drivetrains
                         }, function(err) {
                           console.error(err)
                         })
           },
-          standings: function($http, seasons, $stateParams, _, teams) {
-            var currentSeason = $stateParams.season? $stateParams.season : _.last(seasons)
-            return $http.get('../assets/jsonData/season'+currentSeason.id+'/teams_standings.json')
+          standings: function($http, _, currentSeason, teams) {
+            return $http.get('../assets/jsonData/'+currentSeason.id+'/teams_standings.json')
                         .then(function(res) {
                           if (_.isEmpty(res.data)) {
                             return _.map(teams,function(t) {
@@ -4039,7 +4147,7 @@ window.twttr = (function(d, s, id) {
     .controller('LandingCtrl', landingCtrl)
 
   /* @ngInject */
-  function landingCtrl ($rootScope, $scope, $window, $http, $state, $timeout, $interval, _, SnippetSrv, TweenMax, GA, ModelSrv, liveData) {
+  function landingCtrl ($rootScope, $scope, $window, $http, $state, $timeout, $interval, _, SnippetSrv, TweenMax, GA, ModelSrv, showcaseRace) {
     var vm = this
     vm.snippets = []
     vm.tours = SnippetSrv.getAvailableTours();
@@ -4055,20 +4163,10 @@ window.twttr = (function(d, s, id) {
     // Desktop only init
     angular.element(document).ready(render)
 
-    // races
-    vm.races = []
-    vm.currentRace = liveData || {
-      "id": "r12",
-      "name": "Montreal Street Circuit",
-      "location": "Montreal",
-      "country": "Canada",
-      "date": "30 Jul 2017",
-    }
-    vm.totalConsumption = vm.currentRace.totalConsumption || { total_power: 0, total_energy: 0 }
-    getLiveData()
-    if (vm.currentRace.live) {
-      $scope.$on('ModelSrv::ALL-MODELS-UPDATED', getLiveData)
-    }
+    vm.showcaseRace = showcaseRace
+    vm.totalConsumption = showcaseRace.totalConsumption
+    if (!vm.showcaseRace.future && !vm.totalConsumption) getLiveData()
+    if (vm.showcaseRace.live) $scope.$on('ModelSrv::ALL-MODELS-UPDATED', getLiveData)
 
     $scope.webgl = true
     function detectWebGLContext () {
@@ -4199,12 +4297,14 @@ window.twttr = (function(d, s, id) {
     });
 
     function getLiveData() {
-      return ModelSrv.getAllModels()
+      return ModelSrv.getTotal()
                      .then(function(res) {
                         console.info(res)
-                        if (!res.totalConsumption) return
-                        vm.totalConsumption = res.totalConsumption || { total_power: 0, total_energy: 0 }
-                        return res
+                        vm.totalConsumption = {
+                          total_power: res.total_power || 0,
+                          total_energy: res.total_energy || 0
+                        }
+                        return
                      }, function(err) {
                         console.error(err)
                      })
@@ -4573,10 +4673,9 @@ window.twttr = (function(d, s, id) {
     .controller('DashboardCtrl', dashboardCtrl)
 
   /* @ngInject */
-  function dashboardCtrl ($rootScope, $scope, $window, $http, $timeout, seasons, races, liveData, _, ComparisonSrv, ModelSrv) {
+  function dashboardCtrl ($rootScope, $scope, $window, $http, $timeout, ComparisonSrv, ModelSrv, RacesSrv, _, seasons, races, liveData, showcaseRace, currentSeason ) {
     var vm = this
 
-    // $('header h4').text('Discover the energy behind Formula E')
     $scope.setActiveHeader('menu_ctrlroom_header')
     angular.element(document).ready($rootScope.hideLoader)
 
@@ -4613,9 +4712,6 @@ window.twttr = (function(d, s, id) {
     vm.races = races
     if (vm.races.length <= 3) $('div.races-list-wrap > ul').css('justify-content','left')
     vm.currentSeason = _.last(vm.seasons)
-    var currentRace = _.last(vm.races)
-    if (liveData) vm.races.push(liveData)
-    if (liveData && !liveData.future) currentRace = _.last(vm.races)
 
     // -------
 
@@ -4631,79 +4727,68 @@ window.twttr = (function(d, s, id) {
     }
 
     $scope.selectSeason = function(id) {
-      var seasonIdx = _.findIndex(vm.seasons, {id: id})
-      if (seasonIdx < 0) return
-      vm.currentSeason = vm.seasons[seasonIdx]
-      return $http.get('../assets/jsonData/season'+id+'/races.json')
-                  .then(function(res) {
-                    vm.races = res.data.races
-                    if (liveData && vm.currentSeason == _.last(vm.seasons)) vm.races.push(liveData)
-                    var currentRace = _.last(vm.races)
-                    if (currentRace) $scope.selectRace(currentRace.id)
-                  }, function(err) {
-                    vm.races = []
-                    emptyAll()
-                    vm.currentRace = {}
-                    vm.streamData = []
-                    vm.streamDap = 0
-                    vm.streamPaddock = []
-                    vm.streamDen = []
-                    $scope.allData = []
-                    $scope.allDendata = []
-                    $scope.paddockData = {}
-                    $scope.snippets = []
-                    vm.metersData = null
-                    vm.denMeterData = null
-                    vm.enelMeterStandData = null
-                    vm.totalConsumption = {
-                      total_energy: 0,
-                      zones: []
-                    }
-                    vm.mixes = []
-                    vm.selectedKey = null
-                    console.error(err)
-                  })
+      var selectedSeason = _.find(vm.seasons, {id: id})
+      return RacesSrv.getRaces(selectedSeason)
+                      .then(function(res) {
+                        vm.races = _.reject(res, 'future')
+                        if (selectedSeason.id === currentSeason.id) vm.races = _.unionBy(vm.races, [showcaseRace], 'id')
+                        var selectedRace = _.findLast(vm.races, function(r) { return !r.future })
+                        $scope.selectRace(selectedSeason, selectedRace)
+                      }, function(err) { console.error(err) })
     }
 
     var currentRaceIdx = null
-    $scope.selectRace = function(id) {
+    $scope.selectRace = function(season, race) {
+      return RacesSrv.getRaceData(season, race)
+                           .then(function (res) {
+                              if (!_.isEmpty(res)) {
+                                race = _.assign(race, res)
+                                return $scope.showRace(season, race)
+                              }
+                              return ModelSrv.getAllModels()
+                                      .then(function(res) {
+                                        console.log(res)
+                                        race = _.assign(race, res)
+                                        return $scope.showRace(season, race)
+                                      }, function (err) { console.error(err) })
+                           }, function (err) { console.error(err) })
+    }
+    $scope.showRace = function(season, race) {
+      vm.currentSeason = season
       if (!_.isEmpty(vm.streamPaddock)) emptyAll()
-      var currentRace = _.find(vm.races, {id: id})
-      vm.currentRace = angular.copy(currentRace)
-      if (_.isEmpty(currentRace)) return
-      vm.streamData = currentRace.streamData? angular.copy(currentRace.streamData.zones) : []
-      vm.streamDap = currentRace.streamData? angular.copy(currentRace.streamData.total_availability) : 0
-      vm.streamPaddock = currentRace.streamPaddock? angular.copy(currentRace.streamPaddock.zones) : []
+      vm.currentRace = angular.copy(race)
+      if (_.isEmpty(vm.currentRace)) return
+      vm.streamData = vm.currentRace.streamData? angular.copy(vm.currentRace.streamData.zones) : []
+      vm.streamDap = vm.currentRace.streamData? angular.copy(vm.currentRace.streamData.total_availability) : 0
+      vm.streamPaddock = vm.currentRace.streamPaddock? angular.copy(vm.currentRace.streamPaddock.zones) : []
       $scope.paddockData = _.find(vm.totalConsumption.zones, {name: 'Paddock'}) || { power: 0 }
-      vm.totalConsumption = angular.copy(currentRace.totalConsumption) || { total_energy: 0, total_power: 0, zones: [] }
-      vm.mixes = currentRace.mix? currentRace.mix : []
+      vm.totalConsumption = angular.copy(vm.currentRace.totalConsumption) || { total_energy: 0, total_power: 0, zones: [] }
+      vm.mixes = vm.currentRace.mix? vm.currentRace.mix : []
       if (!_.isEmpty(vm.mixes)) {
         vm.mixes[0].translateLabel = 'ctrlroom_mix_clean'
         vm.mixes[1].translateLabel = 'ctrlroom_mix_temp'
         vm.mixes[2].translateLabel = 'ctrlroom_mix_grid'
       }
-      vm.metersData = currentRace.metersData? currentRace.metersData : null
-      if (currentRace.metersData) {
+      vm.metersData = vm.currentRace.metersData? vm.currentRace.metersData : null
+      if (vm.currentRace.metersData) {
         var firstMeterFound = _.keys(vm.metersData)[0]
         vm.enelMeterStandData = !_.isEmpty(vm.metersData[enelMeterKey])? vm.metersData[enelMeterKey] : vm.metersData[firstMeterFound]
         if (!vm.enelMeterStandData) vm.enelMeterStandData = { energy: 0, power: 0 }
         vm.denMeterData = !_.isEmpty(vm.metersData[denMeterKey])? vm.metersData[denMeterKey] : null
-        vm.streamDen = vm.denMeterData && currentRace.streamDen? angular.copy(currentRace.streamDen.zones) : []
+        vm.streamDen = vm.denMeterData && vm.currentRace.streamDen? angular.copy(vm.currentRace.streamDen.zones) : []
       } else {
         vm.denMeterData = null
       }
-      var newRaceIdx = _.indexOf(vm.races, currentRace)
-      // var raceList = $('.races-list ul').find('li')
+
+      var newRaceIdx = _.indexOf(vm.races, vm.currentRace)
       var raceList = $('.races-list > .races-list-wrap')
-      // var raceListItem = raceList[newRaceIdx]
-      // if (raceListItem) TweenMax.to(raceList, .5, {x: '+=' + (currentRaceIdx-newRaceIdx)*100 + '%'})
       var offRX = newRaceIdx >= vm.races.length-3? '0' : '225'
       if (bowser.mobile) offRX = newRaceIdx == vm.races.length-1? '0' : '50'
-      TweenMax.to(raceList, .5, {scrollTo:{x:"#"+currentRace.id, offsetX: offRX}})
+      TweenMax.to(raceList, .5, {scrollTo:{x:"#"+vm.currentRace.id, offsetX: offRX}})
       if (!$scope.$$phase) $scope.$digest()
       currentRaceIdx = newRaceIdx
       $scope.getComparisons()
-      if (_.isEmpty(currentRace.totalConsumption)) {
+      if (_.isEmpty(vm.currentRace.totalConsumption)) {
         $scope.paddockData = { power: 0, energy: 0 }
         return
       }
@@ -4717,27 +4802,11 @@ window.twttr = (function(d, s, id) {
         balanceHandler()
       }, 1000)
     }
-    if (currentRace) $scope.selectRace(currentRace.id)
-    // raceHandler()
-
+    $scope.showRace(vm.currentSeason, liveData)
 
     function checkMQ() {
       return $window.matchMedia("(max-width: 52em)").matches
     }
-
-    // var hammerRace = null
-    // function raceHandler() {
-    //   if (!bowser.mobile && !bowser.tablet) return
-    //   hammerRace = new Hammer($('.races-list > .races-list-wrap').get(0), {domEvents: true});
-    //   hammerRace.on('swipeleft', function(e){ $scope.selectRace('r'+(currentRaceIdx+2)) });
-    //   hammerRace.on('swiperight', function(e){ $scope.selectRace('r'+(currentRaceIdx)) });
-    // }
-    // function cleanRaceHandler() {
-    //   if (!hammerRace) return
-    //   hammerRace.off('swipeleft')
-    //   hammerRace.off('swiperight')
-    // }
-
     var currentBalanceIdx = 1
     $scope.selectBalance = function(id) {
       if (!bowser.mobile && !bowser.tablet) return
@@ -4803,7 +4872,6 @@ window.twttr = (function(d, s, id) {
       vm.selectedKey = null
       $scope.currentAreaShown = 'all'
       $scope.paddockData = _.find(vm.totalConsumption.zones, {name: 'Paddock'})
-      // vm.streamPaddock[0].values = _.dropRight(vm.streamPaddock[0].values,2)
       $scope.alldata = vm.streamPaddock
       $scope.allDendata = vm.streamDen
     }
@@ -4854,9 +4922,9 @@ window.twttr = (function(d, s, id) {
                         console.info(res)
                         if (vm.currentRace.live) {
                           if (!_.isEmpty(vm.streamPaddock)) emptyAll()
-                          vm.streamData         = res.timeSeries.circuit.zones
-                          vm.streamDap          = res.timeSeries.circuit.total_availability
-                          vm.streamPaddock      = res.timeSeries.paddock.zones
+                          vm.streamData         = res.streamData.zones
+                          vm.streamDap          = res.streamData.total_availability
+                          vm.streamPaddock      = res.streamPaddock.zones
                           vm.totalConsumption   = res.totalConsumption
                           // vm.metersData         = res.metersData
                           // vm.enelMeterStandData = currentRace.metersData[enelMeterKey]
@@ -4874,7 +4942,6 @@ window.twttr = (function(d, s, id) {
 
     // deregister event handlers
     $scope.$on('$destroy', function () {
-      // cleanRaceHandler()
       cleanBalanceHandler()
       cleanMixHandler()
     })
@@ -4889,7 +4956,7 @@ window.twttr = (function(d, s, id) {
     .controller('FormulaeCtrl', formulaeCtrl)
 
   /* @ngInject */
-  function formulaeCtrl ($rootScope, $scope, $timeout, $state, $stateParams, seasons, teams, drivetrains, standings) {
+  function formulaeCtrl ($rootScope, $scope, $timeout, $state, $stateParams, seasons, currentSeason, teams, drivetrains, standings) {
     var vm = this
 
     // $('header h4').text('More about the Formula E season')
@@ -4897,7 +4964,7 @@ window.twttr = (function(d, s, id) {
     angular.element(document).ready($rootScope.hideLoader)
 
     vm.seasons = seasons
-    vm.currentSeason = $stateParams.season || _.last(vm.seasons)
+    vm.currentSeason = currentSeason
     $scope.selectSeason = function(id) {
       var seasonIdx = _.findIndex(vm.seasons, {id: id})
       if (seasonIdx < 0) return
@@ -4938,18 +5005,10 @@ window.twttr = (function(d, s, id) {
       else $('#teams_list select').addClass('active')
       $timeout(function() {
         $scope.currentTeam = team
-        // TODO: THIS SHOULD CHANGE SHORTLY!!!!
-        // if (vm.currentSeason.id !== 4) {
-          TweenMax.to($('#car_profile svg g#traccia > *'), 1.5, {drawSVG:"0%", delay:0, ease:Power2.easeOut, onStart: function() {
-            $('#specs_teams #car_profile img').addClass('active')
-            $('#car_specs #car_cursor').addClass('active')
-          }});
-        // } else {
-        //   TweenMax.set($('#car_profile svg g#traccia > *'), {drawSVG:"0%"})
-        //   TweenMax.to($('#car_profile svg g#traccia > *'), 1.5, {drawSVG:"100%", delay:0, ease:Power2.easeOut})
-        //   $('#car_specs #car_cursor').addClass('active')
-        // }
-        // // // // // // // // // // // // //
+        TweenMax.to($('#car_profile svg g#traccia > *'), 1.5, {drawSVG:"0%", delay:0, ease:Power2.easeOut, onStart: function() {
+          $('#specs_teams #car_profile img').addClass('active')
+          $('#car_specs #car_cursor').addClass('active')
+        }});
         $scope.teamSelected = true
         if (!$scope.$$phase) $scope.$digest()
       }, 300)

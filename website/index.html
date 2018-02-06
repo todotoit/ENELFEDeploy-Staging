@@ -2418,102 +2418,6 @@ html.ms.internet.explorer #landing #snippet-carousel .snip #v2g_container svg {
   }
 }
 
-#landing-history {
-  max-height: 100vh;
-  height: 100vh;
-  overflow: hidden;
-}
-#landing-history header{
-  margin: 0;
-  padding: 2rem 2vw;
-  background:#0a0a0a;
-}
-#landing-history .logo-lg{
-  width: 28rem
-}
-/*#landing-history #eprix-history{
-  height: 1078px;
-  padding: 10rem 2vw;
-  padding-top: 10rem;
-}
-#landing-history .sidebar{
-  height:980px;
-}*/
-#landing-history .race-video {
-  width: 100%;
-  height: 100%;
-  min-height: 25rem;
-}
-
-#landing-history #eprix-history {
-  background: #55BE5A;
-  color: #FFFFFF;
-}
-#landing-history #eprix-history article {
-  padding-top: 0.8rem;
-}
-#landing-history #eprix-history-sidebar,
-#landing-history #eprix-history .sidebar {
-  background: #0a0a0a;
-  color: #FFFFFF;
-}
-#landing-history #eprix-history nav ul {
-  margin-right: 5.5rem;
-}
-#landing-history #eprix-history nav ul li{
-  cursor: pointer;
-}
-#landing-history #eprix-history nav ul li.active {
-  color: #55BE5A;
-  background: #FFFFFF;
-  border-color: #FFFFFF;
-}
-#landing-history #eprix-history .countdown,
-#landing-history #eprix-history .btn-next-race {
-  min-width: auto;
-  color: #000;
-}
-#landing-history #eprix-history .countdown {
-  opacity: .4;
-}
-
-#landing-history #eprix-history .sidebar [grid]:not(figure) {
-  padding: 0 2rem;
-}
-#landing-history #eprix-history #streamgraph {
-  border: none;
-}
-#landing-history #eprix-history #streamgraph .axis .tick line {
-  opacity: 0;
-}
-#landing-history #eprix-history #streamgraph .axis.line .tick line {
-  /*visibility: hidden;*/
-  opacity: .5;
-}
-#landing #eprix-history .fastest .info_block {
-  margin-top: 1rem;
-}
-
-@media screen and (max-width: 40em) {
-  .circuit_microgrid{
-    width: 100%;
-  }
-  #landing-history #eprix-history-sidebar .race-video {
-    min-height: 30rem;
-  }
-  #landing-history #snippet-carousel .snip #v2g_container {
-    max-height: 35vw;
-  }
-}
-@media screen and (max-width: 28em) {
-  #landing-history #eprix-history .overlay-top {
-    top: -4rem;
-  }
-  #landing-history #eprix-history .overlay-bottom {
-    bottom: -1rem;
-  }
-}
-
 #teamAreaChart .axis text{
   font-family: sans-serif;
   fill: white;
@@ -2559,6 +2463,10 @@ streamgraph {
 }
 #streamgraph .x.axis.line line {
   stroke-dasharray: 1, 5;
+}
+#streamgraph .x.axis .tick {
+  fill: #fff;
+  font-size: 1rem;
 }
 /*#streamgraph g.chart path.layer.layer-1 {
   fill: url(#stream_gr1);

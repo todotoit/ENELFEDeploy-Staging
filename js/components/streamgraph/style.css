@@ -24,6 +24,10 @@ streamgraph {
 #streamgraph .x.axis.line line {
   stroke-dasharray: 1, 5;
 }
+#streamgraph .x.axis .tick {
+  fill: #fff;
+  font-size: 1rem;
+}
 /*#streamgraph g.chart path.layer.layer-1 {
   fill: url(#stream_gr1);
 }*/

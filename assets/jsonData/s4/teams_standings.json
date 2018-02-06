@@ -1,0 +1,1088 @@
+{
+    "SerieData": {
+        "Series": "Formula E",
+        "Championship": "SEASON 2017-2018",
+        "ChampionshipId": "2022017",
+        "Package": "ChampionshipStanding",
+        "ChampionshipStanding": {
+            "ChampionshipType": "Driver",
+            "ChampionshipData": {
+                "Standings": [
+                    {
+                        "Pos": "1",
+                        "TotalPoints": "71",
+                        "DriverName": "Jean-Éric Vergne",
+                        "DriverId": "1990042500",
+                        "FirstName": "Jean-Éric",
+                        "LastName": "Vergne",
+                        "Country": "FR",
+                        "Number": "25",
+                        "TeamName": "Techeetah",
+                        "TeamId": "2016908103",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "21",
+                                    "PolePosition": true,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "12",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "10",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "28",
+                                    "PolePosition": true,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "2",
+                        "TotalPoints": "66",
+                        "DriverName": "Felix Rosenqvist",
+                        "DriverId": "1990015169",
+                        "FirstName": "Felix",
+                        "LastName": "Rosenqvist",
+                        "Country": "SE",
+                        "Number": "19",
+                        "TeamName": "Mahindra Racing",
+                        "TeamId": "2011806107",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "29",
+                                    "PolePosition": true,
+                                    "FastestLap": true,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "25",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "12",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "3",
+                        "TotalPoints": "61",
+                        "DriverName": "Sam Bird",
+                        "DriverId": "1987010900",
+                        "FirstName": "Sam",
+                        "LastName": "Bird",
+                        "Country": "GB",
+                        "Number": "2",
+                        "TeamName": "DS Virgin Racing",
+                        "TeamId": "2016908105",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "25",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "10",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "15",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "11",
+                                    "PolePosition": false,
+                                    "FastestLap": true,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "4",
+                        "TotalPoints": "37",
+                        "DriverName": "Sébastien Buemi",
+                        "DriverId": "1988103100",
+                        "FirstName": "Sébastien",
+                        "LastName": "Buemi",
+                        "Country": "CH",
+                        "Number": "9",
+                        "TeamName": "Renault e.Dams",
+                        "TeamId": "2015908104",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "1",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "21",
+                                    "PolePosition": true,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "15",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "5",
+                        "TotalPoints": "33",
+                        "DriverName": "Nelson Piquet Jr.",
+                        "DriverId": "1985072500",
+                        "FirstName": "Nelson",
+                        "LastName": "Piquet Jr.",
+                        "Country": "BR",
+                        "Number": "3",
+                        "TeamName": "Panasonic Jaguar Racing",
+                        "TeamId": "2016020101",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "12",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "13",
+                                    "PolePosition": false,
+                                    "FastestLap": true,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "8",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "6",
+                        "TotalPoints": "24",
+                        "DriverName": "Edoardo Mortara",
+                        "DriverId": "1988010183",
+                        "FirstName": "Edoardo",
+                        "LastName": "Mortara",
+                        "Country": "CH",
+                        "Number": "4",
+                        "TeamName": "Venturi Formula E Team",
+                        "TeamId": "2014020109",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "6",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "18",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "7",
+                        "TotalPoints": "21",
+                        "DriverName": "Mitch Evans",
+                        "DriverId": "1990015617",
+                        "FirstName": "Mitch",
+                        "LastName": "Evans",
+                        "Country": "NZ",
+                        "Number": "20",
+                        "TeamName": "Panasonic Jaguar Racing",
+                        "TeamId": "2016020101",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "15",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "6",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "8",
+                        "TotalPoints": "21",
+                        "DriverName": "Nick Heidfeld",
+                        "DriverId": "1977051000",
+                        "FirstName": "Nick",
+                        "LastName": "Heidfeld",
+                        "Country": "DE",
+                        "Number": "23",
+                        "TeamName": "Mahindra Racing",
+                        "TeamId": "2011806107",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "15",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "6",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "9",
+                        "TotalPoints": "18",
+                        "DriverName": "André Lotterer",
+                        "DriverId": "1981111900",
+                        "FirstName": "André",
+                        "LastName": "Lotterer",
+                        "Country": "DE",
+                        "Number": "18",
+                        "TeamName": "Techeetah",
+                        "TeamId": "2016908103",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "18",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "10",
+                        "TotalPoints": "12",
+                        "DriverName": "Daniel Abt",
+                        "DriverId": "1990015408",
+                        "FirstName": "Daniel",
+                        "LastName": "Abt",
+                        "Country": "DE",
+                        "Number": "66",
+                        "TeamName": "Audi Sport ABT Schaeffler",
+                        "TeamId": "2017908101",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "11",
+                                    "PolePosition": false,
+                                    "FastestLap": true,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "1",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "11",
+                        "TotalPoints": "10",
+                        "DriverName": "António Félix da Costa",
+                        "DriverId": "1991083100",
+                        "FirstName": "António Félix",
+                        "LastName": "da Costa",
+                        "Country": "PT",
+                        "Number": "28",
+                        "TeamName": "MS&AD Andretti Formula E",
+                        "TeamId": "2017908103",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "8",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "2",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "12",
+                        "TotalPoints": "8",
+                        "DriverName": "Oliver Turvey",
+                        "DriverId": "1987040100",
+                        "FirstName": "Oliver",
+                        "LastName": "Turvey",
+                        "Country": "GB",
+                        "Number": "16",
+                        "TeamName": "NIO Formula E team",
+                        "TeamId": "2017908102",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "8",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "13",
+                        "TotalPoints": "8",
+                        "DriverName": "José María López",
+                        "DriverId": "1983042600",
+                        "FirstName": "José María",
+                        "LastName": "López",
+                        "Country": "AR",
+                        "Number": "6",
+                        "TeamName": "Dragon Racing",
+                        "TeamId": "2011110301",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "8",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "14",
+                        "TotalPoints": "8",
+                        "DriverName": "Alex Lynn",
+                        "DriverId": "1991015233",
+                        "FirstName": "Alex",
+                        "LastName": "Lynn",
+                        "Country": "GB",
+                        "Number": "36",
+                        "TeamName": "DS Virgin Racing",
+                        "TeamId": "2016908105",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "4",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "2",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "2",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "15",
+                        "TotalPoints": "7",
+                        "DriverName": "Nicolas Prost",
+                        "DriverId": "1981081801",
+                        "FirstName": "Nicolas",
+                        "LastName": "Prost",
+                        "Country": "FR",
+                        "Number": "8",
+                        "TeamName": "Renault e.Dams",
+                        "TeamId": "2015908104",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "2",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "4",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "1",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "16",
+                        "TotalPoints": "6",
+                        "DriverName": "Maro Engel",
+                        "DriverId": "1985082700",
+                        "FirstName": "Maro",
+                        "LastName": "Engel",
+                        "Country": "DE",
+                        "Number": "5",
+                        "TeamName": "Venturi Formula E Team",
+                        "TeamId": "2014020109",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "6",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "17",
+                        "TotalPoints": "4",
+                        "DriverName": "Tom Blomqvist",
+                        "DriverId": "1993113000",
+                        "FirstName": "Tom",
+                        "LastName": "Blomqvist",
+                        "Country": "GB",
+                        "Number": "27",
+                        "TeamName": "MS&AD Andretti Formula E",
+                        "TeamId": "2017908103",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "4",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "18",
+                        "TotalPoints": "4",
+                        "DriverName": "Jérôme d'Ambrosio",
+                        "DriverId": "1985122700",
+                        "FirstName": "Jérôme",
+                        "LastName": "d'Ambrosio",
+                        "Country": "BE",
+                        "Number": "7",
+                        "TeamName": "Dragon Racing",
+                        "TeamId": "2011110301",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "4",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "19",
+                        "TotalPoints": "1",
+                        "DriverName": "Luca Filippi",
+                        "DriverId": "1985080900",
+                        "FirstName": "Luca",
+                        "LastName": "Filippi",
+                        "Country": "IT",
+                        "Number": "68",
+                        "TeamName": "NIO Formula E team",
+                        "TeamId": "2017908102",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "1",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "20",
+                        "TotalPoints": "0",
+                        "DriverName": "Lucas di Grassi",
+                        "DriverId": "1984081100",
+                        "FirstName": "Lucas",
+                        "LastName": "di Grassi",
+                        "Country": "BR",
+                        "Number": "1",
+                        "TeamName": "Audi Sport ABT Schaeffler",
+                        "TeamId": "2017908101",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                },
+                                {
+                                    "RaceName": "Marrakesh",
+                                    "RaceId": "20170203",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "3"
+                                },
+                                {
+                                    "RaceName": "Santiago de Chile",
+                                    "RaceId": "20170204",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": true,
+                                    "Round": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "21",
+                        "TotalPoints": "0",
+                        "DriverName": "Kamui Kobayashi",
+                        "DriverId": "1986091300",
+                        "FirstName": "Kamui",
+                        "LastName": "Kobayashi",
+                        "Country": "JP",
+                        "Number": "27",
+                        "TeamName": "MS&AD Andretti Formula E",
+                        "TeamId": "2017908103",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "Pos": "22",
+                        "TotalPoints": "0",
+                        "DriverName": "Neel Jani",
+                        "DriverId": "1983120800",
+                        "FirstName": "Neel",
+                        "LastName": "Jani",
+                        "Country": "CH",
+                        "Number": "6",
+                        "TeamName": "Dragon Racing",
+                        "TeamId": "2011110301",
+                        "Races": {
+                            "Race": [
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170201",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "1"
+                                },
+                                {
+                                    "RaceName": "Hong Kong",
+                                    "RaceId": "20170202",
+                                    "RacePoints": "0",
+                                    "PolePosition": false,
+                                    "FastestLap": false,
+                                    "DNF": false,
+                                    "Round": "2"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "Generated": "6.2.2018 10:11:28"
+    }
+}
