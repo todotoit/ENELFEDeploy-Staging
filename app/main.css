@@ -716,7 +716,6 @@ header h4.visible {
   content: '';
 }
 .ham-wrapper {
-
   width: 5rem;
   height: 5rem;
   display: -ms-flexbox;
@@ -727,6 +726,18 @@ header h4.visible {
       justify-content: center;
 }
 
+#loadercar {
+  width: 100%;
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+}
 .loaderpanel {
   position: fixed;
   top: 0;
@@ -735,18 +746,7 @@ header h4.visible {
   height: 100%;
   z-index: 500;
   background: #eaeaea;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-      align-items: center;
-  -ms-flex-pack: justify;
-      justify-content: space-between;
   color: #fff;
-}
-.loaderpanel > div{
-  padding: 4vh;
-  -ms-flex: 1;
-      flex: 1;
 }
 .loaderpanel > div.loader_animation{
   -ms-flex: 2;
@@ -757,20 +757,6 @@ header h4.visible {
       align-items: center;
   -ms-flex-pack: center;
       justify-content: center;
-}
-.loaderpanel > div.loader_animation svg{
-  -ms-flex: 1;
-      flex: 1;
-  height: 30vh;
-  animation: pulse-loader 1s infinite;
-}
-.loader_animation svg #car path,
-.loader_animation svg #car line,
-.loader_animation svg #car polyline {
-  stroke: #666666;
-}
-.loaderpanel .loader_logo svg{
-  width: 15vw;
 }
 .loaderpanel .loader_logo span{
   background-color: #ffffff;
@@ -819,13 +805,6 @@ header h4.visible {
   }
 }
 
-.loaderpanel > div p {
-  font-size: 3vh;
-  line-height: 120%;
-  width: 70%;
-}
-
-
 .animate-show-hide,
 h2.animate-show-hide {
   opacity: 1;
@@ -844,6 +823,10 @@ h2.animate-show-hide.ng-hide {
 @media screen and (max-width: 40em) {
   header h4 {
     display: none;
+  }
+  .loaderpanel .loader_logo span {
+    width: 12vw;
+    height: 12vw;
   }
 }
 
