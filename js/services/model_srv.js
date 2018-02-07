@@ -9,7 +9,7 @@
     .service('ModelSrv', ContructorForModelsSrv)
 
   /* @ngInject */
-  function ContructorForModelsSrv($rootScope, $http, $q) {
+  function ContructorForModelsSrv($rootScope, $http, $q, beUrl) {
     var self = this
 
     var _totalConsumptionData   = null
@@ -17,9 +17,6 @@
     var _metersData             = {}
     // var enelStandMeter = 'Smart_Kit2_FE_043'
     // var denStorageMeter = 'Den_Api_FE_001'
-
-    var beUrl = 'http://backend.enelformulae.todo.to.it'
-    // var beUrl = 'http://192.168.3.10:5001'
 
     self.getTotal               = _getTotal
     self.getTimeSeries          = _getTimeSeries

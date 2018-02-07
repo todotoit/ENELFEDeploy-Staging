@@ -576,7 +576,8 @@
         datasource: '<',
         onSelect: '&',
         touchEnabled: '<?',
-        live: '<?'
+        live: '<?',
+        replay: '<?'
       }
     })
 
@@ -729,6 +730,7 @@
     function init() {
       console.log('init streamgraph')
       var data = ctrl.datasource
+      var replay = ctrl.replay || false
       $element.find('svg').empty()
       $element.find('svg').html(grads)
       _callback = ctrl.onSelect()
@@ -761,14 +763,8 @@
                    .attr('class', 'chart')
 
       // Add 'curtain' rectangle to hide entire graph
-      clipMask = chart.append('defs').append('clipPath')
-                      .attr('id', 'clipMask')
-                      .append('rect')
-                      .attr('x', -1 * w)
-                      .attr('y', -1 * h+vp)
-                      .attr('height', h-vp)
-                      .attr('width', 0)
-                      .attr('transform', 'rotate(180)')
+      clipMask = chart.append('defs')
+                      .attr('id', 'clipMasks')
 
       // create path for axis
       lnX = chart.append('g')
@@ -791,8 +787,8 @@
     function update(changedObj) {
       console.time('streamgraph')
 
-      var prevData = changedObj.datasource.previousValue
-      var data     = changedObj.datasource.currentValue
+      var data     = changedObj.datasource ? changedObj.datasource.currentValue : ctrl.datasource
+      var replay   = changedObj.replay ? changedObj.replay.currentValue : ctrl.replay
       // !!
       // https://github.com/angular/angular.js/issues/14433
       // for some weird reason component $onChanges is called before $onInit
@@ -823,11 +819,25 @@
       X.domain(xDomain).range([0, w])
       Y.domain(yDomain).range([h-vp, vp])
       Z.range(colorrange)
+
+      // chart.select('defs')
+      clipMask.selectAll('.layerClip')
+              .data(dataLayers).enter()
+              .append('clipPath')
+              .attr('id', function(d,i) { return 'clipMask-'+(d.key) })
+              .attr('class', 'layerClip')
+              .append('rect')
+              .attr('x', -1 * w)
+              .attr('y', -1 * h+vp)
+              .attr('height', h-vp)
+              .attr('width', 0)
+              .attr('transform', 'rotate(180)')
+
       // update charts
       areas.selectAll('.layer')
            .data(dataLayers).enter()
            .append('path')
-           .attr('clip-path', 'url(#clipMask)')
+           .attr('clip-path', function(d,i) { return 'url(#clipMask-'+(d.key)+')' })
            .attr('class', function(d,i) { return 'layer layer-'+(i+1) })
            .attr('d', function(d,i) { return area(d.values) })
            .attr('fill', function(d, i) { return 'url(#stream_gr'+(i+1)+')' })
@@ -859,7 +869,7 @@
              .attr('class', function(d,i) { return 'overlay-wrap-'+(d.key) })
 
         layerOverlay.append('path')
-          .attr('clip-path', 'url(#clipMask)')
+          .attr('clip-path', function(d,i) { return 'url(#clipMask-'+(d.key)+')' })
           .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
           .attr('d', function(d,i) { return overlayArea(d.values) })
           .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
@@ -909,6 +919,7 @@
       axX.call(xAxis)
 
       // define transition
+      if (replay) return clipMask.selectAll('.layerClip rect').attr('width', w)
       var t = svg.transition()
                  .ease(ease)
                  .duration(duration)
@@ -919,10 +930,19 @@
       // t.select('#cursor rect').attr('x', 0)
       // t.select('#clipMask rect').attr('width', w)
       // animation 2
-      clipMask.attr('x', 0)
-      t.select('#clipMask rect')
+      clipMask.selectAll('.layerClip rect')
+              .attr('x', 0)
+      t.selectAll('.layerClip rect')
        .attr('width', w)
        .attr('x', -1 * w)
+      // animation 3
+      // var numOfLayers = _.keys(dataLayers).length
+      // clipMask.selectAll('.layerClip rect')
+      //      .attr('x', 0)
+      // t.selectAll('.layerClip rect')
+      //  .delay(function(d,i) { return delay * (-1 * i + numOfLayers)})
+      //  .attr('width', w)
+      //  .attr('x', -1 * w)
 
       console.timeEnd('streamgraph')
     }
@@ -3188,7 +3208,7 @@ window.twttr = (function(d, s, id) {
     .service('ModelSrv', ContructorForModelsSrv)
 
   /* @ngInject */
-  function ContructorForModelsSrv($rootScope, $http, $q) {
+  function ContructorForModelsSrv($rootScope, $http, $q, beUrl) {
     var self = this
 
     var _totalConsumptionData   = null
@@ -3196,9 +3216,6 @@ window.twttr = (function(d, s, id) {
     var _metersData             = {}
     // var enelStandMeter = 'Smart_Kit2_FE_043'
     // var denStorageMeter = 'Den_Api_FE_001'
-
-    var beUrl = 'http://backend.enelformulae.todo.to.it'
-    // var beUrl = 'http://192.168.3.10:5001'
 
     self.getTotal               = _getTotal
     self.getTimeSeries          = _getTimeSeries
@@ -3770,6 +3787,9 @@ window.twttr = (function(d, s, id) {
 
   angular
     .module('MainApp')
+    .value('beUrl', 'http://backend.enelformulae.todo.to.it')
+    .value('appUrl', 'http://formulae.enel.com/app')
+    .value('gameUrl', 'http://formulae.enel.com/game')
     .value('currentSeason', {id: 's4'})
     .value('showcaseRace', {id: 'r4'})
 
@@ -3976,6 +3996,23 @@ window.twttr = (function(d, s, id) {
         templateUrl: 'templates/cardtest.html',
         controller: 'CardCtrl',
         controllerAs: 'cards'
+      })
+      .state('streamtest', {
+        url: '/:lang/streamtest',
+        templateUrl: 'templates/streamtest.html',
+        controller: 'StreamCtrl',
+        controllerAs: 'stream',
+        resolve: {
+          races: function(RacesSrv) {
+            return RacesSrv.getRaces()
+                           .then(function(res) { return _.filter(res, 'past') })
+          },
+          liveData: function(RacesSrv, races, currentSeason) {
+            var selectedRace = _.last(races)
+            return RacesSrv.getRaceData(currentSeason, selectedRace)
+                           .then(function (res) { return _.assign(selectedRace, res) })
+          }
+        }
       })
       .state('landing', {
         url: '/:lang/landing',
@@ -4638,6 +4675,67 @@ window.twttr = (function(d, s, id) {
 
     vm.snippets = SnippetSrv.getHotspot('test').snippets
     if (!$scope.$$phase) $scope.$digest()
+
+    // deregister event handlers
+    // $scope.$on('$destroy', function () {})
+  }
+}(window.angular));
+
+(function (angular) {
+  'use strict'
+
+  angular
+    .module('WebApp')
+    .controller('StreamCtrl', streamCtrl)
+
+  /* @ngInject */
+  function streamCtrl ($scope, $rootScope, $interval, liveData) {
+    var vm = this
+    $rootScope.hideLoader()
+
+    vm.selectedRace = liveData
+    vm.streamData = angular.copy(vm.selectedRace.streamData.zones)
+    vm.selectedRace.replay = false
+    vm.replayIdx = d3.min(vm.streamData, function(d) { return d.values.length })
+
+    $scope.toggleLive = function() {
+      vm.selectedRace.replay = true
+      vm.selectedRace.live = !vm.selectedRace.live
+      vm.streamData = angular.copy(vm.selectedRace.streamData.zones)
+      if (!$scope.$$phase) $scope.$digest()
+    }
+
+    var interval = null
+    $scope.replay = function() {
+      if (interval) {
+        console.log('stop replay')
+        $interval.cancel(interval)
+        return interval = null
+      }
+      vm.selectedRace.replay = true
+      var topIdx = d3.min(vm.streamData, function(d) { return d.values.length })
+      var replayIdx = 0
+      interval = $interval(function() {
+        vm.streamData = _.map(vm.selectedRace.streamData.zones, function(d) {
+          var r = angular.copy(d)
+          r.values = _.take(d.values, replayIdx)
+          return r
+        })
+        if (replayIdx < topIdx) replayIdx+=3
+        else {
+          console.log('stop replay')
+          $interval.cancel(interval)
+          interval = null
+        }
+        if (!$scope.$$phase) $scope.$digest()
+      }, 100, false)
+    }
+
+    $scope.replay2 = function() {
+      vm.selectedRace.replay = false
+      vm.streamData = angular.copy(vm.selectedRace.streamData.zones)
+      if (!$scope.$$phase) $scope.$digest()
+    }
 
     // deregister event handlers
     // $scope.$on('$destroy', function () {})

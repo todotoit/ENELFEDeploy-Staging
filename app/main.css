@@ -2599,6 +2599,44 @@ nav.mobile-landing-pagination {
   }
 }
 
+#streamtest {
+  height: 100vh;
+  background: linear-gradient(90deg, #24BBE3 0%, #0A64E0 60%);
+  color:  #fff;
+  overflow: hidden;
+}
+
+#streamtest .component-bg {
+  margin-top: 15vh;
+  position: relative;
+  color: #fff;
+  z-index: 1;
+}
+
+#streamtest .component-bg:before {
+  content: "";
+  position: absolute;
+  background: transparent;
+  width: 85%;
+  height: .7em;
+  bottom: .5em;
+  left: 50%;
+  transform: translate(-50%);
+  box-shadow: .5em .5em 4.5rem rgba(0, 0, 0, 0.85), .5em .5em 4.5em rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+#streamtest streamgraph {
+  padding: 0 3vw;
+  padding-right: 1.1vw;
+  background: linear-gradient(180deg, rgb(75, 187, 163), 60%, rgb(85, 190, 90));
+  background-repeat: no-repeat;
+}
+
+#streamtest .controllers {
+  margin-top: 5vh;
+}
+
 #teamAreaChart .axis text{
   font-family: sans-serif;
   fill: white;
@@ -2647,7 +2685,7 @@ streamgraph {
 }
 #streamgraph .x.axis .tick {
   fill: #fff;
-  font-size: 1rem;
+  font-size: .9rem;
 }
 /*#streamgraph g.chart path.layer.layer-1 {
   fill: url(#stream_gr1);

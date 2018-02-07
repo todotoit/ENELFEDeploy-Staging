@@ -14,7 +14,8 @@
         datasource: '<',
         onSelect: '&',
         touchEnabled: '<?',
-        live: '<?'
+        live: '<?',
+        replay: '<?'
       }
     })
 
@@ -167,6 +168,7 @@
     function init() {
       console.log('init streamgraph')
       var data = ctrl.datasource
+      var replay = ctrl.replay || false
       $element.find('svg').empty()
       $element.find('svg').html(grads)
       _callback = ctrl.onSelect()
@@ -199,14 +201,8 @@
                    .attr('class', 'chart')
 
       // Add 'curtain' rectangle to hide entire graph
-      clipMask = chart.append('defs').append('clipPath')
-                      .attr('id', 'clipMask')
-                      .append('rect')
-                      .attr('x', -1 * w)
-                      .attr('y', -1 * h+vp)
-                      .attr('height', h-vp)
-                      .attr('width', 0)
-                      .attr('transform', 'rotate(180)')
+      clipMask = chart.append('defs')
+                      .attr('id', 'clipMasks')
 
       // create path for axis
       lnX = chart.append('g')
@@ -229,8 +225,8 @@
     function update(changedObj) {
       console.time('streamgraph')
 
-      var prevData = changedObj.datasource.previousValue
-      var data     = changedObj.datasource.currentValue
+      var data     = changedObj.datasource ? changedObj.datasource.currentValue : ctrl.datasource
+      var replay   = changedObj.replay ? changedObj.replay.currentValue : ctrl.replay
       // !!
       // https://github.com/angular/angular.js/issues/14433
       // for some weird reason component $onChanges is called before $onInit
@@ -261,11 +257,25 @@
       X.domain(xDomain).range([0, w])
       Y.domain(yDomain).range([h-vp, vp])
       Z.range(colorrange)
+
+      // chart.select('defs')
+      clipMask.selectAll('.layerClip')
+              .data(dataLayers).enter()
+              .append('clipPath')
+              .attr('id', function(d,i) { return 'clipMask-'+(d.key) })
+              .attr('class', 'layerClip')
+              .append('rect')
+              .attr('x', -1 * w)
+              .attr('y', -1 * h+vp)
+              .attr('height', h-vp)
+              .attr('width', 0)
+              .attr('transform', 'rotate(180)')
+
       // update charts
       areas.selectAll('.layer')
            .data(dataLayers).enter()
            .append('path')
-           .attr('clip-path', 'url(#clipMask)')
+           .attr('clip-path', function(d,i) { return 'url(#clipMask-'+(d.key)+')' })
            .attr('class', function(d,i) { return 'layer layer-'+(i+1) })
            .attr('d', function(d,i) { return area(d.values) })
            .attr('fill', function(d, i) { return 'url(#stream_gr'+(i+1)+')' })
@@ -297,7 +307,7 @@
              .attr('class', function(d,i) { return 'overlay-wrap-'+(d.key) })
 
         layerOverlay.append('path')
-          .attr('clip-path', 'url(#clipMask)')
+          .attr('clip-path', function(d,i) { return 'url(#clipMask-'+(d.key)+')' })
           .attr('class', function(d,i) { return 'overlay overlay-'+(d.key) })
           .attr('d', function(d,i) { return overlayArea(d.values) })
           .attr('fill', function(d, i) { return 'url(#overlay_gr)' })
@@ -347,6 +357,7 @@
       axX.call(xAxis)
 
       // define transition
+      if (replay) return clipMask.selectAll('.layerClip rect').attr('width', w)
       var t = svg.transition()
                  .ease(ease)
                  .duration(duration)
@@ -357,10 +368,19 @@
       // t.select('#cursor rect').attr('x', 0)
       // t.select('#clipMask rect').attr('width', w)
       // animation 2
-      clipMask.attr('x', 0)
-      t.select('#clipMask rect')
+      clipMask.selectAll('.layerClip rect')
+              .attr('x', 0)
+      t.selectAll('.layerClip rect')
        .attr('width', w)
        .attr('x', -1 * w)
+      // animation 3
+      // var numOfLayers = _.keys(dataLayers).length
+      // clipMask.selectAll('.layerClip rect')
+      //      .attr('x', 0)
+      // t.selectAll('.layerClip rect')
+      //  .delay(function(d,i) { return delay * (-1 * i + numOfLayers)})
+      //  .attr('width', w)
+      //  .attr('x', -1 * w)
 
       console.timeEnd('streamgraph')
     }
