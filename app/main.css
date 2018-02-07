@@ -2600,10 +2600,9 @@ nav.mobile-landing-pagination {
 }
 
 #streamtest {
-  height: 100vh;
   background: linear-gradient(90deg, #24BBE3 0%, #0A64E0 60%);
   color:  #fff;
-  overflow: hidden;
+  padding-bottom: 5vh;
 }
 
 #streamtest .component-bg {
