@@ -48,14 +48,14 @@
                       return formatY(d)+unit
                     })
 
-    var formatX = d3.time.format('%H:%M')
+    var formatX = d3.time.format('%I %p')
     var axisX   = d3.svg.axis()
                     .scale(X)
                     .orient('bottom')
                     .tickSize(1)
                     .ticks(d3.time.hours)
                     .tickFormat(function(d,i) {
-                      if(i === 0) return
+                      // if(i === 0) return
                       return formatX(d)
                     })
 

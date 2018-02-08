@@ -1312,14 +1312,14 @@
                       return formatY(d)+unit
                     })
 
-    var formatX = d3.time.format('%H:%M')
+    var formatX = d3.time.format('%I %p')
     var axisX   = d3.svg.axis()
                     .scale(X)
                     .orient('bottom')
                     .tickSize(1)
                     .ticks(d3.time.hours)
                     .tickFormat(function(d,i) {
-                      if(i === 0) return
+                      // if(i === 0) return
                       return formatX(d)
                     })
 
@@ -4771,7 +4771,8 @@ window.twttr = (function(d, s, id) {
     .controller('DashboardCtrl', dashboardCtrl)
 
   /* @ngInject */
-  function dashboardCtrl ($rootScope, $scope, $window, $http, $timeout, ComparisonSrv, ModelSrv, RacesSrv, _, seasons, races, liveData, showcaseRace, currentSeason ) {
+  function dashboardCtrl ($rootScope, $scope, $window, $http, $timeout, $interval, _,
+                          ComparisonSrv, ModelSrv, RacesSrv, seasons, races, liveData, showcaseRace, currentSeason) {
     var vm = this
 
     $scope.setActiveHeader('menu_ctrlroom_header')
@@ -4852,9 +4853,15 @@ window.twttr = (function(d, s, id) {
                            }, function (err) { console.error(err) })
     }
     $scope.showRace = function(season, race) {
+      if ($scope.replayInterval) {
+        console.log('stop replay')
+        $interval.cancel($scope.replayInterval)
+        $scope.replayInterval = null
+      }
       vm.currentSeason = season
       if (!_.isEmpty(vm.streamPaddock)) emptyAll()
       vm.currentRace = angular.copy(race)
+      vm.currentRace.replay = false
       if (_.isEmpty(vm.currentRace)) return
       vm.streamData = vm.currentRace.streamData? angular.copy(vm.currentRace.streamData.zones) : []
       vm.streamDap = vm.currentRace.streamData? angular.copy(vm.currentRace.streamData.total_availability) : 0
@@ -5011,6 +5018,37 @@ window.twttr = (function(d, s, id) {
         })
       }
       return emptydata
+    }
+
+    $scope.replayInterval = null
+    $scope.replayTime = null
+    $scope.replayStream = function() {
+      if ($scope.replayInterval) {
+        console.log('stop replay')
+        $interval.cancel($scope.replayInterval)
+        return $scope.replayInterval = null
+      }
+      vm.currentRace.replay = true
+      var topIdx = d3.min(vm.streamData, function(d) { return d.values.length })
+      console.log(topIdx)
+      var replayIdx = 0
+      console.time('streamgraphReplay')
+      $scope.replayInterval = $interval(function() {
+        vm.streamData = _.map(vm.currentRace.streamData.zones, function(d) {
+          var r = angular.copy(d)
+          r.values = _.take(d.values, replayIdx)
+          if (_.last(r.values)) $scope.replayTime = _.last(r.values).h
+          return r
+        })
+        if (replayIdx < topIdx) replayIdx+=1
+        else {
+          console.log('stop replay')
+          $interval.cancel($scope.replayInterval)
+          $scope.replayInterval = null
+          console.timeEnd('streamgraphReplay')
+        }
+        if (!$scope.$$phase) $scope.$digest()
+      }, 100, false)
     }
 
     // event handlers

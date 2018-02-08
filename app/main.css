@@ -1811,6 +1811,31 @@ nav.mobile-landing-pagination {
   top: 2vw;
   left: 3vw;
 }
+#dashboard .component-bg .overlay-top-right {
+  text-align: right;
+  right: 3vw;
+  top: 2vw;
+}
+#dashboard .component-bg .replay-overlay {
+  display: -ms-flexbox;
+  display: flex;
+  /*margin-top: 0.3em;*/
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -ms-flex-align: center;
+      align-items: center;
+  pointer-events: auto;
+}
+#dashboard .component-bg .replay-overlay label {
+  font-weight: 300;
+  font-size: 1.6rem;
+}
+#dashboard .component-bg .replay-overlay svg {
+  width: 4rem;
+  height: 4rem;
+  margin-left: 2rem;
+}
+
 #dashboard .component-bg .overlay-right {
   text-align: right;
   right: 4vw;
