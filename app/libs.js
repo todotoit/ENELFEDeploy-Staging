@@ -9931,6 +9931,9 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         if (self.debugMode) {
             addHUD();
         }
+
+        //Create fog
+        self.scene.fog = new THREE.Fog(0x0555fa, 0.1, 2000);
     }
 
     //###########################################################################################################
@@ -10071,19 +10074,19 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
                     case "pin_2_grid":
                         self.pinsStage2.children[0].material.map = self.pinsStage2.children[0].material.active_map;
                         //startCameraAnimation([-654, 165, 456], 2);
-                        startCameraAnimation([-459, 437, 433], 2);
+                        startCameraAnimation([-606, 259, 404], 2);
                     break;
 
                     case "pin_2_info":
                         self.pinsStage2.children[1].material.map = self.pinsStage2.children[1].material.active_map;
                         //startCameraAnimation([730, 213, -139], 2);
-                        startCameraAnimation([-525, 333, -453], 2);
+                        startCameraAnimation([591, 403, -290], 2);
                     break;
 
                     case "pin_2_meter":
                         self.pinsStage2.children[2].material.map = self.pinsStage2.children[2].material.active_map;
                         //startCameraAnimation([12, 361, 684], 2);
-                        startCameraAnimation([348, 514, -452], 2);
+                        startCameraAnimation([-606, 389, -280], 2);
                     break;
 
                     case "pin_2_solar":
@@ -10334,32 +10337,33 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
 
 		var pin_2_grid = self.TerminUtils.createSprite('pin_2_grid', '../libs/terminalia/assets/textures/pins/pin_2-grid.png');
 		pin_2_grid.scale.set(pinSize, pinSize, pinSize);
-		pin_2_grid.position.set(-24, 49, 38);
+		pin_2_grid.position.set(-285, 49, 72);
         pin_2_grid.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-grid.png');
         pin_2_grid.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-grid_on.png');
 		self.pinsStage2.add(pin_2_grid);
 
 		var pin_2_info = self.TerminUtils.createSprite('pin_2_info', '../libs/terminalia/assets/textures/pins/pin_2-info.png');
 		pin_2_info.scale.set(pinSize, pinSize, pinSize);
-		pin_2_info.position.set(-198, 49, -35);
+		pin_2_info.position.set(111, 53, -10);
         pin_2_info.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-info.png');
         pin_2_info.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-info_on.png');
 		self.pinsStage2.add(pin_2_info);
 
 		var pin_2_meter = self.TerminUtils.createSprite('pin_2_meter', '../libs/terminalia/assets/textures/pins/pin_2-meter.png');
 		pin_2_meter.scale.set(pinSize, pinSize, 40);
-		pin_2_meter.position.set(76, 49, -5);
+		pin_2_meter.position.set(-133, 53, -50);
         pin_2_meter.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-meter.png');
         pin_2_meter.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-meter_on.png');
 		self.pinsStage2.add(pin_2_meter);
 
+        /*
 		var pin_2_solar = self.TerminUtils.createSprite('pin_2_solar', '../libs/terminalia/assets/textures/pins/pin_2-solar.png');
 		pin_2_solar.scale.set(pinSize, pinSize, pinSize);
 		pin_2_solar.position.set(278, 49, 87);
         pin_2_solar.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-solar.png');
         pin_2_solar.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-solar_on.png');
 		self.pinsStage2.add(pin_2_solar);
-
+        */
         /*
 		var pin_2_storage = self.TerminUtils.createSprite('pin_2_storage', '../libs/terminalia/assets/textures/pins/pin_2-storage.png');
 		pin_2_storage.scale.set(pinSize, pinSize, pinSize);
@@ -10368,13 +10372,14 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         pin_2_storage.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-storage_on.png');
         self.pinsStage2.add(pin_2_storage);
         */
-
+        /*
         var pin_2_santiago = self.TerminUtils.createSprite('pin_2_santiago', '../libs/terminalia/assets/textures/pins/pin_2-santiago.png');
 		pin_2_santiago.scale.set(pinSize, pinSize, pinSize);
 		pin_2_santiago.position.set(313, 49, -121);
         pin_2_santiago.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-santiago.png');
         pin_2_santiago.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-santiago_on.png');
         self.pinsStage2.add(pin_2_santiago);
+        */
 
         for (var i=0; i<self.pinsStage2.children.length; i++) {
             self.pinsStage2.children[i].material.opacity = 0;
@@ -10535,20 +10540,20 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         self.circuitPivot = new THREE.Mesh(new THREE.SphereBufferGeometry(size, 20, 20), circuitPivotMat);
         self.circuitPivot.material.visible = false;
 
-        var circuit = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/chile_circuit.obj', self.circuitMaterial);
+        var circuit = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/mexico_circuit.obj', self.circuitMaterial);
         circuit.scale.set(40, 40, 40);
         circuit.rotation.set(0, radians(180), 0);
-        circuit.position.set(100, (size * offset) + 1, 20);
+        circuit.position.set(-200, (size * offset) + 1, -100);
 
-        var circuit_land = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/chile_circuit_land.obj', self.landMaterial);
+        var circuit_land = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/mexico_circuit_land.obj', self.landMaterial);
         circuit_land.scale.set(40, 40, 40);
         circuit_land.rotation.set(0, radians(180), 0);
-        circuit_land.position.set(100, (size * offset) - 1.1, 20);
+        circuit_land.position.set(-200, (size * offset) - 1.1, -100);
 
-        var circuit_land_toon = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/chile_circuit_toon.obj', self.toonMaterial);
+        var circuit_land_toon = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/mexico_circuit_toon.obj', self.toonMaterial);
         circuit_land_toon.scale.set(40, 40, 40);
         circuit_land_toon.rotation.set(0, radians(180), 0);
-        circuit_land_toon.position.set(100, (size * offset), 20);
+        circuit_land_toon.position.set(-200, (size * offset), -100);
 
         self.circuitPivot.add(circuit);
         self.circuitPivot.add(circuit_land);
@@ -10665,10 +10670,11 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
             break;
 
             case 3:
-            self.stageAnimation.tweenFromTo(self.currentState, 'StageFinal', {onComplete: function() {
-                var event = new CustomEvent("StageTimeLineEnded", {"detail": self.currentState});
-                window.dispatchEvent(event);
-            }});
+            self.stageAnimation.tweenFromTo(self.currentState, 'StageFinal', {
+                onComplete: function() {
+                    var event = new CustomEvent("StageTimeLineEnded", {"detail": self.currentState});
+                    window.dispatchEvent(event);
+                }});
             self.currentState = 'StageFinal'
             break;
         }
@@ -10716,6 +10722,7 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         //STAGE 3
         newCameraPos = new THREE.Vector3(-678, 2891, 18251);
         self.stageAnimation.addLabel("StageCircuit");
+        self.stageAnimation.add(TweenLite.to(self.scene.fog, 1, {far: 0}), "StageCircuit");
         //Hide circuit land depth
         //self.stageAnimation.add(TweenLite.to(self.toonMaterial.uniforms.uAlpha, 1, {value: 0.0}), "StageCircuit");
         self.stageAnimation.add(TweenLite.to(self.toonMaterial, 1, {opacity: 0}), "StageCircuit");

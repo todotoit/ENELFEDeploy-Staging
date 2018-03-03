@@ -3216,6 +3216,7 @@ window.twttr = (function(d, s, id) {
     var _metersData             = {}
     // var enelStandMeter = 'Smart_Kit2_FE_043'
     // var denStorageMeter = 'Den_Api_FE_001'
+    var garageMeter = 'Computed_Meter_001'
 
     self.getTotal               = _getTotal
     self.getTimeSeries          = _getTimeSeries
@@ -3250,6 +3251,7 @@ window.twttr = (function(d, s, id) {
       return $q.all([_getTotal(),
                      _getTimeSeries(),
                      _getTimeSeries('paddock'),
+                     _getMeter(garageMeter),
                      // _getMeter(enelStandMeter),
                      // _getMeter(denStorageMeter),
                      // _getMeterTimeSeries(denStorageMeter)
@@ -3260,7 +3262,7 @@ window.twttr = (function(d, s, id) {
                       totalConsumption: _totalConsumptionData,
                       streamData:       _timeSeriesData['circuit'],
                       streamPaddock:    _timeSeriesData['paddock'],
-                      // meters:           _metersData
+                      metersData:       _metersData
                     }
                   }, function(err) {
                     console.error(err)
@@ -3322,6 +3324,7 @@ window.twttr = (function(d, s, id) {
       return $q.all([_updateTotal(),
                      _updateTimeSeries(),
                      _updateTimeSeries('paddock'),
+                     _updateMeter(garageMeter),
                      // _updateMeter(enelStandMeter),
                      // _updateMeter(denStorageMeter),
                      // _updateMeterTimeSeries(denStorageMeter)
@@ -3791,7 +3794,7 @@ window.twttr = (function(d, s, id) {
     .value('appUrl', 'http://formulae.enel.com/app')
     .value('gameUrl', 'http://formulae.enel.com/game')
     .value('currentSeason', {id: 's4'})
-    .value('showcaseRace', {id: 'r4'})
+    .value('showcaseRace', {id: 'r5'})
 
 }(window.angular));
 
@@ -4366,10 +4369,10 @@ window.twttr = (function(d, s, id) {
           $('#landing > section .zoom #navSelected').css({transform: 'translateY(0%)'})
         break
         case 2:
-          $('#landing > section .zoom #navSelected').css({transform: 'translateY(120%)'})
+          $('#landing > section .zoom #navSelected').css({transform: 'translateY(33%)'})
         break
         case 3:
-          $('#landing > section .zoom #navSelected').css({transform: 'translateY(240%)'})
+          $('#landing > section .zoom #navSelected').css({transform: 'translateY(65%)'})
         break
         default: return
       }
@@ -4402,19 +4405,19 @@ window.twttr = (function(d, s, id) {
 
     var labelStages = ['carView', 'circuitView', 'worldView']
     function zoom(zoom) {
-      if (!FEScene) return
       switch(zoom) {
         case 1:
           $('#landing > section .zoom #navSelected').css({transform: 'translateY(0%)'})
         break
         case 2:
-          $('#landing > section .zoom #navSelected').css({transform: 'translateY(120%)'})
+          $('#landing > section .zoom #navSelected').css({transform: 'translateY(33%)'})
         break
         case 3:
-          $('#landing > section .zoom #navSelected').css({transform: 'translateY(240%)'})
+          $('#landing > section .zoom #navSelected').css({transform: 'translateY(65%)'})
         break
         default: return
       }
+      if (!FEScene) return
       $scope.closeCarousel();
       $scope.currentStage = zoom
       GA.trackLandingFrag(labelStages[$scope.currentStage])
@@ -4794,8 +4797,10 @@ window.twttr = (function(d, s, id) {
     }
     var enelMeterKey = 'Smart_Kit2_FE_043'
     var denMeterKey = 'Den_Api_FE_001'
+    var garageMeterKey = 'Computed_Meter_001'
     vm.metersData = null
     vm.enelMeterStandData = null
+    vm.garageMeterData = null
     vm.totalConsumption = {
       total_energy: 0,
       total_power: 0,
@@ -4881,6 +4886,7 @@ window.twttr = (function(d, s, id) {
         if (!vm.enelMeterStandData) vm.enelMeterStandData = { energy: 0, power: 0 }
         vm.denMeterData = !_.isEmpty(vm.metersData[denMeterKey])? vm.metersData[denMeterKey] : null
         vm.streamDen = vm.denMeterData && vm.currentRace.streamDen? angular.copy(vm.currentRace.streamDen.zones) : []
+        vm.garageMeterData = !_.isEmpty(vm.metersData[garageMeterKey])? vm.metersData[garageMeterKey] : null
       } else {
         vm.denMeterData = null
       }
@@ -4889,7 +4895,8 @@ window.twttr = (function(d, s, id) {
       var raceList = $('.races-list > .races-list-wrap')
       var offRX = newRaceIdx >= vm.races.length-3? '0' : '225'
       if (bowser.mobile) offRX = newRaceIdx == vm.races.length-1? '0' : '50'
-      TweenMax.to(raceList, .5, {scrollTo:{x:"#"+vm.currentRace.id, offsetX: offRX}})
+      // TweenMax.to(raceList, .5, {scrollTo:{x:"#"+vm.currentRace.id, offsetX: offRX}})
+      $timeout(function(){ raceList.scrollLeft($('#'+vm.currentRace.id).offset().left - offRX)}, 1000)
       if (!$scope.$$phase) $scope.$digest()
       currentRaceIdx = newRaceIdx
       $scope.getComparisons()
@@ -5022,16 +5029,14 @@ window.twttr = (function(d, s, id) {
 
     $scope.replayInterval = null
     $scope.replayTime = null
+    var replayPaused = false
     $scope.replayStream = function() {
-      if ($scope.replayInterval) {
-        console.log('stop replay')
-        $interval.cancel($scope.replayInterval)
-        return $scope.replayInterval = null
-      }
+      if ($scope.replayInterval) return $scope.pauseReplay()
       vm.currentRace.replay = true
-      var topIdx = d3.min(vm.streamData, function(d) { return d.values.length })
-      console.log(topIdx)
+      var topIdx = d3.min(vm.currentRace.streamData.zones, function(d) { return d.values.length })
       var replayIdx = 0
+      if (replayPaused) replayIdx = d3.min(vm.streamData, function(d) { return d.values.length })
+      replayPaused = false
       console.time('streamgraphReplay')
       $scope.replayInterval = $interval(function() {
         vm.streamData = _.map(vm.currentRace.streamData.zones, function(d) {
@@ -5040,15 +5045,23 @@ window.twttr = (function(d, s, id) {
           if (_.last(r.values)) $scope.replayTime = _.last(r.values).h
           return r
         })
-        if (replayIdx < topIdx) replayIdx+=1
-        else {
-          console.log('stop replay')
-          $interval.cancel($scope.replayInterval)
-          $scope.replayInterval = null
-          console.timeEnd('streamgraphReplay')
-        }
+        if (replayIdx >= topIdx) return $scope.stopReplay()
+        replayIdx+=1
         if (!$scope.$$phase) $scope.$digest()
-      }, 100, false)
+      }, 100)
+    }
+    $scope.stopReplay = function() {
+      console.log('stop replay')
+      console.timeEnd('streamgraphReplay')
+      $interval.cancel($scope.replayInterval)
+      $scope.replayInterval = null
+      replayPaused = false
+    }
+    $scope.pauseReplay = function() {
+      console.log('pause replay')
+      $interval.cancel($scope.replayInterval)
+      $scope.replayInterval = null
+      replayPaused = true
     }
 
     // event handlers
@@ -5062,7 +5075,7 @@ window.twttr = (function(d, s, id) {
                           vm.streamDap          = res.streamData.total_availability
                           vm.streamPaddock      = res.streamPaddock.zones
                           vm.totalConsumption   = res.totalConsumption
-                          // vm.metersData         = res.metersData
+                          vm.metersData         = res.metersData
                           // vm.enelMeterStandData = currentRace.metersData[enelMeterKey]
                           // vm.denMeterData       = currentRace.metersData[denMeterKey]
                           // vm.streamDen          = res.timeSeries[denMeterKey].zones

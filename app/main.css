@@ -1143,6 +1143,10 @@ body {
 snippet-card #fastRecharge {
   transform: translateY(-5vh);
 }
+#landing snippet-card .card-img-h90 svg {
+  height: 90%;
+  width: 100%;
+}
 #landing snippet-card .card-img-90, #landing snippet-card .card-img-80, #landing snippet-card .card-img-75 {
   text-align: center;
 }
@@ -1293,6 +1297,8 @@ snippet-card #fastRecharge {
   z-index: 2;
   transform: translateX(100%);
   overflow-y: auto;
+  scroll-behavior: smooth;
+  overflow-scrolling: touch;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -1437,10 +1443,16 @@ nav.mobile-landing-pagination {
     margin-right: 0;
 }
 #landing-mobile snippet-card {
-  overflow: scroll;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
 }
 #landing-mobile snippet-card > div {
-  overflow: scroll;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;
   -ms-flex: 1 0 0%;
       flex: 1 0 0%;
   min-height: 25rem;
@@ -1646,6 +1658,7 @@ nav.mobile-landing-pagination {
 }
 #dashboard .races-list .races-list-wrap {
   overflow: scroll;
+  scroll-behavior: smooth;
   overflow-scrolling: touch;
   -webkit-overflow-scrolling: touch;
 }

@@ -17,6 +17,7 @@
     var _metersData             = {}
     // var enelStandMeter = 'Smart_Kit2_FE_043'
     // var denStorageMeter = 'Den_Api_FE_001'
+    var garageMeter = 'Computed_Meter_001'
 
     self.getTotal               = _getTotal
     self.getTimeSeries          = _getTimeSeries
@@ -51,6 +52,7 @@
       return $q.all([_getTotal(),
                      _getTimeSeries(),
                      _getTimeSeries('paddock'),
+                     _getMeter(garageMeter),
                      // _getMeter(enelStandMeter),
                      // _getMeter(denStorageMeter),
                      // _getMeterTimeSeries(denStorageMeter)
@@ -61,7 +63,7 @@
                       totalConsumption: _totalConsumptionData,
                       streamData:       _timeSeriesData['circuit'],
                       streamPaddock:    _timeSeriesData['paddock'],
-                      // meters:           _metersData
+                      metersData:       _metersData
                     }
                   }, function(err) {
                     console.error(err)
@@ -123,6 +125,7 @@
       return $q.all([_updateTotal(),
                      _updateTimeSeries(),
                      _updateTimeSeries('paddock'),
+                     _updateMeter(garageMeter),
                      // _updateMeter(enelStandMeter),
                      // _updateMeter(denStorageMeter),
                      // _updateMeterTimeSeries(denStorageMeter)

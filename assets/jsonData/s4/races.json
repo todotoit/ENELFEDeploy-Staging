@@ -64,7 +64,7 @@
       "country": "MX",
       "timezone": "America/Mexico_City",
       "circuit": {
-        "map": ""
+        "map": "circuit_mexico"
       },
       "enelStand": false,
       "meters": 30,
