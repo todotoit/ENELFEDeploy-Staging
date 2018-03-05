@@ -4889,6 +4889,7 @@ window.twttr = (function(d, s, id) {
         vm.garageMeterData = !_.isEmpty(vm.metersData[garageMeterKey])? vm.metersData[garageMeterKey] : null
       } else {
         vm.denMeterData = null
+        vm.garageMeterData = null
       }
 
       var newRaceIdx = _.indexOf(vm.races, vm.currentRace)
