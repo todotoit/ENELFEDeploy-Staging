@@ -3112,14 +3112,36 @@ snippet-card .santiago-svg-wrap svg {
   position: relative;
 }
 
+snippet-card .uruguay-svg-wrap {
+  position: absolute;
+  bottom: 2em;
+}
+
+snippet-card .uruguay-svg-wrap svg {
+  position: relative;
+}
+
 snippet-card .enelx-svg-wrap svg {
   width: 50%;
   position: relative;
 }
 
+snippet-card .card-img-h90 svg {
+  height: 90%;
+  width: 100%;
+}
+
+snippet-card .card-img-95 svg {
+  width: 95%;
+}
+
+snippet-card .card-img-70 svg {
+  width: 70%;
+}
+
 snippet-card .zone_balance_equivalent.houses {
   background-image: url(/assets/svgs/dash_comparison_small_house-wh.svg);
-  background-size: 4rem;
+  background-size: 3rem;
 }
 snippet-card .info_block.zone_balance_equivalent.houses label {
   border: 0;

@@ -2354,7 +2354,7 @@
       'test': {
         stage: null,
         coords: null,
-        snippets: ['santiagoGreen', 'santiagoTransport', 'chileCommunity', 'cleanEnergyChile', 'solarPower', 'enelX']
+        snippets: ['circuitTemplate', 'uyFutureEnergy', 'uyWindOfChange', 'chronoGen2', 'chronoGen2-battery', 'chronoGen2-power']
       },
       'pin_1_info': {
         stage: 1,
@@ -2375,6 +2375,11 @@
         stage: 1,
         coords: [-3.19, 2.20, -5.73],
         snippets: ['co2', 'efficiency', 'enginePower', 'sound']
+      },
+      'pin_1_new_car': {
+        stage: 1,
+        coords: [5.25, 2.39, -3.80],
+        snippets: ['chronoGen2', 'chronoGen2-battery', 'chronoGen2-power']
       },
       'pin_2_grid': {
         stage: 2,
@@ -2457,6 +2462,11 @@
         stage: 3,
         coords: [583],
         snippets: ['enelNorthAmerica', 'hybrid']
+      },
+      'pin_3_uy': {
+        stage: 3,
+        coords: [306],
+        snippets: ['uyFutureEnergy', 'uyWindOfChange']
       }
     }
 
@@ -2640,6 +2650,63 @@
           }
         ]
       },
+      'chronoGen2': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/chronoGen2.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'At the E-Prix',
+            translateLabel: 'snip_car_gen2_tab1',
+            tpl: self.path + '/subcontents/chronoGen2-eprix.html'
+          },
+          {
+            desc: '',
+            label: 'In the city',
+            translateLabel: 'snip_car_gen2_tab2',
+            tpl: self.path + '/subcontents/chronoGen2-city.html'
+          }
+        ]
+      },
+      'chronoGen2-battery': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/chronoGen2-battery.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Lasts for',
+            translateLabel: 'snip_car_gen2_battery_tab1',
+            tpl: self.path + '/subcontents/chronoGen2-lasts.html'
+          },
+          {
+            desc: '',
+            label: 'Enough to charge',
+            translateLabel: 'snip_car_gen2_battery_tab2',
+            tpl: self.path + '/subcontents/chronoGen2-charge.html'
+          }
+        ]
+      },
+      'chronoGen2-power': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/chronoGen2-power.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Maximum speed',
+            translateLabel: 'snip_car_gen2_power_tab1',
+            tpl: self.path + '/subcontents/chronoGen2-speed.html'
+          },
+          {
+            desc: '',
+            label: '0-100 km/h in',
+            translateLabel: 'snip_car_gen2_power_tab2',
+            tpl: self.path + '/subcontents/chronoGen2-accelleration.html'
+          }
+        ]
+      },
       'circuitBerlin2017': {
         desc: '',
         label: '',
@@ -2811,6 +2878,30 @@
         desc: '',
         label: '',
         tpl: self.path + '/hybrid.html'
+      },
+      'uyFutureEnergy': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/uyFutureEnergy.html'
+      },
+      'uyWindOfChange': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/uyWindOfChange.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Impact',
+            translateLabel: 'snip_world_uy_wind_tab1',
+            tpl: self.path + '/subcontents/uyWindOfChange-impact.html'
+          },
+          {
+            desc: '',
+            label: 'Data',
+            translateLabel: 'snip_world_uy_wind_tab2',
+            tpl: self.path + '/subcontents/uyWindOfChange-data.html'
+          }
+        ]
       }
     }
 
@@ -3790,11 +3881,12 @@ window.twttr = (function(d, s, id) {
 
   angular
     .module('MainApp')
+    // .value('beUrl', 'http://192.168.3.10:5001/')
     .value('beUrl', 'http://backend.enelformulae.todo.to.it')
     .value('appUrl', 'http://formulae.enel.com/app')
     .value('gameUrl', 'http://formulae.enel.com/game')
     .value('currentSeason', {id: 's4'})
-    .value('showcaseRace', {id: 'r5'})
+    .value('showcaseRace', {id: 'r6'})
 
 }(window.angular));
 
@@ -4545,6 +4637,7 @@ window.twttr = (function(d, s, id) {
     var vm = this
     var container = $('#3dcontainer')[0]
     var FEScene = new TERMINALIA.FEScene(container, TERMINALIA.CustomShaders);
+    var displacement = 1;
     FEScene.render();
     angular.element(document).ready($rootScope.hideLoader)
 
@@ -4589,28 +4682,28 @@ window.twttr = (function(d, s, id) {
 
         if (event.key === 'a') {
           //FEScene.startCameraAnimation([3, 3, 0.8], 2);
-		      FEScene.movePins(-1, 0, 0);
+		      FEScene.movePins(-displacement, 0, 0);
         }
 
         if (event.key === 'd') {
-          FEScene.movePins(1, 0, 0);
+          FEScene.movePins(displacement, 0, 0);
         }
 
         if (event.key === 'w') {
-          FEScene.movePins(0, 1, 0);
+          FEScene.movePins(0, displacement, 0);
         }
 
         if (event.key === 's') {
-          FEScene.movePins(0, -1, 0);
+          FEScene.movePins(0, -displacement, 0);
         }
 
         if (event.key === 'e') {
           //FEScene.startCameraAnimation([2, 3, -3], 2)
-		      FEScene.movePins(0, 0, 1);
+		      FEScene.movePins(0, 0, displacement);
         }
 
         if (event.key === 'q') {
-          FEScene.movePins(0, 0, -1);
+          FEScene.movePins(0, 0, -displacement);
         }
 
         if (event.key === 't') {

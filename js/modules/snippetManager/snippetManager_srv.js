@@ -45,7 +45,7 @@
       'test': {
         stage: null,
         coords: null,
-        snippets: ['santiagoGreen', 'santiagoTransport', 'chileCommunity', 'cleanEnergyChile', 'solarPower', 'enelX']
+        snippets: ['circuitTemplate', 'uyFutureEnergy', 'uyWindOfChange', 'chronoGen2', 'chronoGen2-battery', 'chronoGen2-power']
       },
       'pin_1_info': {
         stage: 1,
@@ -66,6 +66,11 @@
         stage: 1,
         coords: [-3.19, 2.20, -5.73],
         snippets: ['co2', 'efficiency', 'enginePower', 'sound']
+      },
+      'pin_1_new_car': {
+        stage: 1,
+        coords: [5.25, 2.39, -3.80],
+        snippets: ['chronoGen2', 'chronoGen2-battery', 'chronoGen2-power']
       },
       'pin_2_grid': {
         stage: 2,
@@ -148,6 +153,11 @@
         stage: 3,
         coords: [583],
         snippets: ['enelNorthAmerica', 'hybrid']
+      },
+      'pin_3_uy': {
+        stage: 3,
+        coords: [306],
+        snippets: ['uyFutureEnergy', 'uyWindOfChange']
       }
     }
 
@@ -331,6 +341,63 @@
           }
         ]
       },
+      'chronoGen2': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/chronoGen2.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'At the E-Prix',
+            translateLabel: 'snip_car_gen2_tab1',
+            tpl: self.path + '/subcontents/chronoGen2-eprix.html'
+          },
+          {
+            desc: '',
+            label: 'In the city',
+            translateLabel: 'snip_car_gen2_tab2',
+            tpl: self.path + '/subcontents/chronoGen2-city.html'
+          }
+        ]
+      },
+      'chronoGen2-battery': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/chronoGen2-battery.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Lasts for',
+            translateLabel: 'snip_car_gen2_battery_tab1',
+            tpl: self.path + '/subcontents/chronoGen2-lasts.html'
+          },
+          {
+            desc: '',
+            label: 'Enough to charge',
+            translateLabel: 'snip_car_gen2_battery_tab2',
+            tpl: self.path + '/subcontents/chronoGen2-charge.html'
+          }
+        ]
+      },
+      'chronoGen2-power': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/chronoGen2-power.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Maximum speed',
+            translateLabel: 'snip_car_gen2_power_tab1',
+            tpl: self.path + '/subcontents/chronoGen2-speed.html'
+          },
+          {
+            desc: '',
+            label: '0-100 km/h in',
+            translateLabel: 'snip_car_gen2_power_tab2',
+            tpl: self.path + '/subcontents/chronoGen2-accelleration.html'
+          }
+        ]
+      },
       'circuitBerlin2017': {
         desc: '',
         label: '',
@@ -502,6 +569,30 @@
         desc: '',
         label: '',
         tpl: self.path + '/hybrid.html'
+      },
+      'uyFutureEnergy': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/uyFutureEnergy.html'
+      },
+      'uyWindOfChange': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/uyWindOfChange.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Impact',
+            translateLabel: 'snip_world_uy_wind_tab1',
+            tpl: self.path + '/subcontents/uyWindOfChange-impact.html'
+          },
+          {
+            desc: '',
+            label: 'Data',
+            translateLabel: 'snip_world_uy_wind_tab2',
+            tpl: self.path + '/subcontents/uyWindOfChange-data.html'
+          }
+        ]
       }
     }
 

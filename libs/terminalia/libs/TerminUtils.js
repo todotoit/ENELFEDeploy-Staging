@@ -6,8 +6,10 @@ TERMINALIA.TerminUtils = function TerminUtils() {
     this.loadingManager = new THREE.LoadingManager();
     this.objLoader = new THREE.OBJLoader(this.loadingManager);
     this.cubeTextureLoader = new THREE.CubeTextureLoader();
+    this.cubeTextureLoaderHDR = new THREE.HDRCubeTextureLoader();
     this.textureLoader = new THREE.TextureLoader();
     this.raycaster = new THREE.Raycaster();
+    this.hdrCubeRenderTarget = null;
     //this.rayCaster.ray.direction.set(0, -1, 0);
 
     self.loadingManager.onLoad = function() {
@@ -113,8 +115,37 @@ TERMINALIA.TerminUtils = function TerminUtils() {
         return cubeTexture;
     }
 
+    function createCubeMapTextureHDR(path, format, renderer, materials) {
+        var urls = [
+            path + 'px' + format, 
+            path + 'nx' + format,
+            path + 'py' + format, 
+            path + 'ny' + format,
+            path + 'pz' + format, 
+            path + 'nz' + format
+        ];
+
+        self.cubeTextureLoaderHDR.load( THREE.UnsignedByteType, urls, function ( hdrCubeMap ) {
+
+            var pmremGenerator = new THREE.PMREMGenerator( hdrCubeMap );
+            pmremGenerator.update( renderer );
+            var pmremCubeUVPacker = new THREE.PMREMCubeUVPacker( pmremGenerator.cubeLods );
+            pmremCubeUVPacker.update( renderer );
+            hdrCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
+            
+            if (materials.length > 0) {
+                for (var i=0; i<materials.length; i++) {
+                    materials[i].envMap = hdrCubeRenderTarget.texture;
+                    materials[i].needsUpdate = true;
+                }
+            }
+        });
+    }
+
     function createTexture(textureFile) {
         var texture = self.textureLoader.load(textureFile);
+        texture.magFilter = THREE.NearestFilter;
+        texture.minFilter = THREE.NearestFilter;
 
         return texture;
     }
@@ -151,5 +182,6 @@ TERMINALIA.TerminUtils = function TerminUtils() {
     this.degToRad = degToRad;
     this.raycastSprites = raycastSprites;
     this.rayPickObject = rayPickObject;
+    this.createCubeMapTextureHDR = createCubeMapTextureHDR;
 }
 
