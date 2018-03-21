@@ -1633,15 +1633,14 @@ article#storage:after {
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 50%;
-  opacity: 0;
-  transition: all 1.25s ease;
+  opacity: .9;
+  transition: width, height 1.25s ease;
 }
 article#storage.on:after {
   width: 45rem;
   height: 45rem;
-  opacity: .9;
 }
-article#appliances nav li:after {
+article#appliances nav ul li:after {
   content: '';
   position: fixed;
   width: 17rem;
@@ -1654,17 +1653,17 @@ article#appliances nav li:after {
   filter: blur(10px);
   border-bottom: 3rem solid #fff;
   bottom: -.5rem;
-  opacity: 0;
-  transition: all .8s ease;
+  opacity: .9;
+  transition: height .8s ease;
 }
 article#appliances nav li.on:after {
   height: 27rem;
-  opacity: .9;
 }
 
 .arrow {
   width: 20px;
   animation: bounce 2s infinite;
+  position: relative;
 }
 
 section#labels {
@@ -1689,13 +1688,13 @@ section#labels {
 
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
+    top: 0;
   }
   40% {
-    transform: translateY(-10px);
+    top: -10px;
   }
   60% {
-    transform: translateY(-15px);
+    top: -15px;
   }
 }
 

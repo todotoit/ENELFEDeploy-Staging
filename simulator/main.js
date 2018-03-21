@@ -489,10 +489,10 @@
     }
     if (_.isEmpty(connectedAppliances)) {
       $('#appliances .active').hide()
-      $('#appliances .inactive').show()
+      $('#appliances .inactive').fadeIn()
     } else {
       $('#appliances .inactive').hide()
-      $('#appliances .active').show()
+      $('#appliances .active').fadeIn()
     }
     // invalid timeout
     if (tOutPause) {
