@@ -1,0 +1,10 @@
+<svg id="icons_expanded" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <defs>
+    <linearGradient id="linear-gradient" x1="867.79" y1="1086.86" x2="715.83" y2="477.37" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#41b9e6"/>
+      <stop offset="1" stop-color="#0555fa"/>
+    </linearGradient>
+  </defs>
+  <title>meter</title>
+  <path d="M980.15,1058.23H603.48a20,20,0,0,1-20-20V716.06a20,20,0,0,1,20-20h39.85a57.42,57.42,0,0,1,57.36,57.36v78.13a17.36,17.36,0,0,0,34.72,0V635.75a57.36,57.36,0,1,1,114.72,0V757.81a18.36,18.36,0,0,0,36.71,0V714.94a20,20,0,0,1,20-20h21.68v40h-1.68v22.87a58.36,58.36,0,0,1-116.71,0V635.75a17.36,17.36,0,1,0-34.72,0v195.8a57.36,57.36,0,0,1-114.72,0V753.41a17.38,17.38,0,0,0-17.36-17.36H623.48v282.17H960.15V546H623.48V658.2h-40V526a20,20,0,0,1,20-20H980.15a20,20,0,0,1,20,20v512.23A20,20,0,0,1,980.15,1058.23ZM762.73,981H692.41V941h70.33Z" style="fill: url(#linear-gradient)"/>
+</svg>

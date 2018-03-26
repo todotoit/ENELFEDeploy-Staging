@@ -1,0 +1,10 @@
+<svg id="icons_expanded" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 1200">
+  <defs>
+    <linearGradient id="linear-gradient" x1="884.5" y1="1108.28" x2="723.27" y2="409.9" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#55be5a"/>
+      <stop offset="1" stop-color="#41b9e6"/>
+    </linearGradient>
+  </defs>
+  <title>battery</title>
+  <path d="M969.06,1088.23H649.78a20,20,0,0,1-20-20V497.86a20,20,0,0,1,20-20h60.6v-6.48c0-29.24,12.8-52.07,36-64.27A80.58,80.58,0,0,1,781,398.17h81.29c4.4-.11,20.51.4,33.07,12.4,6.05,5.78,13.26,16.31,13.26,33.62h-40c0-2.82-.54-4.36-.9-4.7-1-1-4.07-1.36-4.22-1.34l-.9,0H781.19A40.94,40.94,0,0,0,764.1,443c-5.89,3.35-13.73,9.93-13.73,28.36v26.48a20,20,0,0,1-20,20h-60.6v530.36H949.06V517.92l-86.37.27-.12-40L969,477.86h.06a20,20,0,0,1,20,20v570.36A20,20,0,0,1,969.06,1088.23Z" style="fill: url(#linear-gradient)"/>
+</svg>
