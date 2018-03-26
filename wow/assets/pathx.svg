@@ -1,0 +1,7 @@
+<svg id="paths" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 840">
+  <title>pathx</title>
+  <path id="p2" d="M480.53,474.37c-125.38,125.38-125.38,328.67,0,454.05s328.67,125.38,454.05,0" style="fill: none;stroke: #f0f;stroke-miterlimit: 10;stroke-width: 1.120627522468567px"/>
+  <path id="p3" d="M358.58,474.39C233.2,349,29.92,349-95.47,474.39s-125.38,328.67,0,454.05" style="fill: none;stroke: #f0f;stroke-miterlimit: 10;stroke-width: 1.120627522468567px"/>
+  <path id="p1" d="M358.81,351.67c125.38-125.38,125.38-328.67,0-454s-328.67-125.38-454,0" style="fill: none;stroke: #f0f;stroke-miterlimit: 10;stroke-width: 1.120627522468567px"/>
+  <path id="p4" d="M480.76,351.65C606.14,477,809.42,477,934.81,351.65s125.38-328.67,0-454" style="fill: none;stroke: #f0f;stroke-miterlimit: 10;stroke-width: 1.120627522468567px"/>
+</svg>
