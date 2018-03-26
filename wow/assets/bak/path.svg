@@ -1,0 +1,8 @@
+<svg id="paths" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 840">
+  <title>path</title>
+  <path id="p1" d="M241,366a36,36,0,1,0-36,36" style="fill: none;stroke: #f0f;stroke-miterlimit: 10"/>
+  <line id="p2" x1="323.5" y1="333.5" x2="323.5" y2="922.5" style="fill: none;stroke: #f0f;stroke-miterlimit: 10"/>
+  <line id="p3" x1="447.5" y1="404" x2="447.5" y2="-185" style="fill: none;stroke: #f0f;stroke-miterlimit: 10"/>
+  <path id="p4" d="M606,366c0,158.23-128.27,286.5-286.5,286.5S33,524.23,33,366" style="fill: none;stroke: #f0f;stroke-miterlimit: 10"/>
+  <line id="p5" x1="685.5" y1="275" x2="685.5" y2="864" style="fill: none;stroke: #f0f;stroke-miterlimit: 10"/>
+</svg>
