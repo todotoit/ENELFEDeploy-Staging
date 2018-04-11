@@ -1419,7 +1419,7 @@
       'test': {
         stage: null,
         coords: null,
-        snippets: ['santiagoGreen', 'santiagoTransport', 'chileCommunity', 'cleanEnergyChile', 'solarPower', 'enelX']
+        snippets: ['itGeoTerm', 'it3sun', 'circuitTemplate','enelXMobility']
       },
       'pin_1_info': {
         stage: 1,
@@ -1440,6 +1440,11 @@
         stage: 1,
         coords: [-3.19, 2.20, -5.73],
         snippets: ['co2', 'efficiency', 'enginePower', 'sound']
+      },
+      'pin_1_new_car': {
+        stage: 1,
+        coords: [5.25, 2.39, -3.80],
+        snippets: ['chronoGen2', 'chronoGen2-battery', 'chronoGen2-power']
       },
       'pin_2_grid': {
         stage: 2,
@@ -1487,13 +1492,13 @@
         stage: 3,
         // coords: [0.091, 0.64, 0.86],
         coords: [206],
-        snippets: ['enelWorld', 'enelX']
+        snippets: ['enelXMobility', 'it3sun', 'enelWorld']
       },
       'pin_3_milan': {
         stage: 3,
         // coords: [-0.049, 0.74, 0.78],
         coords: [284],
-        snippets: ['firstSmartCity', 'internet']
+        snippets: ['itGeoTerm', 'firstSmartCity', 'internet']
       },
       'pin_3_berlin': {
         stage: 3,
@@ -1522,6 +1527,11 @@
         stage: 3,
         coords: [583],
         snippets: ['enelNorthAmerica', 'hybrid']
+      },
+      'pin_3_uy': {
+        stage: 3,
+        coords: [306],
+        snippets: ['uyFutureEnergy', 'uyWindOfChange']
       }
     }
 
@@ -1579,6 +1589,26 @@
             label: 'For individuals',
             translateLabel: 'snip_world_enelx_tab3',
             tpl: self.path + '/subcontents/enelX-people.html'
+          }
+        ]
+      },
+      'enelXMobility': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/enelXMobility.html',
+        extraClass: 'enelx',
+        subContent: [
+          {
+            desc: '',
+            label: 'On the track',
+            translateLabel: 'snip_world_enelx_mobility_tab1',
+            tpl: self.path + '/subcontents/enelX-mobility-ontrack.html'
+          },
+          {
+            desc: '',
+            label: 'In Italy',
+            translateLabel: 'snip_world_enelx_mobility_tab2',
+            tpl: self.path + '/subcontents/enelX-mobility-italy.html'
           }
         ]
       },
@@ -1702,6 +1732,63 @@
             label: 'On our streets',
             translateLabel: 'snip_car_brake_tab2',
             tpl: self.path + '/subcontents/regenerativeBraking-eCar.html'
+          }
+        ]
+      },
+      'chronoGen2': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/chronoGen2.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'At the E-Prix',
+            translateLabel: 'snip_car_gen2_tab1',
+            tpl: self.path + '/subcontents/chronoGen2-eprix.html'
+          },
+          {
+            desc: '',
+            label: 'In the city',
+            translateLabel: 'snip_car_gen2_tab2',
+            tpl: self.path + '/subcontents/chronoGen2-city.html'
+          }
+        ]
+      },
+      'chronoGen2-battery': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/chronoGen2-battery.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Lasts for',
+            translateLabel: 'snip_car_gen2_battery_tab1',
+            tpl: self.path + '/subcontents/chronoGen2-lasts.html'
+          },
+          {
+            desc: '',
+            label: 'Enough to charge',
+            translateLabel: 'snip_car_gen2_battery_tab2',
+            tpl: self.path + '/subcontents/chronoGen2-charge.html'
+          }
+        ]
+      },
+      'chronoGen2-power': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/chronoGen2-power.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Maximum speed',
+            translateLabel: 'snip_car_gen2_power_tab1',
+            tpl: self.path + '/subcontents/chronoGen2-speed.html'
+          },
+          {
+            desc: '',
+            label: '0-100 km/h in',
+            translateLabel: 'snip_car_gen2_power_tab2',
+            tpl: self.path + '/subcontents/chronoGen2-accelleration.html'
           }
         ]
       },
@@ -1876,6 +1963,40 @@
         desc: '',
         label: '',
         tpl: self.path + '/hybrid.html'
+      },
+      'uyFutureEnergy': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/uyFutureEnergy.html'
+      },
+      'uyWindOfChange': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/uyWindOfChange.html',
+        subContent: [
+          {
+            desc: '',
+            label: 'Impact',
+            translateLabel: 'snip_world_uy_wind_tab1',
+            tpl: self.path + '/subcontents/uyWindOfChange-impact.html'
+          },
+          {
+            desc: '',
+            label: 'Data',
+            translateLabel: 'snip_world_uy_wind_tab2',
+            tpl: self.path + '/subcontents/uyWindOfChange-data.html'
+          }
+        ]
+      },
+      'it3sun': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/it3sun.html'
+      },
+      'itGeoTerm': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/itGeoTerm.html'
       }
     }
 
@@ -2420,11 +2541,12 @@ window.twttr = (function(d, s, id) {
 
   angular
     .module('MainApp')
+    // .value('beUrl', 'http://192.168.3.10:5001/')
     .value('beUrl', 'http://backend.enelformulae.todo.to.it')
     .value('appUrl', 'http://formulae.enel.com/app')
     .value('gameUrl', 'http://formulae.enel.com/game')
     .value('currentSeason', {id: 's4'})
-    .value('showcaseRace', {id: 'r4'})
+    .value('showcaseRace', {id: 'r7'})
 
 }(window.angular));
 
@@ -2593,7 +2715,7 @@ window.twttr = (function(d, s, id) {
                       // console.log(r_day.format(), today_tz.format())
                       // console.log(diff, today_tz.clone().add(diff,'hours').format())
                       if (diff <= -24) r.past = true
-                      else if (diff >= 0) r.future = true
+                      else if (diff >= -5) r.future = true
                       else r.live = true
                     })
                     return races[season.id]
@@ -2722,6 +2844,10 @@ window.twttr = (function(d, s, id) {
     $scope.gameUrl = gameUrl
     $scope.languages = $translate.getAvailableLanguageKeys() || []
     if ($scope.languages.length <= 1) $scope.languages = []
+    $scope.toggleMenu = function() {
+      $('#ham').toggleClass('close')
+      $('#landing ul.langs').toggleClass('open')
+    }
     $scope.currentLang = $translate.use()
     $scope.gameLang = checkGameLang()
     function checkGameLang() {
@@ -2738,6 +2864,7 @@ window.twttr = (function(d, s, id) {
     }
     $scope.changeLanguage = function(key){
       var params = angular.extend($stateParams, {lang: key})
+      $scope.toggleMenu()
       $translate.use(key)
       $state.go($state.current, params, {reload: false, notify: true})
       $scope.currentLang = key

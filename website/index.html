@@ -1539,24 +1539,54 @@ footer{
 #landing #logo_container {
   margin-bottom: 6rem;
 }
-
-#landing ul.langs {
-  margin: 0;
-  margin-bottom: 6rem;
-  padding: 0;
+#landing #cover > div {
+  position: relative;
 }
-#landing ul.langs li {
+#landing .toggleLang {
+  text-align: center;
   display: inline-block;
   margin: 0;
   cursor: pointer;
+  font-size: 2.5rem;
+  line-height: 1.6em;
+  font-weight: bold;
+  width: 3rem;
 }
-#landing ul.langs li:not(:last-of-type) {
-  margin-right: 2rem;
+#landing ul.langs {
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  right: 0;
+  width: 3rem;
+  top: 3.5rem;
+  transition: height .4s ease;
 }
-#landing ul.langs li:not(:last-of-type):after {
-  content: '|';
-  margin-left: 2rem;
-  pointer-events: none;
+#landing ul.langs.open {
+  height: 120%;
+}
+#landing ul.langs li {
+  opacity: 0;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+  margin: 0;
+  cursor: pointer;
+  font-size: 2.5rem;
+  line-height: 1.6em;
+  border-bottom: 2px solid;
+  border-color: rgba(255,255,255,0);
+  transition: opacity .5s ease, border-color .3s ease;
+}
+#landing ul.langs li.selected {
+  font-weight: bold;
+}
+#landing ul.langs li:hover {
+  border-color: rgba(255,255,255,1);
+}
+#landing ul.langs.open li {
+  opacity: 1;
 }
 
 #landing #cover {
