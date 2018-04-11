@@ -2345,7 +2345,7 @@
         key: 'enelAchievements',
         label: 'Enel achievements',
         translateLabel: 'energy_tour_enel_label',
-        snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'chileCommunity', 'formulaE', 'enelWorld', 'enelX'],
+        snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'chileCommunity', 'formulaE', 'enelWorld', 'enelXMobility'],
       }
     }
 
@@ -2427,7 +2427,7 @@
         stage: 3,
         // coords: [0.091, 0.64, 0.86],
         coords: [206],
-        snippets: ['enelXMobility', 'it3sun', 'enelWorld']
+        snippets: ['enelWorld', 'enelXMobility', 'it3sun']
       },
       'pin_3_milan': {
         stage: 3,
