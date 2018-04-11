@@ -2354,7 +2354,7 @@
       'test': {
         stage: null,
         coords: null,
-        snippets: ['circuitTemplate', 'uyFutureEnergy', 'uyWindOfChange', 'chronoGen2', 'chronoGen2-battery', 'chronoGen2-power']
+        snippets: ['itGeoTerm', 'it3sun', 'circuitTemplate','enelXMobility']
       },
       'pin_1_info': {
         stage: 1,
@@ -2427,13 +2427,13 @@
         stage: 3,
         // coords: [0.091, 0.64, 0.86],
         coords: [206],
-        snippets: ['enelWorld', 'enelX']
+        snippets: ['enelXMobility', 'it3sun', 'enelWorld']
       },
       'pin_3_milan': {
         stage: 3,
         // coords: [-0.049, 0.74, 0.78],
         coords: [284],
-        snippets: ['firstSmartCity', 'internet']
+        snippets: ['itGeoTerm', 'firstSmartCity', 'internet']
       },
       'pin_3_berlin': {
         stage: 3,
@@ -2524,6 +2524,26 @@
             label: 'For individuals',
             translateLabel: 'snip_world_enelx_tab3',
             tpl: self.path + '/subcontents/enelX-people.html'
+          }
+        ]
+      },
+      'enelXMobility': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/enelXMobility.html',
+        extraClass: 'enelx',
+        subContent: [
+          {
+            desc: '',
+            label: 'On the track',
+            translateLabel: 'snip_world_enelx_mobility_tab1',
+            tpl: self.path + '/subcontents/enelX-mobility-ontrack.html'
+          },
+          {
+            desc: '',
+            label: 'In Italy',
+            translateLabel: 'snip_world_enelx_mobility_tab2',
+            tpl: self.path + '/subcontents/enelX-mobility-italy.html'
           }
         ]
       },
@@ -2902,6 +2922,16 @@
             tpl: self.path + '/subcontents/uyWindOfChange-data.html'
           }
         ]
+      },
+      'it3sun': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/it3sun.html'
+      },
+      'itGeoTerm': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/itGeoTerm.html'
       }
     }
 
@@ -3550,7 +3580,7 @@ window.twttr = (function(d, s, id) {
                       // console.log(r_day.format(), today_tz.format())
                       // console.log(diff, today_tz.clone().add(diff,'hours').format())
                       if (diff <= -24) r.past = true
-                      else if (diff >= 0) r.future = true
+                      else if (diff >= -5) r.future = true
                       else r.live = true
                     })
                     return races[season.id]
@@ -3886,7 +3916,7 @@ window.twttr = (function(d, s, id) {
     .value('appUrl', 'http://formulae.enel.com/app')
     .value('gameUrl', 'http://formulae.enel.com/game')
     .value('currentSeason', {id: 's4'})
-    .value('showcaseRace', {id: 'r6'})
+    .value('showcaseRace', {id: 'r7'})
 
 }(window.angular));
 

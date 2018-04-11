@@ -115,7 +115,7 @@
                       // console.log(r_day.format(), today_tz.format())
                       // console.log(diff, today_tz.clone().add(diff,'hours').format())
                       if (diff <= -24) r.past = true
-                      else if (diff >= 0) r.future = true
+                      else if (diff >= -5) r.future = true
                       else r.live = true
                     })
                     return races[season.id]

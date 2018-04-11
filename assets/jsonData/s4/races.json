@@ -72,13 +72,13 @@
     },
     {
       "id": "r6",
-      "name": "Punta Del Este",
+      "name": "Punta Del Este street circuit",
       "date": "17 MAR 2018",
       "location": "Punta Del Este",
       "country": "UY",
       "timezone": "America/Montevideo",
       "circuit": {
-        "map": ""
+        "map": "circuit_puntadeleste"
       },
       "enelStand": false,
       "meters": 30,
@@ -88,11 +88,11 @@
       "id": "r7",
       "name": "Circuto Cittadino Dell’EUR",
       "date": "14 APR 2018",
-      "location": "Rome",
+      "location": "Roma",
       "country": "IT",
       "timezone": "Europe/Rome",
       "circuit": {
-        "map": ""
+        "map": "circuit_rome"
       },
       "enelStand": true,
       "meters": 30,
@@ -106,7 +106,7 @@
       "country": "FR",
       "timezone": "Europe/Paris",
       "circuit": {
-        "map": ""
+        "map": "circuit_paris"
       },
       "enelStand": false,
       "meters": 30,
@@ -120,7 +120,7 @@
       "country": "DE",
       "timezone": "Europe/Berlin",
       "circuit": {
-        "map": ""
+        "map": "circuit_berlin"
       },
       "enelStand": false,
       "meters": 30,
@@ -134,7 +134,7 @@
       "country": "CH",
       "timezone": "Europe/Zurich",
       "circuit": {
-        "map": ""
+        "map": "circuit_zurich"
       },
       "enelStand": false,
       "meters": 30,
@@ -148,7 +148,7 @@
       "country": "US",
       "timezone": "America/New_York",
       "circuit": {
-        "map": ""
+        "map": "circuit_newyork"
       },
       "enelStand": true,
       "meters": 30,
@@ -162,7 +162,7 @@
       "country": "US",
       "timezone": "America/New_York",
       "circuit": {
-        "map": ""
+        "map": "circuit_newyork"
       },
       "enelStand": true,
       "meters": 30,

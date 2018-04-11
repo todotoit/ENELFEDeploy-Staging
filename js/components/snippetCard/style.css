@@ -202,6 +202,15 @@ snippet-card .uruguay-svg-wrap svg {
   position: relative;
 }
 
+snippet-card .rome-svg-wrap {
+  position: absolute;
+  bottom: 1em;
+}
+
+snippet-card .rome-svg-wrap svg {
+  position: relative;
+}
+
 snippet-card .enelx-svg-wrap svg {
   width: 50%;
   position: relative;
