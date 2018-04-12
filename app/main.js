@@ -2354,7 +2354,7 @@
       'test': {
         stage: null,
         coords: null,
-        snippets: ['itGeoTerm', 'it3sun', 'circuitTemplate','enelXMobility']
+        snippets: ['itGeoTerm', 'it3sun', 'circuitTemplate','enelXMobility', 'motorsport']
       },
       'pin_1_info': {
         stage: 1,
@@ -2379,7 +2379,7 @@
       'pin_1_new_car': {
         stage: 1,
         coords: [5.25, 2.39, -3.80],
-        snippets: ['chronoGen2', 'chronoGen2-battery', 'chronoGen2-power']
+        snippets: ['chronoGen2', 'motorsport', 'chronoGen2-battery', 'chronoGen2-power']
       },
       'pin_2_grid': {
         stage: 2,
@@ -2932,6 +2932,11 @@
         desc: '',
         label: '',
         tpl: self.path + '/itGeoTerm.html'
+      },
+      'motorsport': {
+        desc: '',
+        label: '',
+        tpl: self.path + '/motorsport.html'
       }
     }
 
