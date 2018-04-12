@@ -18,25 +18,25 @@
         key: 'eMobility',
         label: 'E-Mobility',
         translateLabel: 'energy_tour_mobility_label',
-        snippets: ['fastRecharge', 'efficiency', 'co2', 'regenerativeBraking', 'v2g', 'santiagoTransport']
+        snippets: ['fastRecharge', 'efficiency', 'co2', 'regenerativeBraking', 'v2g', 'enelXMobility', 'santiagoTransport']
       },
       'smartEnergy': {
         key: 'smartEnergy',
         label: 'Smart energy',
         translateLabel: 'energy_tour_smart_label',
-        snippets: ['raceMicrogrid', 'smartMetering', 'v2g', 'firstSmartCity', 'forgetBlackouts', 'santiagoGreen'],
+        snippets: ['raceMicrogrid', 'smartMetering', 'motorsport', 'v2g', 'firstSmartCity', 'forgetBlackouts', 'santiagoGreen'],
       },
       'cleanEnergy': {
         key: 'cleanEnergy',
         label: 'Clean energy',
         translateLabel: 'energy_tour_clean_label',
-        snippets: ['raceMicrogrid', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'zeroco2ny'],
+        snippets: ['raceMicrogrid', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'zeroco2ny', 'itGeoTerm', 'uyWindOfChange'],
       },
       'enelAchievements': {
         key: 'enelAchievements',
         label: 'Enel achievements',
         translateLabel: 'energy_tour_enel_label',
-        snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'chileCommunity', 'formulaE', 'enelWorld', 'enelXMobility'],
+        snippets: ['howMuchSunMexico', 'cleanEnergyChile', 'firstSmartCity', 'chileCommunity', 'formulaE', 'enelWorld', 'it3sun'],
       }
     }
 
