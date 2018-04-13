@@ -2354,7 +2354,7 @@
       'test': {
         stage: null,
         coords: null,
-        snippets: ['itGeoTerm', 'it3sun', 'circuitTemplate','enelXMobility', 'motorsport']
+        snippets: ['itGeoTerm', 'it3sun', 'circuitTemplate','enelXMobility', 'motorsport', 'co2', 'howMuchSunGlobal']
       },
       'pin_1_info': {
         stage: 1,
