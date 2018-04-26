@@ -8,6 +8,6 @@
     .value('appUrl', 'http://formulae.enel.com/app')
     .value('gameUrl', 'http://formulae.enel.com/game')
     .value('currentSeason', {id: 's4'})
-    .value('showcaseRace', {id: 'r7'})
+    .value('showcaseRace', {id: 'r8'})
 
 }(window.angular));
