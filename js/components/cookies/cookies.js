@@ -1,4 +1,4 @@
-;(function () {
+(function () {
   /* \
   |*|
   |*|  :: cookies.js ::
@@ -63,4 +63,4 @@
     }
   }
   window.docCookies = docCookies
-})()
+})();

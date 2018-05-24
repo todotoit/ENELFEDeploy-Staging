@@ -700,7 +700,7 @@
 
 }(window.angular, window.angular.element));
 
-;(function () {
+(function () {
   /* \
   |*|
   |*|  :: cookies.js ::
@@ -765,9 +765,9 @@
     }
   }
   window.docCookies = docCookies
-})()
+})();
 
-;(function ($) {
+(function ($) {
   $(document).ready(function () {
     var pref = $.fx.cssPrefix
     var prefix = pref + 'transform'
@@ -800,7 +800,7 @@
       })
     }
   })
-})(window.jQuery)
+})(window.jQuery);
 
 (function (angular) {
   'use strict'
@@ -3013,12 +3013,12 @@ window.twttr = (function(d, s, id) {
     vm.tweets = []
     retrieveTweetFeed()
     function retrieveTweetFeed() {
-      return $http.get('https://runkit.io/marcoaimo/enelfetweetfeed/branches/master')
+      return $http.get('https://runkit.io/marcoaimo/enelfetweetfeed/4.0.0')
                   .then(function(res) {
                     console.log(res.data)
                     vm.tweets = res.data.items
                     // after loaded the tweet feed append embed script from twitter
-                    var twitScript = $('<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
+                    var twitScript = $('<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>')
                     $timeout(function() {
                       $('.twitfeed-wrapper').append(twitScript)
                     },100)

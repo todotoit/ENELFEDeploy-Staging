@@ -1635,7 +1635,7 @@
 
 })(window);
 
-;(function () {
+(function () {
   /* \
   |*|
   |*|  :: cookies.js ::
@@ -1700,9 +1700,9 @@
     }
   }
   window.docCookies = docCookies
-})()
+})();
 
-;(function ($) {
+(function ($) {
   $(document).ready(function () {
     var pref = $.fx.cssPrefix
     var prefix = pref + 'transform'
@@ -1735,7 +1735,7 @@
       })
     }
   })
-})(window.jQuery)
+})(window.jQuery);
 
 (function (angular) {
   'use strict'

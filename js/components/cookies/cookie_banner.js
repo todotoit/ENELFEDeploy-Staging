@@ -1,4 +1,4 @@
-;(function ($) {
+(function ($) {
   $(document).ready(function () {
     var pref = $.fx.cssPrefix
     var prefix = pref + 'transform'
@@ -31,4 +31,4 @@
       })
     }
   })
-})(window.jQuery)
+})(window.jQuery);
