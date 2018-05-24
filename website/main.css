@@ -481,6 +481,64 @@ button.btn-hamburger.close span::after {
   top: 0;
 }
 
+#cookie{
+	-ms-flex:0 0 auto;
+	    flex:0 0 auto;
+	font-size: 1.2rem;
+	font-weight: normal;
+	background-color: #FFFCDD;
+	overflow: hidden;
+	position: absolute;
+	z-index: 20;
+	width: 100%;
+	display: none;
+	position: fixed;
+}
+#cookie a:not([js_ok_cookie]) {
+  text-decoration: underline;
+}
+#cookie [js_ok_cookie] {
+  position: relative;
+  display: inline-block;
+  left: 99%;
+  transform: translateX(-100%);
+  top: .5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+}
+#cookie [js_ok_cookie]:before,
+#cookie [js_ok_cookie]:after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: .3rem;
+  display: block;
+  background: #000;
+  top: 50%;
+}
+#cookie [js_ok_cookie]:before {
+  transform: rotate(-45deg);
+}
+#cookie [js_ok_cookie]:after {
+  transform: rotate(45deg);
+}
+#cookie p{
+	padding: 2rem;
+	margin: 0;
+}
+
+@media (min-width: 767px) {
+	#cookie{
+		font-size: 1.1em;
+	}
+}
+@media (min-width: 1020px) {
+	#cookie{
+		font-size: 0.7em;
+	}
+}
+
 a {
   color: inherit;
   text-decoration: none;

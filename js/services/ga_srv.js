@@ -10,6 +10,7 @@
     console.log('ContructorForGA')
 
     ga('create', 'UA-7954920-14', 'auto')
+    ga('set', 'anonymizeIp', true)
     ga('send', 'pageview')
 
     var that = this
