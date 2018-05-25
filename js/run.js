@@ -17,6 +17,9 @@
       console.log('$stateChangeStart to ' + toState.name + ' - fired when the transition begins')
       console.debug('toState, toParams:', toState, toParams)
       if (toParams.lang && toParams.lang != '') $translate.use(toParams.lang)
+      $rootScope.currentLang = toParams.lang
+      $rootScope.policy_link = "http://formulae.enel.com/cookie-policy-"+$rootScope.currentLang+".pdf"
+      $rootScope.privacy_link = "http://formulae.enel.com/informativa-privacy-"+$rootScope.currentLang+".pdf"
     })
 
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams) {
