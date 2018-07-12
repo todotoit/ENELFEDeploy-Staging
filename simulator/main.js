@@ -577,12 +577,12 @@ function init() {
   window.Simulator = window.Simulator || {}
 
   var appliances = [
-    { key: 'Cooling',  icon: 'icon_cooling.svg',  uid: ['B5C43A2A', '95E8432A', '1EF3E8C1'], status: 'off', values: [], maxV: 4000 },
-    { key: 'Brewing',  icon: 'icon_brewing.svg',  uid: ['C5DA2C2A', '857F3A2A', '3E99E9C1'], status: 'off', values: [], maxV: 2000 },
-    { key: 'Drying',   icon: 'icon_drying.svg',   uid: ['75423F2A', '25FB392A', '4E8FE9C1'], status: 'off', values: [], maxV: 1500 },
-    { key: 'Heating',  icon: 'icon_heating.svg',  uid: ['3549482A', '8517412A', '8EA8E9C1'], status: 'off', values: [], maxV: 1200 },
-    { key: 'Working',  icon: 'icon_working.svg',  uid: ['A5312E2A', 'C59E482A', 'A5DA422A'], status: 'off', values: [], maxV: 300  },
-    { key: 'Ironing',  icon: 'icon_ironing.svg',  uid: ['A5312E2A', 'C59E482A', 'A5DA422A'], status: 'off', values: [], maxV: 600  }
+    { key: 'Cooling',  icon: 'icon_cooling',  uid: ['B5C43A2A', '95E8432A', '1EF3E8C1'], status: 'off', values: [], maxV: 4000 },
+    { key: 'Brewing',  icon: 'icon_brewing',  uid: ['C5DA2C2A', '857F3A2A', '3E99E9C1'], status: 'off', values: [], maxV: 2000 },
+    { key: 'Drying',   icon: 'icon_drying',   uid: ['75423F2A', '25FB392A', '4E8FE9C1'], status: 'off', values: [], maxV: 1500 },
+    { key: 'Heating',  icon: 'icon_heating',  uid: ['3549482A', '8517412A', '8EA8E9C1'], status: 'off', values: [], maxV: 1200 },
+    { key: 'Working',  icon: 'icon_working',  uid: ['A5312E2A', 'C59E482A', 'A5DA422A'], status: 'off', values: [], maxV: 300  },
+    { key: 'Ironing',  icon: 'icon_ironing',  uid: ['A5312E2A', 'C59E482A', 'A5DA422A'], status: 'off', values: [], maxV: 600  }
   ]
   var storageUid = ['65AB332A', '35AA462A', '75A1322A']
 
@@ -627,11 +627,13 @@ function init() {
     if (!appIdx || !readerIdx) return
     var app = apps[appIdx]
     app.status = 'on'
+    $('.appliance#app'+(+appIdx+1)).addClass('on')
     toggleAppliance(app, readerIdx)
   }
   function deselectApp(appIdx, readerIdx) {
     if (!appIdx || !readerIdx) return
     var app = apps[appIdx]
+    $('.appliance#app'+(+appIdx+1)).removeClass('on')
     app.status = 'off'
     toggleAppliance(app, readerIdx)
   }
@@ -643,7 +645,6 @@ function init() {
       $reader.data().reader.connectedAppliances.push(app)
       connectedAppliances.push(app)
       // populate reader ui element
-      // $reader.find('span').css('background-image', 'url("assets/'+app.icon+'")')
       $reader.find('h4').text(app.key)
       $reader.find('label').text(app.maxV+'w')
     } else {
@@ -652,13 +653,11 @@ function init() {
       if (_.isEmpty($reader.data().reader.connectedAppliances)) {
         // clean reader ui element
         $reader.removeClass('on')
-        // $reader.find('span').css('background-image', 'url("assets/icon_arrow_down.svg")')
         $reader.find('h4').text('Plug in an appliance')
         $reader.find('label').text('')
       } else {
         // populate reader ui element with last element
         var lastapp = _.last($reader.data().reader.connectedAppliances)
-        // $reader.find('span').css('background-image', 'url("assets/'+lastapp.icon+'")')
         $reader.find('h4').text(lastapp.key)
         $reader.find('label').text(lastapp.maxV+'w')
       }
@@ -699,6 +698,7 @@ function init() {
       $appElem.attr('id', 'app'+(i+1))
       $('#bucket #placeholders').append(placeholderTemp.clone())
       $('#bucket #appliances').append($appElem)
+      $appElem.find('#'+app.icon).show()
       // initialize data
       _.times(Simulator.dataset_length, function(i) {
         var vv = 0

@@ -25,11 +25,13 @@
     if (!appIdx || !readerIdx) return
     var app = apps[appIdx]
     app.status = 'on'
+    $('.appliance#app'+(+appIdx+1)).addClass('on')
     toggleAppliance(app, readerIdx)
   }
   function deselectApp(appIdx, readerIdx) {
     if (!appIdx || !readerIdx) return
     var app = apps[appIdx]
+    $('.appliance#app'+(+appIdx+1)).removeClass('on')
     app.status = 'off'
     toggleAppliance(app, readerIdx)
   }
@@ -41,7 +43,6 @@
       $reader.data().reader.connectedAppliances.push(app)
       connectedAppliances.push(app)
       // populate reader ui element
-      // $reader.find('span').css('background-image', 'url("assets/'+app.icon+'")')
       $reader.find('h4').text(app.key)
       $reader.find('label').text(app.maxV+'w')
     } else {
@@ -50,13 +51,11 @@
       if (_.isEmpty($reader.data().reader.connectedAppliances)) {
         // clean reader ui element
         $reader.removeClass('on')
-        // $reader.find('span').css('background-image', 'url("assets/icon_arrow_down.svg")')
         $reader.find('h4').text('Plug in an appliance')
         $reader.find('label').text('')
       } else {
         // populate reader ui element with last element
         var lastapp = _.last($reader.data().reader.connectedAppliances)
-        // $reader.find('span').css('background-image', 'url("assets/'+lastapp.icon+'")')
         $reader.find('h4').text(lastapp.key)
         $reader.find('label').text(lastapp.maxV+'w')
       }
@@ -97,6 +96,7 @@
       $appElem.attr('id', 'app'+(i+1))
       $('#bucket #placeholders').append(placeholderTemp.clone())
       $('#bucket #appliances').append($appElem)
+      $appElem.find('#'+app.icon).show()
       // initialize data
       _.times(Simulator.dataset_length, function(i) {
         var vv = 0
