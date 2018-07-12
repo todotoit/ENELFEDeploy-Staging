@@ -10,6 +10,7 @@ body {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 body {
@@ -377,32 +378,32 @@ section#labels {
 
 @font-face{
     font-family:"UniversLTStd";
-    src:url("../assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix");
-    src:url("../assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix") format("eot"),url("../assets/fonts/1475948/db1e9a24-d371-4686-ba25-77b32a84e0db.woff2") format("woff2"),url("../assets/fonts/1475948/beca77d5-0862-440e-bddd-321e82d5422c.woff") format("woff"),url("../assets/fonts/1475948/a27ea012-0910-47ac-8294-40726e5a8fd3.ttf") format("truetype");
+    src:url("./assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix");
+    src:url("./assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix") format("eot"),url("./assets/fonts/1475948/db1e9a24-d371-4686-ba25-77b32a84e0db.woff2") format("woff2"),url("./assets/fonts/1475948/beca77d5-0862-440e-bddd-321e82d5422c.woff") format("woff"),url("./assets/fonts/1475948/a27ea012-0910-47ac-8294-40726e5a8fd3.ttf") format("truetype");
     font-weight: 100;
 }
 @font-face{
     font-family:"UniversLTStd-Light";
-    src:url("../assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix");
-    src:url("../assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix") format("eot"),url("../assets/fonts/1475948/db1e9a24-d371-4686-ba25-77b32a84e0db.woff2") format("woff2"),url("../assets/fonts/1475948/beca77d5-0862-440e-bddd-321e82d5422c.woff") format("woff"),url("../assets/fonts/1475948/a27ea012-0910-47ac-8294-40726e5a8fd3.ttf") format("truetype");
+    src:url("./assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix");
+    src:url("./assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix") format("eot"),url("./assets/fonts/1475948/db1e9a24-d371-4686-ba25-77b32a84e0db.woff2") format("woff2"),url("./assets/fonts/1475948/beca77d5-0862-440e-bddd-321e82d5422c.woff") format("woff"),url("./assets/fonts/1475948/a27ea012-0910-47ac-8294-40726e5a8fd3.ttf") format("truetype");
     font-weight: 100;
 }
 @font-face{
     font-family:"UniversLTStd";
-    src:url("../assets/fonts/1475960/18c81410-3496-4c82-aefd-df42506addc3.eot?#iefix");
-    src:url("../assets/fonts/1475960/18c81410-3496-4c82-aefd-df42506addc3.eot?#iefix") format("eot"),url("../assets/fonts/1475960/938b61cf-8b60-408a-a252-531fc37ebeb3.woff2") format("woff2"),url("../assets/fonts/1475960/df8a7a82-1b14-40c7-b6f8-7e2bac922b27.woff") format("woff"),url("../assets/fonts/1475960/c7989e6f-ecdd-41d3-bb56-4e3f087847e6.ttf") format("truetype");
+    src:url("./assets/fonts/1475960/18c81410-3496-4c82-aefd-df42506addc3.eot?#iefix");
+    src:url("./assets/fonts/1475960/18c81410-3496-4c82-aefd-df42506addc3.eot?#iefix") format("eot"),url("./assets/fonts/1475960/938b61cf-8b60-408a-a252-531fc37ebeb3.woff2") format("woff2"),url("./assets/fonts/1475960/df8a7a82-1b14-40c7-b6f8-7e2bac922b27.woff") format("woff"),url("./assets/fonts/1475960/c7989e6f-ecdd-41d3-bb56-4e3f087847e6.ttf") format("truetype");
     font-weight: 300;
 }
 @font-face{
     font-family:"UniversLTStd";
-    src:url("../assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix");
-    src:url("../assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix") format("eot"),url("../assets/fonts/1475972/73d8af9e-4b82-4953-81a5-8941aed30297.woff2") format("woff2"),url("../assets/fonts/1475972/19ff06fe-d0c5-4294-a237-a4c9b85312b8.woff") format("woff"),url("../assets/fonts/1475972/ff00799e-9823-48a0-a789-5f2d2e509fd7.ttf") format("truetype");
+    src:url("./assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix");
+    src:url("./assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix") format("eot"),url("./assets/fonts/1475972/73d8af9e-4b82-4953-81a5-8941aed30297.woff2") format("woff2"),url("./assets/fonts/1475972/19ff06fe-d0c5-4294-a237-a4c9b85312b8.woff") format("woff"),url("./assets/fonts/1475972/ff00799e-9823-48a0-a789-5f2d2e509fd7.ttf") format("truetype");
     font-weight: 500;
 }
 @font-face{
     font-family:"UniversLTStd-Bold";
-    src:url("../assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix");
-    src:url("../assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix") format("eot"),url("../assets/fonts/1475972/73d8af9e-4b82-4953-81a5-8941aed30297.woff2") format("woff2"),url("../assets/fonts/1475972/19ff06fe-d0c5-4294-a237-a4c9b85312b8.woff") format("woff"),url("../assets/fonts/1475972/ff00799e-9823-48a0-a789-5f2d2e509fd7.ttf") format("truetype");
+    src:url("./assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix");
+    src:url("./assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix") format("eot"),url("./assets/fonts/1475972/73d8af9e-4b82-4953-81a5-8941aed30297.woff2") format("woff2"),url("./assets/fonts/1475972/19ff06fe-d0c5-4294-a237-a4c9b85312b8.woff") format("woff"),url("./assets/fonts/1475972/ff00799e-9823-48a0-a789-5f2d2e509fd7.ttf") format("truetype");
     font-weight: 500;
 }
 
@@ -586,6 +587,8 @@ section#labels {
 }
 #appliances .appliance.draggable {
   counter-increment: appliance;
+  -ms-touch-action: none;
+      touch-action: none;
 }
 #appliances .appliance.draggable:before {
   position: absolute;

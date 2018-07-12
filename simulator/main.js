@@ -408,6 +408,8 @@ window.dragQueer = {
   init: init
 }
 function init() {
+  interact.maxInteractions(Infinity)
+
   document.querySelectorAll('.placeholder').forEach(function(e, i) {
     e.dataset.empty = false
     e.dataset.element = 'app'+(i+1)
@@ -466,6 +468,7 @@ function init() {
   interact('.draggable').draggable({
     // enable inertial throwing
     inertia: true,
+    max: Infinity,
     // keep the element within the area of it's parent
     restrict: {
       restriction: function(x, y, event) {
@@ -473,6 +476,8 @@ function init() {
         if (event.element.classList.contains('can-drop')
           && (selectedTarget.dataset.empty === 'true'
             || selectedTarget.dataset.element === event.element.getAttribute('id'))) {
+          // fire app event
+          if (previousTarget) APP.deselect(event.element.dataset.appId, previousTarget.dataset.readerId)
           parent = selectedTarget
           // fire app event
           APP.select(event.element.dataset.appId, selectedTarget.dataset.readerId)
@@ -494,29 +499,31 @@ function init() {
       elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
     },
     // enable autoScroll
-    autoScroll: false,
-    // call this function on every dragmove event
-    onmove: function (event) {
-      var target = event.target,
-          // keep the dragged position in the data-x/data-y attributes
-          x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-          y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+    autoScroll: false
+  })
+  .on('dragstart', function (event) {
+    event.interaction.x = parseInt(event.target.getAttribute('data-x'), 10) || 0
+    event.interaction.y = parseInt(event.target.getAttribute('data-y'), 10) || 0
+  })
+  // call this function on every dragmove event
+  .on('dragmove', function (event) {
+    var target = event.target
+    // keep the dragged position in the data-x/data-y attributes
+    event.interaction.x += event.dx
+    event.interaction.y += event.dy
 
-      target.classList.add('over')
+    target.classList.add('over')
 
-      // translate the element
-      target.style.webkitTransform =
-      target.style.transform =
-        'translate(' + x + 'px, ' + y + 'px)'
-
-      // update the posiion attributes
-      target.setAttribute('data-x', x)
-      target.setAttribute('data-y', y)
-    },
-    // call this function on every dragend event
-    onend: function (event) {
-      event.target.classList.remove('over')
-    }
+    // translate the element
+    target.style['transform'] =
+      'translate(' + event.interaction.x + 'px, ' + event.interaction.y + 'px)'
+  })
+  // call this function on every dragend event
+  .on('dragend', function (event) {
+    // update the position attributes
+    event.target.setAttribute('data-x', event.interaction.x)
+    event.target.setAttribute('data-y', event.interaction.y)
+    event.target.classList.remove('over')
   })
 
   // enable draggables to be dropped into this
@@ -663,10 +670,12 @@ function init() {
     }
     tOutPause = setTimeout(stopStorage, tOutSteps*updateTime)
     // updateStorage()
-    if (!updateInterval) {
-      slide()
-      startStorage()
-    }
+    setTimeout(function() {
+      if (!updateInterval) {
+        slide()
+        startStorage()
+      }
+    }, 0)
   }
 
   function initializeStorage() {
@@ -851,6 +860,7 @@ function init() {
   }
 
   function init() {
+    FastClick.attach(document.body)
     initializeStorage()
     // initialie area chart
     stuck = new StackedAreaChart('#monitor-chart', apps, Simulator.dataset_length, maxDemand, Simulator.threshFactor, Simulator.dangerFactor)

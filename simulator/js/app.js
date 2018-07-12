@@ -68,10 +68,12 @@
     }
     tOutPause = setTimeout(stopStorage, tOutSteps*updateTime)
     // updateStorage()
-    if (!updateInterval) {
-      slide()
-      startStorage()
-    }
+    setTimeout(function() {
+      if (!updateInterval) {
+        slide()
+        startStorage()
+      }
+    }, 0)
   }
 
   function initializeStorage() {
@@ -256,6 +258,7 @@
   }
 
   function init() {
+    FastClick.attach(document.body)
     initializeStorage()
     // initialie area chart
     stuck = new StackedAreaChart('#monitor-chart', apps, Simulator.dataset_length, maxDemand, Simulator.threshFactor, Simulator.dangerFactor)
