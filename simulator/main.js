@@ -311,7 +311,7 @@
            .delay(delay).ease(ease)
            .attr('d', function(d) { return area(d.values) })
            .attr('opacity', function() { return stored? .2 : .4 })
-    areaTotStor.transition().attr('opacity', .6)
+    areaTotStor.transition().attr('opacity', .5)
     areaTotStor.selectAll('path').data(data)
                .transition().duration(function() { return stored && storUpdated? duration : 0 })
                .delay(delay).ease(ease)
@@ -662,6 +662,7 @@ function init() {
         $reader.find('label').text(lastapp.maxV+'w')
       }
     }
+    connectedAppliances = _.uniq(connectedAppliances)
     // invalid timeout
     if (tOutPause) {
       clearTimeout(tOutPause)
@@ -730,6 +731,8 @@ function init() {
   function updateStorageBehaviour() {
     // update percent demand
     var percDemand = totalDemand/maxDemand *100
+
+    console.log(totalDemand, maxDemand, percDemand, connectedAppliances)
     if (percDemand > 100) percDemand = 100
     $('#demand > span').css({'height': percDemand+'%', 'background-position-y': 100 - percDemand+'%'})
     // update energy flow grid - storage - home
