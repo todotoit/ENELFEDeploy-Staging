@@ -311,7 +311,7 @@
            .delay(delay).ease(ease)
            .attr('d', function(d) { return area(d.values) })
            .attr('opacity', function() { return stored? .2 : .4 })
-    areaTotStor.transition().attr('opacity', .8)
+    areaTotStor.transition().attr('opacity', .6)
     areaTotStor.selectAll('path').data(data)
                .transition().duration(function() { return stored && storUpdated? duration : 0 })
                .delay(delay).ease(ease)

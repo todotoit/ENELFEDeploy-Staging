@@ -235,6 +235,10 @@ article#storage #toggle svg #switch_OFF {
 article#storage #toggle svg g {
   pointer-events: none;
 }
+article#storage #toggle svg #switch_ON,
+article#storage #toggle svg #switch_OFF {
+  transition: fill 300ms ease;
+}
 article#storage #toggle svg #shadow_ON,
 article#storage #toggle svg #shadow_OFF {
   transition: opacity 300ms ease;
