@@ -37,7 +37,7 @@ h3 {
 }
 
 main {
-  background: linear-gradient(180deg, #461E7D, 30%, #461E7D, 70%, #D0D0FC);
+  background: linear-gradient(180deg, #461E7D, 30%, #461E7D, 70%, #5738FF);
   background-size: 100% 200%;
   display: -ms-flexbox;
   display: flex;
@@ -516,13 +516,13 @@ section#labels {
 }
 #placeholders .appliance,
 #power-strip .socket {
-  background: url('./assets/socket.svg');
+  background: url('assets/socket.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 }
 #power-strip .socket {
-  background: url('./assets/plug.svg');
+  background: url('assets/plug.svg');
 }
 #appliances .appliance,
 #placeholders .appliance {
