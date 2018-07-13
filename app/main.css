@@ -1567,7 +1567,7 @@ nav.mobile-landing-pagination {
   position: absolute;
   content: 'LIVE';
   bottom: .5em;
-  left: 10.5em;
+  left: 13.5em;
   color: #FF0F64;
   font-size: 1.4rem;
   line-height: 1.3em;
@@ -1581,7 +1581,7 @@ nav.mobile-landing-pagination {
   height: .8vw;
   border-radius: 50%;
   bottom: 1em;
-  left: 5em;
+  left: 6.2em;
   background: #FF0F64;
   animation: pulse 2s infinite;
 }

@@ -33,6 +33,7 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
     self.pinScaleFactor = 0.45;
 	self.test_pin = null;
     self.debugMode = false;
+    self.carGroup = null;
 
     init(container)
 
@@ -242,31 +243,31 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
                     case "pin_2_grid":
                         self.pinsStage2.children[0].material.map = self.pinsStage2.children[0].material.active_map;
                         //startCameraAnimation([-656, 173, 367], 2);
-                        startCameraAnimation([-718, 258, 103], 2);
+                        startCameraAnimation([710, 284, -45], 2);
                     break;
 
                     case "pin_2_info":
                         self.pinsStage2.children[1].material.map = self.pinsStage2.children[1].material.active_map;
                         //startCameraAnimation([730, 213, -139], 2);
-                        startCameraAnimation([741, 190, 10], 2);
+                        startCameraAnimation([-342, 526, 448], 2);
                     break;
 
                     case "pin_2_meter":
                         self.pinsStage2.children[2].material.map = self.pinsStage2.children[2].material.active_map;
                         //startCameraAnimation([12, 361, 684], 2);
-                        startCameraAnimation([535, 457, -303], 2);
+                        startCameraAnimation([582, 169, 477], 2);
                     break;
 
                     case "pin_2_solar":
                         self.pinsStage2.children[3].material.map = self.pinsStage2.children[3].material.active_map;
                         //startCameraAnimation([117, 660, 298], 2);
-                        startCameraAnimation([714, 276, -69], 2);
+                        startCameraAnimation([426, 403, -500], 2);
                     break;
 
-                    case "pin_2_santiago":
-                    self.pinsStage2.children[4].material.map = self.pinsStage2.children[4].material.active_map;
+                    case "pin_2_storage":
+                    self.pinsStage2.children[3].material.map = self.pinsStage2.children[3].material.active_map;
                     //startCameraAnimation([-759, 213, 200], 2);
-                    startCameraAnimation([638, 193, -392], 2);
+                    startCameraAnimation([686, 104, 327], 2);
                     break;
                 }
 
@@ -373,19 +374,19 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         var materials = [];
 
         //Car Group
-        var carGroup = new THREE.Group();
+        self.carGroup = new THREE.Group();
 
         //Body
         var bodyTexture = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/fe_car/Body_2048_update4.jpg');
         var bodyMat = new THREE.MeshStandardMaterial({color: 0xffffff, map: bodyTexture, metalness: .6, roughness: .4, bumpScale: 0 });
         var body = self.TerminUtils.loadObjModel("Body", '../libs/terminalia/assets/models/obj/fe_car/Body3.obj', bodyMat);
-        carGroup.add(body);
+        self.carGroup.add(body);
         materials.push(bodyMat);
 
         //Body Bottom
         var bodyBottomMat = new THREE.MeshStandardMaterial({color: 0x2c2c2d, metalness: 0, roughness: .9, bumpScale: 0 });
         var bodyBottom = self.TerminUtils.loadObjModel("BodyBottom", '../libs/terminalia/assets/models/obj/fe_car/BodyBottom.obj', bodyBottomMat);
-        carGroup.add(bodyBottom);
+        self.carGroup.add(bodyBottom);
         //materials.push(bodyBottomMat);
 
         //Front Wheels
@@ -393,8 +394,8 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         var frontWheelsMat = new THREE.MeshStandardMaterial({color: 0xffffff, map: frontWheelsTexture, metalness: 0.7, roughness: .7, bumpScale: 0.01 });
         var frontWheelsLeft = self.TerminUtils.loadObjModel("FrontWheels", '../libs/terminalia/assets/models/obj/fe_car/FrontWheelsLeft.obj', frontWheelsMat);
         var frontWheelsRight = self.TerminUtils.loadObjModel("FrontWheels", '../libs/terminalia/assets/models/obj/fe_car/FrontWheelsRight.obj', frontWheelsMat);
-        carGroup.add(frontWheelsLeft);
-        carGroup.add(frontWheelsRight);
+        self.carGroup.add(frontWheelsLeft);
+        self.carGroup.add(frontWheelsRight);
         materials.push(frontWheelsMat);
 
         //Inside Wheels
@@ -402,83 +403,83 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         var insideWheelsBumpMap = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/fe_car/FrontWheelsBump.png');
         var insideWheelsMat = new THREE.MeshStandardMaterial({color: 0xffffff, map: insideWheelsColorMap, bumpMap: insideWheelsBumpMap, metalness: 0.7, roughness: .7, bumpScale: 0.01 });
         var insideWheels = self.TerminUtils.loadObjModel("FrontWheels", '../libs/terminalia/assets/models/obj/fe_car/InsideWheels.obj', insideWheelsMat);
-        carGroup.add(insideWheels);
+        self.carGroup.add(insideWheels);
         materials.push(insideWheelsMat);
 
         //Tires
         var tiresMat = new THREE.MeshStandardMaterial({color: 0xe3f4f4, metalness: 0.7, roughness: .3, bumpScale: 0.0});
         var frontTires = self.TerminUtils.loadObjModel("Tires", '../libs/terminalia/assets/models/obj/fe_car/Tires.obj', tiresMat);
-        carGroup.add(frontTires);
+        self.carGroup.add(frontTires);
         materials.push(tiresMat);
 
         //BackTires
         var backTiresMat = new THREE.MeshStandardMaterial({color: 0x2d2d2d, metalness: 0.7, roughness: .3, bumpScale: 0.0});
         var backTires = self.TerminUtils.loadObjModel("Tires", '../libs/terminalia/assets/models/obj/fe_car/BackTires.obj', backTiresMat);
-        carGroup.add(backTires);
+        self.carGroup.add(backTires);
 
         //Brakes
         var brakesTexture = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/fe_car/Brake.jpg');
         var brakesMat = new THREE.MeshStandardMaterial({color: 0xffffff, map: brakesTexture, bumpMap: brakesTexture, metalness: 0.7, roughness: .3, bumpScale: 0.01 });
         var brakes = self.TerminUtils.loadObjModel("Brake", '../libs/terminalia/assets/models/obj/fe_car/Brakes.obj', brakesMat);
-        carGroup.add(brakes);
+        self.carGroup.add(brakes);
         materials.push(brakesMat);
 
         //Cockpit
         var cockpitMat = new THREE.MeshStandardMaterial({color: 0x070707, metalness: 0.7, roughness: .3, bumpScale: 0.01 });
         var cockpit = self.TerminUtils.loadObjModel("Cockpit", '../libs/terminalia/assets/models/obj/fe_car/Cockpit.obj', cockpitMat);
-        carGroup.add(cockpit);
+        self.carGroup.add(cockpit);
         materials.push(cockpitMat);
 
         //Cockpit Head
         var cockPitHeadMat = new THREE.MeshStandardMaterial({color: 0x404142, metalness: 0.7, roughness: .3, bumpScale: 0.01 });
         var cockPitHead = self.TerminUtils.loadObjModel("Cockpit Secure", '../libs/terminalia/assets/models/obj/fe_car/CockpitHead.obj', cockPitHeadMat);
-        carGroup.add(cockPitHead);
+        self.carGroup.add(cockPitHead);
         materials.push(cockPitHeadMat);
 
         //Cockpit Seat
         var cockpitSeatMat = new THREE.MeshStandardMaterial({color: 0x5d5f60, metalness: 0.7, roughness: .3, bumpScale: 0.01 });
         var cockpitSeat = self.TerminUtils.loadObjModel("Cockpit Seat", '../libs/terminalia/assets/models/obj/fe_car/CockpitSeat.obj', cockpitSeatMat);
-        carGroup.add(cockpitSeat);
+        self.carGroup.add(cockpitSeat);
         materials.push(cockpitSeatMat);
 
         //Cockpit Belts 0xc61b35
         var cockpitBeltsMat = new THREE.MeshStandardMaterial({color: 0xc61b35, metalness: 0, roughness: 0.8, bumpScale: 0.01 });
         var cockpitBelts = self.TerminUtils.loadObjModel("Cockpit Belts", '../libs/terminalia/assets/models/obj/fe_car/CockpitBelts.obj', cockpitBeltsMat);
-        carGroup.add(cockpitBelts);
+        self.carGroup.add(cockpitBelts);
         materials.push(cockpitBeltsMat);
 
         //Cockpit Buckles
         //var cockpitBucklesMat = new THREE.MeshLambertMaterial( { color: 0xe3f4f4, envMap: self.reflectionMap, combine: THREE.MixOperation, reflectivity: .7} );
         var cockpitBucklesMat = new THREE.MeshStandardMaterial({color: 0xe3f4f4, metalness: 1, roughness: .1, bumpScale: 0.0 });
         var cockpitBuckles = self.TerminUtils.loadObjModel("Cockpit Belts Metal", '../libs/terminalia/assets/models/obj/fe_car/CockpitBuckles.obj', cockpitBucklesMat);
-        carGroup.add(cockpitBuckles);
+        self.carGroup.add(cockpitBuckles);
         materials.push(cockpitBucklesMat);
 
         //Engine
         var engine = self.TerminUtils.loadObjModel("Engine", '../libs/terminalia/assets/models/obj/fe_car/Engine.obj', cockpitMat);
-        carGroup.add(engine);
+        self.carGroup.add(engine);
 
         //Back Light
         var backLightTexture = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/fe_car/BackLight.jpg');
         var backLightMat = new THREE.MeshStandardMaterial({color: 0xffffff, map: backLightTexture, metalness: 0.1, roughness: 1, bumpScale: 0.01 });
         var backLight = self.TerminUtils.loadObjModel("Back Light", '../libs/terminalia/assets/models/obj/fe_car/BackLight.obj', backLightMat);
-        carGroup.add(backLight);
+        self.carGroup.add(backLight);
 
 
         //Suspensions
         var suspensionsTexture = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/fe_car/Carbon_512_2.jpg');
         var suspensionsMat = new THREE.MeshStandardMaterial({color: 0xffffff, map: suspensionsTexture, metalness: 0.7, roughness: .3, bumpScale: 0.01 });
         var suspensions = self.TerminUtils.loadObjModel("Suspensions", '../libs/terminalia/assets/models/obj/fe_car/Suspensions.obj', suspensionsMat);
-        carGroup.add(suspensions);
+        self.carGroup.add(suspensions);
         materials.push(suspensionsMat);
 
         //Shadow Plane
         var shadowTexture = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/fe_car/ShadowMap_1024_2.jpg');
         var shadowPlaneMat = new THREE.MeshBasicMaterial({map: shadowTexture});
         var shadowPlane = self.TerminUtils.loadObjModel("ShadowPlane", '../libs/terminalia/assets/models/obj/fe_car/ShadowPlane.obj', shadowPlaneMat);
-        carGroup.add(shadowPlane);
-
-        self.scene.add(carGroup);
+        self.carGroup.add(shadowPlane);
+        self.carGroup.position.set(0, -0.5, 0)
+        self.scene.add(self.carGroup);
 
         var cubemap = self.TerminUtils.createCubeMapTextureHDR('../libs/terminalia/assets/textures/cubemaps/uruguay_hdr_512/', '.hdr', self.renderer, materials);
     }
@@ -543,45 +544,43 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         self.test_pin.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-grid_on.png');
         self.pinsStage2.add(self.test_pin);
         */
-        
 
 		var pin_2_grid = self.TerminUtils.createSprite('pin_2_grid', '../libs/terminalia/assets/textures/pins/pin_2-grid.png');
 		pin_2_grid.scale.set(pinSize, pinSize, pinSize);
-		pin_2_grid.position.set(-207, 40, -55);
+		pin_2_grid.position.set(204, 40, 144);
         pin_2_grid.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-grid.png');
         pin_2_grid.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-grid_on.png');
 		self.pinsStage2.add(pin_2_grid);
 
 		var pin_2_info = self.TerminUtils.createSprite('pin_2_info', '../libs/terminalia/assets/textures/pins/pin_2-info.png');
 		pin_2_info.scale.set(pinSize, pinSize, pinSize);
-		pin_2_info.position.set(340, 40, 125);
+		pin_2_info.position.set(-48, 40, -75);
         pin_2_info.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-info.png');
         pin_2_info.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-info_on.png');
 		self.pinsStage2.add(pin_2_info);
 
 		var pin_2_meter = self.TerminUtils.createSprite('pin_2_meter', '../libs/terminalia/assets/textures/pins/pin_2-meter.png');
 		pin_2_meter.scale.set(pinSize, pinSize, 40);
-		pin_2_meter.position.set(24, 40, 10);
+		pin_2_meter.position.set(271, 40, 252);
         pin_2_meter.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-meter.png');
         pin_2_meter.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-meter_on.png');
 		self.pinsStage2.add(pin_2_meter);
 
-        /*
-		var pin_2_solar = self.TerminUtils.createSprite('pin_2_solar', '../libs/terminalia/assets/textures/pins/pin_2-solar.png');
-		pin_2_solar.scale.set(pinSize, pinSize, pinSize);
-		pin_2_solar.position.set(278, 49, 87);
-        pin_2_solar.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-solar.png');
-        pin_2_solar.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-solar_on.png');
-		self.pinsStage2.add(pin_2_solar);
-        */
-        /*
+ 
+		// var pin_2_solar = self.TerminUtils.createSprite('pin_2_solar', '../libs/terminalia/assets/textures/pins/pin_2-solar.png');
+		// pin_2_solar.scale.set(pinSize, pinSize, pinSize);
+		// pin_2_solar.position.set(193, 40, -93);
+        // pin_2_solar.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-solar.png');
+        // pin_2_solar.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-solar_on.png');
+		// self.pinsStage2.add(pin_2_solar);
+   
 		var pin_2_storage = self.TerminUtils.createSprite('pin_2_storage', '../libs/terminalia/assets/textures/pins/pin_2-storage.png');
 		pin_2_storage.scale.set(pinSize, pinSize, pinSize);
-		pin_2_storage.position.set(100, 34, -2);
+		pin_2_storage.position.set(407, 40, 197);
         pin_2_storage.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-storage.png');
         pin_2_storage.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_2-storage_on.png');
         self.pinsStage2.add(pin_2_storage);
-        */
+
         /*
         var pin_2_santiago = self.TerminUtils.createSprite('pin_2_santiago', '../libs/terminalia/assets/textures/pins/pin_2-santiago.png');
 		pin_2_santiago.scale.set(pinSize, pinSize, pinSize);
@@ -644,11 +643,11 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
 		self.world.add(pin_3_smart);
 
         //BERLIN
-		var pin_3_germany = self.TerminUtils.createSprite('pin_3_berlin', '../libs/terminalia/assets/textures/pins/pin_3-germany.png');
+		var pin_3_germany = self.TerminUtils.createSprite('pin_3_berlin', '../libs/terminalia/assets/textures/pins/pin_3-solar.png');
 		pin_3_germany.scale.set(pinsSize, pinsSize, pinsSize);
 		pin_3_germany.position.set(0.081, 0.80, 0.72);
-        pin_3_germany.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-germany.png');
-        pin_3_germany.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-germany_on.png');
+        pin_3_germany.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-solar.png');
+        pin_3_germany.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-solar_on.png');
 		self.world.add(pin_3_germany);
 
         //HONG KONG
@@ -668,18 +667,19 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
 		self.world.add(pin_3_solar);
 
         //NEW YORK
-        var pin_3_NY = self.TerminUtils.createSprite('pin_3_ny', '../libs/terminalia/assets/textures/pins/pin_3-NY.png');
+        var pin_3_NY = self.TerminUtils.createSprite('pin_3_ny', '../libs/terminalia/assets/textures/pins/pin_3-pcPIN.png');
 		pin_3_NY.scale.set(pinsSize, pinsSize, pinsSize);
 		pin_3_NY.position.set(-0.87, 0.64, -0.009);
-        pin_3_NY.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-NY.png');
-        pin_3_NY.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-NY_on.png');
+        pin_3_NY.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-pcPIN.png');
+        pin_3_NY.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-pcPIN_on.png');
         self.world.add(pin_3_NY);
 
-        var pin_3_CA = self.TerminUtils.createSprite('pin_3_ca', '../libs/terminalia/assets/textures/pins/pin_3-germany.png');
+        //CANADA
+        var pin_3_CA = self.TerminUtils.createSprite('pin_3_ca', '../libs/terminalia/assets/textures/pins/pin_3-bio.png');
 		pin_3_CA.scale.set(pinsSize, pinsSize, pinsSize);
 		pin_3_CA.position.set(-0.71, 0.77, -0.30);
-        pin_3_CA.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-germany.png');
-        pin_3_CA.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-germany_on.png');
+        pin_3_CA.material.default_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-bio.png');
+        pin_3_CA.material.active_map = self.TerminUtils.createTexture('../libs/terminalia/assets/textures/pins/pin_3-bio_on.png');
         self.world.add(pin_3_CA);
 
         //URUGUAY
@@ -795,20 +795,20 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         self.circuitPivot = new THREE.Mesh(new THREE.SphereBufferGeometry(size, 20, 20), circuitPivotMat);
         self.circuitPivot.material.visible = false;
 
-        var x_pos = 100;
-        var z_pos = 40;
+        var x_pos = 180;//-105;
+        var z_pos = 106//-110;
         var y_rot = 180;
-        var circuit = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/berlin_circuit.obj', self.circuitMaterial);
+        var circuit = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/newyork_circuit_2018.obj', self.circuitMaterial);
         circuit.scale.set(40, 40, 40);
         circuit.rotation.set(0, radians(y_rot), 0);
-        circuit.position.set(x_pos, (size * offset) + 1, z_pos);
+        circuit.position.set(x_pos, (size * offset) - 0.5, z_pos);
 
-        var circuit_land = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/berlin_circuit_land.obj', self.landMaterial);
+        var circuit_land = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/newyork_land_2018.obj', self.landMaterial);
         circuit_land.scale.set(40, 40, 40);
         circuit_land.rotation.set(0, radians(y_rot), 0);
         circuit_land.position.set(x_pos, (size * offset) - 1.1, z_pos);
 
-        var circuit_land_toon = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/berlin_circuit_toon.obj', self.toonMaterial);
+        var circuit_land_toon = self.TerminUtils.loadObjModel('Circuit', '../libs/terminalia/assets/models/obj/newyork_land_toon_2018.obj', self.toonMaterial);
         circuit_land_toon.scale.set(40, 40, 40);
         circuit_land_toon.rotation.set(0, radians(y_rot), 0);
         circuit_land_toon.position.set(x_pos, (size * offset), z_pos);
@@ -912,9 +912,13 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
         switch(stage)
         {
             case 1:
+            self.carGroup.visible = true;
+            self.pinsStage1.visible = true;
             self.stageAnimation.tweenFromTo(self.currentState, 'StageStart', {onComplete: function() {
                 var event = new CustomEvent("StageTimeLineEnded", {"detail": self.currentState});
                 window.dispatchEvent(event);
+                console.log("STAGE 1!")
+                
             }});
             self.currentState = 'StageStart'
             break;
@@ -923,6 +927,9 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
             self.stageAnimation.tweenFromTo(self.currentState, 'StageCircuit', {onComplete: function() {
                 var event = new CustomEvent("StageTimeLineEnded", {"detail": self.currentState});
                 window.dispatchEvent(event);
+                console.log("STAGE 2!")
+                self.pinsStage1.visible = false;
+                self.carGroup.visible = false;
             }});
             self.currentState = 'StageCircuit'
             break;
@@ -932,6 +939,9 @@ TERMINALIA.FEScene = function FEScene(container, CustomShaders) {
                 onComplete: function() {
                     var event = new CustomEvent("StageTimeLineEnded", {"detail": self.currentState});
                     window.dispatchEvent(event);
+                    self.pinsStage1.visible = false;
+                    self.carGroup.visible = false;
+                    console.log("STAGE 3")
                 }});
             self.currentState = 'StageFinal'
             break;

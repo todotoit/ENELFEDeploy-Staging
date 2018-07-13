@@ -130,6 +130,7 @@
       "id": "r10",
       "name": "Zurich Street Circuit",
       "date": "10 JUN 2018",
+      "disabled": true,
       "location": "Zurich",
       "country": "CH",
       "timezone": "Europe/Zurich",
