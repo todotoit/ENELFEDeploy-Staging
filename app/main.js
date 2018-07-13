@@ -2435,13 +2435,13 @@
         key: 'smartEnergy',
         label: 'Smart energy',
         translateLabel: 'energy_tour_smart_label',
-        snippets: ['raceMicrogrid', 'smartMetering', 'motorsport', 'v2g', 'firstSmartCity', 'forgetBlackouts', 'santiagoGreen'],
+        snippets: ['raceMicrogrid', 'smartMetering', 'motorsport', 'v2g', 'firstSmartCity', 'smartGrids', 'santiagoGreen'],
       },
       'cleanEnergy': {
         key: 'cleanEnergy',
         label: 'Clean energy',
         translateLabel: 'energy_tour_clean_label',
-        snippets: ['raceMicrogrid', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'zeroco2ny', 'itGeoTerm', 'uyWindOfChange'],
+        snippets: ['raceMicrogrid', 'howMuchSunGlobal', 'cleanEnergyGlobal', 'enelWorld', 'itGeoTerm', 'uyWindOfChange'],
       },
       'enelAchievements': {
         key: 'enelAchievements',
@@ -2558,7 +2558,7 @@
       'pin_3_ny': {
         stage: 3,
         coords: [462],
-        snippets: ['smartGrids', 'connectedGrid', 'boostingEMobility', 'forgetBlackouts', 'zeroco2ny']
+        snippets: ['smartGrids', 'connectedGrid', 'boostingEMobility']
       },
       'pin_3_ca': {
         stage: 3,
