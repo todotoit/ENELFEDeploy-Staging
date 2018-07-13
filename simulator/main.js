@@ -408,7 +408,7 @@ window.dragQueer = {
   init: init
 }
 function init() {
-  interact.maxInteractions(Infinity)
+  interact.maxInteractions(1)
 
   document.querySelectorAll('.placeholder').forEach(function(e, i) {
     e.dataset.empty = false
@@ -468,7 +468,7 @@ function init() {
   interact('.draggable').draggable({
     // enable inertial throwing
     inertia: true,
-    max: Infinity,
+    max: 1,
     // keep the element within the area of it's parent
     restrict: {
       restriction: function(x, y, event) {
@@ -731,8 +731,6 @@ function init() {
   function updateStorageBehaviour() {
     // update percent demand
     var percDemand = totalDemand/maxDemand *100
-
-    console.log(totalDemand, maxDemand, percDemand, connectedAppliances)
     if (percDemand > 100) percDemand = 100
     $('#demand > span').css({'height': percDemand+'%', 'background-position-y': 100 - percDemand+'%'})
     // update energy flow grid - storage - home

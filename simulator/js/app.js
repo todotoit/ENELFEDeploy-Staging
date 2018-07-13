@@ -129,8 +129,6 @@
   function updateStorageBehaviour() {
     // update percent demand
     var percDemand = totalDemand/maxDemand *100
-
-    console.log(totalDemand, maxDemand, percDemand, connectedAppliances)
     if (percDemand > 100) percDemand = 100
     $('#demand > span').css({'height': percDemand+'%', 'background-position-y': 100 - percDemand+'%'})
     // update energy flow grid - storage - home
