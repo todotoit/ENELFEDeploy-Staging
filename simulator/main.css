@@ -268,7 +268,7 @@ article#appliances-wrap #demand {
   position: relative;
   border: 1px solid white;
   width: 25px;
-  height: 100%;
+  height: calc(100% - 2px);
   overflow-x: hidden;
 }
 article#appliances-wrap #demand span {
