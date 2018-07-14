@@ -9,7 +9,7 @@
   var totalDemand = 0
   var treshDemand = 0
   var criticalDemand = 0
-  var criticalOffset = 1000
+  var criticalOffset = 2400
   // chart
   var stuck = null
   var maxDemand = 0
