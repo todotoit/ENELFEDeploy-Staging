@@ -2429,13 +2429,13 @@
         key: 'eMobility',
         label: 'E-Mobility',
         translateLabel: 'energy_tour_mobility_label',
-        snippets: ['fastRecharge', 'efficiency', 'co2', 'regenerativeBraking', 'v2g', 'enelXMobility', 'santiagoTransport']
+        snippets: ['fastRecharge', 'efficiency', 'co2', 'v2g', 'enelXMobility', 'boostingEMobility', 'santiagoTransport']
       },
       'smartEnergy': {
         key: 'smartEnergy',
         label: 'Smart energy',
         translateLabel: 'energy_tour_smart_label',
-        snippets: ['raceMicrogrid', 'smartMetering', 'motorsport', 'v2g', 'firstSmartCity', 'smartGrids', 'santiagoGreen'],
+        snippets: ['raceMicrogrid', 'smartMetering', 'motorsport', 'v2g', 'firstSmartCity', 'smartGrids'],
       },
       'cleanEnergy': {
         key: 'cleanEnergy',
@@ -2558,7 +2558,7 @@
       'pin_3_ny': {
         stage: 3,
         coords: [462],
-        snippets: ['smartGrids', 'connectedGrid', 'boostingEMobility']
+        snippets: ['connectedGrid', 'smartGrids', 'boostingEMobility']
       },
       'pin_3_ca': {
         stage: 3,
