@@ -10,7 +10,7 @@
         "Standings": [
           {
             "Pos": "1",
-            "TotalPoints": "163",
+            "TotalPoints": "198",
             "DriverName": "Jean-Éric Vergne",
             "DriverId": "1990042500",
             "FirstName": "Jean-Éric",
@@ -110,119 +110,31 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "10",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "25",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
                 }
               ]
             }
           },
           {
             "Pos": "2",
-            "TotalPoints": "140",
-            "DriverName": "Sam Bird",
-            "DriverId": "1987010900",
-            "FirstName": "Sam",
-            "LastName": "Bird",
-            "Country": "GB",
-            "Number": "2",
-            "TeamName": "DS Virgin Racing",
-            "TeamId": "2016908105",
-            "Races": {
-              "Race": [
-                {
-                  "RaceName": "Hong Kong",
-                  "RaceId": "20170201",
-                  "RacePoints": "25",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "1"
-                },
-                {
-                  "RaceName": "Hong Kong",
-                  "RaceId": "20170202",
-                  "RacePoints": "10",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "2"
-                },
-                {
-                  "RaceName": "Marrakesh",
-                  "RaceId": "20170203",
-                  "RacePoints": "15",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "3"
-                },
-                {
-                  "RaceName": "Santiago de Chile",
-                  "RaceId": "20170204",
-                  "RacePoints": "11",
-                  "PolePosition": false,
-                  "FastestLap": true,
-                  "DNF": false,
-                  "Round": "4"
-                },
-                {
-                  "RaceName": "Mexico City",
-                  "RaceId": "20170205",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "5"
-                },
-                {
-                  "RaceName": "Punta del Este",
-                  "RaceId": "20170206",
-                  "RacePoints": "15",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "6"
-                },
-                {
-                  "RaceName": "Rome",
-                  "RaceId": "20170207",
-                  "RacePoints": "25",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "7"
-                },
-                {
-                  "RaceName": "Paris",
-                  "RaceId": "20170208",
-                  "RacePoints": "15",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "8"
-                },
-                {
-                  "RaceName": "Berlin",
-                  "RaceId": "20170209",
-                  "RacePoints": "6",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "9"
-                },
-                {
-                  "RaceName": "Zurich",
-                  "RaceId": "20170210",
-                  "RacePoints": "18",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "10"
-                }
-              ]
-            }
-          },
-          {
-            "Pos": "3",
-            "TotalPoints": "101",
+            "TotalPoints": "144",
             "DriverName": "Lucas di Grassi",
             "DriverId": "1984081100",
             "FirstName": "Lucas",
@@ -322,13 +234,155 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "25",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "18",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
+                }
+              ]
+            }
+          },
+          {
+            "Pos": "3",
+            "TotalPoints": "143",
+            "DriverName": "Sam Bird",
+            "DriverId": "1987010900",
+            "FirstName": "Sam",
+            "LastName": "Bird",
+            "Country": "GB",
+            "Number": "2",
+            "TeamName": "DS Virgin Racing",
+            "TeamId": "2016908105",
+            "Races": {
+              "Race": [
+                {
+                  "RaceName": "Hong Kong",
+                  "RaceId": "20170201",
+                  "RacePoints": "25",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "1"
+                },
+                {
+                  "RaceName": "Hong Kong",
+                  "RaceId": "20170202",
+                  "RacePoints": "10",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "2"
+                },
+                {
+                  "RaceName": "Marrakesh",
+                  "RaceId": "20170203",
+                  "RacePoints": "15",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "3"
+                },
+                {
+                  "RaceName": "Santiago de Chile",
+                  "RaceId": "20170204",
+                  "RacePoints": "11",
+                  "PolePosition": false,
+                  "FastestLap": true,
+                  "DNF": false,
+                  "Round": "4"
+                },
+                {
+                  "RaceName": "Mexico City",
+                  "RaceId": "20170205",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "5"
+                },
+                {
+                  "RaceName": "Punta del Este",
+                  "RaceId": "20170206",
+                  "RacePoints": "15",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "6"
+                },
+                {
+                  "RaceName": "Rome",
+                  "RaceId": "20170207",
+                  "RacePoints": "25",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "7"
+                },
+                {
+                  "RaceName": "Paris",
+                  "RaceId": "20170208",
+                  "RacePoints": "15",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "8"
+                },
+                {
+                  "RaceName": "Berlin",
+                  "RaceId": "20170209",
+                  "RacePoints": "6",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "9"
+                },
+                {
+                  "RaceName": "Zurich",
+                  "RaceId": "20170210",
+                  "RacePoints": "18",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "2",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "1",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
                 }
               ]
             }
           },
           {
             "Pos": "4",
-            "TotalPoints": "92",
+            "TotalPoints": "125",
             "DriverName": "Sébastien Buemi",
             "DriverId": "1988103100",
             "FirstName": "Sébastien",
@@ -428,119 +482,31 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "18",
+                  "PolePosition": true,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "15",
+                  "PolePosition": true,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
                 }
               ]
             }
           },
           {
             "Pos": "5",
-            "TotalPoints": "86",
-            "DriverName": "Felix Rosenqvist",
-            "DriverId": "1990015169",
-            "FirstName": "Felix",
-            "LastName": "Rosenqvist",
-            "Country": "SE",
-            "Number": "19",
-            "TeamName": "Mahindra Racing",
-            "TeamId": "2011806107",
-            "Races": {
-              "Race": [
-                {
-                  "RaceName": "Hong Kong",
-                  "RaceId": "20170201",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "1"
-                },
-                {
-                  "RaceName": "Hong Kong",
-                  "RaceId": "20170202",
-                  "RacePoints": "29",
-                  "PolePosition": true,
-                  "FastestLap": true,
-                  "DNF": false,
-                  "Round": "2"
-                },
-                {
-                  "RaceName": "Marrakesh",
-                  "RaceId": "20170203",
-                  "RacePoints": "25",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "3"
-                },
-                {
-                  "RaceName": "Santiago de Chile",
-                  "RaceId": "20170204",
-                  "RacePoints": "12",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "4"
-                },
-                {
-                  "RaceName": "Mexico City",
-                  "RaceId": "20170205",
-                  "RacePoints": "3",
-                  "PolePosition": true,
-                  "FastestLap": false,
-                  "DNF": true,
-                  "Round": "5"
-                },
-                {
-                  "RaceName": "Punta del Este",
-                  "RaceId": "20170206",
-                  "RacePoints": "10",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "6"
-                },
-                {
-                  "RaceName": "Rome",
-                  "RaceId": "20170207",
-                  "RacePoints": "3",
-                  "PolePosition": true,
-                  "FastestLap": false,
-                  "DNF": true,
-                  "Round": "7"
-                },
-                {
-                  "RaceName": "Paris",
-                  "RaceId": "20170208",
-                  "RacePoints": "4",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "8"
-                },
-                {
-                  "RaceName": "Berlin",
-                  "RaceId": "20170209",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "9"
-                },
-                {
-                  "RaceName": "Zurich",
-                  "RaceId": "20170210",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "10"
-                }
-              ]
-            }
-          },
-          {
-            "Pos": "6",
-            "TotalPoints": "85",
+            "TotalPoints": "120",
             "DriverName": "Daniel Abt",
             "DriverId": "1990015408",
             "FirstName": "Daniel",
@@ -640,13 +606,155 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "19",
+                  "PolePosition": false,
+                  "FastestLap": true,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "16",
+                  "PolePosition": false,
+                  "FastestLap": true,
+                  "DNF": false,
+                  "Round": "12"
+                }
+              ]
+            }
+          },
+          {
+            "Pos": "6",
+            "TotalPoints": "96",
+            "DriverName": "Felix Rosenqvist",
+            "DriverId": "1990015169",
+            "FirstName": "Felix",
+            "LastName": "Rosenqvist",
+            "Country": "SE",
+            "Number": "19",
+            "TeamName": "Mahindra Racing",
+            "TeamId": "2011806107",
+            "Races": {
+              "Race": [
+                {
+                  "RaceName": "Hong Kong",
+                  "RaceId": "20170201",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "1"
+                },
+                {
+                  "RaceName": "Hong Kong",
+                  "RaceId": "20170202",
+                  "RacePoints": "29",
+                  "PolePosition": true,
+                  "FastestLap": true,
+                  "DNF": false,
+                  "Round": "2"
+                },
+                {
+                  "RaceName": "Marrakesh",
+                  "RaceId": "20170203",
+                  "RacePoints": "25",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "3"
+                },
+                {
+                  "RaceName": "Santiago de Chile",
+                  "RaceId": "20170204",
+                  "RacePoints": "12",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "4"
+                },
+                {
+                  "RaceName": "Mexico City",
+                  "RaceId": "20170205",
+                  "RacePoints": "3",
+                  "PolePosition": true,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "5"
+                },
+                {
+                  "RaceName": "Punta del Este",
+                  "RaceId": "20170206",
+                  "RacePoints": "10",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "6"
+                },
+                {
+                  "RaceName": "Rome",
+                  "RaceId": "20170207",
+                  "RacePoints": "3",
+                  "PolePosition": true,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "7"
+                },
+                {
+                  "RaceName": "Paris",
+                  "RaceId": "20170208",
+                  "RacePoints": "4",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "8"
+                },
+                {
+                  "RaceName": "Berlin",
+                  "RaceId": "20170209",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "9"
+                },
+                {
+                  "RaceName": "Zurich",
+                  "RaceId": "20170210",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "10",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
                 }
               ]
             }
           },
           {
             "Pos": "7",
-            "TotalPoints": "60",
+            "TotalPoints": "68",
             "DriverName": "Mitch Evans",
             "DriverId": "1990015617",
             "FirstName": "Mitch",
@@ -746,13 +854,31 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "8",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
                 }
               ]
             }
           },
           {
             "Pos": "8",
-            "TotalPoints": "56",
+            "TotalPoints": "64",
             "DriverName": "André Lotterer",
             "DriverId": "1981111900",
             "FirstName": "André",
@@ -852,12 +978,154 @@
                   "FastestLap": true,
                   "DNF": false,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "6",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "2",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
                 }
               ]
             }
           },
           {
             "Pos": "9",
+            "TotalPoints": "51",
+            "DriverName": "Nelson Piquet Jr.",
+            "DriverId": "1985072500",
+            "FirstName": "Nelson",
+            "LastName": "Piquet Jr.",
+            "Country": "BR",
+            "Number": "3",
+            "TeamName": "Panasonic Jaguar Racing",
+            "TeamId": "2016020101",
+            "Races": {
+              "Race": [
+                {
+                  "RaceName": "Hong Kong",
+                  "RaceId": "20170201",
+                  "RacePoints": "12",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "1"
+                },
+                {
+                  "RaceName": "Hong Kong",
+                  "RaceId": "20170202",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "2"
+                },
+                {
+                  "RaceName": "Marrakesh",
+                  "RaceId": "20170203",
+                  "RacePoints": "13",
+                  "PolePosition": false,
+                  "FastestLap": true,
+                  "DNF": false,
+                  "Round": "3"
+                },
+                {
+                  "RaceName": "Santiago de Chile",
+                  "RaceId": "20170204",
+                  "RacePoints": "8",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "4"
+                },
+                {
+                  "RaceName": "Mexico City",
+                  "RaceId": "20170205",
+                  "RacePoints": "12",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "5"
+                },
+                {
+                  "RaceName": "Punta del Este",
+                  "RaceId": "20170206",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "6"
+                },
+                {
+                  "RaceName": "Rome",
+                  "RaceId": "20170207",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "7"
+                },
+                {
+                  "RaceName": "Paris",
+                  "RaceId": "20170208",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "8"
+                },
+                {
+                  "RaceName": "Berlin",
+                  "RaceId": "20170209",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "9"
+                },
+                {
+                  "RaceName": "Zurich",
+                  "RaceId": "20170210",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "6",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
+                }
+              ]
+            }
+          },
+          {
+            "Pos": "10",
             "TotalPoints": "46",
             "DriverName": "Oliver Turvey",
             "DriverId": "1987040100",
@@ -958,119 +1226,22 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
-                }
-              ]
-            }
-          },
-          {
-            "Pos": "10",
-            "TotalPoints": "45",
-            "DriverName": "Nelson Piquet Jr.",
-            "DriverId": "1985072500",
-            "FirstName": "Nelson",
-            "LastName": "Piquet Jr.",
-            "Country": "BR",
-            "Number": "3",
-            "TeamName": "Panasonic Jaguar Racing",
-            "TeamId": "2016020101",
-            "Races": {
-              "Race": [
-                {
-                  "RaceName": "Hong Kong",
-                  "RaceId": "20170201",
-                  "RacePoints": "12",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "1"
                 },
                 {
-                  "RaceName": "Hong Kong",
-                  "RaceId": "20170202",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "2"
-                },
-                {
-                  "RaceName": "Marrakesh",
-                  "RaceId": "20170203",
-                  "RacePoints": "13",
-                  "PolePosition": false,
-                  "FastestLap": true,
-                  "DNF": false,
-                  "Round": "3"
-                },
-                {
-                  "RaceName": "Santiago de Chile",
-                  "RaceId": "20170204",
-                  "RacePoints": "8",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "4"
-                },
-                {
-                  "RaceName": "Mexico City",
-                  "RaceId": "20170205",
-                  "RacePoints": "12",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "5"
-                },
-                {
-                  "RaceName": "Punta del Este",
-                  "RaceId": "20170206",
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
                   "RacePoints": "0",
                   "PolePosition": false,
                   "FastestLap": false,
                   "DNF": true,
-                  "Round": "6"
-                },
-                {
-                  "RaceName": "Rome",
-                  "RaceId": "20170207",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": true,
-                  "Round": "7"
-                },
-                {
-                  "RaceName": "Paris",
-                  "RaceId": "20170208",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": true,
-                  "Round": "8"
-                },
-                {
-                  "RaceName": "Berlin",
-                  "RaceId": "20170209",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "9"
-                },
-                {
-                  "RaceName": "Zurich",
-                  "RaceId": "20170210",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": true,
-                  "Round": "10"
+                  "Round": "11"
                 }
               ]
             }
           },
           {
             "Pos": "11",
-            "TotalPoints": "30",
+            "TotalPoints": "42",
             "DriverName": "Nick Heidfeld",
             "DriverId": "1977051000",
             "FirstName": "Nick",
@@ -1170,12 +1341,154 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "8",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "4",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
                 }
               ]
             }
           },
           {
             "Pos": "12",
+            "TotalPoints": "31",
+            "DriverName": "Maro Engel",
+            "DriverId": "1985082700",
+            "FirstName": "Maro",
+            "LastName": "Engel",
+            "Country": "DE",
+            "Number": "5",
+            "TeamName": "Venturi Formula E Team",
+            "TeamId": "2014020109",
+            "Races": {
+              "Race": [
+                {
+                  "RaceName": "Hong Kong",
+                  "RaceId": "20170201",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "1"
+                },
+                {
+                  "RaceName": "Hong Kong",
+                  "RaceId": "20170202",
+                  "RacePoints": "6",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "2"
+                },
+                {
+                  "RaceName": "Marrakesh",
+                  "RaceId": "20170203",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "3"
+                },
+                {
+                  "RaceName": "Santiago de Chile",
+                  "RaceId": "20170204",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "4"
+                },
+                {
+                  "RaceName": "Mexico City",
+                  "RaceId": "20170205",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "5"
+                },
+                {
+                  "RaceName": "Punta del Este",
+                  "RaceId": "20170206",
+                  "RacePoints": "1",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "6"
+                },
+                {
+                  "RaceName": "Rome",
+                  "RaceId": "20170207",
+                  "RacePoints": "4",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "7"
+                },
+                {
+                  "RaceName": "Paris",
+                  "RaceId": "20170208",
+                  "RacePoints": "12",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "8"
+                },
+                {
+                  "RaceName": "Berlin",
+                  "RaceId": "20170209",
+                  "RacePoints": "4",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "9"
+                },
+                {
+                  "RaceName": "Zurich",
+                  "RaceId": "20170210",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "4",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "12"
+                }
+              ]
+            }
+          },
+          {
+            "Pos": "13",
             "TotalPoints": "29",
             "DriverName": "Edoardo Mortara",
             "DriverId": "1988010183",
@@ -1272,7 +1585,7 @@
             }
           },
           {
-            "Pos": "13",
+            "Pos": "14",
             "TotalPoints": "27",
             "DriverName": "Jérôme d'Ambrosio",
             "DriverId": "1985122700",
@@ -1373,112 +1686,24 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
-                }
-              ]
-            }
-          },
-          {
-            "Pos": "14",
-            "TotalPoints": "27",
-            "DriverName": "Maro Engel",
-            "DriverId": "1985082700",
-            "FirstName": "Maro",
-            "LastName": "Engel",
-            "Country": "DE",
-            "Number": "5",
-            "TeamName": "Venturi Formula E Team",
-            "TeamId": "2014020109",
-            "Races": {
-              "Race": [
+                },
                 {
-                  "RaceName": "Hong Kong",
-                  "RaceId": "20170201",
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
                   "RacePoints": "0",
                   "PolePosition": false,
                   "FastestLap": false,
                   "DNF": false,
-                  "Round": "1"
+                  "Round": "11"
                 },
                 {
-                  "RaceName": "Hong Kong",
-                  "RaceId": "20170202",
-                  "RacePoints": "6",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "2"
-                },
-                {
-                  "RaceName": "Marrakesh",
-                  "RaceId": "20170203",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "3"
-                },
-                {
-                  "RaceName": "Santiago de Chile",
-                  "RaceId": "20170204",
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
                   "RacePoints": "0",
                   "PolePosition": false,
                   "FastestLap": false,
                   "DNF": true,
-                  "Round": "4"
-                },
-                {
-                  "RaceName": "Mexico City",
-                  "RaceId": "20170205",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "5"
-                },
-                {
-                  "RaceName": "Punta del Este",
-                  "RaceId": "20170206",
-                  "RacePoints": "1",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "6"
-                },
-                {
-                  "RaceName": "Rome",
-                  "RaceId": "20170207",
-                  "RacePoints": "4",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "7"
-                },
-                {
-                  "RaceName": "Paris",
-                  "RaceId": "20170208",
-                  "RacePoints": "12",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "8"
-                },
-                {
-                  "RaceName": "Berlin",
-                  "RaceId": "20170209",
-                  "RacePoints": "4",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "9"
-                },
-                {
-                  "RaceName": "Zurich",
-                  "RaceId": "20170210",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "10"
+                  "Round": "12"
                 }
               ]
             }
@@ -1585,6 +1810,24 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
                 }
               ]
             }
@@ -1691,6 +1934,24 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
                 }
               ]
             }
@@ -1779,13 +2040,74 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "12"
                 }
               ]
             }
           },
           {
             "Pos": "18",
-            "TotalPoints": "7",
+            "TotalPoints": "12",
+            "DriverName": "Tom Dillmann",
+            "DriverId": "1989040601",
+            "FirstName": "Tom",
+            "LastName": "Dillmann",
+            "Country": "FR",
+            "Number": "4",
+            "TeamName": "Venturi Formula E Team",
+            "TeamId": "2014020109",
+            "Races": {
+              "Race": [
+                {
+                  "RaceName": "Berlin",
+                  "RaceId": "20170209",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "9"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "12",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "12"
+                }
+              ]
+            }
+          },
+          {
+            "Pos": "19",
+            "TotalPoints": "8",
             "DriverName": "Nicolas Prost",
             "DriverId": "1981081801",
             "FirstName": "Nicolas",
@@ -1885,12 +2207,30 @@
                   "FastestLap": false,
                   "DNF": true,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "1",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
                 }
               ]
             }
           },
           {
-            "Pos": "19",
+            "Pos": "20",
             "TotalPoints": "4",
             "DriverName": "Tom Blomqvist",
             "DriverId": "1993113000",
@@ -1960,7 +2300,7 @@
             }
           },
           {
-            "Pos": "20",
+            "Pos": "21",
             "TotalPoints": "1",
             "DriverName": "Luca Filippi",
             "DriverId": "1985080900",
@@ -2052,31 +2392,24 @@
                   "FastestLap": false,
                   "DNF": true,
                   "Round": "10"
-                }
-              ]
-            }
-          },
-          {
-            "Pos": "21",
-            "TotalPoints": "0",
-            "DriverName": "Tom Dillmann",
-            "DriverId": "1989040601",
-            "FirstName": "Tom",
-            "LastName": "Dillmann",
-            "Country": "FR",
-            "Number": "4",
-            "TeamName": "Venturi Formula E Team",
-            "TeamId": "2014020109",
-            "Races": {
-              "Race": [
+                },
                 {
-                  "RaceName": "Berlin",
-                  "RaceId": "20170209",
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
                   "RacePoints": "0",
                   "PolePosition": false,
                   "FastestLap": false,
                   "DNF": false,
-                  "Round": "9"
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": true,
+                  "Round": "12"
                 }
               ]
             }
@@ -2111,12 +2444,64 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "10"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170211",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "11"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
                 }
               ]
             }
           },
           {
             "Pos": "23",
+            "TotalPoints": "0",
+            "DriverName": "Ma Qing Hua",
+            "DriverId": "1985122500",
+            "FirstName": "Qing Hua",
+            "LastName": "Ma",
+            "Country": "CN",
+            "Number": "16",
+            "TeamName": "NIO Formula E team",
+            "TeamId": "2017908102",
+            "Races": {
+              "Race": [
+                {
+                  "RaceName": "Paris",
+                  "RaceId": "20170208",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "8"
+                },
+                {
+                  "RaceName": "New York",
+                  "RaceId": "20170212",
+                  "RacePoints": "0",
+                  "PolePosition": false,
+                  "FastestLap": false,
+                  "DNF": false,
+                  "Round": "12"
+                }
+              ]
+            }
+          },
+          {
+            "Pos": "24",
             "TotalPoints": "0",
             "DriverName": "Kamui Kobayashi",
             "DriverId": "1986091300",
@@ -2145,31 +2530,6 @@
                   "FastestLap": false,
                   "DNF": false,
                   "Round": "2"
-                }
-              ]
-            }
-          },
-          {
-            "Pos": "24",
-            "TotalPoints": "0",
-            "DriverName": "Ma Qing Hua",
-            "DriverId": "1985122500",
-            "FirstName": "Qing Hua",
-            "LastName": "Ma",
-            "Country": "CN",
-            "Number": "68",
-            "TeamName": "NIO Formula E team",
-            "TeamId": "2017908102",
-            "Races": {
-              "Race": [
-                {
-                  "RaceName": "Paris",
-                  "RaceId": "20170208",
-                  "RacePoints": "0",
-                  "PolePosition": false,
-                  "FastestLap": false,
-                  "DNF": false,
-                  "Round": "8"
                 }
               ]
             }
@@ -2211,6 +2571,6 @@
         ]
       }
     },
-    "Generated": "13.7.2018 16:43:48"
+    "Generated": "16.7.2018 8:42:46"
   }
 }
