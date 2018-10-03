@@ -86,7 +86,11 @@
                     .interpolate(interpolation)
 
   // -------- CHART SVG TEMPLATE ---------
-  var tpl = '<svg id="teamAreaChart" viewBox="0 0 600 420">' +
+
+  var viewW = 600
+  var viewH = 420
+
+  var tpl = '<svg id="teamAreaChart" preserveAspectRatio="xMinYMin" >' +
             '  <defs id="pattern_wrap">' +
             '    <pattern id="bolt_pattern" patternUnits="userSpaceOnUse" width="37" height="37">' +
             '      <image xlink:href="assets/pattern_bolt.svg" x="0" y="0" width="37" height="37"></image>' +
@@ -108,12 +112,12 @@
 
     // -------- INITIALIZE CHART ---------
     svg = $(svgContainer).append(tpl).find('svg#teamAreaChart')
-    box = svg.attr('viewBox').split(' ')
-    w   = +box[2] // width
-    h   = +box[3] // height
-    h   += 20
-    p   = 30      // padding
-    pright = 75   // padding right
+    w = svg.width() // +box[2] // width
+    h = svg.height() // +box[3] // height
+    svg.attr('viewBox','0 0 '+w+' '+h)
+    h += 20
+    p = w*6/100        // padding
+    pright = w*11/100   // padding right
     wright = w-pright
     svg = d3.select(svg.get(0))
     // create areas gradient fill
@@ -165,9 +169,13 @@
     lnsTop  = lns.append('g').attr('class', 'topline').append('path')
     lnsStor = lns.append('g').attr('class', 'topline storage').append('path')
     circles.append('circle').attr('class', 'topcircle')
-    labels.append('g').attr('class', 'label toplabel').append('text').text('Energy demand')
+    var demandLabel = labels.append('g').attr('class', 'label toplabel')
+    demandLabel.append('text').text('Energy').attr('y', -17)
+    demandLabel.append('text').text('demand').attr('y', -4)
     circles.append('circle').attr('class', 'storcircle')
-    labels.append('g').attr('class', 'label storlabel').append('text').text('Energy from the grid')
+    var gridLabel = labels.append('g').attr('class', 'label storlabel')
+    gridLabel.append('text').text('Energy from').attr('y', -19)
+    gridLabel.append('text').text('the grid').attr('y', -6)
 
     // create threshold line
     lns.append('line').attr('class', 'threshold')
@@ -229,14 +237,14 @@
        .attr('x2', wright)
        .attr('y2', p+Y(danger))
     lns.append('text').text('Threshold')
-       .attr('x', p+(p/2))
+       .attr('x', 1.5*p)
        .attr('y', Y(thresh)+(p/2))
     // lns.append('text').html('Extra demand')
     //    .attr('x', p+(p/2))
     //    .attr('y', h -p-(p/2) -Y(thresh/2))
     lns.append('text').text('Demand peaks')
        .attr('class', 'danger')
-       .attr('x', p+(p/2))
+       .attr('x', 1.5*p)
        .attr('y', Y(danger)+(p/2))
     lns.selectAll('.arealine')
        .data(emptydata)
@@ -255,7 +263,7 @@
            .attr('opacity', 1)
            .append('text')
            .attr('class', 'tot_value')
-           .attr('y', 10)
+           .attr('y', 12)
            .text(_.last(emptyTotData).v + ' w')
     labels.select('.storlabel')
            .append('text')
@@ -370,7 +378,12 @@
            .attr('cy', function() { return p + YStor(_.last(totData).v) })
     labels.select('.storlabel')
            .transition().duration(function() { return stored? duration : duration/2}).ease(ease)
-           .attr('transform', function(d) { return 'translate(' + (wright-5) +','+ (p+YStor(_.last(totData).v)) +')' })
+           .attr('transform', function(d) {
+            var posy = Y(_.last(totData).v)
+            var posstor = YStor(_.last(totData).v)
+            if (posy != 0 && posstor != 0 && posy <= posstor + 10) posstor = posstor+30
+             return 'translate(' + (wright-5) +','+ (p+posstor) +')'
+            })
            .attr('opacity', function() { return stored? 1 : 0 })
            .select('.tot_value')
            .text(Math.round(YStorInv(YStor(_.last(totData).v))) + ' w')
@@ -378,9 +391,10 @@
           .transition().duration(function() { return stored? duration : duration/2}).ease(ease)
           .delay(245)
           .attr('opacity', function(d) { return _.last(d.values).v > 0? 1 : 0 })
+          .style('text-anchor', 'end')
           .attr('transform', function(d) {
             var ld = _.last(d.values)
-            return 'translate(' + (wright-(1.5*p+3)) +','+ (p+Y((ld.y+ld.y0))) +')' })
+            return 'translate(' + (wright-p*0.8) +','+ (p+Y((ld.y+ld.y0))+4) +')' })
 
     // update axis data
     // axY.transition().delay(delay).call(axisY)
@@ -577,12 +591,12 @@ function init() {
   window.Simulator = window.Simulator || {}
 
   var appliances = [
-    { key: 'Cooling',  icon: 'icon_cooling',  uid: ['B5C43A2A', '95E8432A', '1EF3E8C1'], status: 'off', values: [], maxV: 4000 },
-    { key: 'Brewing',  icon: 'icon_brewing',  uid: ['C5DA2C2A', '857F3A2A', '3E99E9C1'], status: 'off', values: [], maxV: 2000 },
-    { key: 'Drying',   icon: 'icon_drying',   uid: ['75423F2A', '25FB392A', '4E8FE9C1'], status: 'off', values: [], maxV: 1500 },
-    { key: 'Heating',  icon: 'icon_heating',  uid: ['3549482A', '8517412A', '8EA8E9C1'], status: 'off', values: [], maxV: 1200 },
-    { key: 'Working',  icon: 'icon_working',  uid: ['A5312E2A', 'C59E482A', 'A5DA422A'], status: 'off', values: [], maxV: 300  },
-    { key: 'Ironing',  icon: 'icon_ironing',  uid: ['A5312E2A', 'C59E482A', 'A5DA422A'], status: 'off', values: [], maxV: 600  }
+    { key: 'EV Charging', icon: 'icon_EV_charging', uid: ['A5312E2A', 'C59E482A', 'A5DA422A'], status: 'off', values: [], maxV: 7500 },
+    { key: 'Cooling',     icon: 'icon_cooling',     uid: ['B5C43A2A', '95E8432A', '1EF3E8C1'], status: 'off', values: [], maxV: 4000 },
+    { key: 'Brewing',     icon: 'icon_brewing',     uid: ['C5DA2C2A', '857F3A2A', '3E99E9C1'], status: 'off', values: [], maxV: 2000 },
+    { key: 'Drying',      icon: 'icon_drying',      uid: ['75423F2A', '25FB392A', '4E8FE9C1'], status: 'off', values: [], maxV: 1500 },
+    { key: 'Heating',     icon: 'icon_heating',     uid: ['3549482A', '8517412A', '8EA8E9C1'], status: 'off', values: [], maxV: 1200 },
+    { key: 'Working',     icon: 'icon_working',     uid: ['A5312E2A', 'C59E482A', 'A5DA422A'], status: 'off', values: [], maxV: 300  }
   ]
   var storageUid = ['65AB332A', '35AA462A', '75A1322A']
 
@@ -611,7 +625,7 @@ function init() {
   var totalDemand = 0
   var treshDemand = 0
   var criticalDemand = 0
-  var criticalOffset = 2400
+  var criticalOffset = 4500
   // chart
   var stuck = null
   var maxDemand = 0
@@ -622,19 +636,30 @@ function init() {
   var animationOffTime = 75
   var tOutSteps = 4
   var tOutPause = null
+  var slideDuration = 0
+  var slideStopped = true
+  var stopInterval = null
+  // orientation detect
+  var aspect = ($(window).width() > $(window).height())? 'landscape' : 'portrait'
+  $('body').addClass('orientation-'+aspect)
+  window.aspect = aspect
 
   function selectApp(appIdx, readerIdx) {
     if (!appIdx || !readerIdx) return
     var app = apps[appIdx]
+    if (app.status === 'on') return
     app.status = 'on'
     $('.appliance#app'+(+appIdx+1)).addClass('on')
+    //console.log('on')
     toggleAppliance(app, readerIdx)
   }
   function deselectApp(appIdx, readerIdx) {
     if (!appIdx || !readerIdx) return
     var app = apps[appIdx]
-    $('.appliance#app'+(+appIdx+1)).removeClass('on')
+    if (app.status === 'off') return
     app.status = 'off'
+    $('.appliance#app'+(+appIdx+1)).removeClass('on')
+    //console.log('off')
     toggleAppliance(app, readerIdx)
   }
   function toggleAppliance(app, readerId) {
@@ -670,16 +695,17 @@ function init() {
     }
     tOutPause = setTimeout(stopStorage, tOutSteps*updateTime)
     // updateStorage()
-    setTimeout(function() {
-      if (!updateInterval) {
-        slide()
-        startStorage()
-      }
-    }, 0)
+    //console.log(updateInterval, slideStopped)
+    if (!updateInterval) {
+      startStorage()
+      slide()
+    }
   }
 
   function initializeStorage() {
     updateTime = Simulator.sampling_rate
+    slideDuration = updateTime-(animationOffTime*2)
+    slideDuration = 500
     apps = Simulator.appliances
     // populate ui readers list
     var socketTemp = $('#power #power-strip #socket_temp').removeAttr('id')
@@ -735,47 +761,48 @@ function init() {
     $('#demand > span').css({'height': percDemand+'%', 'background-position-y': 100 - percDemand+'%'})
     // update energy flow grid - storage - home
     $('[id*="arrow"]').removeClass('animate reverse fast')
-    $('#grid svg g#grid polyline').removeClass('shake-constant')
-    $('#grid svg g#copy_storage g').removeClass('visible')
-    $('#grid svg g#storage g').removeClass('visible')
+    var grid = (aspect === 'portrait')? $('#grid-wrap') : $('#grid-landscape')
+    grid.find('svg g#grid polyline').removeClass('shake-constant')
+    grid.find('svg g#copy_storage g').removeClass('visible')
+    grid.find('svg g#storage g').removeClass('visible')
     if (!stored && !_.isEmpty(connectedAppliances) && totalDemand >= criticalDemand-criticalOffset) {
-      $('#arrow_GtoB').addClass('animate fast')
-      $('#grid svg g#grid polyline').addClass('shake-constant')
-      $('#grid svg g#grid polyline').addClass('shake-opacity')
-      $('#grid svg g#storage g#storageOFF').addClass('visible')
-      $('#grid svg g#copy_storage g#copy_storageOFF').addClass('visible')
-      $('#grid svg g#copy_storage g#warning_storageOFF').addClass('visible')
+      grid.find('#arrow_GtoB').addClass('animate fast')
+      grid.find('svg g#grid polyline').addClass('shake-constant')
+      grid.find('svg g#grid polyline').addClass('shake-opacity')
+      grid.find('svg g#storage g#storageOFF').addClass('visible')
+      grid.find('svg g#copy_storage g#copy_storageOFF').addClass('visible')
+      grid.find('svg g#copy_storage g#warning_storageOFF').addClass('visible')
     } else if (!stored && !_.isEmpty(connectedAppliances)) {
-      $('#arrow_GtoB').addClass('animate')
-      $('#grid svg g#storage g#storageOFF').addClass('visible')
-      $('#grid svg g#copy_storage g#copy_storageOFF').addClass('visible')
+      grid.find('#arrow_GtoB').addClass('animate')
+      grid.find('svg g#storage g#storageOFF').addClass('visible')
+      grid.find('svg g#copy_storage g#copy_storageOFF').addClass('visible')
     } else if (stored && _.isEmpty(connectedAppliances)) {
-      $('#arrow_GtoB').addClass('animate')
-      $('#arrow_StoB').addClass('animate reverse')
-      $('#grid svg g#storage g#storageIN').addClass('visible')
-      $('#grid svg g#copy_storage g#copy_storageIN').addClass('visible')
+      grid.find('#arrow_GtoB').addClass('animate')
+      grid.find('#arrow_StoB').addClass('animate reverse')
+      grid.find('svg g#storage g#storageIN').addClass('visible')
+      grid.find('svg g#copy_storage g#copy_storageIN').addClass('visible')
     } else if (stored && totalDemand > treshDemand) {
-      $('#arrow_GtoB').addClass('animate')
-      $('#arrow_StoB').addClass('animate')
-      $('#grid svg g#storage g#storageOUT').addClass('visible')
-      $('#grid svg g#copy_storage g#copy_storageOUT').addClass('visible')
+      grid.find('#arrow_GtoB').addClass('animate')
+      grid.find('#arrow_StoB').addClass('animate')
+      grid.find('svg g#storage g#storageOUT').addClass('visible')
+      grid.find('svg g#copy_storage g#copy_storageOUT').addClass('visible')
     } else if (stored && !_.isEmpty(connectedAppliances)){
-      $('#arrow_GtoB').addClass('animate')
-      $('#arrow_StoB').addClass('animate reverse')
-      $('#grid svg g#storage g#storageIN').addClass('visible')
-      $('#grid svg g#copy_storage g#copy_storageIN').addClass('visible')
+      grid.find('#arrow_GtoB').addClass('animate')
+      grid.find('#arrow_StoB').addClass('animate reverse')
+      grid.find('svg g#storage g#storageIN').addClass('visible')
+      grid.find('svg g#copy_storage g#copy_storageIN').addClass('visible')
     } else {
-      $('#grid svg g#storage g#storageOFF').addClass('visible')
+      grid.find('svg g#storage g#storageOFF').addClass('visible')
     }
   }
   function toggleStorage(storageState) {
     if (storageState) {
       $('main').css('background-position-y', '0%')
-      $('article#storage').removeClass('on')
+      $('#storage-wrap, #storage-landscape').removeClass('on')
       stored = false
     } else {
       $('main').css('background-position-y', '100%')
-      $('article#storage').addClass('on')
+      $('#storage-wrap, #storage-landscape').addClass('on')
       stored = true
     }
     var storUpdated = true
@@ -783,20 +810,29 @@ function init() {
     return stuck.update(apps, stored, storUpdated)
   }
 
+  var tl = null
   function slide() {
-    $('.arealine').transition({ x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
-    $('.topline path').transition({ x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
-    $('.areas path').transition({ x: '-37px', duration: updateTime-(animationOffTime*2), easing: 'easeInOutSine' })
-    setTimeout(function() {
-      updateStorage()
-      $('.arealine').css({ x: '0px' })
-      $('.topline path').css({ x: '0px' })
-      $('.areas path').css({ x: '0px' })
-    }, updateTime-animationOffTime)
+    slideStopped = false
+    $('.arealine').transition({ x: '-6%', duration: slideDuration, easing: 'easeInOutSine' })
+    $('.topline path').transition({ x: '-6%', duration: slideDuration, easing: 'easeInOutSine' })
+    $('.areas path').transition({ x: '-6%', duration: slideDuration, easing: 'easeInOutSine' })
+    tl = setTimeout(queueAnimation, updateTime-animationOffTime)
+  }
+  function queueAnimation(){
+    console.log('asd')
+    updateStorage()
+    //console.log('add data')
+    $('.arealine').css({ x: '0' })
+    $('.topline path').css({ x: '0' })
+    $('.areas path').css({ x: '0' })
   }
 
   function startStorage() {
-    if (updateInterval) stopStorage()
+    //console.log('start')
+    if (updateInterval) {
+      clearInterval(updateInterval)
+      updateInterval = null
+    }
     updateInterval = setInterval(slide, updateTime)
     if (tOutPause) {
       clearTimeout(tOutPause)
@@ -807,7 +843,9 @@ function init() {
   }
   function stopStorage() {
     clearInterval(updateInterval)
+    slideStopped = true
     updateInterval = null
+    //console.log('stop')
     if (tOutPause) {
       clearTimeout(tOutPause)
       tOutPause = null
@@ -852,10 +890,10 @@ function init() {
     })
   }
   function handleUIEvents() {
-    $('article#storage #toggle svg #switch_OFF').on('click', function() {
+    $('#toggle svg #switch_OFF').on('click', function() {
       toggleStorage(true)
     })
-    $('article#storage #toggle svg #switch_ON').on('click', function() {
+    $('#toggle svg #switch_ON').on('click', function() {
       toggleStorage(false)
     })
   }

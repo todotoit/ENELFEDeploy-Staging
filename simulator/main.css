@@ -15,7 +15,7 @@ body {
 
 body {
   font-family: 'UniversLTStd';
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 100;
   display: -ms-flexbox;
   display: flex;
@@ -26,13 +26,13 @@ label {
   font-weight: 400;
 }
 h2 {
-  font-size: 40px;
+  font-size: 4rem;
   font-weight: 100;
-  margin: 30px;
+  margin: 3rem;
   margin-top: 0;
 }
 h3 {
-  font-size: 22px;
+  font-size: 2.2rem;
   font-weight: 100;
 }
 
@@ -49,7 +49,7 @@ main {
       justify-content: flex-start;
   -ms-flex-align: center;
       align-items: center;
-  padding: 50px 50px 5vh 50px;
+  padding: 2.5vh;
   transition: background 1s ease;
   transition-delay: .2s;
   overflow: hidden;
@@ -77,14 +77,32 @@ article:before {
 
 section#monitor {
   width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex: 1 0 auto;
+      flex: 1 0 auto;
 }
 section#monitor article#monitor-chart {
   position: relative;
   background: white;
   width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex: 1 0 auto;
+      flex: 1 0 auto;
+}
+section#monitor article#monitor-chart svg {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1;
+      flex: 1;
 }
 article#monitor-chart {
-  padding-top: 30px;
+  padding-top: 3rem;
   overflow: hidden;
 }
 article#monitor-chart h2 {
@@ -92,8 +110,8 @@ article#monitor-chart h2 {
   display: flex;
 }
 article#monitor-chart h2 span svg {
-  width: 50px;
-  margin-right: 30px;
+  width: 5rem;
+  margin-right: 3rem;
 }
 article#monitor-chart h2 span#clock svg line {
   transform-origin: bottom center;
@@ -103,50 +121,59 @@ article#monitor-chart h2 span#clock svg line {
 }
 article#monitor-chart svg#teamAreaChart{
   position: relative;
-  left: -50px;
+  left: -5rem;
   margin: auto;
-  width: 103%;
+  width: calc(100% + 5rem);
 }
 
-article#grid {
+article#grid-wrap {
   width: 100%;
   background: white;
-  padding-bottom: 15px;
+  padding-bottom: 1.5rem;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+}
+article#grid-wrap svg {
+  width: 100%;
 }
 
-article#grid svg #alert,
-article#grid svg #storage {
+article#grid-wrap svg #alert,
+article#grid-wrap svg #storage {
   transition: opacity .5s ease;
 }
-article#grid svg g#copy_storage > g {
+article#grid-wrap svg g#copy_storage > g {
   opacity: 0;
 }
-article#grid svg g#storage > g {
+article#grid-wrap svg g#storage > g {
   opacity: 0;
 }
-article#grid svg g#copy_storage g.visible,
-article#grid svg g#storage g.visible {
+article#grid-wrap svg g#copy_storage g.visible,
+article#grid-wrap svg g#storage g.visible {
   opacity: 1;
 }
 
-article#grid svg [id*="arrow"] {
+article#grid-wrap svg [id*="arrow"] {
   opacity: .3;
   transition: opacity .5s ease;
 }
-article#grid svg [id*="arrow"].animate {
+article#grid-wrap svg [id*="arrow"].animate {
   opacity: 1;
   animation: dasharrow-inv 20s linear infinite;
 }
-article#grid svg [id*="arrow"].animate.fast {
+article#grid-wrap svg [id*="arrow"].animate.fast {
   animation-duration: 10s;
 }
-article#grid svg [id*="arrow"].animate.reverse {
+article#grid-wrap svg [id*="arrow"].animate.reverse {
   animation: dasharrow 20s linear infinite;
 }
-article#grid svg #arrow_BtoH.animate {
+article#grid-wrap svg #arrow_BtoH.animate {
   animation: dasharrow 20s linear infinite;
 }
-article#grid svg #arrow_BtoH.animate.reverse {
+article#grid-wrap svg #arrow_BtoH.animate.reverse {
   animation: dasharrow-inv 20s linear infinite;
 }
 
@@ -154,18 +181,17 @@ section#ui-panel {
   width: 100%;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex: 1 0 auto;
-      flex: 1 0 auto;
+  /* flex: 1 0 auto; */
   -ms-flex-direction: row-reverse;
       flex-direction: row-reverse;
   -ms-flex-pack: justify;
       justify-content: space-between;
   -ms-flex-align: center;
       align-items: center;
-  margin-top: 25px;
+  margin-top: 2.5rem;
 }
 section#ui-panel article {
-  height: 590px;
+  height: 31vh;
   padding: 0;
   background: white;
   display: -ms-flexbox;
@@ -177,8 +203,8 @@ section#ui-panel article {
   -ms-flex-pack: justify;
       justify-content: space-between;
 }
-section#ui-panel article div.inactive,
-section#ui-panel article div.active {
+
+section#ui-panel article > div {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
@@ -192,68 +218,57 @@ section#ui-panel article div.active {
       align-items: center;
   text-align: center;
 }
-section#ui-panel article div.active {
+section#ui-panel article > div {
   -ms-flex-direction: row-reverse;
       flex-direction: row-reverse;
   height: 100%;
 }
 
-section#ui-panel article div.inactive {
-  -ms-flex-pack: end;
-      justify-content: flex-end;
-}
-section#ui-panel article div.inactive h3 {
-  margin-bottom: 50px;
-  opacity: .3;
-}
-section#ui-panel article div.inactive label {
-  margin-bottom: 30px;
-}
-
-section#ui-panel article#storage {
-  width: 195px;
+section#ui-panel article#storage-wrap {
+  width: 18.5vw;
 }
 section#ui-panel article#appliances-wrap {
-  width: 750px;
+  width: 69.5vw;
 }
-section#ui-panel article#storage div.active {
+section#ui-panel article#storage-wrap > div {
   -ms-flex-direction: column;
       flex-direction: column;
   -ms-flex-pack: space-evenly;
       justify-content: space-evenly;
-  font-size: 23px;
+  font-size: 2.3rem;
+  padding-top: 2.5rem;
 }
-article#storage div.active label {
-  width: 70%;
+article#storage-wrap > div label {
+  width: 65%;
 }
-article#storage .active #toggle {
-  width: 100%;
+article#storage-wrap .active #toggle {
+  width: 90%;
 }
-article#storage #toggle svg #switch_ON,
-article#storage #toggle svg #switch_OFF {
+article#storage-wrap #toggle svg #switch_ON,
+article#storage-wrap #toggle svg #switch_OFF {
   cursor: pointer;
 }
-article#storage #toggle svg g {
+article#storage-wrap #toggle svg g {
   pointer-events: none;
 }
-article#storage #toggle svg #switch_ON,
-article#storage #toggle svg #switch_OFF {
+article#storage-wrap #toggle svg #switch_ON,
+article#storage-wrap #toggle svg #switch_OFF {
   transition: fill 300ms ease;
 }
-article#storage #toggle svg #shadow_ON,
-article#storage #toggle svg #shadow_OFF {
+article#storage-wrap #toggle svg #shadow_ON,
+article#storage-wrap #toggle svg #shadow_OFF {
   transition: opacity 300ms ease;
 }
-article#storage:not(.on) #toggle svg #switch_OFF {
+article#storage-wrap:not(.on) #toggle svg #switch_OFF {
   fill: #E5E5E5;
 }
-article#storage:not(.on) #toggle svg #shadow_ON {
+article#storage-wrap:not(.on) #toggle svg #shadow_ON {
   opacity: 0;
 }
-article#storage.on #toggle svg #switch_ON {
+article#storage-wrap.on #toggle svg #switch_ON {
   fill: #2AFD95;
 }
-article#storage.on #toggle svg #shadow_OFF {
+article#storage-wrap.on #toggle svg #shadow_OFF {
   opacity: 0;
 }
 
@@ -267,8 +282,8 @@ article#appliances-wrap .demand-lb {
 article#appliances-wrap #demand {
   position: relative;
   border: 1px solid white;
-  width: 25px;
-  height: calc(100% - 2px);
+  width: 2.5rem;
+  height: calc(100% - 3px);
   overflow-x: hidden;
 }
 article#appliances-wrap #demand span {
@@ -298,16 +313,11 @@ article#appliances-wrap #demand span {
   width: 55%;
   /*width: 400px;*/
   border-right: 1px solid;
-  box-shadow: -10px 0px 50px -15px;
-  box-shadow: inset -5px 0px 45px -10px;
+  box-shadow: -1rem 0px 5rem -1.5rem;
+  box-shadow: inset -.5rem 0px 4.5rem -1rem;
 }
 #appliances-wrap nav #power {
   width: 45%;
-}
-
-section#labels {
-  width: 100%;
-  margin-top: 40px;
 }
 
 @keyframes clock {
@@ -327,32 +337,32 @@ section#labels {
 
 @font-face{
     font-family:"UniversLTStd";
-    src:url("./assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix");
-    src:url("./assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix") format("eot"),url("./assets/fonts/1475948/db1e9a24-d371-4686-ba25-77b32a84e0db.woff2") format("woff2"),url("./assets/fonts/1475948/beca77d5-0862-440e-bddd-321e82d5422c.woff") format("woff"),url("./assets/fonts/1475948/a27ea012-0910-47ac-8294-40726e5a8fd3.ttf") format("truetype");
+    src:url("../assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix");
+    src:url("../assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix") format("eot"),url("../assets/fonts/1475948/db1e9a24-d371-4686-ba25-77b32a84e0db.woff2") format("woff2"),url("../assets/fonts/1475948/beca77d5-0862-440e-bddd-321e82d5422c.woff") format("woff"),url("../assets/fonts/1475948/a27ea012-0910-47ac-8294-40726e5a8fd3.ttf") format("truetype");
     font-weight: 100;
 }
 @font-face{
     font-family:"UniversLTStd-Light";
-    src:url("./assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix");
-    src:url("./assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix") format("eot"),url("./assets/fonts/1475948/db1e9a24-d371-4686-ba25-77b32a84e0db.woff2") format("woff2"),url("./assets/fonts/1475948/beca77d5-0862-440e-bddd-321e82d5422c.woff") format("woff"),url("./assets/fonts/1475948/a27ea012-0910-47ac-8294-40726e5a8fd3.ttf") format("truetype");
+    src:url("../assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix");
+    src:url("../assets/fonts/1475948/1215ed91-313a-4dda-99be-3acf61484452.eot?#iefix") format("eot"),url("../assets/fonts/1475948/db1e9a24-d371-4686-ba25-77b32a84e0db.woff2") format("woff2"),url("../assets/fonts/1475948/beca77d5-0862-440e-bddd-321e82d5422c.woff") format("woff"),url("../assets/fonts/1475948/a27ea012-0910-47ac-8294-40726e5a8fd3.ttf") format("truetype");
     font-weight: 100;
 }
 @font-face{
     font-family:"UniversLTStd";
-    src:url("./assets/fonts/1475960/18c81410-3496-4c82-aefd-df42506addc3.eot?#iefix");
-    src:url("./assets/fonts/1475960/18c81410-3496-4c82-aefd-df42506addc3.eot?#iefix") format("eot"),url("./assets/fonts/1475960/938b61cf-8b60-408a-a252-531fc37ebeb3.woff2") format("woff2"),url("./assets/fonts/1475960/df8a7a82-1b14-40c7-b6f8-7e2bac922b27.woff") format("woff"),url("./assets/fonts/1475960/c7989e6f-ecdd-41d3-bb56-4e3f087847e6.ttf") format("truetype");
+    src:url("../assets/fonts/1475960/18c81410-3496-4c82-aefd-df42506addc3.eot?#iefix");
+    src:url("../assets/fonts/1475960/18c81410-3496-4c82-aefd-df42506addc3.eot?#iefix") format("eot"),url("../assets/fonts/1475960/938b61cf-8b60-408a-a252-531fc37ebeb3.woff2") format("woff2"),url("../assets/fonts/1475960/df8a7a82-1b14-40c7-b6f8-7e2bac922b27.woff") format("woff"),url("../assets/fonts/1475960/c7989e6f-ecdd-41d3-bb56-4e3f087847e6.ttf") format("truetype");
     font-weight: 300;
 }
 @font-face{
     font-family:"UniversLTStd";
-    src:url("./assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix");
-    src:url("./assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix") format("eot"),url("./assets/fonts/1475972/73d8af9e-4b82-4953-81a5-8941aed30297.woff2") format("woff2"),url("./assets/fonts/1475972/19ff06fe-d0c5-4294-a237-a4c9b85312b8.woff") format("woff"),url("./assets/fonts/1475972/ff00799e-9823-48a0-a789-5f2d2e509fd7.ttf") format("truetype");
+    src:url("../assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix");
+    src:url("../assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix") format("eot"),url("../assets/fonts/1475972/73d8af9e-4b82-4953-81a5-8941aed30297.woff2") format("woff2"),url("../assets/fonts/1475972/19ff06fe-d0c5-4294-a237-a4c9b85312b8.woff") format("woff"),url("../assets/fonts/1475972/ff00799e-9823-48a0-a789-5f2d2e509fd7.ttf") format("truetype");
     font-weight: 500;
 }
 @font-face{
     font-family:"UniversLTStd-Bold";
-    src:url("./assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix");
-    src:url("./assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix") format("eot"),url("./assets/fonts/1475972/73d8af9e-4b82-4953-81a5-8941aed30297.woff2") format("woff2"),url("./assets/fonts/1475972/19ff06fe-d0c5-4294-a237-a4c9b85312b8.woff") format("woff"),url("./assets/fonts/1475972/ff00799e-9823-48a0-a789-5f2d2e509fd7.ttf") format("truetype");
+    src:url("../assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix");
+    src:url("../assets/fonts/1475972/1c24e174-d1d8-49de-98ac-09d77eccf0e7.eot?#iefix") format("eot"),url("../assets/fonts/1475972/73d8af9e-4b82-4953-81a5-8941aed30297.woff2") format("woff2"),url("../assets/fonts/1475972/19ff06fe-d0c5-4294-a237-a4c9b85312b8.woff") format("woff"),url("../assets/fonts/1475972/ff00799e-9823-48a0-a789-5f2d2e509fd7.ttf") format("truetype");
     font-weight: 500;
 }
 
@@ -387,12 +397,13 @@ section#labels {
   font-size: 40px;
 }
 
- #teamAreaChart text{
+#teamAreaChart text{
   font-family: 'UniversLTStd-Light';
   fill: #000;
   stroke-width: 0;
-  font-size: 8px;
+  font-size: 1.4rem;
   text-transform: uppercase;
+  font-weight: bold;
 }
 
 #teamAreaChart .axis path,
@@ -483,7 +494,7 @@ section#labels {
       justify-content: space-between;
   -ms-flex-align: center;
       align-items: center;
-  padding: 40px 15%;
+  padding: 4rem 15%;
   height: -webkit-fill-available;
   list-style: none;
 }
@@ -514,18 +525,18 @@ section#labels {
       justify-content: center;
   -ms-flex-align: center;
       align-items: center;
-  width: 125px;
-  height: 105px;
+  width: 12.5rem;
+  height: 10.5rem;
 }
 #placeholders .appliance,
 #power-strip .socket {
-  background: url('assets/socket.svg');
+  background: url('../../assets/socket.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 }
 #power-strip .socket {
-  background: url('assets/plug.svg');
+  background-image: url('../../assets/plug.svg');
 }
 #appliances .appliance,
 #placeholders .appliance {
@@ -573,10 +584,11 @@ section#labels {
 }
 #appliances .appliance.on svg g[id*="icon"] * {
   fill: #5738FF;
-  stroke: #5738FF;
+  stroke: none;
 }
 #appliances .appliance.on svg g#icon_brewing *  {
   fill: none;
+  stroke: #5738FF;
 }
 #appliances .appliance svg g#token path[fill="#C6C6C6"] {
   transition: fill 300ms ease-in-out;
@@ -606,10 +618,11 @@ section#labels {
   transform: rotate(-90deg);
   animation: bounce 2s infinite;
   position: relative;
+  width: 100%;
 }
 #power-strip .info {
-  -ms-flex: .4;
-      flex: .4;
+  -ms-flex: .6;
+      flex: .6;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
@@ -625,7 +638,7 @@ section#labels {
 }
 #power-strip li.on {
   color: #5738FF;
-  font-size: 20px;
+  font-size: 2rem;
 }
 #power-strip li.on .no-app {
   opacity: 0;
@@ -639,9 +652,393 @@ section#labels {
     left: 0;
   }
   40% {
-    left: -10px;
+    left: -1rem;
   }
   60% {
-    left: -15px;
+    left: -1.5rem;
+  }
+}
+
+.orientation-landscape main{
+  -ms-flex-direction: row-reverse;
+      flex-direction: row-reverse;
+  -ms-flex-pack: space-evenly;
+      justify-content: space-evenly;
+  padding: 2.5vh 0;
+  width: 100%;
+  height: calc(100% - 2.5vh);
+  -ms-flex: 0 1 auto;
+      flex: 0 1 auto;
+}
+#main-wrap{
+  width: 100%;
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-align: center;
+      align-items: center;
+}
+#ui-wrap{
+  width:100%;
+}
+.orientation-landscape #main-wrap{
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  -ms-flex-direction: row-reverse;
+      flex-direction: row-reverse;
+  -ms-flex-pack: space-evenly;
+      justify-content: space-evenly;
+}
+.orientation-landscape section#monitor article#monitor-chart svg{
+  height: 60%;
+}
+.orientation-landscape article#monitor-chart h2 span svg{
+  margin-right: .5rem;
+}
+.orientation-landscape h2 {
+  font-size: 2.4rem;
+  margin: 2.5rem;
+  margin-top: 0;
+  margin-left: 1vw;
+}
+.orientation-landscape #monitor{
+  width: 55%;
+  height: 95%;
+  -ms-flex: 0 1 auto;
+      flex: 0 1 auto;
+}
+.orientation-landscape section#ui-panel article#appliances-wrap {
+  width: 50vw;
+}
+.orientation-landscape #appliance-wrap,
+.orientation-landscape section#ui-panel article{
+  height: 43vh;
+}
+.orientation-landscape #ui-wrap{
+  width: 40%;
+  height: 95%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+}
+.orientation-landscape section#ui-panel #appliances-wrap nav #bucket{
+  width: 55%;
+}
+.orientation-landscape section#ui-panel #appliances-wrap nav #power {
+  width: 52%;
+  height: 100%;
+}
+.orientation-landscape section#ui-panel #appliances-wrap #power-strip li{
+  width: 90%;
+  -ms-flex: 1;
+      flex: 1;
+}
+.orientation-landscape section#ui-panel #appliances-wrap #power-strip li.on{
+  font-size: 1.7rem;
+}
+#simulation-landscape {
+  display: none;
+}
+.orientation-landscape #simulation-landscape{
+  display: -ms-flexbox;
+  display: flex;
+  background: white;
+  padding: 4vh 0 4vh 2.5vw;
+  height: 37vh;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -ms-flex-align: center;
+      align-items: center;
+}
+.orientation-landscape #storage-landscape{
+  width: 100%;
+  height: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex: 1;
+      flex: 1;
+}
+.orientation-landscape #storage-landscape .active{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  height: 100%;
+  width: 100%;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-align: start;
+      align-items: flex-start;
+}
+.orientation-landscape #storage-landscape .active label{
+  width: 100%;
+  height: auto;
+}
+.orientation-landscape #storage-landscape .active #toggle{
+  width: 100%;
+  height: auto;
+  position: relative;
+  left: -13%;
+  bottom: -7%;
+}
+.orientation-landscape #ui-panel{
+  -ms-flex: initial;
+      flex: initial;
+  margin: 0;
+}
+.orientation-landscape #grid-wrap,
+.orientation-landscape #storage-wrap{
+  display: none;
+}
+.orientation-landscape #appliances .appliance,
+.orientation-landscape #placeholders .appliance,
+.orientation-landscape #power-strip .socket{
+  width: 7.5rem;
+  height: 6.2rem;
+}
+.orientation-landscape #appliances,
+.orientation-landscape #placeholders{
+  padding: 2rem 15%;
+}
+
+/* STORAGE TOGGLE */
+.orientation-landscape #storage-landscape #toggle svg #switch_ON,
+.orientation-landscape #storage-landscape #toggle svg #switch_OFF {
+  cursor: pointer;
+}
+.orientation-landscape #storage-landscape #toggle svg g,
+.orientation-landscape #storage-landscape #toggle svg text {
+  pointer-events: none;
+}
+.orientation-landscape #storage-landscape #toggle svg #switch_ON,
+.orientation-landscape #storage-landscape #toggle svg #switch_OFF {
+  transition: fill 300ms ease;
+}
+.orientation-landscape #storage-landscape #toggle svg #shadow_ON,
+.orientation-landscape #storage-landscape #toggle svg #shadow_OFF {
+  transition: opacity 300ms ease;
+}
+.orientation-landscape #storage-landscape:not(.on) #toggle svg #switch_OFF {
+  fill: #E5E5E5;
+}
+.orientation-landscape #storage-landscape:not(.on) #toggle svg #shadow_ON {
+  opacity: 0;
+}
+.orientation-landscape #storage-landscape.on #toggle svg #switch_ON {
+  fill: #2AFD95;
+}
+.orientation-landscape #storage-landscape.on #toggle svg #shadow_OFF {
+  opacity: 0;
+}
+/* GRID SCHEMA */
+.orientation-landscape #grid-landscape {
+  width: 100%;
+  height: auto;
+  background: transparent;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  position: relative;
+  left: .7vw;
+}
+.orientation-landscape #grid-landscape svg {
+  width: 95%;
+  -ms-flex: 0.75;
+      flex: 0.75;
+}
+.orientation-landscape #grid-landscape svg #alert,
+.orientation-landscape #grid-landscape svg #storage {
+  transition: opacity .5s ease;
+}
+.orientation-landscape #grid-landscape svg g#copy_storage > g {
+  opacity: 0;
+}
+.orientation-landscape #grid-landscape svg g#storage > g {
+  opacity: 0;
+}
+.orientation-landscape #grid-landscape svg g#copy_storage g.visible,
+.orientation-landscape #grid-landscape svg g#storage g.visible {
+  opacity: 1;
+}
+
+.orientation-landscape #grid-landscape svg [id*="arrow"] {
+  opacity: .3;
+  transition: opacity .5s ease;
+}
+.orientation-landscape #grid-landscape svg [id*="arrow"].animate {
+  opacity: 1;
+  animation: dasharrow-inv 20s linear infinite;
+}
+.orientation-landscape #grid-landscape svg [id*="arrow"].animate.fast {
+  animation-duration: 10s;
+}
+.orientation-landscape #grid-landscape svg [id*="arrow"].animate.reverse {
+  animation: dasharrow 20s linear infinite;
+}
+
+/*
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1600px) {
+  .orientation-landscape #appliances .appliance,
+  .orientation-landscape #placeholders .appliance,
+  .orientation-landscape #power-strip .socket{
+    width: 8.5rem;
+    height: 7.2rem;
+  }
+  .orientation-landscape #storage-landscape .active #toggle{
+    width: 130%;
+  }
+  .orientation-landscape #appliances .appliance,
+  .orientation-landscape #placeholders .appliance,
+  .orientation-landscape #power-strip .socket{
+    width: 9.7rem;
+    height: 8.2rem;
+  }
+  .orientation-landscape #appliances,
+  .orientation-landscape #placeholders{
+    padding: 0rem 15%;
+  }
+  .orientation-landscape #grid-landscape {
+    left: 2vw;
+  }
+}
+
+/*
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+
+}
+
+/*
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  html,body {
+    font-size: 7px;
+  }
+  main {
+    padding: 2vh;
+  }
+  article#monitor-chart h2 {
+    margin-bottom: 0;
+  }
+  article#monitor-chart h2 span svg {
+    width: 4rem;
+  }
+  article#grid svg,
+  article#storage > div label svg,
+  article#storage .active #toggle svg {
+    width: 80%;
+  }
+  section#ui-panel article {
+    height: 30vh;
+  }
+  article#grid-wrap{
+    padding: 0;
+  }
+  article#grid-wrap svg{
+    width: 80%;
+  }
+  #appliances .appliance,
+  #placeholders .appliance,
+  #power-strip .socket{
+    width: 10rem;
+    height: 8.5rem;
+  }
+  article#storage-wrap .active #toggle{
+    width: 70%;
+  }
+  #power-strip .info h4{
+    font-size: 1.6rem;
+  }
+}
+
+/*
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .orientation-landscape h2{
+    font-size: 2.7rem;
+    line-height: 2.8rem;
+  }
+  .orientation-landscape #appliance-wrap,
+  .orientation-landscape section#ui-panel article{
+    height: 40vh;
+  }
+  .orientation-landscape #simulation-landscape{
+    height: 30vh;
+    padding-left: 1.5vw;
+  }
+  .orientation-landscape #storage-landscape .active{
+    font-size: 2rem;
+  }
+  .orientation-landscape #storage-landscape .active #toggle{
+    width: 100%;
+  }
+  .orientation-landscape #grid-landscape {
+    left: 0.2vw;
+  }
+  .orientation-landscape #grid-landscape svg {
+    -ms-flex: .975;
+        flex: .975;
+  }
+  .orientation-landscape #appliances .appliance,
+  .orientation-landscape #placeholders .appliance,
+  .orientation-landscape #power-strip .socket{
+    width: 9.7rem;
+    height: 8.2rem;
+  }
+  .orientation-landscape #appliances,
+  .orientation-landscape #placeholders{
+    padding: 0rem 10.5%;
+  }
+  #teamAreaChart text{
+    font-family: 'UniversLTStd';
+    font-size: 1.6rem;
+    font-weight: 300;
+  }
+}
+
+/*
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+  html,body {
+    font-size: 5px;
+  }
+}
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  html,body {
+    font-size: 3px;
   }
 }
