@@ -3,13 +3,16 @@ body {
   width: 100%;
   height: 100%;
   font-size: 10px;
+  background: linear-gradient(180deg, #461E7D, 30%, #461E7D, 70%, #5738FF);
+  overflow: hidden;
 }
 
-* {
+*,
+svg, svg * {
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
@@ -506,8 +509,8 @@ article#appliances-wrap #demand span {
   display: flex;
   -ms-flex-direction: column;
       flex-direction: column;
-  -ms-flex-pack: space-evenly;
-      justify-content: space-evenly;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -ms-flex-align: center;
       align-items: center;
   width: 100%;
@@ -530,13 +533,13 @@ article#appliances-wrap #demand span {
 }
 #placeholders .appliance,
 #power-strip .socket {
-  background: url('../../assets/socket.svg');
+  background: url('./assets/socket.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 }
 #power-strip .socket {
-  background-image: url('../../assets/plug.svg');
+  background-image: url('./assets/plug.svg');
 }
 #appliances .appliance,
 #placeholders .appliance {
@@ -604,8 +607,8 @@ article#appliances-wrap #demand span {
   position: relative;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: space-evenly;
-      justify-content: space-evenly;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -ms-flex-align: center;
       align-items: center;
 }
@@ -664,9 +667,10 @@ article#appliances-wrap #demand span {
       flex-direction: row-reverse;
   -ms-flex-pack: space-evenly;
       justify-content: space-evenly;
-  padding: 2.5vh 0;
+  padding: 2vh 0;
+  padding-top: 2.5vh;
   width: 100%;
-  height: calc(100% - 2.5vh);
+  height: 100%;
   -ms-flex: 0 1 auto;
       flex: 0 1 auto;
 }
@@ -690,8 +694,10 @@ article#appliances-wrap #demand span {
   height: 100%;
   -ms-flex-direction: row-reverse;
       flex-direction: row-reverse;
-  -ms-flex-pack: space-evenly;
-      justify-content: space-evenly;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-align: start;
+      align-items: flex-start;
 }
 .orientation-landscape section#monitor article#monitor-chart svg{
   height: 60%;
@@ -939,6 +945,11 @@ article#appliances-wrap #demand span {
   main {
     padding: 2vh;
   }
+  #main-wrap{
+    height: 100%;
+    -ms-flex: 1;
+        flex: 1;
+  }
   article#monitor-chart h2 {
     margin-bottom: 0;
   }
@@ -958,6 +969,12 @@ article#appliances-wrap #demand span {
   }
   article#grid-wrap svg{
     width: 80%;
+  }
+  #appliances-wrap nav #power{
+    height: 100%;
+  }
+  #power-strip li{
+    width: 90%;
   }
   #appliances .appliance,
   #placeholders .appliance,
@@ -998,11 +1015,11 @@ article#appliances-wrap #demand span {
     width: 100%;
   }
   .orientation-landscape #grid-landscape {
-    left: 0.2vw;
+    left: 0.5vw;
   }
   .orientation-landscape #grid-landscape svg {
-    -ms-flex: .975;
-        flex: .975;
+    -ms-flex: .92;
+        flex: .92;
   }
   .orientation-landscape #appliances .appliance,
   .orientation-landscape #placeholders .appliance,
@@ -1010,14 +1027,41 @@ article#appliances-wrap #demand span {
     width: 9.7rem;
     height: 8.2rem;
   }
+  #power-strip .no-app {
+    -ms-flex: .15;
+        flex: .15;
+  }
   .orientation-landscape #appliances,
   .orientation-landscape #placeholders{
     padding: 0rem 10.5%;
   }
   #teamAreaChart text{
     font-family: 'UniversLTStd';
-    font-size: 1.6rem;
+    font-size: 1.65rem;
     font-weight: 300;
+  }
+}
+
+/* iPad safari*/
+@media only screen and (min-height: 700px) and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .orientation-landscape article#monitor-chart h2{
+    line-height: 4rem;
+  }
+  .orientation-landscape article#monitor-chart h2 span svg{
+    margin-right: 1.5rem;
+  }
+  .orientation-landscape #power-strip .socket{
+    margin: 0 5%;
+  }
+  article#appliances-wrap #demand{
+    width: 3rem;
+  }
+  .orientation-landscape #appliance-wrap,
+  .orientation-landscape section#ui-panel article{
+    height: 45vh;
+  }
+  .orientation-landscape #simulation-landscape{
+    height: 35vh;
   }
 }
 

@@ -299,6 +299,10 @@
   $(window).keydown(function(e) {
     $(window).trigger('customEv', e.key)
   })
+  // prevent tablet/mobile device bounce effect
+  document.ontouchmove = function(event){
+    event.preventDefault();
+  }
 
   window.APP = {
     select: selectApp,

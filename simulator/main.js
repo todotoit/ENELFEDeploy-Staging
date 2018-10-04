@@ -110,14 +110,18 @@
   function init(data, max) {
     if (_.isEmpty(data)) return console.error('data is empty')
 
+    var tabMq = "(min-width: 768px) and (max-width: 1024px) and (orientation: landscape)"
+    var mqP = window.matchMedia(tabMq).matches ? 6 : 5
+    var mqPright = window.matchMedia(tabMq).matches ? 12 : 10
+
     // -------- INITIALIZE CHART ---------
     svg = $(svgContainer).append(tpl).find('svg#teamAreaChart')
     w = svg.width() // +box[2] // width
     h = svg.height() // +box[3] // height
     svg.attr('viewBox','0 0 '+w+' '+h)
     h += 20
-    p = w*6/100        // padding
-    pright = w*11/100   // padding right
+    p = w*mqP/100        // padding
+    pright = w*mqPright/100   // padding right
     wright = w-pright
     svg = d3.select(svg.get(0))
     // create areas gradient fill
@@ -915,6 +919,10 @@ function init() {
   $(window).keydown(function(e) {
     $(window).trigger('customEv', e.key)
   })
+  // prevent tablet/mobile device bounce effect
+  document.ontouchmove = function(event){
+    event.preventDefault();
+  }
 
   window.APP = {
     select: selectApp,

@@ -1327,13 +1327,16 @@ body {
   width: 100%;
   height: 100%;
   font-size: 10px;
+  background: linear-gradient(180deg, #461E7D, 30%, #461E7D, 70%, #5738FF);
+  overflow: hidden;
 }
 
-* {
+*,
+svg, svg * {
+  -moz-user-select: none;
+   -ms-user-select: none;
+       user-select: none;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
@@ -1830,8 +1833,8 @@ article#appliances-wrap #demand span {
   display: flex;
   -ms-flex-direction: column;
       flex-direction: column;
-  -ms-flex-pack: space-evenly;
-      justify-content: space-evenly;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -ms-flex-align: center;
       align-items: center;
   width: 100%;
@@ -1854,13 +1857,13 @@ article#appliances-wrap #demand span {
 }
 #placeholders .appliance,
 #power-strip .socket {
-  background: url('../../assets/socket.svg');
+  background: url('assets/socket.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 }
 #power-strip .socket {
-  background-image: url('../../assets/plug.svg');
+  background-image: url('assets/plug.svg');
 }
 #appliances .appliance,
 #placeholders .appliance {
@@ -1928,8 +1931,8 @@ article#appliances-wrap #demand span {
   position: relative;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: space-evenly;
-      justify-content: space-evenly;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -ms-flex-align: center;
       align-items: center;
 }
@@ -1988,9 +1991,10 @@ article#appliances-wrap #demand span {
       flex-direction: row-reverse;
   -ms-flex-pack: space-evenly;
       justify-content: space-evenly;
-  padding: 2.5vh 0;
+  padding: 2vh 0;
+  padding-top: 2.5vh;
   width: 100%;
-  height: calc(100% - 2.5vh);
+  height: 100%;
   -ms-flex: 0 1 auto;
       flex: 0 1 auto;
 }
@@ -2014,8 +2018,10 @@ article#appliances-wrap #demand span {
   height: 100%;
   -ms-flex-direction: row-reverse;
       flex-direction: row-reverse;
-  -ms-flex-pack: space-evenly;
-      justify-content: space-evenly;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-align: start;
+      align-items: flex-start;
 }
 .orientation-landscape section#monitor article#monitor-chart svg{
   height: 60%;
@@ -2263,6 +2269,11 @@ article#appliances-wrap #demand span {
   main {
     padding: 2vh;
   }
+  #main-wrap{
+    height: 100%;
+    -ms-flex: 1;
+        flex: 1;
+  }
   article#monitor-chart h2 {
     margin-bottom: 0;
   }
@@ -2282,6 +2293,12 @@ article#appliances-wrap #demand span {
   }
   article#grid-wrap svg{
     width: 80%;
+  }
+  #appliances-wrap nav #power{
+    height: 100%;
+  }
+  #power-strip li{
+    width: 90%;
   }
   #appliances .appliance,
   #placeholders .appliance,
@@ -2322,11 +2339,11 @@ article#appliances-wrap #demand span {
     width: 100%;
   }
   .orientation-landscape #grid-landscape {
-    left: 0.2vw;
+    left: 0.5vw;
   }
   .orientation-landscape #grid-landscape svg {
-    -ms-flex: .975;
-        flex: .975;
+    -ms-flex: .92;
+        flex: .92;
   }
   .orientation-landscape #appliances .appliance,
   .orientation-landscape #placeholders .appliance,
@@ -2334,14 +2351,41 @@ article#appliances-wrap #demand span {
     width: 9.7rem;
     height: 8.2rem;
   }
+  #power-strip .no-app {
+    -ms-flex: .15;
+        flex: .15;
+  }
   .orientation-landscape #appliances,
   .orientation-landscape #placeholders{
     padding: 0rem 10.5%;
   }
   #teamAreaChart text{
     font-family: 'UniversLTStd';
-    font-size: 1.6rem;
+    font-size: 1.65rem;
     font-weight: 300;
+  }
+}
+
+/* iPad safari*/
+@media only screen and (min-height: 700px) and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .orientation-landscape article#monitor-chart h2{
+    line-height: 4rem;
+  }
+  .orientation-landscape article#monitor-chart h2 span svg{
+    margin-right: 1.5rem;
+  }
+  .orientation-landscape #power-strip .socket{
+    margin: 0 5%;
+  }
+  article#appliances-wrap #demand{
+    width: 3rem;
+  }
+  .orientation-landscape #appliance-wrap,
+  .orientation-landscape section#ui-panel article{
+    height: 45vh;
+  }
+  .orientation-landscape #simulation-landscape{
+    height: 35vh;
   }
 }
 
@@ -2818,7 +2862,7 @@ Wq+/VcmQE5OHGavr+FytfvJEGPpYCvk6QSpSMh5I04M8vwf5YrJsHosPB//7ASJl3aaPE5uPAJ40
 2CWc7N1xcaG/ZfTRUeP/4W9ZjRo1atSoUaNGjRo1atSoUaNGjRo1atSoUaNGjRo1atSoUaNGjRo1
 atSoUaPGf078jwADAD2mJxEaRROeAAAAAElFTkSuQmCC" transform="matrix(1 0 0 1 90 -6)"></image></g><path id="switch_ON" fill="#FFFFFF" stroke="#DDDDDD" stroke-width="2" stroke-miterlimit="10" d="M126.5,152.5V269
 	c0,4.4-3.5,7.9-7.9,7.9H31.4c-4.4,0-7.9-3.5-7.9-7.9V152.5H126.5z"/><path id="switch_OFF" fill="#FFFFFF" stroke="#DDDDDD" stroke-width="2" stroke-miterlimit="10" d="M23.5,152.5V36
-	c0-4.4,3.5-7.9,7.9-7.9h87.2c4.4,0,7.9,3.5,7.9,7.9v116.5H23.5z"/><g><text transform="matrix(1 0 0 1 55.711 97.4723)" fill="#706F6B" font-family="'UniversLTStd-Light'" font-size="20px">OFF</text></g><g><text transform="matrix(1 0 0 1 59.8008 222.4725)" fill="#706F6B" font-family="'UniversLTStd-Light'" font-size="20px">ON</text></g></svg></span></div></div><div id="grid-landscape"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508.62 368.19"><title>grid_diagram(1)</title><polyline points="177.59 47.15 177.59 33.15 165.69 33.15 165.69 53.15 189.59 53.15 189.59 23.25 195.59 23.25 195.59 21.25 187.59 14.55 187.59 3.25 179.59 3.25 179.59 7.25 171.69 1.25 147.69 21.25 147.69 23.25 153.69 23.25 153.69 53.15 159.69 53.15" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><text transform="translate(210.07 36.75) scale(1.02 1)" font-size="22" fill="#706f6b" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">Building</text><g id="grid"><polyline points="18.59 257.75 16.79 242.05 29.39 242.05 33.39 273.65 20.49 273.65 24.19 293.95 2.09 264.35 19.59 264.35" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><g style="isolation:isolate"><text transform="translate(0 332.69) scale(1.02 1)" font-size="22" fill="#706f6b" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">G</text><text transform="translate(17.46 332.69) scale(1.02 1)" font-size="22" fill="#706f6b" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.04em" style="isolation:isolate">r</text><text transform="translate(25.29 332.69) scale(1.02 1)" font-size="22" fill="#706f6b" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">id</text></g></g><g id="storage"><g id="storageOUT"><g style="isolation:isolate"><text transform="translate(378.94 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">S</text><text transform="translate(393.9 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">t</text><text transform="translate(402.19 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">o</text><text transform="translate(415.9 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">r</text><text transform="translate(424.18 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">a</text><text transform="translate(436.65 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">g</text><text transform="translate(449.92 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">e</text></g><text transform="translate(378.94 362.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd, Univers LT Std" style="isolation:isolate">Energy OUT</text><path d="M426.59,281.55V294h-25.7V248.1h6.5v-3a4.08,4.08,0,0,1,3.84-4.29h6.83a2,2,0,0,1,2.1,1.89v.41" transform="translate(0)" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><polyline points="417.99 248.05 426.59 247.95 426.59 261.25" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><polyline points="434.19 264.35 441.19 271.45 434.19 278.45" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><line x1="441.19" y1="271.45" x2="412.69" y2="271.45" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/></g><g id="storageOFF"><g style="isolation:isolate"><text transform="translate(378.94 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">S</text><text transform="translate(393.9 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">t</text><text transform="translate(402.19 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">o</text><text transform="translate(415.9 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">r</text><text transform="translate(424.18 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">a</text><text transform="translate(436.65 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">g</text><text transform="translate(449.92 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">e</text></g><text transform="translate(378.94 362.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd, Univers LT Std" style="isolation:isolate">OFF</text><path d="M426.59,261.25v32.6h-25.7V248h6.5v-3a4.08,4.08,0,0,1,3.84-4.29h6.83a2,2,0,0,1,2.1,1.89v.4" transform="translate(0)" fill="none" stroke="#c6c6c6" stroke-linejoin="round" stroke-width="2.5"/><polyline points="417.99 248.05 426.59 247.95 426.59 261.25" fill="none" stroke="#c6c6c6" stroke-linejoin="round" stroke-width="2.5"/></g><g id="storageIN"><g style="isolation:isolate"><text transform="translate(378.94 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">S</text><text transform="translate(393.9 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">t</text><text transform="translate(402.19 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">o</text><text transform="translate(415.9 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">r</text><text transform="translate(424.18 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">a</text><text transform="translate(436.65 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">g</text><text transform="translate(449.92 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">e</text></g><text transform="translate(378.94 362.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd, Univers LT Std" style="isolation:isolate">Energy IN</text><path d="M400.89,281.55V294h25.7V248.1h-6.53v-3a4.08,4.08,0,0,0-3.84-4.29h-6.86a2,2,0,0,0-2.1,1.89v.41" transform="translate(0)" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><polyline points="409.49 248.05 400.89 247.95 400.89 261.25" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><polyline points="407.79 278.45 414.89 271.45 407.79 264.35" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><line x1="386.29" y1="271.45" x2="414.89" y2="271.45" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/></g></g><g id="copy_storage" data-name="copy storage"><g id="copy_storageOUT" data-name="copy storageOUT"><text transform="translate(113.78 86.69)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate"><tspan letter-spacing="-0.02em">T</tspan><tspan x="11.88" y="0">he Energy Storage is</tspan><tspan x="24.41" y="26.6">supplying energy</tspan><tspan x="13.53" y="53.21">to</tspan><tspan x="39.41" y="53.21" letter-spacing="-0.02em">y</tspan><tspan x="50.05" y="53.21" letter-spacing="0em">our house hold,</tspan><tspan x="-10.49" y="79.81">sh</tspan><tspan x="12.92" y="79.81" letter-spacing="-0.02em">a</tspan><tspan x="23.57" y="79.81">ving a peak demand.</tspan></text><text style="isolation:isolate"></text></g><g id="copy_storageOFF" data-name="copy storageOFF"><rect x="53.12" y="71.08" width="337.94" height="49.48" fill="none"/><text transform="translate(117.17 87.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate"><tspan letter-spacing="-0.02em">T</tspan><tspan x="11.88" y="0">he Energy Storage is</tspan><tspan x="11" y="26.6">cu</tspan><tspan x="34.41" y="26.6" letter-spacing="-0.01em">r</tspan><tspan x="41.57" y="26.6">rently not part of</tspan><tspan x="35.52" y="53.21">the simulation.</tspan></text><text style="isolation:isolate"></text></g><g id="warning_storageOFF" data-name="warning storageOFF"><rect x="66.66" y="224.15" width="310.75" height="52.51" fill="none"/><text transform="translate(111.66 235.14)" font-size="15.17" fill="#ff006e" font-family="UniversLTStd-Light, Univers LT Std" letter-spacing="-0.13em" style="isolation:isolate">Y</text><text transform="translate(111.45 235.14)" font-size="15.17" fill="#ff006e" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate"><tspan letter-spacing="-0.13em">Y</tspan><tspan x="7.22" y="0">our energy demand is too high!</tspan><tspan x="-8.87" y="18.2" letter-spacing="-0.01em">O</tspan><tspan x="2.71" y="18.2" letter-spacing="-0.02em">v</tspan><tspan x="9.99" y="18.2">erloads of this kind</tspan><tspan x="141.5" y="18.2" letter-spacing="-0.02em">ov</tspan><tspan x="156.91" y="18.2">er a whole</tspan><tspan x="22.14" y="36.41">blo</tspan><tspan x="42.38" y="36.41" letter-spacing="-0.05em">c</tspan><tspan x="49.2" y="36.41" letter-spacing="0em">kmight stress the grid</tspan><tspan x="23.97" y="54.61">to the point of a bla</tspan><tspan x="154.64" y="54.61" letter-spacing="-0.05em">c</tspan><tspan x="161.47" y="54.61" letter-spacing="-0.02em">k</tspan><tspan x="168.75" y="54.61">out.</tspan></text><path d="M157.21,203.38l-.7-.35,7.93-13.65a2.72,2.72,0,0,1,2.34-1.29,2.86,2.86,0,0,1,2.33,1.29L177.06,203a3,3,0,0,1,.35,1.28,2.64,2.64,0,0,1-2.59,2.69H159a2.71,2.71,0,0,1-2.68-2.69,2.31,2.31,0,0,1,.35-1.28l.58.35.7.35a1,1,0,0,0-.12.47,1,1,0,0,0,1,1.05H174.6a1,1,0,0,0,1.05-.95v-.1a.77.77,0,0,0-.12-.47l-7.94-13.65a1.6,1.6,0,0,0-.93-.59,1,1,0,0,0-.93.59l-7.94,13.65Z" transform="translate(0)" fill="#ff0f5d"/><text transform="translate(164.34 203.14)" font-size="12.73" fill="#ff0f5d" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">!</text><text transform="translate(193.06 206.9) scale(1.02 1)" font-size="18.67" fill="#ff006e" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.07em" style="isolation:isolate">W</text><text transform="translate(210.68 206.9) scale(1.02 1)" font-size="18.67" fill="#ff006e" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">ARNING</text></g><g id="copy_storageIN" data-name="copy storageIN"><rect x="53.12" y="71.08" width="337.94" height="76.9" fill="none"/><text transform="translate(82.01 87.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate"><tspan letter-spacing="-0.04em">T</tspan><tspan x="11.44" y="0">he Storage is n</tspan><tspan x="159.29" y="0" letter-spacing="-0.02em">o</tspan><tspan x="171.17" y="0">w</tspan><tspan x="195.8" y="0" letter-spacing="-0.05em">c</tspan><tspan x="205.78" y="0" letter-spacing="0em">hargin</tspan><tspan x="266.15" y="0" letter-spacing="0.02em">g</tspan><tspan x="278.92" y="0">,</tspan><tspan x="-5.92" y="26.6">receiving energy from the grid</tspan><tspan x="19.78" y="53.21">while the demand is l</tspan><tspan x="230.46" y="53.21" letter-spacing="-0.02em">o</tspan><tspan x="242.34" y="53.21" letter-spacing="-0.08em">w</tspan><tspan x="259.14" y="53.21" letter-spacing="0em">.</tspan></text><text style="isolation:isolate"></text><text style="isolation:isolate"></text></g></g><path id="arrow_GtoB" d="M118.79,32H85c-38.8,0-60.2,28.4-60.2,67.2v123" transform="translate(0)" fill="none" stroke="#706f6b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.03" stroke-dasharray="0 11.38"/><path id="arrow_StoB" d="M324.06,32h28.6c38.8,0,60.2,21.4,60.2,60.2V218.8" transform="translate(0)" fill="none" stroke="#706f6b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.03" stroke-dasharray="0 11.38"/></svg></div></section></div></div></main><script>if (typeof module === 'object') { window.module = module; module = undefined }</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	c0-4.4,3.5-7.9,7.9-7.9h87.2c4.4,0,7.9,3.5,7.9,7.9v116.5H23.5z"/><g><text transform="matrix(1 0 0 1 55.711 97.4723)" fill="#706F6B" font-family="'UniversLTStd-Light'" font-size="20px">OFF</text></g><g><text transform="matrix(1 0 0 1 59.8008 222.4725)" fill="#706F6B" font-family="'UniversLTStd-Light'" font-size="20px">ON</text></g></svg></span></div></div><div id="grid-landscape"><svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 508.62 368.19"><title>grid_diagram(1)</title><polyline points="187.59 47.15 187.59 33.15 175.69 33.15 175.69 53.15 199.59 53.15 199.59 23.25 205.59 23.25 205.59 21.25 197.59 14.55 197.59 3.25 189.59 3.25 189.59 7.25 181.69 1.25 157.69 21.25 157.69 23.25 163.69 23.25 163.69 53.15 169.69 53.15" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><text transform="translate(220.07 36.75) scale(1.02 1)" font-size="22" fill="#706f6b" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">Building</text><g id="grid"><polyline points="28.59 257.75 26.79 242.05 39.39 242.05 43.39 273.65 30.49 273.65 34.19 293.95 12.09 264.35 29.59 264.35" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><g style="isolation:isolate"><text transform="translate(9 332.69) scale(1.02 1)" font-size="22" fill="#706f6b" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">G</text><text transform="translate(26.46 332.69) scale(1.02 1)" font-size="22" fill="#706f6b" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.04em" style="isolation:isolate">r</text><text transform="translate(34.29 332.69) scale(1.02 1)" font-size="22" fill="#706f6b" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">id</text></g></g><g id="storage"><g id="storageOUT"><g style="isolation:isolate"><text transform="translate(388.94 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">S</text><text transform="translate(403.9 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">t</text><text transform="translate(412.19 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">o</text><text transform="translate(425.89 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">r</text><text transform="translate(434.18 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">a</text><text transform="translate(446.65 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">g</text><text transform="translate(459.92 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">e</text></g><text transform="translate(366.94 362.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd, Univers LT Std" style="isolation:isolate">Energy OUT</text><path d="M436.59,281.55V294h-25.7V248.1h6.5v-3a4.08,4.08,0,0,1,3.84-4.29h6.83a2,2,0,0,1,2.1,1.89v.41" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><polyline points="427.99 248.05 436.59 247.95 436.59 261.25" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><polyline points="444.19 264.35 451.19 271.45 444.19 278.45" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><line x1="451.19" y1="271.45" x2="422.69" y2="271.45" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/></g><g id="storageOFF"><g style="isolation:isolate"><text transform="translate(382.94 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">S</text><text transform="translate(397.9 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">t</text><text transform="translate(406.19 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">o</text><text transform="translate(419.89 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">r</text><text transform="translate(428.18 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">a</text><text transform="translate(440.65 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">g</text><text transform="translate(453.92 332.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">e</text></g><text transform="translate(401.94 362.69) scale(1.02 1)" font-size="22" fill="#c6c6c6" font-family="UniversLTStd, Univers LT Std" style="isolation:isolate">OFF</text><path d="M436.59,261.25v32.6h-25.7V248h6.5v-3a4.08,4.08,0,0,1,3.84-4.29h6.83a2,2,0,0,1,2.1,1.89v.4" fill="none" stroke="#c6c6c6" stroke-linejoin="round" stroke-width="2.5"/><polyline points="427.99 248.05 436.59 247.95 436.59 261.25" fill="none" stroke="#c6c6c6" stroke-linejoin="round" stroke-width="2.5"/></g><g id="storageIN"><g style="isolation:isolate"><text transform="translate(382.94 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">S</text><text transform="translate(397.9 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">t</text><text transform="translate(406.19 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">o</text><text transform="translate(419.89 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">r</text><text transform="translate(428.18 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">a</text><text transform="translate(440.65 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" letter-spacing="-0.02em" style="isolation:isolate">g</text><text transform="translate(453.92 332.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">e</text></g><text transform="translate(373.94 362.69) scale(1.02 1)" font-size="22" fill="#20b767" font-family="UniversLTStd, Univers LT Std" style="isolation:isolate">Energy IN</text><path d="M410.89,281.55V294h25.7V248.1h-6.53v-3a4.08,4.08,0,0,0-3.84-4.29h-6.86a2,2,0,0,0-2.1,1.89v.41" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><polyline points="419.49 248.05 410.89 247.95 410.89 261.25" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><polyline points="417.79 278.45 424.89 271.45 417.79 264.35" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/><line x1="396.29" y1="271.45" x2="424.89" y2="271.45" fill="none" stroke="#706f6b" stroke-linejoin="round" stroke-width="2.5"/></g></g><g id="copy_storage" data-name="copy storage"><g id="copy_storageOUT" data-name="copy storageOUT"><rect x="63.12" y="81.08" width="337.94" height="76.9" fill="none"/><text transform="translate(68.77 97.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" letter-spacing="-0.02em" style="isolation:isolate">T</text><text transform="translate(80.65 97.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">he Energy Storage is supplying</text><text transform="translate(99.35 123.73)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">energy to</text><text transform="translate(199.16 123.73)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" letter-spacing="-0.02em" style="isolation:isolate">y</text><text transform="translate(209.81 123.73)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">our household,</text><text transform="translate(109.73 150.33)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">sh</text><text transform="translate(133.14 150.33)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" letter-spacing="-0.02em" style="isolation:isolate">a</text><text transform="translate(143.78 150.33)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">ving a peak demand.</text></g><g id="copy_storageOFF" data-name="copy storageOFF"><rect x="63.12" y="71.08" width="337.94" height="49.48" fill="none"/><text transform="translate(126.17 97.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate"><tspan letter-spacing="-0.02em">T</tspan><tspan x="11.88" y="0">he Energy Storage is</tspan><tspan x="-21.77" y="26.6">not part of the simulation.</tspan></text></g><g id="warning_storageOFF" data-name="warning storageOFF"><text transform="translate(128.59 208.14)" font-size="18" fill="#ff006e" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">Blo<tspan x="26.01" y="0" letter-spacing="-0.05em">c</tspan><tspan x="34.11" y="0">k-wide</tspan><tspan x="92.12" y="0" letter-spacing="-0.02em">ov</tspan><tspan x="110.41" y="0" letter-spacing="0em">erloads of this</tspan><tspan x="9.69" y="24">kind might stress the grid</tspan><tspan x="26.32" y="48">and cause a bla</tspan><tspan x="149.36" y="48" letter-spacing="-0.05em">c</tspan><tspan x="157.46" y="48" letter-spacing="-0.02em">k</tspan><tspan x="166.1" y="48">out.</tspan></text><path d="M165.21,174.38l-.7-.35,7.93-13.65a2.72,2.72,0,0,1,2.34-1.29,2.86,2.86,0,0,1,2.33,1.29L185.06,174a3,3,0,0,1,.35,1.28,2.64,2.64,0,0,1-2.59,2.69H167a2.71,2.71,0,0,1-2.68-2.69,2.31,2.31,0,0,1,.35-1.28l.58.35.7.35a1,1,0,0,0-.12.47,1,1,0,0,0,1,1.05H182.6a1,1,0,0,0,1.05-.95v-.1a.77.77,0,0,0-.12-.47l-7.94-13.65a1.6,1.6,0,0,0-.93-.59,1,1,0,0,0-.93.59l-7.94,13.65Z" fill="#ff0f5d"/><text transform="translate(172.34 174.14)" font-size="12.73" fill="#ff0f5d" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate">!</text><text transform="translate(197.68 176.9) scale(1.02 1)" font-size="20" fill="#ff006e" font-family="UniversLTStd-Bold, Univers LT Std" font-weight="700" style="isolation:isolate"><tspan letter-spacing="-0.08em">W</tspan><tspan x="18.5" y="0">ARNING</tspan></text></g><g id="copy_storageIN" data-name="copy storageIN"><rect x="63.12" y="81.08" width="337.94" height="76.9" fill="none"/><text transform="translate(88.55 97.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" letter-spacing="-0.02em" style="isolation:isolate">T</text><text transform="translate(100.43 97.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">he Storage is n</text><text transform="translate(248.29 97.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" letter-spacing="-0.02em" style="isolation:isolate">o</text><text transform="translate(260.18 97.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">w</text><text transform="translate(284.82 97.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" letter-spacing="-0.05em" style="isolation:isolate">c</text><text transform="translate(294.79 97.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">hargin</text><text transform="translate(355.16 97.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" letter-spacing="0.02em" style="isolation:isolate">g</text><g style="isolation:isolate"><text transform="translate(367.94 97.12)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate"><tspan xml:space="preserve">,</tspan></text></g><text transform="translate(80.97 123.73)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">receiving energy</text><text transform="translate(249.82 123.73)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">from the grid</text><text transform="translate(103.14 150.33)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">while the demand is l</text><text transform="translate(313.84 150.33)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" letter-spacing="-0.02em" style="isolation:isolate">o</text><text transform="translate(325.72 150.33)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" letter-spacing="-0.07em" style="isolation:isolate">w</text><text transform="translate(342.52 150.33)" font-size="22.17" fill="#706f6b" font-family="UniversLTStd-Light, Univers LT Std" style="isolation:isolate">.</text></g></g><path id="arrow1" d="M128.79,32H95c-38.8,0-60.2,28.4-60.2,67.2v123" fill="none" stroke="#706f6b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.03" stroke-dasharray="0 11.38"/><path id="arrow2" d="M334.06,32h28.6c38.8,0,60.2,21.4,60.2,60.2V218.8" fill="none" stroke="#706f6b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.03" stroke-dasharray="0 11.38"/></svg></div></section></div></div></main><script>if (typeof module === 'object') { window.module = module; module = undefined }</script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');</script><script type="text/javascript" src="vendors.js?v=1.0.33"></script><script type="text/javascript" src="main.js?v=1.0.33"></script></body></html>
