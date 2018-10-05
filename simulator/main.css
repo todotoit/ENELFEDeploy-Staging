@@ -420,12 +420,42 @@ aside#mobile-cover{
   font-size: 4.5vw;
   display: none;
 }
+aside#mobile-cover aside,
 aside#mobile-cover article{
   background: white;
   width: auto;
   height: calc(100% - 12vh);
   padding: 3vh;
 }
+
+aside#mobile-cover aside{
+  background: transparent;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  animation: rotate-device 2s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55) 1.5s alternate;
+}
+aside#mobile-cover aside span{
+  width: 20vw;
+}
+body.orientation-landscape aside#mobile-cover aside span{
+  width: 15vw;
+  transform: rotate(-90deg);
+}
+@keyframes rotate-device {
+  20% {
+    transform: rotate(0deg);
+  }
+  60%, 100% {
+    transform: rotate(90deg);
+  }
+}
+
 aside#mobile-cover article #enelx-logo{
   width: 34vw;
 }
@@ -513,6 +543,7 @@ aside#mobile-cover article li span.icon{
     font-size: 3.5vw;
     padding: 4vh;
   }
+  aside#mobile-cover aside,
   aside#mobile-cover article{
     padding: 4vh;
     height: calc(100% - 16vh);
@@ -538,6 +569,71 @@ aside#mobile-cover article li span.icon{
     width: 8vw;
     margin-right: 5vw;
   }
+}
+@media screen and (device-aspect-ratio: 40/71) and (min-height: 460px) and (max-height: 470px) {
+  aside#mobile-cover article h1,
+  aside#mobile-cover article p,
+  aside#mobile-cover article label{
+    margin: 2vh 0;
+  }
+}
+
+/*
+  ##Device = Mobiles (Landscape)
+*/
+
+body.orientation-landscape aside#mobile-cover{
+  font-size: 2.7vw;
+}
+body.orientation-landscape aside#mobile-cover article #enelx-logo{
+  position: absolute;
+  width: 15vw;
+  right: 3vh;
+  top: 3vh;
+}
+body.orientation-landscape aside#mobile-cover article{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+}
+body.orientation-landscape aside#mobile-cover article h1,
+body.orientation-landscape aside#mobile-cover article p{
+  margin: 2.5vh 0;
+}
+body.orientation-landscape aside#mobile-cover article h1{
+  font-size: 4vw;
+  margin-top: 0;
+}
+body.orientation-landscape aside#mobile-cover article h2{
+  font-size: 2.5vw;
+}
+body.orientation-landscape aside#mobile-cover article h2 span,
+body.orientation-landscape aside#mobile-cover article h2 span svg{
+  width: 3.5vw;
+  margin-right: 1vw;
+}
+body.orientation-landscape aside#mobile-cover article ul{
+  font-size: 2.3vw;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
+  -ms-flex-align: start;
+      align-items: flex-start;
+}
+body.orientation-landscape aside#mobile-cover article li:not(:last-of-type){
+  margin-right: 2vw;
+}
+body.orientation-landscape aside#mobile-cover article li span.icon {
+  margin-right: 1.2vw;
+  width: 6vw;
+  -ms-flex-align: start;
+      align-items: flex-start;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
 }
 
 #teamAreaChart text{

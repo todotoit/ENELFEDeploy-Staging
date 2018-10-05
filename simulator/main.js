@@ -653,11 +653,19 @@ function init() {
     $('body').addClass('orientation-'+aspect)
     window.aspect = aspect
     browser = bowser.getParser(window.navigator.userAgent)
-    if (browser.isPlatform('mobile') || (browser.isPlatform('tablet') && aspect == 'portrait')) {
+    if (browser.isPlatform('mobile') && aspect == 'portrait') {
       $('main').hide()
-      $('aside').show()
+      $('#mobile-cover').show()
+      $('#mobile-cover aside').hide()
+      $('#mobile-cover article').show()
+    } else if ((browser.isPlatform('mobile') && aspect == 'landscape')
+        || (browser.isPlatform('tablet') && aspect == 'portrait')) {
+      $('main').hide()
+      $('#mobile-cover').show()
+      $('#mobile-cover article').hide()
+      $('#mobile-cover aside').show()
     } else {
-      $('aside').hide()
+      $('#mobile-cover').hide()
       $('main').show()
       //location.reload();
     }
@@ -936,14 +944,17 @@ function init() {
   })
   // resize event handler
   var resizeDebounce = null
-  $( window ).resize(function() {
+  $(window).on( "orientationchange", function() {
+    $('body').removeClass()
+  })
+  $(window).resize(function() {
     if (resizeDebounce) {
       clearTimeout(resizeDebounce)
       resizeDebounce = null
     }
     resizeDebounce = setTimeout(function(){
-      location.reload();
-    }, 300)
+      browser.isPlatform('mobile') ? calcOrient() : location.reload();
+    }, 150)
   })
   // prevent tablet/mobile device bounce effect
   document.ontouchmove = function(event){
