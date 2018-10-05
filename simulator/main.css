@@ -6,7 +6,6 @@ body {
   background: linear-gradient(180deg, #461E7D, 30%, #461E7D, 70%, #5738FF);
   overflow: hidden;
 }
-
 *,
 svg, svg * {
   -moz-user-select: none;
@@ -24,6 +23,12 @@ body {
   display: flex;
   color: #999;
   overflow: hidden;
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+body.orientation-landscape,
+body.orientation-portrait{
+  opacity: 1;
 }
 label {
   font-weight: 400;
@@ -79,6 +84,7 @@ article:before {
 }
 
 section#monitor {
+  position: relative;
   width: 100%;
   display: -ms-flexbox;
   display: flex;
@@ -86,6 +92,13 @@ section#monitor {
       flex-direction: column;
   -ms-flex: 1 0 auto;
       flex: 1 0 auto;
+}
+section#monitor #enelx-logo{
+  position: absolute;
+  width: 16rem;
+  height: auto;
+  right: 2rem;
+  top: 2.7rem;
 }
 section#monitor article#monitor-chart {
   position: relative;
@@ -400,6 +413,133 @@ article#appliances-wrap #demand span {
   font-size: 40px;
 }
 
+aside#mobile-cover{
+  width: 100%;
+  height: 100%;
+  padding: 3vh;
+  font-size: 4.5vw;
+  display: none;
+}
+aside#mobile-cover article{
+  background: white;
+  width: auto;
+  height: calc(100% - 12vh);
+  padding: 3vh;
+}
+aside#mobile-cover article #enelx-logo{
+  width: 34vw;
+}
+aside#mobile-cover article h1,
+aside#mobile-cover article p,
+aside#mobile-cover article label{
+  display: -ms-flexbox;
+  display: flex;
+  margin: 3vh 0;
+}
+aside#mobile-cover article h1{
+  font-weight: 100;
+  font-size: 6.8vw;
+  color: #5738FF;
+}
+aside#mobile-cover article h2{
+  position: relative;
+  font-weight: bold;
+  font-size: 3.8vw;
+  line-height: 6vw;
+  margin: 0;
+  color: #FF006E;
+}
+aside#mobile-cover article h2 span,
+aside#mobile-cover article h2 span svg{
+  position: relative;
+  width: 5vw;
+}
+aside#mobile-cover article h2 span{
+  margin-right: 3vw;
+  top: 1vw;
+}
+aside#mobile-cover article label{
+  font-weight: 100;
+  color: #5738FF;
+}
+aside#mobile-cover article ul{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  margin: 0;
+  padding: 0;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-align: start;
+      align-items: flex-start;
+  width: 100%;
+  color: #461E7D;
+  font-weight: 300;
+}
+aside#mobile-cover article li{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  margin: 2vh 0;
+  padding: 0;
+  width: 100%;
+  -ms-flex: 1;
+      flex: 1;
+}
+aside#mobile-cover article li span{
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: start;
+      align-items: flex-start;
+}
+aside#mobile-cover article li span.icon{
+  margin-right: 6vw;
+  width: 12.5vw;
+}
+
+/*
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  aside#mobile-cover{
+    font-size: 3.5vw;
+    padding: 4vh;
+  }
+  aside#mobile-cover article{
+    padding: 4vh;
+    height: calc(100% - 16vh);
+  }
+  aside#mobile-cover article #enelx-logo{
+    width: 28vw;
+  }
+  aside#mobile-cover article h1,
+  aside#mobile-cover article p,
+  aside#mobile-cover article label{
+    margin: 2.5vh 0;
+  }
+  aside#mobile-cover article h1{
+    font-size: 5vw;
+  }
+  aside#mobile-cover article h2{
+    font-size: 3vw;
+  }
+  aside#mobile-cover article li{
+    margin: 2.5vh 0;
+  }
+  aside#mobile-cover article li span.icon{
+    width: 8vw;
+    margin-right: 5vw;
+  }
+}
+
 #teamAreaChart text{
   font-family: 'UniversLTStd-Light';
   fill: #000;
@@ -464,7 +604,7 @@ article#appliances-wrap #demand span {
 }
 #teamAreaChart g.label.storlabel text {
   text-transform: none;
-  fill: #2AFD95;
+  fill: #20B767;
 }
 #teamAreaChart g.label.label-area text {
   fill: #ffffff;
@@ -498,6 +638,7 @@ article#appliances-wrap #demand span {
   -ms-flex-align: center;
       align-items: center;
   padding: 4rem 15%;
+  height: 100%;
   height: -webkit-fill-available;
   list-style: none;
 }
@@ -725,7 +866,7 @@ article#appliances-wrap #demand span {
   height: 43vh;
 }
 .orientation-landscape #ui-wrap{
-  width: 40%;
+  width: 41.5%;
   height: 95%;
   display: -ms-flexbox;
   display: flex;
@@ -764,14 +905,13 @@ article#appliances-wrap #demand span {
       align-items: center;
 }
 .orientation-landscape #storage-landscape{
-  width: 100%;
+  width: 15%;
   height: 100%;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
-      flex-direction: column;
-  -ms-flex: 1;
-      flex: 1;
+  -ms-flex-direction: c,olumn;
+      flex-direction: c,olumn;
+  margin-right: 2vw
 }
 .orientation-landscape #storage-landscape .active{
   display: -ms-flexbox;
@@ -785,7 +925,8 @@ article#appliances-wrap #demand span {
   -ms-flex-align: start;
       align-items: flex-start;
 }
-.orientation-landscape #storage-landscape .active label{
+.orientation-landscape #storage-landscape .active label,
+.orientation-landscape #storage-landscape .active label svg{
   width: 100%;
   height: auto;
 }
@@ -795,6 +936,9 @@ article#appliances-wrap #demand span {
   position: relative;
   left: -13%;
   bottom: -7%;
+}
+.orientation-landscape #storage-landscape .active #toggle svg{
+  width: 100%;
 }
 .orientation-landscape #ui-panel{
   -ms-flex: initial;
@@ -814,6 +958,7 @@ article#appliances-wrap #demand span {
 .orientation-landscape #appliances,
 .orientation-landscape #placeholders{
   padding: 2rem 15%;
+  height: 100%;
 }
 
 /* STORAGE TOGGLE */
@@ -847,7 +992,7 @@ article#appliances-wrap #demand span {
 }
 /* GRID SCHEMA */
 .orientation-landscape #grid-landscape {
-  width: 100%;
+  width: 70%;
   height: auto;
   background: transparent;
   display: -ms-flexbox;
@@ -1016,10 +1161,12 @@ article#appliances-wrap #demand span {
   }
   .orientation-landscape #grid-landscape {
     left: 0.5vw;
+    -ms-flex: 4;
+        flex: 4;
   }
   .orientation-landscape #grid-landscape svg {
-    -ms-flex: .92;
-        flex: .92;
+    -ms-flex: .9;
+        flex: .9;
   }
   .orientation-landscape #appliances .appliance,
   .orientation-landscape #placeholders .appliance,
@@ -1042,6 +1189,20 @@ article#appliances-wrap #demand span {
   }
 }
 
+/* iPad chrome*/
+@media only screen and (min-height: 650px) and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .orientation-landscape #appliance-wrap,
+  .orientation-landscape section#ui-panel article{
+    height: 46vh;
+  }
+  .orientation-landscape #simulation-landscape{
+    height: 37vh;
+  }
+  .orientation-landscape #grid-landscape svg{
+    -ms-flex: 0 1 89%;
+        flex: 0 1 89%;
+  }
+}
 /* iPad safari*/
 @media only screen and (min-height: 700px) and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   .orientation-landscape article#monitor-chart h2{

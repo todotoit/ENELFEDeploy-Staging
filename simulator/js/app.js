@@ -24,9 +24,24 @@
   var slideStopped = true
   var stopInterval = null
   // orientation detect
-  var aspect = ($(window).width() > $(window).height())? 'landscape' : 'portrait'
-  $('body').addClass('orientation-'+aspect)
-  window.aspect = aspect
+  var aspect = 'landscape'
+  var browser = null
+
+  function calcOrient() {
+    aspect = ($(window).width() > $(window).height())? 'landscape' : 'portrait'
+    $('body').removeClass()
+    $('body').addClass('orientation-'+aspect)
+    window.aspect = aspect
+    browser = bowser.getParser(window.navigator.userAgent)
+    if (browser.isPlatform('mobile') || (browser.isPlatform('tablet') && aspect == 'portrait')) {
+      $('main').hide()
+      $('aside').show()
+    } else {
+      $('aside').hide()
+      $('main').show()
+      //location.reload();
+    }
+  }
 
   function selectApp(appIdx, readerIdx) {
     if (!appIdx || !readerIdx) return
@@ -203,7 +218,6 @@
     tl = setTimeout(queueAnimation, updateTime-animationOffTime)
   }
   function queueAnimation(){
-    console.log('asd')
     updateStorage()
     //console.log('add data')
     $('.arealine').css({ x: '0' })
@@ -284,6 +298,7 @@
 
   function init() {
     FastClick.attach(document.body)
+    calcOrient()
     initializeStorage()
     // initialie area chart
     stuck = new StackedAreaChart('#monitor-chart', apps, Simulator.dataset_length, maxDemand, Simulator.threshFactor, Simulator.dangerFactor)
@@ -298,6 +313,17 @@
   // bot event handlers
   $(window).keydown(function(e) {
     $(window).trigger('customEv', e.key)
+  })
+  // resize event handler
+  var resizeDebounce = null
+  $( window ).resize(function() {
+    if (resizeDebounce) {
+      clearTimeout(resizeDebounce)
+      resizeDebounce = null
+    }
+    resizeDebounce = setTimeout(function(){
+      location.reload();
+    }, 300)
   })
   // prevent tablet/mobile device bounce effect
   document.ontouchmove = function(event){
