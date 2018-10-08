@@ -438,14 +438,19 @@ aside#mobile-cover aside{
       justify-content: center;
   -ms-flex-align: center;
       align-items: center;
-  animation: rotate-device 2s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55) 1.5s alternate;
+}
+aside#mobile-cover aside h2{
+  color: white;
+  margin-top: 6vh;
 }
 aside#mobile-cover aside span{
   width: 20vw;
+  animation: rotate-device 2s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55) 1.5s alternate;
 }
 body.orientation-landscape aside#mobile-cover aside span{
   width: 15vw;
   transform: rotate(-90deg);
+  animation-name: rotate-landscape-device;
 }
 @keyframes rotate-device {
   20% {
@@ -453,6 +458,14 @@ body.orientation-landscape aside#mobile-cover aside span{
   }
   60%, 100% {
     transform: rotate(90deg);
+  }
+}
+@keyframes rotate-landscape-device {
+  20% {
+    transform: rotate(-90deg);
+  }
+  60%, 100% {
+    transform: rotate(0deg);
   }
 }
 
@@ -1005,8 +1018,8 @@ body.orientation-landscape aside#mobile-cover article li span.icon {
   height: 100%;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: c,olumn;
-      flex-direction: c,olumn;
+  -ms-flex-direction: column;
+      flex-direction: column;
   margin-right: 2vw
 }
 .orientation-landscape #storage-landscape .active{
@@ -1251,8 +1264,9 @@ body.orientation-landscape aside#mobile-cover article li span.icon {
   .orientation-landscape #storage-landscape .active{
     font-size: 2rem;
   }
+  .orientation-landscape #storage-landscape .active label,
   .orientation-landscape #storage-landscape .active #toggle{
-    width: 100%;
+    width: 130%;
   }
   .orientation-landscape #grid-landscape {
     left: 0.5vw;
